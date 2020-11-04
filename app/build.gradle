@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'koin'
 
 android {
     compileSdkVersion 29
@@ -22,6 +23,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -33,5 +43,27 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+
+    //////////// koin ///////////////
+    // 코어
+    implementation "org.koin:koin-core:$koin_version"
+    // 유닛 테스트
+    testImplementation "org.koin:koin-test:$koin_version"
+    // AndroidX Scope 생성 - 삭제 자동화
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    // AndroidX ViewModel
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    // AndroidX Fragment
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
+    //////////// koin ///////////////
+
+    //카카오
+    implementation "com.kakao.sdk:v2-user:2.0.5" // 카카오 로그인
+    implementation "com.kakao.sdk:v2-talk:2.0.5" // 친구, 메시지(카카오톡)
+
+    //ViewPager Indicator Lib
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
 }
