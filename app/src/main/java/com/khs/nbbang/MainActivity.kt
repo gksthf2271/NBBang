@@ -5,6 +5,8 @@ import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.login.LoginActivity
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginType
+import com.khs.nbbang.page.FreeUserFragment
+import com.khs.nbbang.utils.FragmentUtils
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity() {
@@ -22,7 +24,11 @@ class MainActivity : BaseActivity() {
 
         when(loginType) {
             LoginType.TYPE_FREE -> {
-
+                FragmentUtils().loadFragment(
+                    FreeUserFragment(),
+                    R.id.fragment_container,
+                    supportFragmentManager
+                )
             }
             LoginType.TYPE_KAKAO -> {
 

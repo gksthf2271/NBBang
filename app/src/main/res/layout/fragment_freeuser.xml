@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.khs.nbbang.page.customView.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/team_indicator"
+        android:id="@+id/view_indicator"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:dotsColor="@color/search_text_color"

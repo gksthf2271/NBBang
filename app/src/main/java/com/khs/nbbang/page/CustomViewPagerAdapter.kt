@@ -6,30 +6,25 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 
-class HomeViewPagerAdapter() : PagerAdapter() {
+class CustomViewPagerAdapter() : PagerAdapter() {
 
     lateinit var mContext: Context
+    lateinit var mViewList: MutableList<View>
 
-    constructor(context: Context) : this() {
+    constructor(context: Context, viewList: MutableList<View>) : this() {
         this.mContext = context
+        this.mViewList = viewList
     }
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         var view: View? = null
-        when (position) {
-            0 -> {
-
-            }
-            1 -> {
-
-            }
-        }
+        view = mViewList.get(position)
         collection.addView(view)
         return view!!
     }
 
     override fun getCount(): Int {
-        return 2
+        return mViewList.size
     }
 
     override fun isViewFromObject(arg0: View, arg1: Any): Boolean {

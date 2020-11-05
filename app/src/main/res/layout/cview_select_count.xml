@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/edit_count" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_minus"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="-"
-        android:textSize="90sp"
+        android:textSize="50sp"
         android:gravity="center"
         android:textColor="@color/search_text_color"
         app:layout_constraintWidth_percent="0.15"
@@ -48,12 +48,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="999" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_plus"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="+"
-        android:textSize="90sp"
+        android:textSize="50sp"
         android:gravity="center"
         android:textColor="@color/search_text_color"
         app:layout_constraintWidth_percent="0.15"
