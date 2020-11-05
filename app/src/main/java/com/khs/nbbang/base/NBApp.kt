@@ -1,7 +1,10 @@
 package com.khs.nbbang.base
 
 import android.app.Application
+import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
+import com.khs.nbbang.PackageRepository
+import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.SelectPageViewModel
 import org.koin.android.ext.koin.androidContext
@@ -10,28 +13,35 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
-class NBApp : Application() {
+open class NBApp : Application() {
     override fun onCreate() {
         super.onCreate()
-
         // Kakao SDK 초기화
-        KakaoSdk.init(this, "{NATIVE_APP_KEY}")
+        KakaoSdk.init(this, "{1ba03cee909ded713fcf50d73b1d2ce9}")
 
         startKoin {
             androidLogger()
             androidContext(this@NBApp)
-            modules(myModule, myViewModel)
+            modules(dataModel, viewModel)
         }
     }
 
-    val myModule = module {
-
+    val dataModel = module {
+        single {
+            PackageRepository(applicationContext)
+        }
+        single{
+            LoginCookie()
+        }
     }
 
-    val myViewModel = module {
+    val viewModel = module {
         viewModel {
-            SelectPageViewModel()
-            LoginViewModel()
+            LoginViewModel(get())
+        }
+
+        viewModel {
+            SelectPageViewModel(get())
         }
     }
 }

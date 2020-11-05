@@ -1,11 +1,13 @@
 package com.khs.nbbang.page
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.kakao.sdk.talk.TalkApiClient
 import com.khs.nbbang.base.BaseViewModel
 
-class SelectPageViewModel : BaseViewModel() {
+class SelectPageViewModel(context: Context) : BaseViewModel() {
+
     fun selectCategory() {
 
     }
