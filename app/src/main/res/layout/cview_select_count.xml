@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="참여 인원을 지정해주세요."
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textColor="@color/search_text_color"
+        android:textStyle="bold"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_count" />
+
+    <Button
+        android:id="@+id/btn_minus"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="-"
+        android:textSize="90sp"
+        android:gravity="center"
+        android:textColor="@color/search_text_color"
+        app:layout_constraintWidth_percent="0.15"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/edit_count"
+        app:layout_constraintTop_toTopOf="@id/edit_count"
+        app:layout_constraintBottom_toBottomOf="@id/edit_count" />
+
+    <EditText
+        android:id="@+id/edit_count"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="90sp"
+        android:gravity="center"
+        android:textColor="@color/search_text_color"
+        android:singleLine="true"
+        app:layout_constraintHeight_percent="0.20"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="999" />
+
+    <Button
+        android:id="@+id/btn_plus"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="+"
+        android:textSize="90sp"
+        android:gravity="center"
+        android:textColor="@color/search_text_color"
+        app:layout_constraintWidth_percent="0.15"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/edit_count"
+        app:layout_constraintTop_toTopOf="@id/edit_count"
+        app:layout_constraintBottom_toBottomOf="@id/edit_count" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
