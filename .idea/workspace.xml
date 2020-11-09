@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9d9bc6-569a-4764-918e-44c3394575da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/AddPlaceRecyclerViewAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -20,13 +21,22 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/FreeUserFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/FreeUserFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/HomeViewPagerAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/CustomViewPagerAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/AddPeopleView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/AddPeopleView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/AddPlaceView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/AddPlaceView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/CustomViewPager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/CustomViewPager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/PeopleCountView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/customView/PeopleCountView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cview_add_place.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cview_add_place.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cview_edit_place.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cview_edit_place.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cview_select_count.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cview_select_count.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_freeuser.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_freeuser.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +61,7 @@
       <list>
         <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -67,7 +78,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/utils" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1604558687347" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1604914938840" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
@@ -161,10 +172,10 @@
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="360" y="213" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604559264136" />
-    <state x="675" y="294" key="#com.intellij.ide.util.MemberChooser" timestamp="1604569310674">
+    <state x="675" y="294" key="#com.intellij.ide.util.MemberChooser" timestamp="1604923103428">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state x="675" y="294" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1097@0.23.1792.1097" timestamp="1604569310674" />
+    <state x="675" y="294" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1097@0.23.1792.1097" timestamp="1604923103428" />
     <state x="633" y="342" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1604559205018">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
@@ -177,30 +188,50 @@
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="659" y="231" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604473422953" />
-    <state width="1750" height="507" key="GridCell.Tab.0.bottom" timestamp="1604560969158">
+    <state x="548" y="541" width="911" height="579" key="#xdebugger.evaluate" timestamp="1604921376117">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="507" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1604560969158" />
-    <state width="1750" height="507" key="GridCell.Tab.0.center" timestamp="1604560969158">
+    <state x="548" y="541" width="911" height="579" key="#xdebugger.evaluate/0.23.1792.1097@0.23.1792.1097" timestamp="1604921376117" />
+    <state width="1750" height="555" key="GridCell.Tab.0.bottom" timestamp="1604922644544">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="507" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1604560969158" />
-    <state width="1750" height="507" key="GridCell.Tab.0.left" timestamp="1604560969158">
+    <state width="1750" height="555" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1604922644544" />
+    <state width="1750" height="555" key="GridCell.Tab.0.center" timestamp="1604922644543">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="507" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1604560969158" />
-    <state width="1750" height="507" key="GridCell.Tab.0.right" timestamp="1604560969158">
+    <state width="1750" height="555" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1604922644543" />
+    <state width="1750" height="555" key="GridCell.Tab.0.left" timestamp="1604922644543">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state width="1750" height="507" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1604560969158" />
-    <state x="566" y="384" key="com.intellij.ide.util.TipDialog" timestamp="1604559305279">
+    <state width="1750" height="555" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1604922644543" />
+    <state width="1750" height="555" key="GridCell.Tab.0.right" timestamp="1604922644543">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state x="566" y="384" key="com.intellij.ide.util.TipDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604559305279" />
-    <state x="548" y="308" width="695" height="486" key="find.popup" timestamp="1604560913748">
+    <state width="1750" height="555" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1604922644543" />
+    <state width="1750" height="373" key="GridCell.Tab.1.bottom" timestamp="1604921377322">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
-    <state x="548" y="308" width="695" height="486" key="find.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1604560913748" />
+    <state width="1750" height="373" key="GridCell.Tab.1.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1604921377322" />
+    <state width="1750" height="373" key="GridCell.Tab.1.center" timestamp="1604921377322">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state width="1750" height="373" key="GridCell.Tab.1.center/0.23.1792.1097@0.23.1792.1097" timestamp="1604921377322" />
+    <state width="1750" height="373" key="GridCell.Tab.1.left" timestamp="1604921377321">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state width="1750" height="373" key="GridCell.Tab.1.left/0.23.1792.1097@0.23.1792.1097" timestamp="1604921377321" />
+    <state width="1750" height="373" key="GridCell.Tab.1.right" timestamp="1604921377322">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state width="1750" height="373" key="GridCell.Tab.1.right/0.23.1792.1097@0.23.1792.1097" timestamp="1604921377322" />
+    <state x="566" y="384" key="com.intellij.ide.util.TipDialog" timestamp="1604914944698">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="566" y="384" key="com.intellij.ide.util.TipDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604914944698" />
+    <state x="548" y="308" width="695" height="486" key="find.popup" timestamp="1604920772857">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="548" y="308" width="695" height="486" key="find.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1604920772857" />
     <state x="561" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1604472925082">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>

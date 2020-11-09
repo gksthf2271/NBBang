@@ -1,12 +1,9 @@
 package com.khs.nbbang.page
 
-import android.content.Context
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager.widget.ViewPager
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.page.customView.AddPeopleView
@@ -28,6 +25,7 @@ class FreeUserFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         initView()
+        //Page slide 유무
         view_pager.setPagingEnable(false)
     }
 
@@ -35,8 +33,8 @@ class FreeUserFragment : BaseFragment() {
 
         val pageViewList : MutableList<View> = mutableListOf(
             PeopleCountView(requireContext()),
-            AddPeopleView(requireContext()),
             AddPlaceView(requireContext()),
+            AddPeopleView(requireContext()),
             ResultPageView(requireContext()))
 
         view_pager.adapter =
