@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
-import com.khs.nbbang.page.customView.AddPeopleView
-import com.khs.nbbang.page.customView.AddPlaceView
-import com.khs.nbbang.page.customView.PeopleCountView
-import com.khs.nbbang.page.customView.ResultPageView
+import com.khs.nbbang.page.pageView.AddPeopleView
+import com.khs.nbbang.page.pageView.AddPlaceView
+import com.khs.nbbang.page.pageView.PeopleCountView
+import com.khs.nbbang.page.pageView.ResultPageView
 import kotlinx.android.synthetic.main.fragment_freeuser.*
 
 class FreeUserFragment : BaseFragment() {
@@ -35,7 +35,8 @@ class FreeUserFragment : BaseFragment() {
             PeopleCountView(requireContext()),
             AddPlaceView(requireContext()),
             AddPeopleView(requireContext()),
-            ResultPageView(requireContext()))
+            ResultPageView(requireContext())
+        )
 
         view_pager.adapter =
             CustomViewPagerAdapter(

@@ -1,4 +1,4 @@
-package com.khs.nbbang.page.customView
+package com.khs.nbbang.page.itemView
 
 import android.content.Context
 import android.util.AttributeSet

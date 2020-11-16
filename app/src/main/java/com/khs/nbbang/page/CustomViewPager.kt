@@ -1,4 +1,4 @@
-package com.khs.nbbang.page.customView
+package com.khs.nbbang.page
 
 import android.content.Context
 import android.text.TextUtils
@@ -7,6 +7,10 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
+import com.khs.nbbang.page.pageView.AddPeopleView
+import com.khs.nbbang.page.pageView.AddPlaceView
+import com.khs.nbbang.page.pageView.PeopleCountView
+import com.khs.nbbang.page.pageView.ResultPageView
 import kotlinx.android.synthetic.main.cview_select_count.view.*
 
 class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {

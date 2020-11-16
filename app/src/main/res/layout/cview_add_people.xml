@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="참여 인원의 이름을 적어주세요."
-        android:textSize="25sp"
         android:gravity="center"
+        android:text="참여 인원의 이름을 적어주세요."
         android:textColor="@color/search_text_color"
+        android:textSize="25sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/scrollView"
         app:layout_constraintHeight_percent="0.3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/layout_group" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_group"
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.5"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintHeight_percent="0.7"
         app:layout_constraintTop_toBottomOf="@+id/txt_title">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <GridLayout
+            android:id="@+id/layout_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="3"
+            android:orientation="horizontal" />
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
