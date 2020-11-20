@@ -16,6 +16,10 @@ class CustomViewPagerAdapter() : PagerAdapter() {
         this.mViewList = viewList
     }
 
+    fun getViewPageList() : MutableList<View> {
+        return mViewList
+    }
+
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         var view: View? = null
         view = mViewList.get(position)

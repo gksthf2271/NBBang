@@ -3,6 +3,7 @@ package com.khs.nbbang.page
 import android.content.Context
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.get
@@ -23,7 +24,9 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        if (checkPagingEnable(get(currentItem))) {
+        Log.v(this.javaClass.name,"onInterceptTouchEvent, childCount : ${childCount} , currentItem : $currentItem")
+        var viewPageList = (adapter as CustomViewPagerAdapter).getViewPageList()
+        if (checkPagingEnable(viewPageList.get(currentItem))) {
             return super.onInterceptTouchEvent(ev)
         } else {
             if (ev!!.action == MotionEvent.ACTION_MOVE)

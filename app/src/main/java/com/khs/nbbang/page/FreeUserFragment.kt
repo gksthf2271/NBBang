@@ -33,8 +33,8 @@ class FreeUserFragment : BaseFragment() {
 
         val pageViewList : MutableList<View> = mutableListOf(
             PeopleCountView(requireContext()),
-            AddPlaceView(requireContext()),
             AddPeopleView(requireContext()),
+            AddPlaceView(requireContext()),
             ResultPageView(requireContext())
         )
 
