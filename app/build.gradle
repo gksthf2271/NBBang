@@ -70,5 +70,4 @@ dependencies {
 
     //ViewPager Indicator Lib
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
-
 }

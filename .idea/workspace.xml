@@ -22,11 +22,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/CustomViewPager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/CustomViewPager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/CustomViewPagerAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/CustomViewPagerAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/FreeUserFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/FreeUserFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/pageView/AddPeopleView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/pageView/AddPeopleView.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cview_add_people.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cview_add_people.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/pageView/PeopleCountView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/pageView/PeopleCountView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/viewModel/PageViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/viewModel/PageViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cview_select_count.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cview_select_count.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +43,38 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view />
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="NBBang" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="NBBang" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="NBBang" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="NBBang" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -68,7 +100,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1605857493024" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1606820538738" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
@@ -189,64 +221,76 @@
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="751" y="426" key="AndroidCreateXmlResourceDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1605513354984" />
-    <state width="1750" height="606" key="GridCell.Tab.0.bottom" timestamp="1605863614863">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1238" height="573" key="GridCell.Tab.0.bottom" timestamp="1606828185122">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614863" />
-    <state width="1750" height="606" key="GridCell.Tab.0.center" timestamp="1605863614863">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.0.bottom/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810220" />
+    <state width="1238" height="573" key="GridCell.Tab.0.bottom/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606828185122" />
+    <state width="1238" height="573" key="GridCell.Tab.0.center" timestamp="1606828185121">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614863" />
-    <state width="1750" height="606" key="GridCell.Tab.0.left" timestamp="1605863614862">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.0.center/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810220" />
+    <state width="1238" height="573" key="GridCell.Tab.0.center/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606828185121" />
+    <state width="1238" height="573" key="GridCell.Tab.0.left" timestamp="1606828185121">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614862" />
-    <state width="1750" height="606" key="GridCell.Tab.0.right" timestamp="1605863614863">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.0.left/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810219" />
+    <state width="1238" height="573" key="GridCell.Tab.0.left/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606828185121" />
+    <state width="1238" height="573" key="GridCell.Tab.0.right" timestamp="1606828185122">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614863" />
-    <state width="1750" height="373" key="GridCell.Tab.1.bottom" timestamp="1605863069707">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.0.right/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810220" />
+    <state width="1238" height="573" key="GridCell.Tab.0.right/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606828185122" />
+    <state width="1238" height="353" key="GridCell.Tab.1.bottom" timestamp="1606826778331">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="373" key="GridCell.Tab.1.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1605863069707" />
-    <state width="1750" height="373" key="GridCell.Tab.1.center" timestamp="1605863069706">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.1.bottom/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810221" />
+    <state width="1238" height="353" key="GridCell.Tab.1.bottom/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606826778331" />
+    <state width="1238" height="353" key="GridCell.Tab.1.center" timestamp="1606826778330">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="373" key="GridCell.Tab.1.center/0.23.1792.1097@0.23.1792.1097" timestamp="1605863069706" />
-    <state width="1750" height="373" key="GridCell.Tab.1.left" timestamp="1605863069706">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.1.center/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810221" />
+    <state width="1238" height="353" key="GridCell.Tab.1.center/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606826778330" />
+    <state width="1238" height="353" key="GridCell.Tab.1.left" timestamp="1606826778329">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="373" key="GridCell.Tab.1.left/0.23.1792.1097@0.23.1792.1097" timestamp="1605863069706" />
-    <state width="1750" height="373" key="GridCell.Tab.1.right" timestamp="1605863069706">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.1.left/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810221" />
+    <state width="1238" height="353" key="GridCell.Tab.1.left/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606826778329" />
+    <state width="1238" height="353" key="GridCell.Tab.1.right" timestamp="1606826778330">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="373" key="GridCell.Tab.1.right/0.23.1792.1097@0.23.1792.1097" timestamp="1605863069706" />
-    <state x="566" y="384" key="com.intellij.ide.util.TipDialog" timestamp="1605857494272">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state width="1750" height="373" key="GridCell.Tab.1.right/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810221" />
+    <state width="1238" height="353" key="GridCell.Tab.1.right/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606826778330" />
+    <state x="1380" y="125" width="1080" height="855" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1606827812834">
+      <screen x="0" y="25" width="2560" height="1055" />
+    </state>
+    <state x="1380" y="125" width="1080" height="855" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606827812834" />
+    <state x="809" y="372" key="com.intellij.ide.util.TipDialog" timestamp="1606820537898">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="566" y="384" key="com.intellij.ide.util.TipDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1605857494272" />
-    <state x="548" y="308" width="695" height="486" key="find.popup" timestamp="1605864180473">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="809" y="372" key="com.intellij.ide.util.TipDialog/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606820537898" />
+    <state x="783" y="299" width="993" height="486" key="find.popup" timestamp="1606827607400">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="548" y="308" width="695" height="486" key="find.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1605864180473" />
+    <state x="783" y="299" width="993" height="486" key="find.popup/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606827607400" />
     <state x="561" y="266" key="run.anything.popup" timestamp="1605513245805">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="561" y="266" key="run.anything.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1605513245805" />
-    <state x="561" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1605864238687">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="801" y="251" width="958" height="651" key="search.everywhere.popup" timestamp="1606826086107">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="561" y="258" width="670" height="676" key="search.everywhere.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1605864238687" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/pageView/AddPeopleView.kt</url>
-          <line>37</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="801" y="251" width="958" height="651" key="search.everywhere.popup/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1606826086107" />
   </component>
 </project>

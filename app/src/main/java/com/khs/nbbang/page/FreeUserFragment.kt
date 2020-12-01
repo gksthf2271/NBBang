@@ -1,18 +1,24 @@
 package com.khs.nbbang.page
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.page.pageView.AddPeopleView
 import com.khs.nbbang.page.pageView.AddPlaceView
 import com.khs.nbbang.page.pageView.PeopleCountView
 import com.khs.nbbang.page.pageView.ResultPageView
+import com.khs.nbbang.page.viewModel.PageViewModel
 import kotlinx.android.synthetic.main.fragment_freeuser.*
 
 class FreeUserFragment : BaseFragment() {
+    lateinit var mPageViewModel: PageViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,17 +28,21 @@ class FreeUserFragment : BaseFragment() {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mPageViewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
+
         initView()
         //Page slide 유무
         view_pager.setPagingEnable(false)
+        mPageViewModel.mPeopleCount.observe(requireActivity(), Observer {
+            Log.v(TAG,"people count : ${it}")
+        })
     }
 
     fun initView() {
-
         val pageViewList : MutableList<View> = mutableListOf(
-            PeopleCountView(requireContext()),
+            PeopleCountView(requireContext()).apply { setViewModel(mPageViewModel, this@FreeUserFragment) },
             AddPeopleView(requireContext()),
             AddPlaceView(requireContext()),
             ResultPageView(requireContext())

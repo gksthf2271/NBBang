@@ -42,12 +42,6 @@ class AddPeopleView @JvmOverloads constructor(
         }
     }
 
-    fun getItemViewSize(): Int {
-        val metrics = resources.displayMetrics
-        val screenWidth = metrics.widthPixels
-        return ((screenWidth * 0.95) / 3).toInt()
-    }
-
     fun addDummyView(parent: ViewGroup?) {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var dummyView = inflater.inflate(R.layout.cview_edit_people, parent, false)

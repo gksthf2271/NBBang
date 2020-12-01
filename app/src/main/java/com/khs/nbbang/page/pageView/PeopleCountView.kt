@@ -1,42 +1,26 @@
 package com.khs.nbbang.page.pageView
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.khs.nbbang.R
-import kotlinx.android.synthetic.main.cview_select_count.view.*
+import com.khs.nbbang.page.viewModel.PageViewModel
 
 class PeopleCountView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
+    var mBinding : com.khs.nbbang.databinding.CviewSelectCountBinding
+
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.cview_select_count, this)
-        initView()
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.cview_select_count, this, true)
     }
 
-    fun initView() {
-        btn_minus.setOnClickListener {
-            if (TextUtils.isEmpty(edit_count.text)) {
-                edit_count.setText("0")
-            } else if (Integer.parseInt(edit_count.text.toString()) <= 0) {
-                edit_count.setText("0")
-            } else {
-                var currentNum: Int = Integer.parseInt(edit_count.text.toString())
-                currentNum--
-                edit_count.setText(currentNum.toString())
-            }
-        }
-        btn_plus.setOnClickListener {
-            if (TextUtils.isEmpty(edit_count.text)) {
-                edit_count.setText("1")
-            } else {
-                var currentNum: Int = Integer.parseInt(edit_count.text.toString())
-                currentNum++
-                edit_count.setText(currentNum.toString())
-            }
-        }
+    fun setViewModel(viewModel: PageViewModel, fragment: Fragment) {
+        mBinding.viewModel = viewModel
+        mBinding.lifecycleOwner = fragment
     }
 }

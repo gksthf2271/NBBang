@@ -1,67 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.khs.nbbang.page.viewModel.PageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="참여 인원을 지정해주세요."
-        android:textSize="25sp"
-        android:gravity="center"
-        android:textColor="@color/search_text_color"
-        android:textStyle="bold"
-        app:layout_constraintHeight_percent="0.3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/edit_count" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/btn_minus"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="-"
-        android:textSize="50sp"
-        android:gravity="center"
-        android:textColor="@color/search_text_color"
-        app:layout_constraintWidth_percent="0.15"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/edit_count"
-        app:layout_constraintTop_toTopOf="@id/edit_count"
-        app:layout_constraintBottom_toBottomOf="@id/edit_count" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="참여 인원을 지정해주세요."
+            android:textColor="@color/search_text_color"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/edit_count"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_count"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textSize="90sp"
-        android:gravity="center"
-        android:textColor="@color/search_text_color"
-        android:singleLine="true"
-        android:inputType="number"
-        app:layout_constraintHeight_percent="0.20"
-        app:layout_constraintWidth_percent="0.4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="999" />
+        <TextView
+            android:id="@+id/btn_minus"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="-"
+            android:textColor="@color/search_text_color"
+            android:textSize="50sp"
+            android:onClick="@{() -> viewModel.decreasePeople()}"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@id/edit_count"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/edit_count"
+            app:layout_constraintTop_toTopOf="@id/edit_count"
+            app:layout_constraintWidth_percent="0.15" />
 
-    <TextView
-        android:id="@+id/btn_plus"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="+"
-        android:textSize="50sp"
-        android:gravity="center"
-        android:textColor="@color/search_text_color"
-        app:layout_constraintWidth_percent="0.15"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/edit_count"
-        app:layout_constraintTop_toTopOf="@id/edit_count"
-        app:layout_constraintBottom_toBottomOf="@id/edit_count" />
+        <TextView
+            android:id="@+id/edit_count"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textColor="@color/search_text_color"
+            android:textSize="90sp"
+            android:text="@{Integer.toString(viewModel._counter)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4"
+            tools:text="999" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/btn_plus"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="+"
+            android:onClick="@{() -> viewModel.increasePeople()}"
+            android:textColor="@color/search_text_color"
+            android:textSize="50sp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@id/edit_count"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintLeft_toRightOf="@id/edit_count"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_count"
+            app:layout_constraintWidth_percent="0.15" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
