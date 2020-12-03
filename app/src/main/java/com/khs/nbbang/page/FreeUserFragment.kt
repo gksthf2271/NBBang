@@ -32,20 +32,26 @@ class FreeUserFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mPageViewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
 
+
         initView()
         //Page slide 유무
         view_pager.setPagingEnable(false)
         mPageViewModel.mPeopleCount.observe(requireActivity(), Observer {
             Log.v(TAG,"people count : ${it}")
+            mPageViewModel.updatePeopleCircle()
+        })
+
+        mPageViewModel.mPeopleListObj.observe(requireActivity(), Observer {
+
         })
     }
 
     fun initView() {
         val pageViewList : MutableList<View> = mutableListOf(
             PeopleCountView(requireContext()).apply { setViewModel(mPageViewModel, this@FreeUserFragment) },
-            AddPeopleView(requireContext()),
-            AddPlaceView(requireContext()),
-            ResultPageView(requireContext())
+            AddPeopleView(requireContext()).apply { setViewModel(mPageViewModel, this@FreeUserFragment) },
+            AddPlaceView(requireContext()).apply { setViewModel(mPageViewModel, this@FreeUserFragment) },
+            ResultPageView(requireContext()).apply { setViewModel(mPageViewModel, this@FreeUserFragment) }
         )
 
         view_pager.adapter =

@@ -31,7 +31,7 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<People>) : Ba
         }
     }
 
-    fun addPlusView(parent: ViewGroup?) : View {
+    private fun addPlusView(parent: ViewGroup?) : View {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var itemView: ConstraintLayout =
             inflater.inflate(R.layout.cview_edit_people_plus, parent, false) as ConstraintLayout
@@ -42,7 +42,7 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<People>) : Ba
         return itemView
     }
 
-    fun addPeopleView(parent: ViewGroup?, position: Int) : View {
+    private fun addPeopleView(parent: ViewGroup?, position: Int) : View {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var itemView: ConstraintLayout =
             inflater.inflate(R.layout.cview_edit_people, parent, false) as ConstraintLayout

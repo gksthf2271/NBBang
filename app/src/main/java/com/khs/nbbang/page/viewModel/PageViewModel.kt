@@ -21,12 +21,8 @@ class PageViewModel : BaseViewModel() {
 
     val mPeopleCount: LiveData<Int> get() = _counter
 
-    fun getPeopleListObj() {
-        //송신 데이터 생성
-        val peopleListObj = PeopleListObj().apply {
-        }
-
-        _peopleListLiveData.value = peopleListObj
+    fun updatePeopleCircle(){
+        _peopleListLiveData.value!!.mPeopleCount = _counter.value!!
     }
 
     fun increasePeople() {

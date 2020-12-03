@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="NBBang 영수증"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:textColor="@color/search_text_color"
-        android:textStyle="bold"
-        app:layout_constraintHeight_percent="0.3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/layout_group" />
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.khs.nbbang.page.viewModel.PageViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_group"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        app:layout_constraintHeight_percent="0.7"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/txt_result"
-            android:background="@color/search_detail_dialog_top_draw"
+            android:id="@+id/txt_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="15sp"
-            android:gravity="center_vertical"
-            android:textColor="@color/search_text_color_black"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="NBBang 영수증"
+            android:textColor="@color/search_text_color"
+            android:textSize="25sp"
             android:textStyle="bold"
-            tools:text="no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명"/>
+            app:layout_constraintBottom_toTopOf="@id/layout_group"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_group"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="20dp"
+            app:layout_constraintHeight_percent="0.7"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title">
+
+            <TextView
+                android:id="@+id/txt_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/search_detail_dialog_top_draw"
+                android:gravity="center_vertical"
+                android:textColor="@color/search_text_color_black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
