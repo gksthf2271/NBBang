@@ -3,7 +3,7 @@ package com.khs.nbbang.page
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.khs.nbbang.base.BaseView
-import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.freeUser.viewModel.PageViewModel
 
 class SelectCategoryView : BaseView {
     val TAG = this.javaClass.name

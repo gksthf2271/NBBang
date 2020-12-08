@@ -1,7 +1,7 @@
 package com.khs.nbbang.base
 
 import androidx.fragment.app.Fragment
-import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.freeUser.viewModel.PageViewModel
 
 interface BaseView {
     fun showError(error: Int)

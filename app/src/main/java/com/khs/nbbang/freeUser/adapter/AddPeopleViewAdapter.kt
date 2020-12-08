@@ -1,8 +1,6 @@
-package com.khs.nbbang.page.pageView
+package com.khs.nbbang.freeUser.adapter
 
 import android.content.Context
-import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

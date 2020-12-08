@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.khs.nbbang.page.viewModel.PageViewModel" />
+            type="com.khs.nbbang.freeUser.viewModel.PageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,24 +19,34 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="참여 인원의 이름을 적어주세요."
+            android:text="NBBang 영수증"
             android:textColor="@color/search_text_color"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/view_grid"
+            app:layout_constraintBottom_toTopOf="@id/layout_group"
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <GridView
-            android:id="@+id/view_grid"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_group"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:numColumns="3"
-            android:orientation="horizontal"
+            android:padding="20dp"
             app:layout_constraintHeight_percent="0.7"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_title">
 
+            <TextView
+                android:id="@+id/txt_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/search_detail_dialog_top_draw"
+                android:gravity="center_vertical"
+                android:textColor="@color/search_text_color_black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
