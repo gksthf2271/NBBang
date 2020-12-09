@@ -11,9 +11,10 @@ import com.khs.nbbang.freeUser.pageFragment.AddPeopleFragment
 import com.khs.nbbang.freeUser.pageFragment.AddPlaceFragment
 import com.khs.nbbang.freeUser.pageFragment.PeopleCountFragment
 import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
-import kotlinx.android.synthetic.main.fragment_select_count.*
+import kotlinx.android.synthetic.main.fragment_people_count.*
 
 class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
+    val TAG = this.javaClass.name
     private var mEnable: Boolean = false
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
@@ -23,7 +24,7 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        Log.v(this.javaClass.name,"onInterceptTouchEvent, childCount : ${childCount} , currentItem : $currentItem")
+        Log.v(TAG,"onInterceptTouchEvent, childCount : ${childCount} , currentItem : $currentItem")
         var viewPageList = (adapter as CustomViewPagerAdapter).getViewPageList()
         if (checkPagingEnable(viewPageList.get(currentItem))) {
             return super.onInterceptTouchEvent(ev)
@@ -41,17 +42,21 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
     fun checkPagingEnable(fragment : Fragment) : Boolean {
         var result = true
         if (fragment is AddPeopleFragment) {
+            Log.v(TAG,"currentFragment : ${AddPeopleFragment::class.java.name}")
             result = true
         } else if (fragment is AddPlaceFragment){
+            Log.v(TAG,"currentFragment : ${AddPlaceFragment::class.java.name}")
             result = true
         } else if (fragment is PeopleCountFragment) {
-            var countNum = fragment.edit_count.text
+            Log.v(TAG,"currentFragment : ${PeopleCountFragment::class.java.name}")
+            var countNum = fragment.txt_count.text
             result.apply {
                 if (TextUtils.isEmpty(countNum) || countNum.toString().equals("0")){
                     result = false
                 }
             }
         } else if (fragment is ResultPageFragment) {
+            Log.v(TAG,"currentFragment : ${ResultPageFragment::class.java.name}")
             result = true
         }
         setPagingEnable(result)

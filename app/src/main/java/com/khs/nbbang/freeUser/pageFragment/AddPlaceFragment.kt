@@ -26,7 +26,7 @@ class AddPlaceFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind<FragmentAddPlaceBinding>(view)!!
+        mBinding = DataBindingUtil.bind(view)!!
     }
 
     override fun onStart() {

@@ -18,20 +18,18 @@ class FreeUserActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding =
             DataBindingUtil.setContentView(this@FreeUserActivity, R.layout.activity_free_user)
-        mViewModel = ViewModelProvider(this).get(PageViewModel::class.java)
+        mViewModel = ViewModelProvider(this@FreeUserActivity, PageViewModel.PageViewModelFactory(supportFragmentManager, application)).get(PageViewModel::class.java)
         initView()
     }
 
     fun initView() {
-        mViewModel.let {
-            mBinding.viewPager.adapter = it.mViewPagerAdapter
-            mBinding.viewPager.currentItem = 0
-            mBinding.viewPager.setPagingEnable(false)
-            mBinding.viewIndicator.setViewPager(mBinding.viewPager)
-            it.mPeopleCount.observe(this, Observer {
-                Log.v(TAG, "people count : ${it}")
-                mViewModel.updatePeopleCircle()
-            })
-        }
+        mBinding.viewPager.adapter = mViewModel._viewPagerAdapter.value
+        mBinding.viewPager.currentItem = 0
+        mBinding.viewPager.setPagingEnable(false)
+        mBinding.viewIndicator.setViewPager(mBinding.viewPager)
+
+        mViewModel._counter.observe(this, Observer {
+            mViewModel.updatePeopleCircle()
+        })
     }
 }

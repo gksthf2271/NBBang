@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.freeUser.adapter.AddPeopleViewAdapter
+import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
 
 
 class AddPeopleFragment : BaseFragment() {
     lateinit var mBinding : FragmentAddPeopleBinding
     lateinit var mGridViewAdapter : AddPeopleViewAdapter
-    val DEFAULT_SIZE = 2
+    val DEFAULT_SIZE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,11 +33,16 @@ class AddPeopleFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
-    }
+        mBinding.viewModel = ViewModelProvider(
+            requireActivity(),
+            PageViewModel.PageViewModelFactory(
+                requireActivity().supportFragmentManager,
+                requireActivity().application
+            )
+        ).get(PageViewModel::class.java)
 
-    override fun onStart() {
-        super.onStart()
         initView()
+        observer()
     }
 
     fun initView() {
@@ -50,6 +58,14 @@ class AddPeopleFragment : BaseFragment() {
         }
     }
 
+    fun observer() {
+        mBinding.viewModel.let {
+            it!!._counter.observe(requireActivity(), Observer {
+                updateCircle(it!!)
+            })
+        }
+    }
+
     fun updateCircle() {
         updateCircle(0)
     }
@@ -59,8 +75,7 @@ class AddPeopleFragment : BaseFragment() {
         mGridViewAdapter.mItemList.clear()
         var dummyPeople = People(0," + ")
         mGridViewAdapter.addItem(dummyPeople)
-        mGridViewAdapter.addItem(People(1, "김한솔"))
-        for (index in DEFAULT_SIZE .. count + DEFAULT_SIZE) {
+        for (index in DEFAULT_SIZE .. count) {
             mGridViewAdapter.addItem(index, People(index, ""))
         }
     }
