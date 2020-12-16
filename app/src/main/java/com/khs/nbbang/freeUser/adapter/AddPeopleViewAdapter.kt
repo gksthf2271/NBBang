@@ -14,19 +14,24 @@ import kotlinx.android.synthetic.main.cview_edit_people.view.*
 class AddPeopleViewAdapter(context: Context, itemList: MutableList<People>) : BaseAdapter() {
     val TAG = this.javaClass.name
     var mItemList: MutableList<People>
+    var mItemView : MutableList<View>
     var mContext: Context
 
     init {
         mItemList = itemList
         mContext = context
+        mItemView = mutableListOf()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        if (position == 0) {
-             return addPlusView(parent)
-        } else {
-            return addPeopleView(parent, position)
+        if (mItemView.size <= position) {
+            if (position == 0) {
+                mItemView.add(position,addPlusView(parent))
+            } else {
+                mItemView.add(position,addPeopleView(parent, position))
+            }
         }
+        return mItemView.get(position)
     }
 
     private fun addPlusView(parent: ViewGroup?) : View {

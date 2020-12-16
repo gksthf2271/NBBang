@@ -50,7 +50,6 @@ class AddPeopleFragment : BaseFragment() {
         mBinding.viewGrid.adapter = mGridViewAdapter
         updateCircle()
         mBinding.viewGrid.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            Log.v(TAG, "TEST, onItemClicked, $position")
             if (position == 0) mGridViewAdapter.addItem(
                 mGridViewAdapter.count,
                 People(mGridViewAdapter.count, "")
@@ -61,6 +60,7 @@ class AddPeopleFragment : BaseFragment() {
     fun observer() {
         mBinding.viewModel.let {
             it!!._counter.observe(requireActivity(), Observer {
+                Log.v(TAG,"observer, call updateCircle(...)")
                 updateCircle(it!!)
             })
         }
