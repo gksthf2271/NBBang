@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,9 @@ import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.freeUser.adapter.AddPeopleViewAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.page.ItemObj.PeopleListObj
+import kotlinx.android.synthetic.main.cview_edit_people.view.*
+import java.lang.IndexOutOfBoundsException
 
 
 class AddPeopleFragment : BaseFragment() {
@@ -45,15 +49,33 @@ class AddPeopleFragment : BaseFragment() {
         observer()
     }
 
+    override fun onPause() {
+        super.onPause()
+        var peopleListBuffer = mutableListOf<People>()
+        for (index in DEFAULT_SIZE .. mBinding.viewGrid.childCount - 1 ) {
+            try {
+                peopleListBuffer.add(People(index, mBinding.viewGrid.getChildAt(index).txt_name.text.toString()))
+            } catch (e:Exception) {
+                Log.e(TAG,"$e,\n\n $index")
+            }
+        }
+        mBinding.viewModel.let { it!!.updatePeopleList(peopleListBuffer) }
+    }
+
     fun initView() {
         mGridViewAdapter = AddPeopleViewAdapter(requireContext(), mutableListOf())
         mBinding.viewGrid.adapter = mGridViewAdapter
-        updateCircle()
+        initCircle()
         mBinding.viewGrid.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            if (position == 0) mGridViewAdapter.addItem(
-                mGridViewAdapter.count,
-                People(mGridViewAdapter.count, "")
-            )
+            if (position == 0) {
+                mGridViewAdapter.addItem(
+                    mGridViewAdapter.count,
+                    People(mGridViewAdapter.count, "")
+                )
+                mBinding.viewModel.let {
+                    it!!._counter.value = mGridViewAdapter.mItemList.size - DEFAULT_SIZE
+                }
+            }
         }
     }
 
@@ -61,22 +83,27 @@ class AddPeopleFragment : BaseFragment() {
         mBinding.viewModel.let {
             it!!._counter.observe(requireActivity(), Observer {
                 Log.v(TAG,"observer, call updateCircle(...)")
-                updateCircle(it!!)
+                updateCircle(mBinding.viewModel.let {
+                    it!!._peopleListLiveData.value!! })
             })
         }
     }
 
-    fun updateCircle() {
-        updateCircle(0)
-    }
-
-    fun updateCircle(count: Int) {
-        Log.v(TAG,"updateCircle, count :$count")
+    fun initCircle() {
         mGridViewAdapter.mItemList.clear()
         var dummyPeople = People(0," + ")
         mGridViewAdapter.addItem(dummyPeople)
-        for (index in DEFAULT_SIZE .. count) {
-            mGridViewAdapter.addItem(index, People(index, ""))
+    }
+
+    fun updateCircle(peopleListObj: PeopleListObj) {
+        Log.v(TAG,"updateCircle, count :${peopleListObj.mPeopleCount}")
+        initCircle()
+        for (index in DEFAULT_SIZE .. peopleListObj.mPeopleCount) {
+            try {
+                mGridViewAdapter.addItem(index, People(index," "))
+            } catch (IOOB: IndexOutOfBoundsException) {
+                Log.v(TAG,"$IOOB")
+            }
         }
     }
 }

@@ -26,6 +26,7 @@ class FreeUserActivity : BaseActivity() {
         mBinding.viewPager.adapter = mViewModel._viewPagerAdapter.value
         mBinding.viewPager.currentItem = 0
         mBinding.viewPager.setPagingEnable(false)
+        mBinding.viewPager.offscreenPageLimit = mViewModel.mPageViewList.size - 2
         mBinding.viewIndicator.setViewPager(mBinding.viewPager)
 
         mViewModel._counter.observe(this, Observer {

@@ -14,6 +14,7 @@ import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
 import kotlinx.android.synthetic.main.fragment_people_count.*
 
 class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
+    val DEBUG = false
     val TAG = this.javaClass.name
     private var mEnable: Boolean = false
 
@@ -42,13 +43,13 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
     fun checkPagingEnable(fragment : Fragment) : Boolean {
         var result = true
         if (fragment is AddPeopleFragment) {
-            Log.v(TAG,"currentFragment : ${AddPeopleFragment::class.java.name}")
+            if (DEBUG) Log.v(TAG,"currentFragment : ${AddPeopleFragment::class.java.name}")
             result = true
         } else if (fragment is AddPlaceFragment){
-            Log.v(TAG,"currentFragment : ${AddPlaceFragment::class.java.name}")
+            if (DEBUG) Log.v(TAG,"currentFragment : ${AddPlaceFragment::class.java.name}")
             result = true
         } else if (fragment is PeopleCountFragment) {
-            Log.v(TAG,"currentFragment : ${PeopleCountFragment::class.java.name}")
+            if (DEBUG) Log.v(TAG,"currentFragment : ${PeopleCountFragment::class.java.name}")
             var countNum = fragment.txt_count.text
             result.apply {
                 if (TextUtils.isEmpty(countNum) || countNum.toString().equals("0")){
@@ -56,7 +57,7 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
                 }
             }
         } else if (fragment is ResultPageFragment) {
-            Log.v(TAG,"currentFragment : ${ResultPageFragment::class.java.name}")
+            if (DEBUG) Log.v(TAG,"currentFragment : ${ResultPageFragment::class.java.name}")
             result = true
         }
         setPagingEnable(result)

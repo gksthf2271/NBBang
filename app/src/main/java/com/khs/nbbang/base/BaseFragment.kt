@@ -23,6 +23,11 @@ open class BaseFragment :Fragment() {
         Log.v(TAG,"onResume(...)")
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.v(TAG,"onPause(...)")
+    }
+
     override fun onDetach() {
         super.onDetach()
         Log.v(TAG,"onDetach(...)")

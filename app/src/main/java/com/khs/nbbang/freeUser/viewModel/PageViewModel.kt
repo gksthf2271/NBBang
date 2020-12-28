@@ -10,15 +10,17 @@ import com.khs.nbbang.freeUser.pageFragment.AddPlaceFragment
 import com.khs.nbbang.freeUser.pageFragment.PeopleCountFragment
 import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
 import com.khs.nbbang.page.CustomViewPagerAdapter
+import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.ItemObj.PeopleListObj
 
 class PageViewModel(fragmentManager: FragmentManager, application: Application) : AndroidViewModel(application) {
     val TAG = this.javaClass.name
     val _peopleListLiveData: MutableLiveData<PeopleListObj> = MutableLiveData()
     var _counter: MutableLiveData<Int> = MutableLiveData()
+    var _peopleList: MutableLiveData<MutableList<People>> = MutableLiveData()
     val _viewPagerAdapter : MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
 
-    private val mPageViewList : MutableList<BaseFragment> = mutableListOf(
+    val mPageViewList : MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),
         AddPeopleFragment(),
         AddPlaceFragment(),
@@ -27,13 +29,22 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
 
     init {
         _viewPagerAdapter.value = CustomViewPagerAdapter(fragmentManager, mPageViewList)
-        _counter.value = 0
         _peopleListLiveData.value = PeopleListObj()
+        _peopleList.value = _peopleListLiveData.value!!.mPeopleList
+        _counter.value = _peopleListLiveData.value!!.mPeopleCount
     }
 
     fun updatePeopleCircle(){
-        _peopleListLiveData.value.let { _peopleListLiveData.value!!.mPeopleCount = _counter.value!! }
+        _peopleListLiveData.value.let {
+            _peopleListLiveData.value!!.mPeopleList = _peopleList.value!!
+            _peopleListLiveData.value!!.mPeopleCount = _counter.value!!
+        }
         Log.v(TAG,"updatePeopleCircle, peopleCount : ${_peopleListLiveData.value!!.mPeopleCount}")
+    }
+
+    fun updatePeopleList(peopleList : MutableList<People>) {
+        _peopleList.value = peopleList
+        Log.v(TAG,"updatePeopleList(...), ${_peopleList.value}")
     }
 
     fun increasePeople() {
