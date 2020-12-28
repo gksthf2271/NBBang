@@ -11,6 +11,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.databinding.FragmentResultPageBinding
+import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
 
 class AddPlaceFragment : BaseFragment() {
@@ -35,13 +36,17 @@ class AddPlaceFragment : BaseFragment() {
     }
 
     fun initView() {
-        mBinding.btnAdd.setOnClickListener {
-            val rootView = mBinding.layoutGroup
-            val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val rootView = mBinding.layoutGroup
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val addView: ConstraintLayout =
+            inflater.inflate(R.layout.cview_add_edit_place, rootView, false) as ConstraintLayout
+        rootView.addView(addView)
+
+        rootView.btn_add.setOnClickListener {
             val infoView: ConstraintLayout =
                 inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
-            rootView.addView(infoView)
-            infoView.txt_index.text = "${rootView.childCount} 차"
+            rootView.addView(infoView,rootView.childCount - 1)
+            infoView.txt_index.text = "${rootView.childCount - 1} 차"
         }
     }
 }
