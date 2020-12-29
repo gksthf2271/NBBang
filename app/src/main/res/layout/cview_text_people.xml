@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <CheckBox
+        android:id="@+id/checkbox_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_select_people"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@drawable/selector_select_people_text"
+        android:duplicateParentState="true"
+        tools:text="김한솔"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

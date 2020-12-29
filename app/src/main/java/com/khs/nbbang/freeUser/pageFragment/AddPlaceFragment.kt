@@ -2,6 +2,7 @@ package com.khs.nbbang.freeUser.pageFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.databinding.FragmentResultPageBinding
+import com.khs.nbbang.utils.FragmentUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
 
@@ -45,8 +47,17 @@ class AddPlaceFragment : BaseFragment() {
         rootView.btn_add.setOnClickListener {
             val infoView: ConstraintLayout =
                 inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
+            infoView.btn_join.setOnClickListener {
+                showSelectPeopleDialog()
+            }
             rootView.addView(infoView,rootView.childCount - 1)
             infoView.txt_index.text = "${rootView.childCount - 1} 차"
         }
+    }
+
+    fun showSelectPeopleDialog(){
+        Log.v(TAG,"showSelectPeopleDialog(...)")
+        var selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
+        selectPeopleDialog.show(requireActivity().supportFragmentManager,"")
     }
 }
