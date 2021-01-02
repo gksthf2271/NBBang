@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <variable
-            name="view"
-            type="com.khs.nbbang.freeUser.pageFragment.SelectPeopleDialogFragment" />
-
         <variable
             name="viewModel"
             type="com.khs.nbbang.freeUser.viewModel.PageViewModel" />
@@ -35,15 +30,29 @@
             app:layout_constraintTop_toBottomOf="@id/view_grid">
 
             <Button
+                android:id="@+id/btn_save"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_rounded_black"
+                android:text="SAVE"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                android:onClick="@{() -> viewModel.saveSelectedPeople()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/btn_close"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
                 android:id="@+id/btn_close"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/layout_rounded_black"
-                android:text="X"
+                android:text="CANCEL"
                 android:textColor="@color/text_color"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/btn_save"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

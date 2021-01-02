@@ -48,16 +48,16 @@ class AddPlaceFragment : BaseFragment() {
             val infoView: ConstraintLayout =
                 inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
             infoView.btn_join.setOnClickListener {
-                showSelectPeopleDialog()
+                showSelectPeopleDialog((rootView.childCount - 1).toString())
             }
             rootView.addView(infoView,rootView.childCount - 1)
             infoView.txt_index.text = "${rootView.childCount - 1} 차"
         }
     }
 
-    fun showSelectPeopleDialog(){
+    fun showSelectPeopleDialog(tag:String){
         Log.v(TAG,"showSelectPeopleDialog(...)")
         var selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
-        selectPeopleDialog.show(requireActivity().supportFragmentManager,"")
+        selectPeopleDialog.show(requireActivity().supportFragmentManager,tag)
     }
 }

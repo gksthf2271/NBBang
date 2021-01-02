@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.CompoundButton
+import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -83,7 +85,7 @@ class SelectPeopleDialogFragment : DialogFragment() {
 
     fun initView() {
         Log.v(TAG,"initView(...)")
-        mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf())
+        mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf(), mCheckedChangeListener)
         mBinding.viewGrid.adapter = mGridViewAdapter
 
         mBinding.btnClose.setOnClickListener {
@@ -104,5 +106,13 @@ class SelectPeopleDialogFragment : DialogFragment() {
     fun addPeopleView(people: People){
         Log.v(TAG,"peopleName : ${people.mName}")
         mGridViewAdapter.addItem(mGridViewAdapter.count, people)
+    }
+
+    val mCheckedChangeListener = CompoundButton.OnCheckedChangeListener { group, checkedId ->
+        Log.v(TAG, "checkedChangeListener(...),  : $checkedId , ${group.text}")
+        mBinding.viewModel.let {
+            it!!.selectPeopleList(checkedId, tag!!.toInt(), People(group.text.toString()))
+            Log.v(TAG,"TEST, ${it._selectedPeopleMap.value!!.get(tag!!.toInt())!!.mPeopleList}")
+        }
     }
 }

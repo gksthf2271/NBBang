@@ -8,4 +8,8 @@ class People {
         mName = name
         mIndex = index
     }
+
+    constructor(name:String) {
+        mName = name
+    }
 }

@@ -2,6 +2,7 @@ package com.khs.nbbang.freeUser.viewModel
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
 import com.khs.nbbang.base.BaseFragment
@@ -19,6 +20,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     var _counter: MutableLiveData<Int> = MutableLiveData()
     var _peopleList: MutableLiveData<MutableList<People>> = MutableLiveData()
     val _viewPagerAdapter : MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
+    val _selectedPeopleMap : MutableLiveData<HashMap<Int, PeopleListObj>> = MutableLiveData()
 
     val mPageViewList : MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),
@@ -32,6 +34,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         _peopleListLiveData.value = PeopleListObj()
         _peopleList.value = _peopleListLiveData.value!!.mPeopleList
         _counter.value = _peopleListLiveData.value!!.mPeopleCount
+        _selectedPeopleMap.value = HashMap()
     }
 
     fun updatePeopleCircle(){
@@ -58,6 +61,24 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         _counter.value = _counter.value!!.minus(1)
     }
 
+    fun saveSelectedPeople() {
+
+    }
+
+    fun selectPeopleList(isSelected: Boolean, placeId:Int, people: People) {
+        _selectedPeopleMap.value.let {
+            if (isSelected) {
+                if (it!!.get(placeId) == null) {
+                    it!!.put(placeId, PeopleListObj())
+                }
+                it!!.get(placeId)!!.mPeopleList.add(people)
+            } else {
+                //TODO : remove 로직 수정해야됨. people이 매번 새롭가 만들어짐.
+                it!!.get(placeId)!!.mPeopleList.remove(people)
+            }
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         Log.v(this.javaClass.name, ">>> onCleared")
@@ -69,6 +90,5 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return PageViewModel(fragmentManager, application) as T
         }
-
     }
 }
