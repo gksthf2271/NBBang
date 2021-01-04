@@ -8,20 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.CompoundButton
-import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.databinding.FragmentSelectPeopleBinding
+import com.khs.nbbang.freeUser.SelectPeopleCallback
 import com.khs.nbbang.freeUser.adapter.SelectPeopleAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.DisplayUtils
 
-class SelectPeopleDialogFragment : DialogFragment() {
+class SelectPeopleDialogFragment : DialogFragment(){
     val TAG = this.javaClass.name
     lateinit var mBinding: FragmentSelectPeopleBinding
     lateinit var mGridViewAdapter : SelectPeopleAdapter
@@ -79,16 +78,35 @@ class SelectPeopleDialogFragment : DialogFragment() {
         val deviceWidth = size.x
         val deviceeHeight = size.y
         params?.width = (deviceWidth * 0.95).toInt()
-        params?.height = (deviceeHeight * 0.95).toInt()
+        params?.height = (deviceeHeight * 0.75).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 
     fun initView() {
-        Log.v(TAG,"initView(...)")
-        mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf(), mCheckedChangeListener)
+        Log.v(TAG,"initView(...), TAG : $tag")
+        mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf(), object : SelectPeopleCallback {
+            override fun onCallback(people: People, isSelect: Boolean) {
+//                Log.v(TAG, "onCallback(...),  : ${people.mName}")
+//                mBinding.viewModel.let {
+//                    it!!.selectPeopleList(isSelect, tag!!.toInt(), people)
+//                    Log.v(TAG,"TEST, ${it._bufferPeopleMap.value!!.get(tag!!.toInt())!!.mPeopleList}")
+//                }
+            }
+        })
+
         mBinding.viewGrid.adapter = mGridViewAdapter
 
         mBinding.btnClose.setOnClickListener {
+            mBinding.viewModel.let {
+                it!!.clearPeopleList(tag!!.toInt())
+            }
+            dismiss()
+        }
+
+        mBinding.btnSave.setOnClickListener {
+            mBinding.viewModel.let {
+                it!!.saveSelectedPeople(tag!!.toInt(), mGridViewAdapter.getSelectedPeopleList())
+            }
             dismiss()
         }
 
@@ -106,13 +124,5 @@ class SelectPeopleDialogFragment : DialogFragment() {
     fun addPeopleView(people: People){
         Log.v(TAG,"peopleName : ${people.mName}")
         mGridViewAdapter.addItem(mGridViewAdapter.count, people)
-    }
-
-    val mCheckedChangeListener = CompoundButton.OnCheckedChangeListener { group, checkedId ->
-        Log.v(TAG, "checkedChangeListener(...),  : $checkedId , ${group.text}")
-        mBinding.viewModel.let {
-            it!!.selectPeopleList(checkedId, tag!!.toInt(), People(group.text.toString()))
-            Log.v(TAG,"TEST, ${it._selectedPeopleMap.value!!.get(tag!!.toInt())!!.mPeopleList}")
-        }
     }
 }

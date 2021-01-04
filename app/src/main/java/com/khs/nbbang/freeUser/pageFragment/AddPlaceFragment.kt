@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.databinding.FragmentResultPageBinding
+import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.utils.FragmentUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
@@ -30,11 +33,19 @@ class AddPlaceFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
+        mBinding.viewModel = ViewModelProvider(
+            requireActivity(),
+            PageViewModel.PageViewModelFactory(
+                requireActivity().supportFragmentManager,
+                requireActivity().application
+            )
+        ).get(PageViewModel::class.java)
     }
 
     override fun onStart() {
         super.onStart()
         initView()
+
     }
 
     fun initView() {
@@ -51,13 +62,21 @@ class AddPlaceFragment : BaseFragment() {
                 showSelectPeopleDialog((rootView.childCount - 1).toString())
             }
             rootView.addView(infoView,rootView.childCount - 1)
-            infoView.txt_index.text = "${rootView.childCount - 1} 차"
+            var placeIndex = rootView.childCount - 1
+            infoView.txt_index.text = "$placeIndex 차"
+            mBinding.viewModel!!._placeCount.value = placeIndex
+        }
+        mBinding.viewModel.let {
+            it!!._placeCount.observe(requireActivity(), Observer {
+                if (it == 0) return@Observer
+//                mBinding.viewModel!!.createPlaceHashMap()
+        })
         }
     }
 
     fun showSelectPeopleDialog(tag:String){
         Log.v(TAG,"showSelectPeopleDialog(...)")
         var selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
-        selectPeopleDialog.show(requireActivity().supportFragmentManager,tag)
+        selectPeopleDialog.show(requireActivity().supportFragmentManager, tag)
     }
 }

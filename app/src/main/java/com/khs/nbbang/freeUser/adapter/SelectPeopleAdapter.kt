@@ -5,25 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
+import com.khs.nbbang.freeUser.SelectPeopleCallback
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.DisplayUtils
 import kotlinx.android.synthetic.main.cview_text_people.view.*
 
-class SelectPeopleAdapter (context: Context, itemList: MutableList<People>, checkedChangeListener: CompoundButton.OnCheckedChangeListener) : BaseAdapter() {
+class SelectPeopleAdapter (context: Context, itemList: MutableList<People>, callback:SelectPeopleCallback) : BaseAdapter() {
     val TAG = this.javaClass.name
     var mItemList: MutableList<People>
     var mItemView : MutableList<View>
     var mContext: Context
-    var mCheckedChangeListener : CompoundButton.OnCheckedChangeListener
+    var mSelectPeopleCallback : SelectPeopleCallback
 
     init {
         mItemList = itemList
         mContext = context
         mItemView = mutableListOf()
-        mCheckedChangeListener = checkedChangeListener
+        mSelectPeopleCallback = callback
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -38,11 +38,14 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>, chec
         var itemView: ConstraintLayout =
             inflater.inflate(R.layout.cview_text_people, parent, false) as ConstraintLayout
         var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
+        var people = mItemList.get(position)
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
-        itemView.checkbox_name.text = mItemList.get(position).mName
-        itemView.checkbox_name.setOnCheckedChangeListener(mCheckedChangeListener)
-
+        itemView.tag = people
+        itemView.checkbox_name.text = people.mName
+        itemView.checkbox_name.setOnCheckedChangeListener { buttonView, isChecked ->
+            mSelectPeopleCallback.onCallback(people, isChecked)
+        }
         return itemView
     }
 
@@ -65,5 +68,15 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>, chec
     fun addItem(index: Int, people: People) {
         mItemList.add(index, people)
         notifyDataSetChanged()
+    }
+
+    fun getSelectedPeopleList() : MutableList<People>{
+        var checkedPeopleList = mutableListOf<People>()
+        for (index in 0 .. mItemView.size) {
+            if (mItemView.get(index).tag is People && mItemView.get(index).checkbox_name.isChecked) {
+                checkedPeopleList.add(mItemView.get(index).tag as People)
+            }
+        }
+        return checkedPeopleList
     }
 }
