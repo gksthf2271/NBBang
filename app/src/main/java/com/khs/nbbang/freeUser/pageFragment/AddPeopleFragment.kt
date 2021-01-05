@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +15,7 @@ import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.freeUser.adapter.AddPeopleViewAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.page.ItemObj.PeopleListObj
+import com.khs.nbbang.page.ItemObj.NNBObj
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 import java.lang.IndexOutOfBoundsException
 
@@ -84,7 +83,7 @@ class AddPeopleFragment : BaseFragment() {
             it!!._counter.observe(requireActivity(), Observer {
                 Log.v(TAG,"observer, call updateCircle(...)")
                 updateCircle(mBinding.viewModel.let {
-                    it!!._peopleListLiveData.value!! })
+                    it!!._NNBLiveData.value!! })
             })
         }
     }
@@ -95,10 +94,10 @@ class AddPeopleFragment : BaseFragment() {
         mGridViewAdapter.addItem(dummyPeople)
     }
 
-    fun updateCircle(peopleListObj: PeopleListObj) {
-        Log.v(TAG,"updateCircle, count :${peopleListObj.mPeopleCount}")
+    fun updateCircle(NNBObj: NNBObj) {
+        Log.v(TAG,"updateCircle, count :${NNBObj.mPeopleCount}")
         initCircle()
-        for (index in DEFAULT_SIZE .. peopleListObj.mPeopleCount) {
+        for (index in DEFAULT_SIZE .. NNBObj.mPeopleCount) {
             try {
                 mGridViewAdapter.addItem(index, People(index," "))
             } catch (IOOB: IndexOutOfBoundsException) {

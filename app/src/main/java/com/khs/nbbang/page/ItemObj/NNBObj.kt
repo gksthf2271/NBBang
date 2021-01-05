@@ -1,6 +1,6 @@
 package com.khs.nbbang.page.ItemObj
 
-class PeopleListObj(){
+class NNBObj(){
     fun PeopleListObj(peopleCount : Int) {
         mPeopleList = mutableListOf()
         mPeopleCount = peopleCount

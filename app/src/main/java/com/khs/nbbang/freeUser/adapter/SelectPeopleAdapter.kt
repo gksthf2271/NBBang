@@ -9,7 +9,7 @@ import android.widget.BaseAdapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
 import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.page.ItemObj.PeopleListObj
+import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.utils.DisplayUtils
 import kotlinx.android.synthetic.main.cview_text_people.view.*
 
@@ -18,13 +18,13 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : Ba
     var mItemList: MutableList<People>
     var mItemView : MutableList<View>
     var mContext: Context
-    var mSelectPeopleListObj : PeopleListObj?
+    var mSelectNNBObj : NNBObj?
 
     init {
         mItemList = itemList
         mContext = context
         mItemView = mutableListOf()
-        mSelectPeopleListObj = null
+        mSelectNNBObj = null
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -45,7 +45,7 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : Ba
         itemView.tag = people
         itemView.checkbox_name.text = people.mName
 
-        mSelectPeopleListObj?.let {
+        mSelectNNBObj?.let {
             for (obj in it.mPeopleList){
                 if (people == obj) {
                     Log.v(TAG,"Select People, ${people.mName}")
@@ -87,8 +87,8 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : Ba
         return checkedPeopleList
     }
 
-    fun setSelectPeople(peopleList: PeopleListObj) {
-        Log.v(TAG,"selectPeople, $peopleList")
-        mSelectPeopleListObj = peopleList
+    fun setSelectPeople(NNB: NNBObj) {
+        Log.v(TAG,"selectPeople, $NNB")
+        mSelectNNBObj = NNB
     }
 }

@@ -14,15 +14,15 @@ import com.khs.nbbang.freeUser.pageFragment.PeopleCountFragment
 import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
 import com.khs.nbbang.page.CustomViewPagerAdapter
 import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.page.ItemObj.PeopleListObj
+import com.khs.nbbang.page.ItemObj.NNBObj
 
 class PageViewModel(fragmentManager: FragmentManager, application: Application) : AndroidViewModel(application) {
     val TAG = this.javaClass.name
-    val _peopleListLiveData: MutableLiveData<PeopleListObj> = MutableLiveData()
+    val _NNBLiveData: MutableLiveData<NNBObj> = MutableLiveData()
     var _counter: MutableLiveData<Int> = MutableLiveData()
     var _peopleList: MutableLiveData<MutableList<People>> = MutableLiveData()
     val _viewPagerAdapter : MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
-    val _selectedPeopleMap : MutableLiveData<HashMap<Int, PeopleListObj>> = MutableLiveData()
+    val _selectedPeopleMap : MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
     val _placeCount : MutableLiveData<Int> = MutableLiveData()
 
     val mPageViewList : MutableList<BaseFragment> = mutableListOf(
@@ -34,19 +34,19 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
 
     init {
         _viewPagerAdapter.value = CustomViewPagerAdapter(fragmentManager, mPageViewList)
-        _peopleListLiveData.value = PeopleListObj()
-        _peopleList.value = _peopleListLiveData.value!!.mPeopleList
-        _counter.value = _peopleListLiveData.value!!.mPeopleCount
+        _NNBLiveData.value = NNBObj()
+        _peopleList.value = _NNBLiveData.value!!.mPeopleList
+        _counter.value = _NNBLiveData.value!!.mPeopleCount
         _selectedPeopleMap.value = HashMap()
         _placeCount.value = 0
     }
 
     fun updatePeopleCircle(){
-        _peopleListLiveData.value.let {
-            _peopleListLiveData.value!!.mPeopleList = _peopleList.value!!
-            _peopleListLiveData.value!!.mPeopleCount = _counter.value!!
+        _NNBLiveData.value.let {
+            _NNBLiveData.value!!.mPeopleList = _peopleList.value!!
+            _NNBLiveData.value!!.mPeopleCount = _counter.value!!
         }
-        Log.v(TAG,"updatePeopleCircle, peopleCount : ${_peopleListLiveData.value!!.mPeopleCount}")
+        Log.v(TAG,"updatePeopleCircle, peopleCount : ${_NNBLiveData.value!!.mPeopleCount}")
     }
 
     fun updatePeopleList(peopleList : MutableList<People>) {
@@ -66,7 +66,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     }
 
     fun saveSelectedPeople(placeId: Int, selectedPeopleList: MutableList<People>) {
-        _selectedPeopleMap.value!!.put(placeId, PeopleListObj().apply { mPeopleList = selectedPeopleList })
+        _selectedPeopleMap.value!!.put(placeId, NNBObj().apply { mPeopleList = selectedPeopleList })
     }
 
     override fun onCleared() {
