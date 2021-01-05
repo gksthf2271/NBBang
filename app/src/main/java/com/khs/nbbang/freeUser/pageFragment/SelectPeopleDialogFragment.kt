@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.databinding.FragmentSelectPeopleBinding
-import com.khs.nbbang.freeUser.SelectPeopleCallback
 import com.khs.nbbang.freeUser.adapter.SelectPeopleAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
@@ -84,22 +83,10 @@ class SelectPeopleDialogFragment : DialogFragment(){
 
     fun initView() {
         Log.v(TAG,"initView(...), TAG : $tag")
-        mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf(), object : SelectPeopleCallback {
-            override fun onCallback(people: People, isSelect: Boolean) {
-//                Log.v(TAG, "onCallback(...),  : ${people.mName}")
-//                mBinding.viewModel.let {
-//                    it!!.selectPeopleList(isSelect, tag!!.toInt(), people)
-//                    Log.v(TAG,"TEST, ${it._bufferPeopleMap.value!!.get(tag!!.toInt())!!.mPeopleList}")
-//                }
-            }
-        })
-
+        mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf())
         mBinding.viewGrid.adapter = mGridViewAdapter
 
         mBinding.btnClose.setOnClickListener {
-            mBinding.viewModel.let {
-                it!!.clearPeopleList(tag!!.toInt())
-            }
             dismiss()
         }
 
@@ -118,6 +105,10 @@ class SelectPeopleDialogFragment : DialogFragment(){
                     }
                 }
             })
+
+            it._selectedPeopleMap.value!!.get(tag!!.toInt())?.let {
+                mGridViewAdapter.setSelectPeople(it!!)
+            }
         }
     }
 

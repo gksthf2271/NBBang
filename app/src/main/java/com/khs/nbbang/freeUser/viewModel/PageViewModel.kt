@@ -2,9 +2,11 @@ package com.khs.nbbang.freeUser.viewModel
 
 import android.app.Application
 import android.util.Log
-import android.view.View
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.freeUser.pageFragment.AddPeopleFragment
 import com.khs.nbbang.freeUser.pageFragment.AddPlaceFragment
@@ -21,7 +23,6 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     var _peopleList: MutableLiveData<MutableList<People>> = MutableLiveData()
     val _viewPagerAdapter : MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
     val _selectedPeopleMap : MutableLiveData<HashMap<Int, PeopleListObj>> = MutableLiveData()
-//    val _bufferPeopleMap : MutableLiveData<HashMap<Int, PeopleListObj>> = MutableLiveData()
     val _placeCount : MutableLiveData<Int> = MutableLiveData()
 
     val mPageViewList : MutableList<BaseFragment> = mutableListOf(
@@ -37,7 +38,6 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         _peopleList.value = _peopleListLiveData.value!!.mPeopleList
         _counter.value = _peopleListLiveData.value!!.mPeopleCount
         _selectedPeopleMap.value = HashMap()
-//        _bufferPeopleMap.value = HashMap()
         _placeCount.value = 0
     }
 
@@ -65,35 +65,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         _counter.value = _counter.value!!.minus(1)
     }
 
-//    fun createPlaceHashMap() {
-//        _bufferPeopleMap.value.let {
-//            Log.v(TAG,"createPlaceHashMap, placeIndex : ${_placeCount.value!!} , peopleList : ${_peopleListLiveData.value!!.mPeopleList}")
-//            it!!.put(_placeCount.value!!, _peopleListLiveData.value!!)
-//        }
-//    }
-
-//    fun selectPeopleList(isSelected: Boolean, placeId:Int, people: People) {
-//        Log.v(TAG,"PlaceIndex : $placeId , ")
-//        _bufferPeopleMap.value.let {
-//            if (isSelected) {
-//                it!!.get(placeId)!!.mPeopleList.add(people)
-//            } else {
-//                it!!.get(placeId)!!.mPeopleList.remove(people)
-//            }
-//        }
-//    }
-
-    fun clearPeopleList(placeId: Int) {
-//        _bufferPeopleMap.value.let {
-//            it!!.get(placeId)!!.mPeopleList.clear()
-//        }
-    }
-
     fun saveSelectedPeople(placeId: Int, selectedPeopleList: MutableList<People>) {
-//        _selectedPeopleMap.value = _bufferPeopleMap.value
-//        for(key in _selectedPeopleMap.value!!.keys) {
-//            Log.v(TAG,"saveSelectedPeople, $key, list: ${_selectedPeopleMap.value!!.get(key)!!.mPeopleList} \n")
-//        }
         _selectedPeopleMap.value!!.put(placeId, PeopleListObj().apply { mPeopleList = selectedPeopleList })
     }
 

@@ -13,4 +13,6 @@ class PeopleListObj(){
 
     var mPeopleList : MutableList<People> = mutableListOf()
     var mPeopleCount : Int = 0
+    var mPrice : Int = 0
+    var mPlaceName : String = ""
 }

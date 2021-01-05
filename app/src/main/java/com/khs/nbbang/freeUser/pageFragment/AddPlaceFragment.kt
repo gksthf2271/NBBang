@@ -13,9 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
-import com.khs.nbbang.databinding.FragmentResultPageBinding
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
-import com.khs.nbbang.utils.FragmentUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
 
@@ -59,7 +57,7 @@ class AddPlaceFragment : BaseFragment() {
             val infoView: ConstraintLayout =
                 inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
             infoView.btn_join.setOnClickListener {
-                showSelectPeopleDialog((rootView.childCount - 1).toString())
+                showSelectPeopleDialog((rootView.indexOfChild(infoView) + 1).toString())
             }
             rootView.addView(infoView,rootView.childCount - 1)
             var placeIndex = rootView.childCount - 1
