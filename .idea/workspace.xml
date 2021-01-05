@@ -22,11 +22,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/adapter/SelectPeopleAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/adapter/SelectPeopleAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/pageFragment/AddPlaceFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/pageFragment/AddPlaceFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/pageFragment/SelectPeopleDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/pageFragment/SelectPeopleDialogFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/viewModel/PageViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/viewModel/PageViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/ItemObj/PeopleListObj.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/ItemObj/PeopleListObj.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_select_people.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_select_people.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,12 +199,12 @@
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="360" y="213" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604559264136" />
-    <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser" timestamp="1609749882487">
+    <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser" timestamp="1609854327840">
       <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="675" y="294" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1097@0.23.1792.1097" timestamp="1605606495621" />
     <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607492615694" />
-    <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1609749882487" />
+    <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1609854327840" />
     <state x="633" y="342" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1604559205018">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
