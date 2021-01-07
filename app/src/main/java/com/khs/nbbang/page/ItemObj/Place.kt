@@ -1,6 +1,6 @@
 package com.khs.nbbang.page.ItemObj
 
-class People {
+class Place {
     var mName: String = ""
     var mIndex: Int = -1
 

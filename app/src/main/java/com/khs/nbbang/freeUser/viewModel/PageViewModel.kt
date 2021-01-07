@@ -16,16 +16,17 @@ import com.khs.nbbang.page.CustomViewPagerAdapter
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.ItemObj.NNBObj
 
-class PageViewModel(fragmentManager: FragmentManager, application: Application) : AndroidViewModel(application) {
+class PageViewModel(fragmentManager: FragmentManager, application: Application) :
+    AndroidViewModel(application) {
     val TAG = this.javaClass.name
     val _NNBLiveData: MutableLiveData<NNBObj> = MutableLiveData()
     var _counter: MutableLiveData<Int> = MutableLiveData()
     var _peopleList: MutableLiveData<MutableList<People>> = MutableLiveData()
-    val _viewPagerAdapter : MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
-    val _selectedPeopleMap : MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
-    val _placeCount : MutableLiveData<Int> = MutableLiveData()
+    val _viewPagerAdapter: MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
+    val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
+    val _placeCount: MutableLiveData<Int> = MutableLiveData()
 
-    val mPageViewList : MutableList<BaseFragment> = mutableListOf(
+    val mPageViewList: MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),
         AddPeopleFragment(),
         AddPlaceFragment(),
@@ -41,26 +42,26 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         _placeCount.value = 0
     }
 
-    fun updatePeopleCircle(){
+    fun updatePeopleCircle() {
         _NNBLiveData.value.let {
             _NNBLiveData.value!!.mPeopleList = _peopleList.value!!
             _NNBLiveData.value!!.mPeopleCount = _counter.value!!
         }
-        Log.v(TAG,"updatePeopleCircle, peopleCount : ${_NNBLiveData.value!!.mPeopleCount}")
+        Log.v(TAG, "updatePeopleCircle, peopleCount : ${_NNBLiveData.value!!.mPeopleCount}")
     }
 
-    fun updatePeopleList(peopleList : MutableList<People>) {
+    fun updatePeopleList(peopleList: MutableList<People>) {
         _peopleList.value = peopleList
-        Log.v(TAG,"updatePeopleList(...), ${_peopleList.value}")
+        Log.v(TAG, "updatePeopleList(...), ${_peopleList.value}")
     }
 
     fun increasePeople() {
-        Log.v(TAG,"increasePeople(...)")
+        Log.v(TAG, "increasePeople(...)")
         _counter.value = _counter.value!!.plus(1)
     }
 
     fun decreasePeople() {
-        Log.v(TAG,"decreasePeople(...)")
+        Log.v(TAG, "decreasePeople(...)")
         if (_counter.value!! <= 0) return
         _counter.value = _counter.value!!.minus(1)
     }
@@ -69,6 +70,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         _selectedPeopleMap.value!!.put(placeId, NNBObj().apply { mPeopleList = selectedPeopleList })
     }
 
+
     override fun onCleared() {
         super.onCleared()
         Log.v(this.javaClass.name, ">>> onCleared")
@@ -76,7 +78,8 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
 
 
     //ViewModel에 파라미터를 넘겨주기 위한 구현
-    class PageViewModelFactory(val fragmentManager: FragmentManager, val application: Application) : ViewModelProvider.Factory {
+    class PageViewModelFactory(val fragmentManager: FragmentManager, val application: Application) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return PageViewModel(fragmentManager, application) as T
         }
