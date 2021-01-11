@@ -98,9 +98,9 @@ class SelectPeopleDialogFragment : DialogFragment(){
         }
 
         mBinding.viewModel.let {
-            it!!._peopleList.observe(requireActivity(), Observer {
+            it!!._NNBLiveData.observe(requireActivity(), Observer {
                 if (isAdded) {
-                    for (people in it) {
+                    for (people in it.mPeopleList) {
                         addPeopleView(people)
                     }
                 }

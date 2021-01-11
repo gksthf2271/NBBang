@@ -13,15 +13,13 @@ import com.khs.nbbang.freeUser.pageFragment.AddPlaceFragment
 import com.khs.nbbang.freeUser.pageFragment.PeopleCountFragment
 import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
 import com.khs.nbbang.page.CustomViewPagerAdapter
-import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.ItemObj.NNBObj
+import com.khs.nbbang.page.ItemObj.People
 
 class PageViewModel(fragmentManager: FragmentManager, application: Application) :
     AndroidViewModel(application) {
     val TAG = this.javaClass.name
     val _NNBLiveData: MutableLiveData<NNBObj> = MutableLiveData()
-    var _counter: MutableLiveData<Int> = MutableLiveData()
-    var _peopleList: MutableLiveData<MutableList<People>> = MutableLiveData()
     val _viewPagerAdapter: MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
     val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
     val _placeCount: MutableLiveData<Int> = MutableLiveData()
@@ -36,38 +34,69 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     init {
         _viewPagerAdapter.value = CustomViewPagerAdapter(fragmentManager, mPageViewList)
         _NNBLiveData.value = NNBObj()
-        _peopleList.value = _NNBLiveData.value!!.mPeopleList
-        _counter.value = _NNBLiveData.value!!.mPeopleCount
         _selectedPeopleMap.value = HashMap()
         _placeCount.value = 0
     }
 
-    fun updatePeopleCircle() {
-        _NNBLiveData.value.let {
-            _NNBLiveData.value!!.mPeopleList = _peopleList.value!!
-            _NNBLiveData.value!!.mPeopleCount = _counter.value!!
-        }
-        Log.v(TAG, "updatePeopleCircle, peopleCount : ${_NNBLiveData.value!!.mPeopleCount}")
+    fun updatePeopleList(peopleList: MutableList<People>) {
+        _NNBLiveData.postValue(_NNBLiveData.value.apply {
+            this!!.mPeopleList = peopleList
+        })
+        Log.v(TAG, "updatePeopleList(...), ${_NNBLiveData.value!!.mPeopleList}")
     }
 
-    fun updatePeopleList(peopleList: MutableList<People>) {
-        _peopleList.value = peopleList
-        Log.v(TAG, "updatePeopleList(...), ${_peopleList.value}")
+    fun setPeopleCount(peopleCount: Int) {
+        _NNBLiveData.postValue(_NNBLiveData.value.apply {
+            this!!.mPeopleCount = peopleCount
+        })
     }
 
     fun increasePeople() {
-        Log.v(TAG, "increasePeople(...)")
-        _counter.value = _counter.value!!.plus(1)
+        _NNBLiveData.value.let {
+            _NNBLiveData!!.postValue(it.apply {
+                it!!.mPeopleCount += 1
+                Log.v(TAG, "increasePeople(...) ${it!!.mPeopleCount}")
+            })
+        }
     }
 
     fun decreasePeople() {
         Log.v(TAG, "decreasePeople(...)")
-        if (_counter.value!! <= 0) return
-        _counter.value = _counter.value!!.minus(1)
+        _NNBLiveData.value.let {
+            if (it!!.mPeopleCount!! <= 0) return
+            _NNBLiveData.postValue(it.apply {
+                it!!.mPeopleCount -= 1
+            })
+        }
+    }
+
+    fun savePrice(placeId:Int, price: String) {
+        Log.v(TAG, "TAG : $placeId , savePrice : ${price}")
+        _selectedPeopleMap.value.let {
+            if (it!!.get(placeId) == null) it!!.put(placeId, NNBObj())
+            _selectedPeopleMap.postValue(it!!.apply {
+                it!!.get(placeId)!!.mPrice = price
+            })
+        }
+    }
+
+    fun savePlaceName(placeId: Int, placeName: String) {
+        Log.v(TAG, "TAG : $placeId , savePlaceName : ${placeName}")
+        _selectedPeopleMap.value.let {
+            if (it!!.get(placeId) == null) it!!.put(placeId, NNBObj())
+            _selectedPeopleMap.postValue(it!!.apply {
+                it!!.get(placeId)!!.mPlaceName = placeName
+            })
+        }
     }
 
     fun saveSelectedPeople(placeId: Int, selectedPeopleList: MutableList<People>) {
-        _selectedPeopleMap.value!!.put(placeId, NNBObj().apply { mPeopleList = selectedPeopleList })
+        _selectedPeopleMap.value!!.let {
+            if (it!!.get(placeId) == null) it!!.put(placeId, NNBObj())
+            _selectedPeopleMap.postValue(it!!.apply {
+                it!!.get(placeId)!!.mPeopleList = selectedPeopleList
+            })
+        }
     }
 
 

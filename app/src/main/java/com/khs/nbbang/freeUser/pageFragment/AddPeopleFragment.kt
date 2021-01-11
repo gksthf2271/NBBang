@@ -72,7 +72,7 @@ class AddPeopleFragment : BaseFragment() {
                     People(mGridViewAdapter.count, "")
                 )
                 mBinding.viewModel.let {
-                    it!!._counter.value = mGridViewAdapter.mItemList.size - DEFAULT_SIZE
+                    it!!.setPeopleCount(mGridViewAdapter.mItemList.size - DEFAULT_SIZE)
                 }
             }
         }
@@ -80,10 +80,9 @@ class AddPeopleFragment : BaseFragment() {
 
     fun observer() {
         mBinding.viewModel.let {
-            it!!._counter.observe(requireActivity(), Observer {
+            it!!._NNBLiveData.observe(requireActivity(), Observer {
                 Log.v(TAG,"observer, call updateCircle(...)")
-                updateCircle(mBinding.viewModel.let {
-                    it!!._NNBLiveData.value!! })
+                updateCircle(it!!)
             })
         }
     }
@@ -99,7 +98,7 @@ class AddPeopleFragment : BaseFragment() {
         initCircle()
         for (index in DEFAULT_SIZE .. NNBObj.mPeopleCount) {
             try {
-                mGridViewAdapter.addItem(index, People(index," "))
+                mGridViewAdapter.addItem(index, People(index,""))
             } catch (IOOB: IndexOutOfBoundsException) {
                 Log.v(TAG,"$IOOB")
             }

@@ -89,6 +89,7 @@
             android:textColor="@color/search_text_color"
             android:layout_marginLeft="5dp"
             android:gravity="center_vertical"
+            android:singleLine="true"
             tools:text="홍길동 임꺽정 흥부 놀부"
             />
 
