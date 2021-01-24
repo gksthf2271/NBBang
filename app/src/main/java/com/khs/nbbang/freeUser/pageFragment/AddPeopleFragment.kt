@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
+import com.khs.nbbang.freeUser.PeopleNameWatcherCallback
 import com.khs.nbbang.freeUser.adapter.AddPeopleViewAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
@@ -51,6 +52,7 @@ class AddPeopleFragment : BaseFragment() {
     override fun onPause() {
         super.onPause()
         var peopleListBuffer = mutableListOf<People>()
+
         for (index in DEFAULT_SIZE .. mBinding.viewGrid.childCount - 1 ) {
             try {
                 peopleListBuffer.add(People(index, mBinding.viewGrid.getChildAt(index).txt_name.text.toString()))
@@ -58,11 +60,37 @@ class AddPeopleFragment : BaseFragment() {
                 Log.e(TAG,"$e,\n\n $index")
             }
         }
-        mBinding.viewModel.let { it!!.updatePeopleList(peopleListBuffer) }
+        if (isUpdatedPeople(peopleListBuffer)) {
+            Log.v(TAG,"isUpdatedPeople, true")
+            mBinding.viewModel.let { it!!.updatePeopleList(peopleListBuffer) }
+        } else {
+            Log.v(TAG,"isUpdatedPeople, false")
+        }
+    }
+
+    fun isUpdatedPeople(peopleList: MutableList<People>) : Boolean{
+        mBinding.viewModel.let {
+            if (peopleList.size == it!!._NNBLiveData.value!!.mPeopleList.size) {
+                for (index in 0 until peopleList.size) {
+                    if (!peopleList.get(index).mName.equals(it!!._NNBLiveData.value!!.mPeopleList.get(index).mName)){
+                        return true
+                    }
+                }
+                return false
+            } else {
+                return true
+            }
+        }
     }
 
     fun initView() {
-        mGridViewAdapter = AddPeopleViewAdapter(requireContext(), mutableListOf())
+        mGridViewAdapter = AddPeopleViewAdapter(requireContext(), mutableListOf(), object : PeopleNameWatcherCallback {
+            override fun onCallback(peopleId: Int, name: String) {
+//                mBinding.viewModel.let {
+//                    it!!.savePeopleName(peopleId - DEFAULT_SIZE, name)
+//                }
+            }
+        })
         mBinding.viewGrid.adapter = mGridViewAdapter
         initCircle()
         mBinding.viewGrid.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -98,7 +126,8 @@ class AddPeopleFragment : BaseFragment() {
         initCircle()
         for (index in DEFAULT_SIZE .. NNBObj.mPeopleCount) {
             try {
-                mGridViewAdapter.addItem(index, People(index,""))
+                val people = People(index,"")
+                mGridViewAdapter.addItem(index, people)
             } catch (IOOB: IndexOutOfBoundsException) {
                 Log.v(TAG,"$IOOB")
             }

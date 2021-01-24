@@ -19,6 +19,7 @@ import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.freeUser.adapter.TextWatcherAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.NNBObj
+import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
 
@@ -76,7 +77,15 @@ class AddPlaceFragment : BaseFragment() {
                 mBinding.viewModel.let {
                     it!!._placeCount.value = placeIndex
 
+                    it!!._NNBLiveData.observe(requireActivity(), Observer {
+                        hideAddedPeopleView(infoView)
+                        mBinding.viewModel.let{
+                            it!!.clearSelectedPeople()
+                        }
+                    })
+
                     it!!._selectedPeopleMap.observe(requireActivity(), Observer {
+                        Log.v(TAG,"_selectedPeopleMap, Observer(...) : $it")
                         it.get(infoView.tag as Int) ?: return@Observer
                         if (it!!.get(infoView.tag as Int)!!.mPeopleList.isEmpty()) {
                             hideAddedPeopleView(infoView)
@@ -104,15 +113,7 @@ class AddPlaceFragment : BaseFragment() {
     fun showAddedPeopleView(view : ConstraintLayout, nnbObj: NNBObj) {
         Log.v(TAG,"showAddedPeopleView(...), ${view.txt_index.text}")
         view.txt_added_people.apply {
-            var peopleNameString = ""
-            for(people in nnbObj.mPeopleList) {
-                Log.v(TAG,"peopleName : ${people.mName}")
-                peopleNameString += people.mName
-                if (people != nnbObj.mPeopleList.lastOrNull()) {
-                    peopleNameString += ", "
-                }
-            }
-            this!!.text = peopleNameString
+            this!!.text = StringUtils().getPeopleList(nnbObj.mPeopleList)
         }
         view.layout_group_added_people.visibility = View.VISIBLE
     }
@@ -124,16 +125,9 @@ class AddPlaceFragment : BaseFragment() {
 
     fun getTextWatcher(viewType : String, placeId:Int) : TextWatcher {
         val textWatcher  = object :
-            TextWatcherAdapter {
-            override fun afterTextChanged(s: Editable?) {
-                Log.v(TAG,"afterTextChanged(...), $placeId")
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.v(TAG,"beforeTextChanged(...), $placeId")
-            }
-
+            TextWatcherAdapter() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                super.onTextChanged(s, start, before, count)
                 if (TYPE_EDIT_PLACE_NAME.equals(viewType)) {
                     mBinding.viewModel!!.savePlaceName(placeId, s.toString())
                 } else if (TYPE_EDIT_PRICE.equals(viewType)) {

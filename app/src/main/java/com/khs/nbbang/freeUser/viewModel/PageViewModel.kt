@@ -15,6 +15,7 @@ import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
 import com.khs.nbbang.page.CustomViewPagerAdapter
 import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.utils.StringUtils
 
 class PageViewModel(fragmentManager: FragmentManager, application: Application) :
     AndroidViewModel(application) {
@@ -91,10 +92,42 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     }
 
     fun saveSelectedPeople(placeId: Int, selectedPeopleList: MutableList<People>) {
+        Log.v(TAG,"saveSelectedPeople(...)")
         _selectedPeopleMap.value!!.let {
             if (it!!.get(placeId) == null) it!!.put(placeId, NNBObj())
             _selectedPeopleMap.postValue(it!!.apply {
                 it!!.get(placeId)!!.mPeopleList = selectedPeopleList
+            })
+        }
+    }
+
+    fun clearSelectedPeople() {
+        Log.v(TAG,"clearSelectedPeople(...)")
+        _selectedPeopleMap.value!!.let {
+            _selectedPeopleMap.postValue(it.apply { clear() })
+        }
+    }
+
+    fun savePeopleName(peopleId: Int, name:String){
+        /**
+         * ODO : 고민필요
+         * 해당 로직은 AddPeople 단계에서 People Name 수정될 때 마다 트리거로 발생하는 메소드.
+         * 현 문제 정리
+         *  1. 해당 메소드가 호출 될 때 NNBObj의 mPeopleList가 정의 되어있지 않음.
+         *  2. '1'의 문제를 해결 하기 위해 List 형태가 아닌 Map형태로 데이터 관리 필요
+         *      단, Map 형태의 데이터 관리 시 기존 로직이 대거 수정필요.
+         *  3. Map 형태로 수정하는게 맞는것인가? 고민 필요.
+         */
+
+        _NNBLiveData.value!!.let{
+            _NNBLiveData.postValue(it!!.apply {
+                Log.v(TAG,"savePeopleName(...), index : $peopleId, name : $name")
+                try {
+                    it!!.mPeopleList.get(peopleId).mName = name
+                } catch (ioobe : IndexOutOfBoundsException) {
+                    Log.v(TAG, "Exception, \n $ioobe")
+                    it!!.mPeopleList.add(peopleId, People(peopleId, name))
+                }
             })
         }
     }

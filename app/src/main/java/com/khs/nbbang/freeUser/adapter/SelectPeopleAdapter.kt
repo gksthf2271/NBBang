@@ -79,7 +79,7 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : Ba
 
     fun getSelectedPeopleList() : MutableList<People>{
         var checkedPeopleList = mutableListOf<People>()
-        for (index in 0 .. mItemView.size - 1) {
+        for (index in 0 until mItemView.size) {
             if (mItemView.get(index).tag is People && mItemView.get(index).checkbox_name.isChecked) {
                 checkedPeopleList.add(mItemView.get(index).tag as People)
             }
