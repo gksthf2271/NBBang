@@ -105,7 +105,11 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     fun clearSelectedPeople() {
         Log.v(TAG,"clearSelectedPeople(...)")
         _selectedPeopleMap.value!!.let {
-            _selectedPeopleMap.postValue(it.apply { clear() })
+            _selectedPeopleMap.postValue(it.apply {
+                for(key in it.keys) {
+                    this.get(key)!!.mPeopleList.clear()
+                }
+            })
         }
     }
 
