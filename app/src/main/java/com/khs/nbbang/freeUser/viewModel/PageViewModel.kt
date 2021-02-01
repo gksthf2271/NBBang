@@ -17,6 +17,8 @@ import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.StringUtils
 import java.lang.NumberFormatException
+import java.util.*
+import kotlin.collections.HashMap
 
 class PageViewModel(fragmentManager: FragmentManager, application: Application) :
     AndroidViewModel(application) {
@@ -25,6 +27,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     val _viewPagerAdapter: MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
     val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
     val _placeCount: MutableLiveData<Int> = MutableLiveData()
+    var mDutchPayMap = mutableMapOf<String, Int>()
 
     val mPageViewList: MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),
@@ -48,6 +51,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     }
 
     fun setPeopleCount(peopleCount: Int) {
+        Log.v(TAG,"setPeopleCount(...) peopleCount : $peopleCount")
         _NNBLiveData.postValue(_NNBLiveData.value.apply {
             this!!.mPeopleCount = peopleCount
         })
@@ -148,29 +152,44 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
             try {
                 price = Integer.parseInt(_selectedPeopleMap.value!!.get(key)!!.mPrice)
             } catch (e : NumberFormatException) {
-                result = "\tkey 차, 사용 금액 오류"
+                result += "\n\t$key 차, 사용 금액 오류"
                 continue
             }
             if (peoplelist.isEmpty()) {
-                result = "\tkey 차, 참석자 명단 오류"
+                result += "\n\t$key 차, 참석자 명단 오류"
                 continue
             }
             result += "\n\t\t\t\t\t"
-            result += "\n\t ${key}차"
-            result += "\n\t 참석 인원 수 : ${peoplelist.size}"
-            result += "\n\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist)}"
-            result += "\n\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
-            result += "\n\t 사용 금액 : ${price}"
-            result += "\n\t 더치페이 : ${price / peoplelist.size}"
+            result += "\n\t\t ${key}차"
+            result += "\n\t\t\t 참석 인원 수 : ${peoplelist.size}"
+            result += "\n\t\t\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist)}"
+            result += "\n\t\t\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
+            result += "\n\t\t\t 사용 금액 : ${price}"
+            result += "\n\t\t\t 더치페이 : ${price / peoplelist.size}"
+            dutchPayBill(peoplelist, price / peoplelist.size)
             Log.v(TAG,"TEST, \n $result")
         }
 
-        result += "\t\t\t\t\t\n"
-        result += "\t\t 더치페이 정리 계산서"
-        result += "\t\t\t\t\t\n"
-
+        result += "\n\n\t\t 더치페이 정리 계산서\n"
+        for (people in mDutchPayMap.keys) {
+            result += "\n\t\t\t $people : ${mDutchPayMap.get(people)}"
+        }
 
         return result
+    }
+
+    fun clearDutchPayMap() {
+        mDutchPayMap.clear()
+    }
+
+    fun dutchPayBill(peopleList: MutableList<People>, payment:Int) {
+        for (people in peopleList) {
+            if (mDutchPayMap.get(people.mName) == null) {
+                mDutchPayMap.put(people.mName, 0)
+            }
+            val totalPayment = mDutchPayMap.get(people.mName) as Int + payment
+            mDutchPayMap.put(people.mName, totalPayment)
+        }
     }
 
 

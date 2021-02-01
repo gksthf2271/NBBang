@@ -38,6 +38,7 @@ class ResultPageFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         mBinding.viewModel.let {
+            it!!.clearDutchPayMap()
             mBinding.txtResult.text = it!!.resultNBB()
         }
     }
