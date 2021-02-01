@@ -13,6 +13,6 @@ class NNBObj(){
 
     var mPeopleList : MutableList<People> = mutableListOf()
     var mPeopleCount : Int = 0
-    var mPrice : String = ""
+    var mPrice : String = "0"
     var mPlaceName : String = ""
 }

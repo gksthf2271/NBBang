@@ -16,6 +16,7 @@ import com.khs.nbbang.page.CustomViewPagerAdapter
 import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.StringUtils
+import java.lang.NumberFormatException
 
 class PageViewModel(fragmentManager: FragmentManager, application: Application) :
     AndroidViewModel(application) {
@@ -130,6 +131,42 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
                 }
             })
         }
+    }
+
+    fun resultNBB() : String {
+        // no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명"
+        var result = ""
+        var peopleMap = mutableMapOf<String, People>()
+        result += "\t\t 전체 계산서 "
+        for (key in _selectedPeopleMap.value!!.keys) {
+            var peoplelist = _selectedPeopleMap.value!!.get(key)!!.mPeopleList
+            var price = 0
+            try {
+                price = Integer.parseInt(_selectedPeopleMap.value!!.get(key)!!.mPrice)
+            } catch (e : NumberFormatException) {
+                result = "\tkey 차, 사용 금액 오류"
+                continue
+            }
+            if (peoplelist.isEmpty()) {
+                result = "\tkey 차, 참석자 명단 오류"
+                continue
+            }
+            result += "\n\t\t\t\t\t"
+            result += "\n\t ${key}차"
+            result += "\n\t 참석 인원 수 : ${peoplelist.size}"
+            result += "\n\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist)}"
+            result += "\n\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
+            result += "\n\t 사용 금액 : ${price}"
+            result += "\n\t 더치페이 : ${price / peoplelist.size}"
+            Log.v(TAG,"TEST, \n $result")
+        }
+
+        result += "\t\t\t\t\t\n"
+        result += "\t\t 더치페이 정리 계산서"
+        result += "\t\t\t\t\t\n"
+
+
+        return result
     }
 
 
