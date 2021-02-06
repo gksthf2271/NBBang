@@ -2,14 +2,13 @@ package com.khs.nbbang.freeUser.pageFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -51,9 +50,10 @@ class AddPlaceFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         initView()
+        addObserver()
     }
 
-    fun initView() {
+    private fun initView() {
         val rootView = mBinding.layoutGroup
         val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val addView: ConstraintLayout =
@@ -61,40 +61,7 @@ class AddPlaceFragment : BaseFragment() {
         rootView.addView(addView)
 
         rootView.btn_add.setOnClickListener {
-            val infoView: ConstraintLayout =
-                inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
-            infoView.btn_join.setOnClickListener {
-                showSelectPeopleDialog(infoView.tag.toString())
-            }
-
-            rootView.addView(infoView.apply {
-                var placeIndex = rootView.childCount
-                infoView.tag = placeIndex
-                infoView.txt_index.text = "$placeIndex 차"
-                infoView.edit_title.addTextChangedListener(getTextWatcher(TYPE_EDIT_PLACE_NAME, infoView.tag as Int))
-                infoView.edit_price.addTextChangedListener(getTextWatcher(TYPE_EDIT_PRICE, infoView.tag as Int))
-
-                mBinding.viewModel.let {
-                    it!!._placeCount.value = placeIndex
-
-                    it!!._NNBLiveData.observe(requireActivity(), Observer {
-                        hideAddedPeopleView(infoView)
-                        mBinding.viewModel.let{
-                            it!!.clearSelectedPeople()
-                        }
-                    })
-
-                    it!!._selectedPeopleMap.observe(requireActivity(), Observer {
-                        Log.v(TAG,"_selectedPeopleMap, Observer(...) : $it")
-                        it.get(infoView.tag as Int) ?: return@Observer
-                        if (it!!.get(infoView.tag as Int)!!.mPeopleList.isEmpty()) {
-                            hideAddedPeopleView(infoView)
-                        } else {
-                            showAddedPeopleView(infoView, it!!.get(infoView.tag as Int)!!)
-                        }
-                    })
-                }
-            },rootView.childCount - 1)
+            rootView.addView(createPlaceInfoView(rootView, inflater), rootView.childCount - 1)
         }
 
         mBinding.viewModel.let {
@@ -104,13 +71,56 @@ class AddPlaceFragment : BaseFragment() {
         }
     }
 
-    fun showSelectPeopleDialog(tag:String){
+    private fun addObserver() {
+        mBinding.viewModel.let {
+            val viewModel = mBinding.viewModel!!
+            it!!._NNBLiveData.observe(requireActivity(), Observer {
+                Log.v(TAG, "_NNBLiveData, Observer(...) : $it")
+                viewModel.clearSelectedPeople()
+            })
+        }
+    }
+
+    private fun createPlaceInfoView(rootView: LinearLayout, inflater: LayoutInflater): ConstraintLayout {
+        val infoView: ConstraintLayout =
+            inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
+
+        var placeIndex = rootView.childCount
+
+        infoView.apply {
+            this.btn_join.setOnClickListener {
+                showSelectPeopleDialog(infoView.tag.toString())
+            }
+            this.tag = placeIndex
+            this.txt_index.text = "$placeIndex 차"
+            this.edit_title.addTextChangedListener(getTextWatcher(TYPE_EDIT_PLACE_NAME, this.tag as Int))
+            this.edit_price.addTextChangedListener(getTextWatcher(TYPE_EDIT_PRICE, this.tag as Int))
+        }
+
+        mBinding.viewModel.let {
+            it!!._placeCount.value = placeIndex
+
+            it!!._selectedPeopleMap.observe(requireActivity(), Observer {
+                it.get(infoView.tag as Int) ?: return@Observer
+                Log.v(TAG, "_selectedPeopleMap, Observer(...) : $it")
+                if (it!!.get(infoView.tag as Int)!!.mPeopleList.isEmpty()) {
+                    hideAddedPeopleView(infoView)
+                } else {
+                    showAddedPeopleView(infoView, it!!.get(infoView.tag as Int)!!)
+                }
+            })
+
+        }
+        return infoView
+    }
+
+    private fun showSelectPeopleDialog(tag:String){
         Log.v(TAG,"showSelectPeopleDialog(...)")
         var selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
         selectPeopleDialog.show(requireActivity().supportFragmentManager, tag)
     }
 
-    fun showAddedPeopleView(view : ConstraintLayout, nnbObj: NNBObj) {
+    private fun showAddedPeopleView(view : ConstraintLayout, nnbObj: NNBObj) {
         Log.v(TAG,"showAddedPeopleView(...), ${view.txt_index.text}")
         view.txt_added_people.apply {
             this!!.text = StringUtils().getPeopleList(nnbObj.mPeopleList)
@@ -118,14 +128,13 @@ class AddPlaceFragment : BaseFragment() {
         view.layout_group_added_people.visibility = View.VISIBLE
     }
 
-    fun hideAddedPeopleView(view : ConstraintLayout) {
+    private fun hideAddedPeopleView(view : ConstraintLayout) {
         Log.v(TAG,"hideAddedPeopleView(...), ${view.txt_index}")
         view.layout_group_added_people.visibility = View.GONE
     }
 
-    fun getTextWatcher(viewType : String, placeId:Int) : TextWatcher {
-        val textWatcher  = object :
-            TextWatcherAdapter() {
+    private fun getTextWatcher(viewType : String, placeId:Int) : TextWatcher {
+        return object : TextWatcherAdapter() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)
                 if (TYPE_EDIT_PLACE_NAME.equals(viewType)) {
@@ -135,6 +144,5 @@ class AddPlaceFragment : BaseFragment() {
                 }
             }
         }
-        return textWatcher
     }
 }

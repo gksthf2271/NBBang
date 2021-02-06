@@ -27,7 +27,7 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
     val _viewPagerAdapter: MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
     val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
     val _placeCount: MutableLiveData<Int> = MutableLiveData()
-    var mDutchPayMap = mutableMapOf<String, Int>()
+    private var mDutchPayMap = mutableMapOf<String, Int>()
 
     val mPageViewList: MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),
