@@ -23,32 +23,63 @@
             android:textColor="@color/search_text_color"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/layout_group"
-            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintBottom_toTopOf="@id/layout_guide"
+            app:layout_constraintHeight_percent="0.25"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_group"
-            android:layout_width="match_parent"
+            android:id="@+id/layout_guide"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="20dp"
-            app:layout_constraintHeight_percent="0.7"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title">
+            android:background="@drawable/layout_background_dot_line"
+            app:layout_constraintWidth_percent="0.95"
+            app:layout_constraintHeight_percent="0.73"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/txt_result"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_group"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintHeight_percent="0.87"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/txt_notify_copy"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/search_detail_dialog_top_draw"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/search_text_color_black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:text="no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명" />
-            </ScrollView>
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/txt_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/layout_rounded_not_circle"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/search_text_color_black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        tools:text="no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명" />
+                </ScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_notify_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:duplicateParentState="true"
+                app:layout_constraintHeight_percent="0.03"
+                android:background="@color/empty_background"
+                android:textSize="12sp"
+                android:text="길게 누르면 복사됩니다."
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/layout_group"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
