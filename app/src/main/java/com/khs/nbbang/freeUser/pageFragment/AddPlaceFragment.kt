@@ -45,13 +45,11 @@ class AddPlaceFragment : BaseFragment() {
                 requireActivity().application
             )
         ).get(PageViewModel::class.java)
-    }
 
-    override fun onStart() {
-        super.onStart()
         initView()
         addObserver()
     }
+
 
     private fun initView() {
         val rootView = mBinding.layoutGroup
