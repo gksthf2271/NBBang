@@ -6,15 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentPeopleCountBinding
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class PeopleCountFragment : BaseFragment() {
     lateinit var mBinding: FragmentPeopleCountBinding
+    val mViewModel : PageViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,13 +28,7 @@ class PeopleCountFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
-        mBinding.viewModel = ViewModelProvider(
-            requireActivity(),
-            PageViewModel.PageViewModelFactory(
-                requireActivity().supportFragmentManager,
-                requireActivity().application
-            )
-        ).get(PageViewModel::class.java)
+        mBinding.viewModel = mViewModel
         initView()
     }
 

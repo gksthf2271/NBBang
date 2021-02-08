@@ -2,29 +2,50 @@ package com.khs.nbbang.freeUser
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
-import com.khs.nbbang.base.BaseActivity
+import com.khs.nbbang.base.PageActivity
 import com.khs.nbbang.databinding.ActivityFreeUserBinding
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class FreeUserActivity : BaseActivity() {
+
+/**
+ * TODO
+ * Activity 간 Back Key 처리 필요
+ * KAKAO API 연동 시작 전 Koin 적용
+ */
+
+/**
+ *  inject() 의존성 주입 - Lazy 방식
+    val bb_inject1 : BB by inject()	// inject Type 유형 1 - Type by inject()
+    val bb_inject2 by inject<BB>()	// inject Type 유형 2 - by inject<Type>()
+
+ * get() 의존성 주입 - 바로 주입 방식
+    var bb_get1 : BB = get()		// get Tpye 유형 1 - Type = get()
+    var bb_get2 = get<BB>()		// get Type 유형 2 - get<Type>()
+
+ * Inject와 get 방식의 차이
+    inject - Lazy 방식의 주입, 해당 객체가 사용되는 시점에 의존성 주입
+    get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
+ */
+
+class FreeUserActivity : PageActivity(){
     lateinit var mBinding: ActivityFreeUserBinding
-    lateinit var mViewModel: PageViewModel
+    val mViewModel by viewModel<PageViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding =
             DataBindingUtil.setContentView(this@FreeUserActivity, R.layout.activity_free_user)
-        mViewModel = ViewModelProvider(this@FreeUserActivity, PageViewModel.PageViewModelFactory(supportFragmentManager, application)).get(PageViewModel::class.java)
+        mBinding.viewModel = mViewModel
         initView()
     }
 
     fun initView() {
-        mBinding.viewPager.adapter = mViewModel._viewPagerAdapter.value
+        mBinding.viewPager.adapter = getPageAdapter()
         mBinding.viewPager.currentItem = 0
         mBinding.viewPager.setPagingEnable(false)
-        mBinding.viewPager.offscreenPageLimit = mViewModel.mPageViewList.size - 2
+        mBinding.viewPager.offscreenPageLimit = mPageViewList.size - 2
         mBinding.viewIndicator.setViewPager(mBinding.viewPager)
     }
 }

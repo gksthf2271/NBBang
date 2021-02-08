@@ -1,43 +1,21 @@
 package com.khs.nbbang.freeUser.viewModel
 
-import android.app.Application
 import android.util.Log
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.khs.nbbang.base.BaseFragment
-import com.khs.nbbang.freeUser.pageFragment.AddPeopleFragment
-import com.khs.nbbang.freeUser.pageFragment.AddPlaceFragment
-import com.khs.nbbang.freeUser.pageFragment.PeopleCountFragment
-import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
-import com.khs.nbbang.page.CustomViewPagerAdapter
+import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.StringUtils
-import java.lang.NumberFormatException
-import java.util.*
-import kotlin.collections.HashMap
 
-class PageViewModel(fragmentManager: FragmentManager, application: Application) :
-    AndroidViewModel(application) {
+class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     val TAG = this.javaClass.name
     val _NNBLiveData: MutableLiveData<NNBObj> = MutableLiveData()
-    val _viewPagerAdapter: MutableLiveData<CustomViewPagerAdapter> = MutableLiveData()
     val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
     val _placeCount: MutableLiveData<Int> = MutableLiveData()
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
-    val mPageViewList: MutableList<BaseFragment> = mutableListOf(
-        PeopleCountFragment(),
-        AddPeopleFragment(),
-        AddPlaceFragment(),
-        ResultPageFragment()
-    )
-
     init {
-        _viewPagerAdapter.value = CustomViewPagerAdapter(fragmentManager, mPageViewList)
         _NNBLiveData.value = NNBObj()
         _selectedPeopleMap.value = HashMap()
         _placeCount.value = 0
@@ -192,18 +170,8 @@ class PageViewModel(fragmentManager: FragmentManager, application: Application) 
         }
     }
 
-
     override fun onCleared() {
         super.onCleared()
         Log.v(this.javaClass.name, ">>> onCleared")
-    }
-
-
-    //ViewModel에 파라미터를 넘겨주기 위한 구현
-    class PageViewModelFactory(val fragmentManager: FragmentManager, val application: Application) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return PageViewModel(fragmentManager, application) as T
-        }
     }
 }

@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
@@ -21,11 +20,14 @@ import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPlaceFragment : BaseFragment() {
     lateinit var mBinding : FragmentAddPlaceBinding
+
     val TYPE_EDIT_PLACE_NAME :String = "TYPE_EDIT_PLACE_NAME"
     val TYPE_EDIT_PRICE :String = "TYPE_EDIT_PRICE"
+    val mViewModel : PageViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,13 +40,7 @@ class AddPlaceFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
-        mBinding.viewModel = ViewModelProvider(
-            requireActivity(),
-            PageViewModel.PageViewModelFactory(
-                requireActivity().supportFragmentManager,
-                requireActivity().application
-            )
-        ).get(PageViewModel::class.java)
+        mBinding.viewModel = mViewModel
 
         initView()
         addObserver()

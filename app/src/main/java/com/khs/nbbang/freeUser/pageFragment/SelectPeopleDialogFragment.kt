@@ -11,18 +11,20 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.databinding.FragmentSelectPeopleBinding
 import com.khs.nbbang.freeUser.adapter.SelectPeopleAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.DisplayUtils
+import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SelectPeopleDialogFragment : DialogFragment(){
     val TAG = this.javaClass.name
     lateinit var mBinding: FragmentSelectPeopleBinding
     lateinit var mGridViewAdapter : SelectPeopleAdapter
+    val mViewModel : PageViewModel by sharedViewModel()
 
     companion object {
         @Volatile
@@ -50,13 +52,7 @@ class SelectPeopleDialogFragment : DialogFragment(){
         Log.v(TAG,"onViewCreated(...)")
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
-        mBinding.viewModel = ViewModelProvider(
-            requireActivity(),
-            PageViewModel.PageViewModelFactory(
-                requireActivity().supportFragmentManager,
-                requireActivity().application
-            )
-        ).get(PageViewModel::class.java)
+        mBinding.viewModel = mViewModel
         initView()
     }
 

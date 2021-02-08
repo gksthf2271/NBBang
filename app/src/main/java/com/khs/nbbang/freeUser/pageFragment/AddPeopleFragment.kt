@@ -8,22 +8,22 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.freeUser.PeopleNameWatcherCallback
 import com.khs.nbbang.freeUser.adapter.AddPeopleViewAdapter
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
-import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.ItemObj.NNBObj
+import com.khs.nbbang.page.ItemObj.People
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
-import java.lang.IndexOutOfBoundsException
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class AddPeopleFragment : BaseFragment() {
     lateinit var mBinding : FragmentAddPeopleBinding
     lateinit var mGridViewAdapter : AddPeopleViewAdapter
+    val mViewModel : PageViewModel by sharedViewModel()
     val DEFAULT_SIZE = 1
 
     override fun onCreateView(
@@ -37,14 +37,7 @@ class AddPeopleFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
-        mBinding.viewModel = ViewModelProvider(
-            requireActivity(),
-            PageViewModel.PageViewModelFactory(
-                requireActivity().supportFragmentManager,
-                requireActivity().application
-            )
-        ).get(PageViewModel::class.java)
-
+        mBinding.viewModel = mViewModel
         initView()
         observer()
     }

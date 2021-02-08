@@ -28,7 +28,8 @@ class MainActivity : BaseActivity() {
                 startActivityForResult(intent, REQUEST_FREE_USER)
             }
             LoginType.TYPE_KAKAO -> {
-
+                val intent = Intent(this, FreeUserActivity::class.java)
+                startActivityForResult(intent, REQUEST_FREE_USER)
             }
         }
     }
