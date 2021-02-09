@@ -8,13 +8,6 @@ import com.khs.nbbang.databinding.ActivityFreeUserBinding
 import com.khs.nbbang.freeUser.viewModel.PageViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
-/**
- * TODO
- * Activity 간 Back Key 처리 필요
- * KAKAO API 연동 시작 전 Koin 적용
- */
-
 /**
  *  inject() 의존성 주입 - Lazy 방식
     val bb_inject1 : BB by inject()	// inject Type 유형 1 - Type by inject()

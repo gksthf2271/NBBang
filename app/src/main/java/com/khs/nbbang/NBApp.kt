@@ -52,24 +52,3 @@ open class NBApp : Application() {
         }
     }
 }
-
-////viewModel을 주입하기 위한 module
-//val myViewModel = module {
-//    //vieModel 정의
-//    viewModel {
-//        ExampleViewModel(get()) //PrintService를 get()으로 주입
-//    }
-//}
-//
-//val myModule = module {
-//    single {
-//        PackageRepository(androidContext())
-//    }
-//
-//    single {
-//        PrintService(get())
-//    }
-//
-//    factory {
-//        InjectCountData()
-//    }
