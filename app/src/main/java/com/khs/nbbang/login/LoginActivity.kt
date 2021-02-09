@@ -3,51 +3,50 @@ package com.khs.nbbang.login
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseActivity
+import com.khs.nbbang.databinding.ActivityLoginBinding
 import com.khs.nbbang.freeUser.FreeUserActivity
 import com.khs.nbbang.kakaoUser.KakaoUserActivity
-import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity() {
+    lateinit var mBinding: ActivityLoginBinding
     //Koin을 이용한 ViewModel 주입
     val mLoginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
+        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
+        mBinding.viewModel = mLoginViewModel
         initObserver()
-        initView()
     }
 
     fun initObserver() {
-        mLoginViewModel.mLoginCookie.observe(this, Observer{
-            Log.d(TAG,"Login Cookie >>> ${it.cookieData}")
-            if (!TextUtils.isEmpty(it.cookieData)) {
-                launch<KakaoUserActivity>(startForResult, null)
-            }
-        })
+        mBinding.viewModel.let {
+            it!!.mLoginCookie.observe(this, Observer {
+                Log.d(TAG, "Login Cookie >>> ${it.cookieData}")
+                if (!TextUtils.isEmpty(it.cookieData)) {
+                    loadKakaoUserActivity()
+                }
+            })
 
-        mLoginViewModel.mIsLogin.observe(this, Observer {
-            when (it) {
-                true -> launch<KakaoUserActivity>(startForResult, null)
-                false -> launch<FreeUserActivity>(startForResult, null)
-            }
-        })
+            it!!.mIsLogin.observe(this, Observer {
+                when (it) {
+                    true -> loadKakaoUserActivity()
+                    false -> loadFreeUserActivity()
+                }
+            })
+        }
     }
 
-    fun initView() {
-        btn_kakao_login.setOnClickListener {
-            Log.v(TAG,"btn_kakao_login clicked(...)")
-            mLoginViewModel.login()
-        }
+    fun loadFreeUserActivity(){
+        launch<FreeUserActivity>(startForResult, null)
+    }
 
-        btn_free.setOnClickListener {
-            Log.v(TAG,"btn_free clicked(...)")
-            launch<FreeUserActivity>(startForResult, null)
-        }
+    fun loadKakaoUserActivity() {
+        launch<KakaoUserActivity>(startForResult, null)
     }
 }
