@@ -2,9 +2,9 @@ package com.khs.nbbang.login
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.AuthType
 import com.kakao.sdk.user.UserApiClient
@@ -12,15 +12,19 @@ import com.khs.nbbang.base.BaseViewModel
 
 class LoginViewModel(context: Context) : BaseViewModel() {
 
-    private val _mLoginLiveData: MutableLiveData<LoginCookie> = MutableLiveData()
+    private val _loginLiveData: MutableLiveData<LoginCookie> = MutableLiveData()
+    private val _isLogin: MutableLiveData<Boolean> = MutableLiveData()
     var mContext : Context
 
     init {
         mContext = context
     }
 
+    val mIsLogin: LiveData<Boolean>
+        get() = _isLogin
+
     val mLoginCookie: LiveData<LoginCookie>
-        get() = _mLoginLiveData
+        get() = _loginLiveData
 
     fun checkCookie() {
 
@@ -32,12 +36,15 @@ class LoginViewModel(context: Context) : BaseViewModel() {
             LoginClient.instance.loginWithKakaoTalk(mContext) { token, error ->
                 if (error != null) {
                     Log.e(TAG, "로그인 실패", error)
+                    _isLogin.postValue(false)
                 } else if (token != null) {
                     Log.i(TAG, "로그인 성공 ${token.accessToken}")
+                    _isLogin.postValue(true)
                 }
             }
         } else {
-            Log.v(TAG,"카카오톡 설치 필요")
+            Toast.makeText(mContext, "카카오톡 설치 필요!", Toast.LENGTH_SHORT).show()
+            _isLogin.postValue(false)
         }
     }
 

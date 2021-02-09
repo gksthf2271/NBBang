@@ -1,9 +1,9 @@
 package com.khs.nbbang
 
-import android.content.Intent
 import android.os.Bundle
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.freeUser.FreeUserActivity
+import com.khs.nbbang.kakaoUser.KakaoUserActivity
 import com.khs.nbbang.login.LoginActivity
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginType
@@ -24,12 +24,10 @@ class MainActivity : BaseActivity() {
 
         when(loginType) {
             LoginType.TYPE_FREE -> {
-                val intent = Intent(this, FreeUserActivity::class.java)
-                startActivityForResult(intent, REQUEST_FREE_USER)
+                launch<FreeUserActivity>(startForResult, null)
             }
             LoginType.TYPE_KAKAO -> {
-                val intent = Intent(this, FreeUserActivity::class.java)
-                startActivityForResult(intent, REQUEST_FREE_USER)
+                launch<KakaoUserActivity>(startForResult, null)
             }
         }
     }

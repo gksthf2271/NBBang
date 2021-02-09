@@ -1,5 +1,7 @@
 package com.khs.nbbang.kakaoUser
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
@@ -20,6 +22,12 @@ class KakaoUserActivity : PageActivity() {
     }
 
     fun initView() {
+        val text = when (intent.getIntExtra("input", 0)) {  // 받아온 데이터로 처리
+            100 -> "성공"
+            else -> "없음"
+        }
+        setResult(Activity.RESULT_OK, Intent().apply { putExtra("result", text) })
+
         mBinding.viewPager.adapter = getPageAdapter()
         mBinding.viewPager.currentItem = 0
         mBinding.viewPager.setPagingEnable(false)
