@@ -31,7 +31,7 @@ class FreeUserActivity : PageActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding =
-            DataBindingUtil.setContentView(this@FreeUserActivity, R.layout.activity_free_user)
+            DataBindingUtil.setContentView(this, R.layout.activity_free_user)
         mBinding.viewModel = mViewModel
         initView()
     }

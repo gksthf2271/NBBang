@@ -42,10 +42,6 @@ open class NBApp : Application() {
         viewModel {
             LoginViewModel(get())
         }
-//
-//        viewModel {
-//            SelectPageViewModel(get())
-//        }
 
         viewModel {
             PageViewModel(get())
