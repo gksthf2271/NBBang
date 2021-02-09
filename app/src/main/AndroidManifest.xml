@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".freeUser.FreeUserActivity"/>
+        <activity android:name=".page.FreeUserActivity"/>
         <activity android:name=".MainActivity"/>
 
         //Redirection for KAKAO

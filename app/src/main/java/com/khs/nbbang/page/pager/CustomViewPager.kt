@@ -1,4 +1,4 @@
-package com.khs.nbbang.page
+package com.khs.nbbang.page.pager
 
 import android.content.Context
 import android.text.TextUtils
@@ -7,10 +7,10 @@ import android.util.Log
 import android.view.MotionEvent
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.khs.nbbang.freeUser.pageFragment.AddPeopleFragment
-import com.khs.nbbang.freeUser.pageFragment.AddPlaceFragment
-import com.khs.nbbang.freeUser.pageFragment.PeopleCountFragment
-import com.khs.nbbang.freeUser.pageFragment.ResultPageFragment
+import com.khs.nbbang.page.pageFragment.AddPeopleFragment
+import com.khs.nbbang.page.pageFragment.AddPlaceFragment
+import com.khs.nbbang.page.pageFragment.PeopleCountFragment
+import com.khs.nbbang.page.pageFragment.ResultPageFragment
 import kotlinx.android.synthetic.main.fragment_people_count.*
 
 class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {

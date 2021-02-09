@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser.pageFragment
+package com.khs.nbbang.page.pageFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentPeopleCountBinding
-import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import com.khs.nbbang.page.viewModel.PageViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 

@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityLoginBinding
-import com.khs.nbbang.freeUser.FreeUserActivity
+import com.khs.nbbang.page.FreeUserActivity
 import com.khs.nbbang.kakaoUser.KakaoUserActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

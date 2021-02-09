@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser.pageFragment
+package com.khs.nbbang.page.pageFragment
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentResultPageBinding
-import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import com.khs.nbbang.page.viewModel.PageViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class ResultPageFragment : BaseFragment() {

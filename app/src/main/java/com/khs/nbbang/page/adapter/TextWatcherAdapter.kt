@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser.adapter
+package com.khs.nbbang.page.adapter
 
 import android.text.Editable
 import android.text.TextWatcher

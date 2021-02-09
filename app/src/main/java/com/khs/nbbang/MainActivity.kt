@@ -10,8 +10,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityMainBinding
-import com.khs.nbbang.freeUser.FreeUserActivity
-import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import com.khs.nbbang.page.FreeUserActivity
+import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.kakaoUser.KakaoUserActivity
 import com.khs.nbbang.login.LoginActivity
 import com.khs.nbbang.login.LoginType

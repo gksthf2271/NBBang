@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser.pageFragment
+package com.khs.nbbang.page.pageFragment
 
 import android.content.Context
 import android.os.Bundle
@@ -14,8 +14,8 @@ import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
-import com.khs.nbbang.freeUser.adapter.TextWatcherAdapter
-import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import com.khs.nbbang.page.adapter.TextWatcherAdapter
+import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*

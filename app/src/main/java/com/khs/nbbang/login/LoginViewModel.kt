@@ -9,7 +9,6 @@ import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.AuthType
 import com.kakao.sdk.user.UserApiClient
 import com.khs.nbbang.base.BaseViewModel
-import com.khs.nbbang.freeUser.FreeUserActivity
 
 class LoginViewModel(context: Context) : BaseViewModel() {
 

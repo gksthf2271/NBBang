@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser.viewModel
+package com.khs.nbbang.page.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

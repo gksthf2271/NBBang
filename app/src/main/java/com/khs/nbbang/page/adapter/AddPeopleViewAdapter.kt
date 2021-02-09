@@ -1,58 +1,67 @@
-package com.khs.nbbang.freeUser.adapter
+package com.khs.nbbang.page.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
+import com.khs.nbbang.page.PeopleNameWatcherCallback
 import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.utils.DisplayUtils
-import kotlinx.android.synthetic.main.cview_text_people.view.*
+import kotlinx.android.synthetic.main.cview_edit_people.view.*
 
-class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : BaseAdapter() {
+class AddPeopleViewAdapter(context: Context, itemList: MutableList<People>, callback: PeopleNameWatcherCallback) : BaseAdapter() {
     val TAG = this.javaClass.name
     var mItemList: MutableList<People>
     var mItemView : MutableList<View>
     var mContext: Context
-    var mSelectNNBObj : NNBObj?
+    val mCallback : PeopleNameWatcherCallback
 
     init {
         mItemList = itemList
         mContext = context
         mItemView = mutableListOf()
-        mSelectNNBObj = null
+        mCallback = callback
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         if (mItemView.size <= position) {
-            mItemView.add(position, addPeopleView(parent, position))
+            if (position == 0) {
+                mItemView.add(position,addPlusView(parent))
+            } else {
+                mItemView.add(position,addPeopleView(parent, position))
+            }
         }
         return mItemView.get(position)
+    }
+
+    private fun addPlusView(parent: ViewGroup?) : View {
+        val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var itemView: ConstraintLayout =
+            inflater.inflate(R.layout.cview_edit_people_plus, parent, false) as ConstraintLayout
+        var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
+
+        itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
+
+        return itemView
     }
 
     private fun addPeopleView(parent: ViewGroup?, position: Int) : View {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var itemView: ConstraintLayout =
-            inflater.inflate(R.layout.cview_text_people, parent, false) as ConstraintLayout
+            inflater.inflate(R.layout.cview_edit_people, parent, false) as ConstraintLayout
         var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
-        var people = mItemList.get(position)
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
-        itemView.tag = people
-        itemView.checkbox_name.text = people.mName
-
-        mSelectNNBObj?.let {
-            for (obj in it.mPeopleList){
-                if (people == obj) {
-                    Log.v(TAG,"Select People, ${people.mName}")
-                    itemView.checkbox_name.isChecked = true
-                }
+        itemView.txt_name.setText(mItemList.get(position).mName)
+        itemView.txt_name.addTextChangedListener(object : TextWatcherAdapter() {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                super.onTextChanged(s, start, before, count)
+                mCallback.onCallback(position,s.toString())
             }
-        }
+        })
         return itemView
     }
 
@@ -75,20 +84,5 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : Ba
     fun addItem(index: Int, people: People) {
         mItemList.add(index, people)
         notifyDataSetChanged()
-    }
-
-    fun getSelectedPeopleList() : MutableList<People>{
-        var checkedPeopleList = mutableListOf<People>()
-        for (index in 0 until mItemView.size) {
-            if (mItemView.get(index).tag is People && mItemView.get(index).checkbox_name.isChecked) {
-                checkedPeopleList.add(mItemView.get(index).tag as People)
-            }
-        }
-        return checkedPeopleList
-    }
-
-    fun setSelectPeople(NNB: NNBObj) {
-        Log.v(TAG,"selectPeople, $NNB")
-        mSelectNNBObj = NNB
     }
 }

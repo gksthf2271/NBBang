@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.khs.nbbang.freeUser.viewModel.PageViewModel" />
+            type="com.khs.nbbang.page.viewModel.PageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

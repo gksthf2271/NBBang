@@ -5,14 +5,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.khs.nbbang.freeUser.viewModel.PageViewModel" />
+            type="com.khs.nbbang.page.viewModel.PageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.khs.nbbang.page.CustomViewPager
+        <com.khs.nbbang.page.pager.CustomViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"

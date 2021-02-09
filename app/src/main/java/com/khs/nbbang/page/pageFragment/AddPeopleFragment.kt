@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser.pageFragment
+package com.khs.nbbang.page.pageFragment
 
 import android.os.Bundle
 import android.util.Log
@@ -11,9 +11,9 @@ import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
-import com.khs.nbbang.freeUser.PeopleNameWatcherCallback
-import com.khs.nbbang.freeUser.adapter.AddPeopleViewAdapter
-import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import com.khs.nbbang.page.PeopleNameWatcherCallback
+import com.khs.nbbang.page.adapter.AddPeopleViewAdapter
+import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.NNBObj
 import com.khs.nbbang.page.ItemObj.People
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
@@ -77,7 +77,8 @@ class AddPeopleFragment : BaseFragment() {
     }
 
     fun initView() {
-        mGridViewAdapter = AddPeopleViewAdapter(requireContext(), mutableListOf(), object : PeopleNameWatcherCallback {
+        mGridViewAdapter = AddPeopleViewAdapter(requireContext(), mutableListOf(), object :
+            PeopleNameWatcherCallback {
             override fun onCallback(peopleId: Int, name: String) {
 //                mBinding.viewModel.let {
 //                    it!!.savePeopleName(peopleId - DEFAULT_SIZE, name)

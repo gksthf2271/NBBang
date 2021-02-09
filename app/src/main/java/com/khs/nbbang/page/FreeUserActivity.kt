@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser
+package com.khs.nbbang.page
 
 import android.app.Activity
 import android.content.Intent
@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
 import com.khs.nbbang.base.PageActivity
 import com.khs.nbbang.databinding.ActivityFreeUserBinding
-import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import com.khs.nbbang.page.viewModel.PageViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**

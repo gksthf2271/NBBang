@@ -1,4 +1,4 @@
-package com.khs.nbbang.freeUser.pageFragment
+package com.khs.nbbang.page.pageFragment
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,12 +13,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.databinding.FragmentSelectPeopleBinding
-import com.khs.nbbang.freeUser.adapter.SelectPeopleAdapter
-import com.khs.nbbang.freeUser.viewModel.PageViewModel
+import com.khs.nbbang.page.adapter.SelectPeopleAdapter
+import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.DisplayUtils
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class SelectPeopleDialogFragment : DialogFragment(){
     val TAG = this.javaClass.name
