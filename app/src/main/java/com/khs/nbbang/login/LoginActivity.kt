@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityLoginBinding
@@ -21,32 +22,36 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         mBinding.viewModel = mLoginViewModel
-        initObserver()
+//        initObserver()
     }
 
-    fun initObserver() {
-        mBinding.viewModel.let {
-            it!!.mLoginCookie.observe(this, Observer {
-                Log.d(TAG, "Login Cookie >>> ${it.cookieData}")
-                if (!TextUtils.isEmpty(it.cookieData)) {
-                    loadKakaoUserActivity()
-                }
-            })
+//    fun initObserver() {
+//        mBinding.viewModel.let {
+//            it!!.mLoginCookie.observe(this, Observer {
+//                Log.d(TAG, "Login Cookie >>> ${it.cookieData}")
+//                if (!TextUtils.isEmpty(it.cookieData)) {
+//                    loadKakaoUserActivity()
+//                }
+//            })
+//
+//            it!!.mIsLogin.observe(this, Observer {
+//                when (it) {
+//                    true -> loadKakaoUserActivity()
+//                    false -> loadMainActivity()
+//                }
+//            })
+//        }
+//    }
 
-            it!!.mIsLogin.observe(this, Observer {
-                when (it) {
-                    true -> loadKakaoUserActivity()
-                    false -> loadFreeUserActivity()
-                }
-            })
-        }
-    }
+//    fun loadMainActivity() {
+//        launch<MainActivity>(startForResult, null)
+//    }
 
-    fun loadFreeUserActivity(){
-        launch<FreeUserActivity>(startForResult, null)
-    }
-
-    fun loadKakaoUserActivity() {
-        launch<KakaoUserActivity>(startForResult, null)
-    }
+//    fun loadFreeUserActivity(){
+//        launch<FreeUserActivity>(startForResult, null)
+//    }
+//
+//    fun loadKakaoUserActivity() {
+//        launch<KakaoUserActivity>(startForResult, null)
+//    }
 }

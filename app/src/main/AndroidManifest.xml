@@ -15,18 +15,17 @@
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".page.FreeUserActivity"/>
-        <activity android:name=".MainActivity"/>
+<!--        <activity android:name=".page.FreeUserActivity"/>-->
+<!--        <activity android:name=".login.LoginActivity"/>-->
 
-        //Redirection for KAKAO
+        <!--Redirection for KAKAO -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

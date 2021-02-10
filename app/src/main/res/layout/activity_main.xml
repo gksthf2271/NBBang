@@ -4,8 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="viewModel"
+            name="pageViewModel"
             type="com.khs.nbbang.page.viewModel.PageViewModel" />
+
+        <variable
+            name="loginViewModel"
+            type="com.khs.nbbang.login.LoginViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -26,7 +30,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/activity_main_drawer" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

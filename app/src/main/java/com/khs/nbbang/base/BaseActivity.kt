@@ -9,7 +9,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.khs.nbbang.login.LoginActivity
 import com.khs.nbbang.login.LoginType
 
 open class BaseActivity : AppCompatActivity() {
