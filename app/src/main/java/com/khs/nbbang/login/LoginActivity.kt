@@ -1,16 +1,10 @@
 package com.khs.nbbang.login
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityLoginBinding
-import com.khs.nbbang.page.FreeUserActivity
-import com.khs.nbbang.kakaoUser.KakaoUserActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity() {

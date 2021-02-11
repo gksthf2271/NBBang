@@ -13,7 +13,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.login.LoginViewModel
-import com.khs.nbbang.page.DutchPayMainFragment
 import com.khs.nbbang.page.viewModel.PageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*

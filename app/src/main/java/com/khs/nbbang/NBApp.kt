@@ -13,6 +13,20 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
+/**
+ *  inject() 의존성 주입 - Lazy 방식
+val bb_inject1 : BB by inject()	// inject Type 유형 1 - Type by inject()
+val bb_inject2 by inject<BB>()	// inject Type 유형 2 - by inject<Type>()
+
+ * get() 의존성 주입 - 바로 주입 방식
+var bb_get1 : BB = get()		// get Tpye 유형 1 - Type = get()
+var bb_get2 = get<BB>()		// get Type 유형 2 - get<Type>()
+
+ * Inject와 get 방식의 차이
+inject - Lazy 방식의 주입, 해당 객체가 사용되는 시점에 의존성 주입
+get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
+ */
+
 open class NBApp : Application() {
     val TAG = this.javaClass.name
     override fun onCreate() {

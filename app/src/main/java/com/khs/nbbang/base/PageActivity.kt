@@ -1,6 +1,6 @@
 package com.khs.nbbang.base
 
-import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.khs.nbbang.page.dutchPayPageFragments.AddPeopleFragment
 import com.khs.nbbang.page.dutchPayPageFragments.AddPlaceFragment
 import com.khs.nbbang.page.dutchPayPageFragments.PeopleCountFragment
@@ -15,9 +15,10 @@ open class PageActivity : BaseActivity() {
         ResultPageFragment()
     )
 
-    fun getPageAdapter() : PagerAdapter{
+    fun getPageAdapter() : FragmentStateAdapter{
         return CustomViewPagerAdapter(
             supportFragmentManager,
+            lifecycle,
             mPageViewList
         )
     }
