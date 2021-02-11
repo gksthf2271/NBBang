@@ -14,7 +14,7 @@ import com.khs.nbbang.page.dutchPayPageFragments.ResultPageFragment
 import kotlinx.android.synthetic.main.fragment_people_count.*
 
 class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
-    val DEBUG = false
+    val DEBUG = true
     val TAG = this.javaClass.name
     private var mEnable: Boolean = false
 
@@ -42,6 +42,7 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
 
     fun checkPagingEnable(fragment : Fragment) : Boolean {
         var result = true
+        if (!fragment.isAdded) return result
         if (fragment is AddPeopleFragment) {
             if (DEBUG) Log.v(TAG,"currentFragment : ${AddPeopleFragment::class.java.name}")
             result = true
@@ -52,7 +53,7 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
             if (DEBUG) Log.v(TAG,"currentFragment : ${PeopleCountFragment::class.java.name}")
             var countNum = fragment.txt_count.text
             result.apply {
-                if (TextUtils.isEmpty(countNum) || countNum.toString().equals("0")){
+                if (TextUtils.isEmpty(countNum) || countNum.toString().equals("0")) {
                     result = false
                 }
             }

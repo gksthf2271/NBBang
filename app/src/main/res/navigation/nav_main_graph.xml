@@ -5,14 +5,33 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeMenuFragment">
 
+    <action
+        android:id="@+id/action_go_to_home_menu"
+        app:destination="@id/homeMenuFragment"
+        app:popUpTo="@id/homeMenuFragment"
+        app:popUpToInclusive="true" />
+
     <fragment
         android:id="@+id/homeMenuFragment"
         android:name="com.khs.nbbang.page.HomeMenuFragment"
         android:label="메뉴"
         tools:layout="@layout/fragment_home_menu">
+
         <action
-            android:id="@+id/home_menu_to_dutch_pay_home"
+            android:id="@+id/action_home_menu_to_history"
+            app:destination="@id/historyFragment" />
+
+        <action
+            android:id="@+id/action_home_menu_to_dutch_pay_home"
             app:destination="@id/dutchPayMainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.khs.nbbang.history.HistoryFragment"
+        android:label="History"
+        tools:layout="@layout/fragment_history">
+
     </fragment>
 
     <fragment
@@ -24,5 +43,10 @@
         <argument android:name="api"
             android:defaultValue="api"/>
         <deepLink app:uri="page/{api}" />
+
     </fragment>
+
+    <include
+        app:graph="@navigation/nav_view_pager" />
+
 </navigation>

@@ -3,6 +3,7 @@ package com.khs.nbbang
 import android.app.Application
 import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
+import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginViewModel
@@ -45,6 +46,10 @@ open class NBApp : Application() {
 
         viewModel {
             PageViewModel(get())
+        }
+
+        viewModel {
+            HistoryViewModel(get())
         }
     }
 }

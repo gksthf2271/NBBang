@@ -10,9 +10,11 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.login.LoginViewModel
+import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HomeMenuFragment : BaseFragment() {
@@ -44,6 +46,7 @@ class HomeMenuFragment : BaseFragment() {
             })
 
             it!!.mIsLogin.observe(requireActivity(), Observer {
+                Log.v(TAG,"TEST, isLogin : $it")
                 when (it) {
                     true -> loadFreeUserFragment()
                     false -> loadFreeUserFragment()
@@ -61,7 +64,7 @@ class HomeMenuFragment : BaseFragment() {
     }
 
     fun loadFreeUserFragment() {
-        Navigation.findNavController(requireActivity(), R.id.btn_free).navigate(
-            R.id.home_menu_to_dutch_pay_home)
+        Navigation.findNavController(requireView()).navigate(
+            R.id.action_home_menu_to_dutch_pay_home)
     }
 }
