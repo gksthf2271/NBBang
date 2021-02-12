@@ -7,9 +7,15 @@
 
     <action
         android:id="@+id/action_go_to_home_menu"
-        app:destination="@id/homeMenuFragment"
-        app:popUpTo="@id/homeMenuFragment"
-        app:popUpToInclusive="true" />
+        app:destination="@id/homeMenuFragment" />
+
+    <action
+        android:id="@+id/action_go_to_dutch_pay"
+        app:destination="@id/dutchPayMainFragment" />
+
+    <action
+        android:id="@+id/action_go_to_history"
+        app:destination="@id/historyFragment" />
 
     <fragment
         android:id="@+id/homeMenuFragment"
@@ -44,9 +50,17 @@
             android:defaultValue="api"/>
         <deepLink app:uri="page/{api}" />
 
+        <action
+            android:id="@+id/action_dutch_pay_home_to_history"
+            app:destination="@id/historyFragment"/>
+
+        <action
+            android:id="@+id/action_dutch_pay_home_to_home_menu"
+            app:destination="@id/homeMenuFragment"/>
+
     </fragment>
 
-    <include
-        app:graph="@navigation/nav_view_pager" />
+<!--    <include-->
+<!--        app:graph="@navigation/nav_view_pager" />-->
 
 </navigation>

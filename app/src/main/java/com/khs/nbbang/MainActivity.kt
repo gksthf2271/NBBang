@@ -3,10 +3,9 @@ package com.khs.nbbang
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -42,6 +41,7 @@ class MainActivity : BaseActivity() {
 
         if (savedInstanceState == null) {
             loadHome()
+            navigateDestination()
         }
     }
 
@@ -53,22 +53,20 @@ class MainActivity : BaseActivity() {
         mAppBarConfiguration = AppBarConfiguration(setOf(
             R.id.nav_home, R.id.nav_history, R.id.nav_settings), drawer_layout)
         setupActionBarWithNavController(navController, mAppBarConfiguration)
-        addNaviListener(navController)
+        addNaviListener()
 
     }
 
-    private fun addNaviListener(navController: NavController) {
+    private fun addNaviListener() {
         nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     mNavItemIndex = 0
                     CURRENT_TAG = TAG_HOME
-                    mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
                 }
                 R.id.nav_history -> {
                     mNavItemIndex = 1
                     CURRENT_TAG = TAG_HISTORY
-                    mNavHostFragment.navController.navigate(R.id.action_home_menu_to_history)
                 }
                 R.id.nav_settings -> {
                     mNavItemIndex = 2
@@ -76,16 +74,9 @@ class MainActivity : BaseActivity() {
                 }
                 else -> mNavItemIndex = 0
             }
-            menuItem.isChecked = true
+            selectNavMenu()
+            navigateDestination()
             true
-        }
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.homeMenuFragment) {
-                toolbar.visibility = View.VISIBLE
-            } else {
-                toolbar.visibility = View.GONE
-            }
         }
     }
 
@@ -103,15 +94,10 @@ class MainActivity : BaseActivity() {
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
-            return
         } else {
-            if (supportFragmentManager.backStackEntryCount > 0) {
-                supportFragmentManager.popBackStack()
-            } else {
-                loadHome()
-            }
+            loadHome()
+            navigateDestination()
         }
-        super.onBackPressed()
     }
 
     private fun loadHome(){
@@ -123,5 +109,18 @@ class MainActivity : BaseActivity() {
 
     private fun selectNavMenu() {
         nav_view.menu.getItem(mNavItemIndex).isChecked = true
+    }
+
+    private fun navigateDestination(){
+        when (CURRENT_TAG) {
+            TAG_HOME -> mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
+            TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
+            TAG_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
+        }
+    }
+
+    fun currentDestination() : FragmentNavigator.Destination {
+        Log.v(TAG,"currentDestination : ${(mNavHostFragment.navController.currentDestination as FragmentNavigator.Destination).className}")
+        return mNavHostFragment.navController.currentDestination as FragmentNavigator.Destination
     }
 }

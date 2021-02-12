@@ -6,16 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.login.LoginViewModel
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
@@ -33,29 +33,30 @@ class HomeMenuFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
-        initObserver()
+
+        initView()
     }
 
-    fun initObserver() {
-        mBinding.viewModel.let {
-            it!!.mLoginCookie.observe(requireActivity(), Observer {
-                Log.d(TAG, "Login Cookie >>> ${it.cookieData}")
-                if (!TextUtils.isEmpty(it.cookieData)) {
-                    loadFreeUserFragment()
-                }
-            })
+    private fun initView(){
+        mBinding.btnFree.setOnClickListener {
+            loadFreeUserFragment()
+        }
 
-            it!!.mIsLogin.observe(requireActivity(), Observer {
-                Log.v(TAG,"TEST, isLogin : $it")
-                when (it) {
-                    true -> loadFreeUserFragment()
-                    false -> loadFreeUserFragment()
-                }
-            })
+        mBinding.btnKakaoLogin.setOnClickListener {
+            mBinding.viewModel.let {
+                it!!.mLoginCookie.observe(requireActivity(), Observer {
+                    Log.d(TAG, "Login Cookie >>> ${it.cookieData}")
+                    if (!TextUtils.isEmpty(it.cookieData)) {
+                        loadKakaoUserFragment()
+                    }
+                })
+            }
         }
     }
 
     fun loadKakaoUserFragment() {
+        Toast.makeText(requireContext(),"카카오 API 실행", Toast.LENGTH_SHORT).show()
+
 //        val bundle = bundleOf("api" to myDataset[position])
 //
 //        Navigation.findNavController(holder.item).navigate(
@@ -64,7 +65,6 @@ class HomeMenuFragment : BaseFragment() {
     }
 
     fun loadFreeUserFragment() {
-        Navigation.findNavController(requireView()).navigate(
-            R.id.action_home_menu_to_dutch_pay_home)
+        requireActivity().nav_host_fragment.findNavController().navigate(R.id.action_home_menu_to_dutch_pay_home)
     }
 }

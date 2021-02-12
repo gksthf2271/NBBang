@@ -39,7 +39,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
-                android:onClick="@{() -> viewModel.freeUser()}"
                 android:text="비회원 사용"
                 android:textSize="17sp"
                 android:textStyle="bold"

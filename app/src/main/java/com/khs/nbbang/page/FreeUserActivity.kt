@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
-import com.khs.nbbang.base.PageActivity
 import com.khs.nbbang.databinding.ActivityFreeUserBinding
 import com.khs.nbbang.page.viewModel.PageViewModel
 import org.koin.android.viewmodel.ext.android.viewModel

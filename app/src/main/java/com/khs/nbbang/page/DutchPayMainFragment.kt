@@ -26,7 +26,7 @@ class DutchPayMainFragment : BaseFragment() {
     lateinit var mBinding : FragmentPageHomeBinding
     val mViewModel: PageViewModel by sharedViewModel()
 
-    val mPageViewList: MutableList<BaseFragment> = mutableListOf(
+    private val mPageViewList: MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),
         AddPeopleFragment(),
         AddPlaceFragment(),
@@ -48,7 +48,7 @@ class DutchPayMainFragment : BaseFragment() {
         initView()
     }
 
-    fun initView() {
+    private fun initView() {
         mBinding.viewPager.adapter = CustomViewPagerAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,

@@ -31,6 +31,7 @@ class LoginViewModel(context: Context) : BaseViewModel() {
     }
 
     fun freeUser() {
+        Log.v(TAG,"freeUser(...)")
         _isLogin.postValue(false)
     }
 
