@@ -1,5 +1,20 @@
 N빵
 
+사용 기술 스택
+1. Language
+   - Kotlin
+2. UI
+   - Navigation Drawer
+   - ViewPager2
+3. DI
+   - Koin
+4. Network/비동기 처리
+   - RxJava
+   - Retrofit2
+5. Data Source
+   - Kakao Api
+   - Naver Api
+
 ————————————————————————————
 기본 필수 기능
 
