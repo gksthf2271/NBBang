@@ -6,6 +6,7 @@ N빵
 2. UI
    - Navigation Drawer
    - ViewPager2
+   - 등.. 기타 ui components
 3. DI
    - Koin
 4. Network/비동기 처리
