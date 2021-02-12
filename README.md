@@ -15,6 +15,8 @@ N빵
 5. Data Source
    - Kakao Api
    - Naver Api
+6. DB
+   - Room
 
 ————————————————————————————
 기본 필수 기능
