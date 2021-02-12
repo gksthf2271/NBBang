@@ -9,10 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9d9bc6-569a-4764-918e-44c3394575da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" />
-    </list>
+    <list default="true" id="ad9d9bc6-569a-4764-918e-44c3394575da" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,7 +167,7 @@
         <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="com.khs.nbbang.login.LoginActivity" />
+      <option name="ACTIVITY_CLASS" value="com.khs.nbbang.MainActivity" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
@@ -196,20 +193,22 @@
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
     <state x="421" y="308" key="#PSD/0.25.1792.1095@0.25.1792.1095" timestamp="1612767376167" />
-    <state x="360" y="213" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604559264136">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="360" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1613119608650">
+      <screen x="0" y="25" width="1792" height="1095" />
     </state>
     <state x="360" y="213" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604559264136" />
+    <state x="360" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1613119608650" />
     <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser" timestamp="1610348396669">
       <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="675" y="294" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1097@0.23.1792.1097" timestamp="1605606495621" />
     <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607492615694" />
     <state x="964" y="286" key="#com.intellij.ide.util.MemberChooser/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1610348396669" />
-    <state x="633" y="342" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1604559205018">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="633" y="343" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1613119606324">
+      <screen x="0" y="25" width="1792" height="1095" />
     </state>
     <state x="633" y="342" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604559205018" />
+    <state x="633" y="343" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1613119606324" />
     <state x="689" y="502" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1612847974120">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
@@ -217,7 +216,6 @@
     <state x="826" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1609855626997">
       <screen x="0" y="25" width="2560" height="1055" />
     </state>
-    <state x="578" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604479296705" />
     <state x="826" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1609855626997" />
     <state x="659" y="233" width="473" height="707" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1612848011244">
       <screen x="0" y="25" width="1792" height="1095" />
