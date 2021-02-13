@@ -93,7 +93,7 @@ class SelectPeopleDialogFragment : DialogFragment(){
         }
 
         mBinding.viewModel.let {
-            it!!._NNBLiveData.observe(requireActivity(), Observer {
+            it!!.mNNBLiveData.observe(requireActivity(), Observer {
                 if (isAdded) {
                     for (people in it.mPeopleList) {
                         addPeopleView(people)
@@ -101,7 +101,7 @@ class SelectPeopleDialogFragment : DialogFragment(){
                 }
             })
 
-            it._selectedPeopleMap.value!!.get(tag!!.toInt())?.let {
+            it.mSelectedPeopleMap.value!!.get(tag!!.toInt())?.let {
                 mGridViewAdapter.setSelectPeople(it!!)
             }
         }

@@ -57,7 +57,7 @@ class DutchPayMainFragment : BaseFragment() {
         mBinding.viewPager.currentItem = 0
         mBinding.viewPager.get(0).setOnTouchListener{ _, _ ->
             mBinding.viewModel.let {
-                if ( it!!._NNBLiveData.value!!.mPeopleCount <= 0) {
+                if ( it!!.mNNBLiveData.value!!.mPeopleCount <= 0) {
                     return@setOnTouchListener true
                 }
             }

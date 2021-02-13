@@ -63,9 +63,9 @@ class AddPeopleFragment : BaseFragment() {
 
     fun isUpdatedPeople(peopleList: MutableList<People>) : Boolean{
         mBinding.viewModel.let {
-            if (peopleList.size == it!!._NNBLiveData.value!!.mPeopleList.size) {
+            if (peopleList.size == it!!.mNNBLiveData.value!!.mPeopleList.size) {
                 for (index in 0 until peopleList.size) {
-                    if (!peopleList.get(index).mName.equals(it!!._NNBLiveData.value!!.mPeopleList.get(index).mName)){
+                    if (!peopleList.get(index).mName.equals(it!!.mNNBLiveData.value!!.mPeopleList.get(index).mName)){
                         return true
                     }
                 }
@@ -102,7 +102,7 @@ class AddPeopleFragment : BaseFragment() {
 
     fun observer() {
         mBinding.viewModel.let {
-            it!!._NNBLiveData.observe(requireActivity(), Observer {
+            it!!.mNNBLiveData.observe(requireActivity(), Observer {
                 Log.v(TAG,"observer, call updateCircle(...)")
                 updateCircle(it!!)
             })

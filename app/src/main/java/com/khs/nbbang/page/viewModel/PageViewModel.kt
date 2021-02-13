@@ -1,6 +1,7 @@
 package com.khs.nbbang.page.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.khs.nbbang.login.LoginCookie
@@ -10,9 +11,16 @@ import com.khs.nbbang.utils.StringUtils
 
 class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     val TAG = this.javaClass.name
-    val _NNBLiveData: MutableLiveData<NNBObj> = MutableLiveData()
-    val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
-    val _placeCount: MutableLiveData<Int> = MutableLiveData()
+
+    private val _NNBLiveData: MutableLiveData<NNBObj> = MutableLiveData()
+    val mNNBLiveData : LiveData<NNBObj> get() = _NNBLiveData
+
+    private val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
+    val mSelectedPeopleMap : LiveData<HashMap<Int, NNBObj>> get() = _selectedPeopleMap
+
+    private val _placeCount: MutableLiveData<Int> = MutableLiveData()
+    val mPlaceCount : LiveData<Int> get() = _placeCount
+
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
     init {
@@ -42,6 +50,10 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
                 Log.v(TAG, "increasePeople(...) ${it!!.mPeopleCount}")
             })
         }
+    }
+
+    fun updatePlaceCount(placeCount: Int) {
+        _placeCount.postValue(placeCount)
     }
 
     fun decreasePeople() {

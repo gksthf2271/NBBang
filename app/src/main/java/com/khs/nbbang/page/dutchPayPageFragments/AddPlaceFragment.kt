@@ -59,7 +59,7 @@ class AddPlaceFragment : BaseFragment() {
         }
 
         mBinding.viewModel.let {
-            it!!._placeCount.observe(requireActivity(), Observer {
+            it!!.mPlaceCount.observe(requireActivity(), Observer {
                 if (it == 0) return@Observer
             })
         }
@@ -68,8 +68,8 @@ class AddPlaceFragment : BaseFragment() {
     private fun addObserver() {
         mBinding.viewModel.let {
             val viewModel = mBinding.viewModel!!
-            it!!._NNBLiveData.observe(requireActivity(), Observer {
-                Log.v(TAG, "_NNBLiveData, Observer(...) : $it")
+            it!!.mNNBLiveData.observe(requireActivity(), Observer {
+                Log.v(TAG, "mNNBLiveData, Observer(...) : $it")
                 viewModel.clearSelectedPeople()
             })
         }
@@ -92,9 +92,9 @@ class AddPlaceFragment : BaseFragment() {
         }
 
         mBinding.viewModel.let {
-            it!!._placeCount.value = placeIndex
+            it!!.updatePlaceCount(placeIndex)
 
-            it!!._selectedPeopleMap.observe(requireActivity(), Observer {
+            it!!.mSelectedPeopleMap.observe(requireActivity(), Observer {
                 it.get(infoView.tag as Int) ?: return@Observer
                 Log.v(TAG, "_selectedPeopleMap, Observer(...) : $it")
                 if (it!!.get(infoView.tag as Int)!!.mPeopleList.isEmpty()) {
