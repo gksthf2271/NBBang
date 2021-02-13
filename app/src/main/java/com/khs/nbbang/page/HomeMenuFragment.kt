@@ -15,7 +15,7 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.login.LoginViewModel
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import java.util.*
+
 
 class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
@@ -53,7 +53,6 @@ class HomeMenuFragment : BaseFragment() {
             }
         }
     }
-
     fun loadKakaoUserFragment() {
         Toast.makeText(requireContext(),"카카오 API 실행", Toast.LENGTH_SHORT).show()
 

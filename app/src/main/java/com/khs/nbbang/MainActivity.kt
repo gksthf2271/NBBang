@@ -11,6 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityMainBinding
+import com.khs.nbbang.history.HistoryViewModel
+import com.khs.nbbang.history.db.*
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,6 +24,7 @@ class MainActivity : BaseActivity() {
     lateinit var mBinding: ActivityMainBinding
     val mPageViewModel by viewModel<PageViewModel>()
     val mLoginViewModel by viewModel<LoginViewModel>()
+    val mDBViewModel by viewModel<HistoryViewModel>()
 
     // tags used to attach the fragments
     private val TAG_HOME = "home"
@@ -31,7 +34,8 @@ class MainActivity : BaseActivity() {
     var mNavItemIndex = 0
 
     private lateinit var mAppBarConfiguration: AppBarConfiguration
-    private lateinit var mNavHostFragment : NavHostFragment
+    private lateinit var mNavHostFragment: NavHostFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -50,8 +54,11 @@ class MainActivity : BaseActivity() {
         mNavHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = mNavHostFragment.navController
-        mAppBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home, R.id.nav_history, R.id.nav_settings), drawer_layout)
+        mAppBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_home, R.id.nav_history, R.id.nav_settings
+            ), drawer_layout
+        )
         setupActionBarWithNavController(navController, mAppBarConfiguration)
         addNaviListener()
 
@@ -100,8 +107,8 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun loadHome(){
-        Log.v(TAG,"loadHome(...)")
+    private fun loadHome() {
+        Log.v(TAG, "loadHome(...)")
         mNavItemIndex = 0
         CURRENT_TAG = TAG_HOME
         selectNavMenu()
@@ -111,7 +118,7 @@ class MainActivity : BaseActivity() {
         nav_view.menu.getItem(mNavItemIndex).isChecked = true
     }
 
-    private fun navigateDestination(){
+    private fun navigateDestination() {
         when (CURRENT_TAG) {
             TAG_HOME -> mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
@@ -119,8 +126,11 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    fun currentDestination() : FragmentNavigator.Destination {
-        Log.v(TAG,"currentDestination : ${(mNavHostFragment.navController.currentDestination as FragmentNavigator.Destination).className}")
+    fun currentDestination(): FragmentNavigator.Destination {
+        Log.v(
+            TAG,
+            "currentDestination : ${(mNavHostFragment.navController.currentDestination as FragmentNavigator.Destination).className}"
+        )
         return mNavHostFragment.navController.currentDestination as FragmentNavigator.Destination
     }
 }

@@ -1,12 +1,15 @@
 package com.khs.nbbang.history
 
-import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
+import com.khs.nbbang.history.db.AppDatabase
 
-class HistoryViewModel (context: Context) : BaseViewModel() {
-    var mContext : Context
+class HistoryViewModel(database: AppDatabase) : BaseViewModel() {
+    private val _db : MutableLiveData<AppDatabase> = MutableLiveData()
+    val mDB : LiveData<AppDatabase> get() = _db
 
     init {
-        mContext = context
+        _db.postValue(database)
     }
 }

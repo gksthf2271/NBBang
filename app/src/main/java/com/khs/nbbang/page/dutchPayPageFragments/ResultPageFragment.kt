@@ -3,6 +3,7 @@ package com.khs.nbbang.page.dutchPayPageFragments
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,12 +37,7 @@ class ResultPageFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         mBinding.txtNotifyCopy.setOnClickListener {
-            val clipboard = getSystemService(requireContext(), ClipboardManager::class.java)
-            val clip: ClipData = ClipData.newPlainText(mBinding.txtTitle.text, mBinding.txtResult.text)
-            clipboard.let {
-                it!!.setPrimaryClip(clip)
-                Toast.makeText(requireContext(),"클립보드에 영수증이 복사되었습니다.", Toast.LENGTH_SHORT).show()
-            }
+            showHistoryCheckerDialog()
         }
     }
 
@@ -50,6 +46,27 @@ class ResultPageFragment : BaseFragment() {
         mBinding.viewModel.let {
             it!!.clearDutchPayMap()
             mBinding.txtResult.text = it!!.resultNBB()
+        }
+    }
+
+    private fun showHistoryCheckerDialog() {
+        Log.v(TAG, "showSelectPeopleDialog(...)")
+        var selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
+        selectPeopleDialog.show(requireActivity().supportFragmentManager, tag)
+        selectPeopleDialog.mBinding.btnClose.setOnClickListener {
+            copy()
+        }
+        selectPeopleDialog.mBinding.btnSave.setOnClickListener {
+            copy()
+        }
+    }
+
+    fun copy() {
+        val clipboard = getSystemService(requireContext(), ClipboardManager::class.java)
+        val clip: ClipData = ClipData.newPlainText(mBinding.txtTitle.text, mBinding.txtResult.text)
+        clipboard.let {
+            it!!.setPrimaryClip(clip)
+            Toast.makeText(requireContext(),"클립보드에 영수증이 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 }

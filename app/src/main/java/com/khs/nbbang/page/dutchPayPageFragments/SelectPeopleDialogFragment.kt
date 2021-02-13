@@ -1,25 +1,21 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.khs.nbbang.R
+import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentSelectPeopleBinding
+import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.adapter.SelectPeopleAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.utils.DisplayUtils
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class SelectPeopleDialogFragment : DialogFragment(){
+class SelectPeopleDialogFragment : BaseDialogFragment(){
     val TAG = this.javaClass.name
     lateinit var mBinding: FragmentSelectPeopleBinding
     lateinit var mGridViewAdapter : SelectPeopleAdapter
@@ -56,26 +52,9 @@ class SelectPeopleDialogFragment : DialogFragment(){
     }
 
     override fun onResume() {
+        CURRENT_DIALOG_TYPE = DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG
         super.onResume()
-        resizeDialog()
-        setBackgroundColorDialog()
     }
-
-    fun setBackgroundColorDialog() {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    }
-
-
-    fun resizeDialog(){
-        val size = DisplayUtils().getDisplaySize(requireContext())
-        val params: ViewGroup.LayoutParams? = dialog?.window?.attributes
-        val deviceWidth = size.x
-        val deviceeHeight = size.y
-        params?.width = (deviceWidth * 0.95).toInt()
-        params?.height = (deviceeHeight * 0.75).toInt()
-        dialog?.window?.attributes = params as WindowManager.LayoutParams
-    }
-
     fun initView() {
         Log.v(TAG,"initView(...), TAG : $tag")
         mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf())

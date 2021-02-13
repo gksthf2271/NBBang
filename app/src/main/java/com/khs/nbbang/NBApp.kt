@@ -3,10 +3,12 @@ package com.khs.nbbang
 import android.app.Application
 import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
+import com.khs.nbbang.history.db.*
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginViewModel
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -27,8 +29,9 @@ inject - Lazy 방식의 주입, 해당 객체가 사용되는 시점에 의존�
 get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
  */
 
-open class NBApp : Application() {
+open class NBApp : Application(){
     val TAG = this.javaClass.name
+
     override fun onCreate() {
         super.onCreate()
         Log.v(TAG,"NBApp Start!, onCreate(...)")
@@ -39,8 +42,20 @@ open class NBApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@NBApp)
-            modules(listOf(dataModule, viewModelModule))
+            modules(listOf(databaseModule, dataModule, viewModelModule))
         }
+    }
+
+    val databaseModule = module {
+        fun provideDatabase(application: Application): AppDatabase {
+            return AppDatabase.getInstance(application)
+        }
+
+        fun provideCountriesDao(database: AppDatabase): NBBangDao {
+            return database.nbbangDao()
+        }
+        single { provideDatabase(androidApplication())}
+        single { provideCountriesDao(get()) }
     }
 
     val dataModule = module {
