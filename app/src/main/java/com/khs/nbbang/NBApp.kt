@@ -3,8 +3,9 @@ package com.khs.nbbang
 import android.app.Application
 import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
-import com.khs.nbbang.history.db.*
 import com.khs.nbbang.history.HistoryViewModel
+import com.khs.nbbang.history.room.AppDatabase
+import com.khs.nbbang.history.room.NBBangDao
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginViewModel

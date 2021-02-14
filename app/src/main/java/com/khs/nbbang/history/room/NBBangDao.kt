@@ -1,4 +1,4 @@
-package com.khs.nbbang.history.db
+package com.khs.nbbang.history.room
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -6,37 +6,29 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="omeMe" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="history" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9d9bc6-569a-4764-918e-44c3394575da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_4_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_android_1_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_1_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/NBBang.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/NBBang.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/NBApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/NBApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryContoroller.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryContoroller.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/AddHistoryRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/AddHistoryRequest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDataModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDataModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryPresenter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/AddHistoryRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/data/AddHistoryRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/AppDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/room/AppDatabase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/GetNBBangHistoryResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/data/GetNBBangHistoryResult.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/HistoryServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/HistoryServices.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/room/NBBangDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDaoProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDaoProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDataModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/room/NBBangDataModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGateway.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGateway.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGatewayImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGatewayImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangHistory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangHistory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangHistory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/data/NBBangHistory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangHistoryView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangHistoryView.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,18 +111,11 @@
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history" />
-    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.khs.nbbang.history.data" />
+      <recent name="com.khs.nbbang.history.room" />
       <recent name="com.khs.nbbang.page" />
       <recent name="com.khs.nbbang.page.pager" />
-      <recent name="com.khs.nbbang" />
-      <recent name="com.khs.nbbang.freeUser.adapter" />
-      <recent name="com.khs.nbbang.page.viewModel" />
-    </key>
-    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="com.khs.nbbang.freeUser.viewModel" />
       <recent name="com.khs.nbbang" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -139,6 +124,13 @@
       <recent name="$PROJECT_DIR$/app/src/main/res/values" />
       <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/freeUser/pageFragment" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.khs.nbbang.freeUser.viewModel" />
+      <recent name="com.khs.nbbang" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history" />
     </key>
   </component>
   <component name="RunManager">
@@ -248,12 +240,12 @@
       <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="826" y="25" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1609855626997" />
-    <state x="659" y="233" width="473" height="707" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1612848011244">
-      <screen x="0" y="25" width="1792" height="1095" />
+    <state x="941" y="225" width="473" height="707" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1613272060221">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="659" y="231" width="474" height="681" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1605864229609" />
     <state x="659" y="233" width="473" height="707" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1612848011244" />
-    <state x="941" y="225" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607410983438" />
+    <state x="941" y="225" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1613272060221" />
     <state x="941" y="225" width="477" height="681" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1610336014634" />
     <state x="577" y="512" width="782" height="585" key="#xdebugger.evaluate" timestamp="1612766820386">
       <screen x="0" y="25" width="1792" height="1095" />
@@ -270,37 +262,37 @@
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
     <state x="515" y="172" key="CommitChangelistDialog2/0.25.1792.1095@0.25.1792.1095" timestamp="1613206452612" />
-    <state width="1750" height="367" key="GridCell.Tab.0.bottom" timestamp="1613120497308">
-      <screen x="0" y="25" width="1792" height="1095" />
+    <state width="2518" height="349" key="GridCell.Tab.0.bottom" timestamp="1613272946433">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614863" />
     <state width="1750" height="373" key="GridCell.Tab.0.bottom/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810220" />
     <state width="1750" height="367" key="GridCell.Tab.0.bottom/0.25.1792.1095@0.25.1792.1095" timestamp="1613120497308" />
-    <state width="2518" height="336" key="GridCell.Tab.0.bottom/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607502147650" />
+    <state width="2518" height="349" key="GridCell.Tab.0.bottom/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1613272946433" />
     <state width="2011" height="352" key="GridCell.Tab.0.bottom/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1612174954804" />
-    <state width="1750" height="367" key="GridCell.Tab.0.center" timestamp="1613120497307">
-      <screen x="0" y="25" width="1792" height="1095" />
+    <state width="2518" height="349" key="GridCell.Tab.0.center" timestamp="1613272946432">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614863" />
     <state width="1750" height="373" key="GridCell.Tab.0.center/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810220" />
     <state width="1750" height="367" key="GridCell.Tab.0.center/0.25.1792.1095@0.25.1792.1095" timestamp="1613120497307" />
-    <state width="2518" height="336" key="GridCell.Tab.0.center/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607502147650" />
+    <state width="2518" height="349" key="GridCell.Tab.0.center/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1613272946432" />
     <state width="2011" height="352" key="GridCell.Tab.0.center/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1612174954803" />
-    <state width="1750" height="367" key="GridCell.Tab.0.left" timestamp="1613120497307">
-      <screen x="0" y="25" width="1792" height="1095" />
+    <state width="2518" height="349" key="GridCell.Tab.0.left" timestamp="1613272946431">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614862" />
     <state width="1750" height="373" key="GridCell.Tab.0.left/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810219" />
     <state width="1750" height="367" key="GridCell.Tab.0.left/0.25.1792.1095@0.25.1792.1095" timestamp="1613120497307" />
-    <state width="2518" height="336" key="GridCell.Tab.0.left/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607502147649" />
+    <state width="2518" height="349" key="GridCell.Tab.0.left/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1613272946431" />
     <state width="2011" height="352" key="GridCell.Tab.0.left/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1612174954803" />
-    <state width="1750" height="367" key="GridCell.Tab.0.right" timestamp="1613120497308">
-      <screen x="0" y="25" width="1792" height="1095" />
+    <state width="2518" height="349" key="GridCell.Tab.0.right" timestamp="1613272946432">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state width="1750" height="606" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1605863614863" />
     <state width="1750" height="373" key="GridCell.Tab.0.right/0.23.2560.1057/2560.-17.1792.1097@0.23.2560.1057" timestamp="1605865810220" />
     <state width="1750" height="367" key="GridCell.Tab.0.right/0.25.1792.1095@0.25.1792.1095" timestamp="1613120497308" />
-    <state width="2518" height="336" key="GridCell.Tab.0.right/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607502147650" />
+    <state width="2518" height="349" key="GridCell.Tab.0.right/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1613272946432" />
     <state width="2011" height="352" key="GridCell.Tab.0.right/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1612174954804" />
     <state width="1750" height="367" key="GridCell.Tab.1.bottom" timestamp="1612768613326">
       <screen x="0" y="25" width="1792" height="1095" />

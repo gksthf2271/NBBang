@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentHistoryBinding
-import com.khs.nbbang.history.db.GetNBBangHistoryResult
-import com.khs.nbbang.history.db.NBBangDao
+import com.khs.nbbang.history.data.GetNBBangHistoryResult
+import com.khs.nbbang.history.room.NBBangDao
 import com.khs.nbbang.history.db.NBBangGatewayImpl
 import com.khs.nbbang.history.db.NBBangHistoryView
 import io.reactivex.rxjava3.disposables.CompositeDisposable

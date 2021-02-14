@@ -1,4 +1,4 @@
-package com.khs.nbbang.history.db
+package com.khs.nbbang.history.data
 
 data class NBBangHistory(val id : Long,
                          val date: Long,
