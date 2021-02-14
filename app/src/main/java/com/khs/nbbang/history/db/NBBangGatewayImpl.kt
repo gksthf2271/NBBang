@@ -1,7 +1,5 @@
 package com.khs.nbbang.history.db
 
-import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.page.ItemObj.Place
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -20,8 +18,8 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider{
         date: Long,
         peopleCount: Int,
         totalPrice: Int,
-        joinPeople: List<People>,
-        place: List<Place>,
+        joinPeople: String,
+        place: String,
         description: String,
         done: Boolean
     ) : Single<NBBangHistory> = mNBBangDao.insert(

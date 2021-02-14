@@ -15,7 +15,7 @@ interface NBBangDao {
     fun get(id: Long): Maybe<NBBangDataModel>
 
     @Insert
-    fun insert(todo: NBBangDataModel): Single<Long>
+    fun insert(nbb: NBBangDataModel): Single<Long>
 
     @Query("DELETE from nbbang WHERE id = :id")
     fun delete(id: Long)

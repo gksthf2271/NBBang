@@ -19,8 +19,8 @@ data class NBBangDataModel(
      * Json 형식 저장 하려면 파싱필요함.
      * 그전에 Data구조 확립해야됨.
      **/
-    var joinPeople : List<People>,
-    var place: List<Place>,
+    var joinPeople : String,
+    var place: String,
     var description: String,
     var done: Boolean
 )

@@ -16,27 +16,26 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_4_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_android_1_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_1_3_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/NBBang.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/NBBang.app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/NBApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/NBApp.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/HistoryViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/HomeMenuFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/HomeMenuFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/dutchPayPageFragments/ResultPageFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/dutchPayPageFragments/ResultPageFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/dutchPayPageFragments/SelectPeopleDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/page/dutchPayPageFragments/SelectPeopleDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/AddHistoryRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/AddHistoryRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDataModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangDataModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGateway.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGateway.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGatewayImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangGatewayImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangHistory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/khs/nbbang/history/db/NBBangHistory.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -229,7 +228,6 @@
     <state x="360" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1613119608650">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state x="360" y="213" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604559264136" />
     <state x="360" y="215" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1613119608650" />
     <state x="675" y="296" key="#com.intellij.ide.util.MemberChooser" timestamp="1613209196405">
       <screen x="0" y="25" width="1792" height="1095" />
@@ -241,7 +239,6 @@
     <state x="633" y="343" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1613119606324">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state x="633" y="342" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1604559205018" />
     <state x="633" y="343" key="#com.intellij.ide.util.TreeClassChooserDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1613119606324" />
     <state x="689" y="502" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1613204790933">
       <screen x="0" y="25" width="1792" height="1095" />
@@ -373,12 +370,12 @@
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="561" y="266" key="run.anything.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1605513245805" />
-    <state x="561" y="260" width="671" height="676" key="search.everywhere.popup" timestamp="1613209927503">
-      <screen x="0" y="25" width="1792" height="1095" />
+    <state x="801" y="251" width="958" height="651" key="search.everywhere.popup" timestamp="1613271251898">
+      <screen x="0" y="25" width="2560" height="1055" />
     </state>
     <state x="561" y="258" width="670" height="676" key="search.everywhere.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1605864238687" />
-    <state x="561" y="260" width="671" height="676" key="search.everywhere.popup/0.25.1792.1095@0.25.1792.1095" timestamp="1613209927503" />
-    <state x="801" y="251" width="958" height="651" key="search.everywhere.popup/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1607500058614" />
+    <state x="561" y="260" width="671" height="676" key="search.everywhere.popup/0.25.1792.1095@0.25.1792.1095" timestamp="1613210133672" />
+    <state x="801" y="251" width="958" height="651" key="search.everywhere.popup/0.25.2560.1055/2560.-15.1792.1095@0.25.2560.1055" timestamp="1613271251898" />
     <state x="801" y="251" width="958" height="651" key="search.everywhere.popup/2560.-15.1792.1095/0.25.2560.1055@0.25.2560.1055" timestamp="1612169558119" />
   </component>
   <component name="XDebuggerManager">
