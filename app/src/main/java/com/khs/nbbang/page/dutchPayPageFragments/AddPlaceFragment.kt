@@ -16,7 +16,7 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import com.khs.nbbang.page.ItemObj.NNBObj
+import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
@@ -68,8 +68,8 @@ class AddPlaceFragment : BaseFragment() {
     private fun addObserver() {
         mBinding.viewModel.let {
             val viewModel = mBinding.viewModel!!
-            it!!.mNNBLiveData.observe(requireActivity(), Observer {
-                Log.v(TAG, "mNNBLiveData, Observer(...) : $it")
+            it!!.mNBBLiveData.observe(requireActivity(), Observer {
+                Log.v(TAG, "mNBBLiveData, Observer(...) : $it")
                 viewModel.clearSelectedPeople()
             })
         }
@@ -114,10 +114,10 @@ class AddPlaceFragment : BaseFragment() {
         selectPeopleDialog.show(requireActivity().supportFragmentManager, tag)
     }
 
-    private fun showAddedPeopleView(view : ConstraintLayout, nnbObj: NNBObj) {
+    private fun showAddedPeopleView(view : ConstraintLayout, NBB: NBB) {
         Log.v(TAG,"showAddedPeopleView(...), ${view.txt_index.text}")
         view.txt_added_people.apply {
-            this!!.text = StringUtils().getPeopleList(nnbObj.mPeopleList)
+            this!!.text = StringUtils().getPeopleList(NBB.mPeopleList)
         }
         view.layout_group_added_people.visibility = View.VISIBLE
     }

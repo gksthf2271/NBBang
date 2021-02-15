@@ -14,7 +14,7 @@ import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.page.PeopleNameWatcherCallback
 import com.khs.nbbang.page.adapter.AddPeopleViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import com.khs.nbbang.page.ItemObj.NNBObj
+import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -63,9 +63,9 @@ class AddPeopleFragment : BaseFragment() {
 
     fun isUpdatedPeople(peopleList: MutableList<People>) : Boolean{
         mBinding.viewModel.let {
-            if (peopleList.size == it!!.mNNBLiveData.value!!.mPeopleList.size) {
+            if (peopleList.size == it!!.mNBBLiveData.value!!.mPeopleList.size) {
                 for (index in 0 until peopleList.size) {
-                    if (!peopleList.get(index).mName.equals(it!!.mNNBLiveData.value!!.mPeopleList.get(index).mName)){
+                    if (!peopleList.get(index).mName.equals(it!!.mNBBLiveData.value!!.mPeopleList.get(index).mName)){
                         return true
                     }
                 }
@@ -102,7 +102,7 @@ class AddPeopleFragment : BaseFragment() {
 
     fun observer() {
         mBinding.viewModel.let {
-            it!!.mNNBLiveData.observe(requireActivity(), Observer {
+            it!!.mNBBLiveData.observe(requireActivity(), Observer {
                 Log.v(TAG,"observer, call updateCircle(...)")
                 updateCircle(it!!)
             })
@@ -115,10 +115,10 @@ class AddPeopleFragment : BaseFragment() {
         mGridViewAdapter.addItem(dummyPeople)
     }
 
-    fun updateCircle(NNBObj: NNBObj) {
-        Log.v(TAG,"updateCircle, count :${NNBObj.mPeopleCount}")
+    fun updateCircle(NBB: NBB) {
+        Log.v(TAG,"updateCircle, count :${NBB.mPeopleCount}")
         initCircle()
-        for (index in DEFAULT_SIZE .. NNBObj.mPeopleCount) {
+        for (index in DEFAULT_SIZE .. NBB.mPeopleCount) {
             try {
                 val people = People(index,"")
                 mGridViewAdapter.addItem(index, people)

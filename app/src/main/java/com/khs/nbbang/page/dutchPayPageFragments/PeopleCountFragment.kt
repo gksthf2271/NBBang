@@ -34,7 +34,7 @@ class PeopleCountFragment : BaseFragment() {
 
     fun initView() {
         mBinding.viewModel.let {
-            it!!.mNNBLiveData.observe(requireActivity(), Observer {
+            it!!.mNBBLiveData.observe(requireActivity(), Observer {
                 mBinding.txtCount.text = it.mPeopleCount.toString()
             })
         }

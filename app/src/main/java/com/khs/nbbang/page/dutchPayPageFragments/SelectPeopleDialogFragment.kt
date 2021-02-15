@@ -72,7 +72,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
         }
 
         mBinding.viewModel.let {
-            it!!.mNNBLiveData.observe(requireActivity(), Observer {
+            it!!.mNBBLiveData.observe(requireActivity(), Observer {
                 if (isAdded) {
                     for (people in it.mPeopleList) {
                         addPeopleView(people)

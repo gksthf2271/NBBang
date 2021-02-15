@@ -5,18 +5,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.khs.nbbang.login.LoginCookie
-import com.khs.nbbang.page.ItemObj.NNBObj
+import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.StringUtils
 
 class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     val TAG = this.javaClass.name
 
-    private val _NNBLiveData: MutableLiveData<NNBObj> = MutableLiveData()
-    val mNNBLiveData : LiveData<NNBObj> get() = _NNBLiveData
+    private val _NBBLiveData: MutableLiveData<NBB> = MutableLiveData()
+    val mNBBLiveData : LiveData<NBB> get() = _NBBLiveData
 
-    private val _selectedPeopleMap: MutableLiveData<HashMap<Int, NNBObj>> = MutableLiveData()
-    val mSelectedPeopleMap : LiveData<HashMap<Int, NNBObj>> get() = _selectedPeopleMap
+    private val _selectedPeopleMap: MutableLiveData<HashMap<Int, NBB>> = MutableLiveData()
+    val mSelectedPeopleMap : LiveData<HashMap<Int, NBB>> get() = _selectedPeopleMap
 
     private val _placeCount: MutableLiveData<Int> = MutableLiveData()
     val mPlaceCount : LiveData<Int> get() = _placeCount
@@ -24,28 +24,28 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
     init {
-        _NNBLiveData.value = NNBObj()
+        _NBBLiveData.value = NBB()
         _selectedPeopleMap.value = HashMap()
         _placeCount.value = 0
     }
 
     fun updatePeopleList(peopleList: MutableList<People>) {
-        _NNBLiveData.postValue(_NNBLiveData.value.apply {
+        _NBBLiveData.postValue(_NBBLiveData.value.apply {
             this!!.mPeopleList = peopleList
         })
-        Log.v(TAG, "updatePeopleList(...), ${_NNBLiveData.value!!.mPeopleList}")
+        Log.v(TAG, "updatePeopleList(...), ${_NBBLiveData.value!!.mPeopleList}")
     }
 
     fun setPeopleCount(peopleCount: Int) {
         Log.v(TAG,"setPeopleCount(...) peopleCount : $peopleCount")
-        _NNBLiveData.postValue(_NNBLiveData.value.apply {
+        _NBBLiveData.postValue(_NBBLiveData.value.apply {
             this!!.mPeopleCount = peopleCount
         })
     }
 
     fun increasePeople() {
-        _NNBLiveData.value.let {
-            _NNBLiveData!!.postValue(it.apply {
+        _NBBLiveData.value.let {
+            _NBBLiveData!!.postValue(it.apply {
                 it!!.mPeopleCount += 1
                 Log.v(TAG, "increasePeople(...) ${it!!.mPeopleCount}")
             })
@@ -58,9 +58,9 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
 
     fun decreasePeople() {
         Log.v(TAG, "decreasePeople(...)")
-        _NNBLiveData.value.let {
+        _NBBLiveData.value.let {
             if (it!!.mPeopleCount!! <= 0) return
-            _NNBLiveData.postValue(it.apply {
+            _NBBLiveData.postValue(it.apply {
                 it!!.mPeopleCount -= 1
             })
         }
@@ -69,7 +69,7 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     fun savePrice(placeId:Int, price: String) {
         Log.v(TAG, "TAG : $placeId , savePrice : ${price}")
         _selectedPeopleMap.value.let {
-            if (it!!.get(placeId) == null) it!!.put(placeId, NNBObj())
+            if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
                 it!!.get(placeId)!!.mPrice = price
             })
@@ -79,7 +79,7 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     fun savePlaceName(placeId: Int, placeName: String) {
         Log.v(TAG, "TAG : $placeId , savePlaceName : ${placeName}")
         _selectedPeopleMap.value.let {
-            if (it!!.get(placeId) == null) it!!.put(placeId, NNBObj())
+            if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
                 it!!.get(placeId)!!.mPlaceName = placeName
             })
@@ -89,7 +89,7 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     fun saveSelectedPeople(placeId: Int, selectedPeopleList: MutableList<People>) {
         Log.v(TAG,"saveSelectedPeople(...)")
         _selectedPeopleMap.value!!.let {
-            if (it!!.get(placeId) == null) it!!.put(placeId, NNBObj())
+            if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
                 it!!.get(placeId)!!.mPeopleList = selectedPeopleList
             })
@@ -109,17 +109,17 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
 
     fun savePeopleName(peopleId: Int, name:String){
         /**
-         * ODO : 고민필요
+         * TODO : 고민필요
          * 해당 로직은 AddPeople 단계에서 People Name 수정될 때 마다 트리거로 발생하는 메소드.
          * 현 문제 정리
-         *  1. 해당 메소드가 호출 될 때 NNBObj의 mPeopleList가 정의 되어있지 않음.
+         *  1. 해당 메소드가 호출 될 때 NBB의 mPeopleList가 정의 되어있지 않음.
          *  2. '1'의 문제를 해결 하기 위해 List 형태가 아닌 Map형태로 데이터 관리 필요
          *      단, Map 형태의 데이터 관리 시 기존 로직이 대거 수정필요.
          *  3. Map 형태로 수정하는게 맞는것인가? 고민 필요.
          */
 
-        _NNBLiveData.value!!.let{
-            _NNBLiveData.postValue(it!!.apply {
+        _NBBLiveData.value!!.let{
+            _NBBLiveData.postValue(it!!.apply {
                 Log.v(TAG,"savePeopleName(...), index : $peopleId, name : $name")
                 try {
                     it!!.mPeopleList.get(peopleId).mName = name
