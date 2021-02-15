@@ -1,6 +1,7 @@
 package com.khs.nbbang.history.db
 
 import com.khs.nbbang.history.data.NBBangHistory
+import com.khs.nbbang.page.ItemObj.People
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -10,6 +11,22 @@ import io.reactivex.rxjava3.core.Single
  */
 
 interface NBBangGateway {
+//
+//    interface NBBDataSource {
+//        interface GetPostsCallback {
+//            fun onNBBsLoaded(nbbs: List<NBBangHistory>)
+//            fun onError(t: Throwable)
+//        }
+//
+//        interface SaveTaskCallback {
+//            fun onSaveSuccess()
+//            fun onError(t: Throwable)
+//        }
+//
+//        fun get(id: Long, callback: GetPostsCallback) : Maybe<NBBangHistory>
+//        fun savePost(nbb: NBBangHistory) : Single<NBBangHistory>
+//    }
+
     fun get() : Single<List<NBBangHistory>>
     fun get(id: Long) : Maybe<NBBangHistory>
     fun remove(id: Long)
@@ -17,9 +34,7 @@ interface NBBangGateway {
         date: Long,
         peopleCount: Int,
         totalPrice: Int,
-        joinPeople: String,
-        place: String,
-        description: String,
-        done: Boolean
+        joinPeople: List<People>,
+        description: String
     ): Single<NBBangHistory>
 }

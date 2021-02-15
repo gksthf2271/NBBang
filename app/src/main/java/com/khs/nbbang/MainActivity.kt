@@ -124,6 +124,10 @@ class MainActivity : BaseActivity() {
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
             TAG_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
         }
+
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        }
     }
 
     fun currentDestination(): FragmentNavigator.Destination {

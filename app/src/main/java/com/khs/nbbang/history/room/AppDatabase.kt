@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.khs.nbbang.utils.TypeConverter
 
-@Database(entities = [NBBangDataModel::class], version = 1)
+@Database(entities = [NBBPlaceDataModel::class, NBBPeopleDataModel::class], version = 1)
+@TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase(){
-    abstract fun nbbangDao(): NBBangDao
+    abstract fun nbbangDao(): NBBPlaceDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null

@@ -9,7 +9,7 @@ import com.khs.nbbang.history.data.NBBangHistory
  */
 
 interface HistoryContoroller {
-    fun requestAddTodo(
+    fun requestAddHistory(
         currentMs: Long,
         nbbangHistory: NBBangHistory
     ): AddHistoryRequest =
@@ -18,8 +18,6 @@ interface HistoryContoroller {
             nbbangHistory.peopleCount,
             nbbangHistory.totalPrice,
             nbbangHistory.joinPeople,
-            nbbangHistory.place,
-            nbbangHistory.description,
-            nbbangHistory.done
+            nbbangHistory.description
         )
 }

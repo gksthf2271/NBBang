@@ -5,7 +5,7 @@ import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.room.AppDatabase
-import com.khs.nbbang.history.room.NBBangDao
+import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginViewModel
@@ -52,7 +52,7 @@ open class NBApp : Application(){
             return AppDatabase.getInstance(application)
         }
 
-        fun provideCountriesDao(database: AppDatabase): NBBangDao {
+        fun provideCountriesDao(database: AppDatabase): NBBPlaceDao {
             return database.nbbangDao()
         }
         single { provideDatabase(androidApplication())}
@@ -75,7 +75,7 @@ open class NBApp : Application(){
         }
 
         viewModel {
-            PageViewModel(get())
+            PageViewModel(get(), get())
         }
 
         viewModel {

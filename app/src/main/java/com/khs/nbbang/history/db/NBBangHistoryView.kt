@@ -4,8 +4,8 @@ import com.khs.nbbang.history.AddNBBangHistory
 import com.khs.nbbang.history.GetNbbangHistory
 import com.khs.nbbang.history.HistoryContoroller
 import com.khs.nbbang.history.HistoryPresenter
+import com.khs.nbbang.history.data.AddHistoryRequest
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
-import com.khs.nbbang.history.data.NBBangHistory
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
@@ -35,8 +35,8 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryContoro
         compositeDisposable.add(d)
     }
 
-    fun handleAddNBBangHistory(sub: Scheduler, ob: Scheduler, nbbangHistory: NBBangHistory) {
-        val d = addNBBangHistory(requestAddTodo(System.currentTimeMillis(), nbbangHistory))
+    fun handleAddNBBangHistory(sub: Scheduler, ob: Scheduler, addHistoryRequest: AddHistoryRequest) {
+        val d = addNBBangHistory(addHistoryRequest)
             .flatMap { getNBBangHistory() }
             .subscribeOn(sub)
             .observeOn(ob)

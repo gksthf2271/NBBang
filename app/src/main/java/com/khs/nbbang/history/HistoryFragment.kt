@@ -1,7 +1,6 @@
 package com.khs.nbbang.history
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentHistoryBinding
-import com.khs.nbbang.history.data.GetNBBangHistoryResult
-import com.khs.nbbang.history.room.NBBangDao
-import com.khs.nbbang.history.db.NBBangGatewayImpl
-import com.khs.nbbang.history.db.NBBangHistoryView
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class HistoryFragment : BaseFragment(), NBBangGatewayImpl, NBBangHistoryView {
+class HistoryFragment : BaseFragment() {
     lateinit var mBinding : FragmentHistoryBinding
     val mViewModel: HistoryViewModel by sharedViewModel()
 
@@ -38,14 +32,4 @@ class HistoryFragment : BaseFragment(), NBBangGatewayImpl, NBBangHistoryView {
     fun initObserver() {
 
     }
-
-    override val compositeDisposable: CompositeDisposable
-        get() = CompositeDisposable()
-
-    override fun renderHistorys(nbbangHistory: GetNBBangHistoryResult) {
-        Log.v(TAG,"TEST, renderHistorys : $nbbangHistory")
-    }
-
-    override val mNBBangDao: NBBangDao
-        get() = mViewModel.mDB.value.let { it!!.nbbangDao() }
 }

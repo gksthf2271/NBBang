@@ -1,7 +1,7 @@
 package com.khs.nbbang.history.db
 
-import com.khs.nbbang.history.room.NBBangDao
+import com.khs.nbbang.history.room.NBBPlaceDao
 
 interface NBBangDaoProvider  {
-    val mNBBangDao : NBBangDao
+    val mNBBPlaceDao : NBBPlaceDao
 }

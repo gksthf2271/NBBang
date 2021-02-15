@@ -4,13 +4,26 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.khs.nbbang.history.HistoryContoroller
+import com.khs.nbbang.history.data.GetNBBangHistoryResult
+import com.khs.nbbang.history.data.NBBangHistory
+import com.khs.nbbang.history.db.NBBangGatewayImpl
+import com.khs.nbbang.history.db.NBBangHistoryView
+import com.khs.nbbang.history.room.AppDatabase
+import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.StringUtils
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
-class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
+class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NBBangHistoryView,
+    NBBangGatewayImpl, HistoryContoroller {
     val TAG = this.javaClass.name
+
+    private val mDB : AppDatabase
 
     private val _NBBLiveData: MutableLiveData<NBB> = MutableLiveData()
     val mNBBLiveData : LiveData<NBB> get() = _NBBLiveData
@@ -24,6 +37,7 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
     init {
+        mDB = db
         _NBBLiveData.value = NBB()
         _selectedPeopleMap.value = HashMap()
         _placeCount.value = 0
@@ -109,7 +123,7 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
 
     fun savePeopleName(peopleId: Int, name:String){
         /**
-         * TODO : 고민필요
+         * 고민필요
          * 해당 로직은 AddPeople 단계에서 People Name 수정될 때 마다 트리거로 발생하는 메소드.
          * 현 문제 정리
          *  1. 해당 메소드가 호출 될 때 NBB의 mPeopleList가 정의 되어있지 않음.
@@ -132,11 +146,14 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
     }
 
     fun resultNBB() : String {
-        // no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명"
         var result = ""
         var peopleMap = mutableMapOf<String, People>()
         result += "\t\t 전체 계산서 "
         for (key in _selectedPeopleMap.value!!.keys) {
+            /**
+             * TODO
+             * 결과 페이지 예외처리 필요
+             */
             var peoplelist = _selectedPeopleMap.value!!.get(key)!!.mPeopleList
             var price = 0
             try {
@@ -172,7 +189,7 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
         mDutchPayMap.clear()
     }
 
-    fun dutchPayBill(peopleList: MutableList<People>, payment:Int) {
+    private fun dutchPayBill(peopleList: MutableList<People>, payment:Int) {
         for (people in peopleList) {
             if (mDutchPayMap.get(people.mName) == null) {
                 mDutchPayMap.put(people.mName, 0)
@@ -182,8 +199,30 @@ class PageViewModel(loginCookie: LoginCookie) : ViewModel() {
         }
     }
 
+    fun saveHistory() {
+        _NBBLiveData.value.let {
+            handleAddNBBangHistory(
+                Schedulers.io(),
+                AndroidSchedulers.mainThread(),
+                requestAddHistory(System.currentTimeMillis(),
+                    NBBangHistory(null, System.currentTimeMillis(), it!!.mPeopleCount, it!!.mPrice.toInt(), it!!.mPeopleList, "")
+                )
+            )
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
-        Log.v(this.javaClass.name, ">>> onCleared")
+        handleDestroy()
     }
+
+    override val compositeDisposable: CompositeDisposable
+        get() = CompositeDisposable()
+
+    override fun renderHistorys(nbbangHistory: GetNBBangHistoryResult) {
+        Log.v(TAG,"renderHistorys(...) \n : nbbHistory : ${nbbangHistory.nbbangHistoryList.count()}")
+    }
+
+    override val mNBBPlaceDao: NBBPlaceDao
+        get() = mDB.nbbangDao()
 }

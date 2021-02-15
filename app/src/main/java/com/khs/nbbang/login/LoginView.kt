@@ -13,6 +13,5 @@ class LoginView : BaseView{
     }
 
     override fun setViewModel(viewModel: PageViewModel, owner: Fragment) {
-        TODO("Not yet implemented")
     }
 }

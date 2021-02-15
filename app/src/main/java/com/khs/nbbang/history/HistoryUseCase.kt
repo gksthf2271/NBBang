@@ -26,8 +26,6 @@ interface AddNBBangHistory : NBBangGateway {
         request.peopleCount,
         request.totalPrice,
         request.joinPeople,
-        request.place,
-        request.description,
-        request.done
+        request.description
     )
 }

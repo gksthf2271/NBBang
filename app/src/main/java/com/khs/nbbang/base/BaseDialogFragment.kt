@@ -1,10 +1,9 @@
 package com.khs.nbbang.base
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import com.khs.nbbang.R
 import com.khs.nbbang.utils.DisplayUtils
 
 open class BaseDialogFragment : DialogFragment() {
@@ -23,7 +22,7 @@ open class BaseDialogFragment : DialogFragment() {
     }
 
     fun setBackgroundColorDialog() {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setBackgroundDrawableResource(R.color.blank)
     }
 
     fun resizeDialog(dialogType : DIALOG_TYPE){
@@ -38,7 +37,7 @@ open class BaseDialogFragment : DialogFragment() {
             }
             DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
                 params?.width = (deviceWidth * 0.95).toInt()
-                params?.height = (deviceeHeight * 0.40).toInt()
+                params?.height = (deviceeHeight * 0.75).toInt()
             }
             DIALOG_TYPE.NONE -> {
                 params?.width = (deviceWidth * 1).toInt()

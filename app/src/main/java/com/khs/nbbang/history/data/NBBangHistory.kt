@@ -1,10 +1,10 @@
 package com.khs.nbbang.history.data
 
-data class NBBangHistory(val id : Long,
+import com.khs.nbbang.page.ItemObj.People
+
+data class NBBangHistory(val id : Long?,
                          val date: Long,
                          val peopleCount: Int,
                          val totalPrice: Int,
-                         val joinPeople: String,
-                         val place: String,
-                         val description: String,
-                         val done: Boolean)
+                         val joinPeople: List<People>,
+                         val description: String)

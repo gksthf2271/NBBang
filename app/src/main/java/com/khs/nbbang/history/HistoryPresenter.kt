@@ -18,9 +18,7 @@ interface HistoryPresenter {
                     it.peopleCount,
                     it.totalPrice,
                     it.joinPeople,
-                    it.place,
-                    it.description,
-                    it.done
+                    it.description
                 )
             }
         )

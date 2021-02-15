@@ -10,14 +10,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
-import com.khs.nbbang.databinding.FragmentAddPeopleBinding
+import com.khs.nbbang.page.ItemObj.NBB
+import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.PeopleNameWatcherCallback
 import com.khs.nbbang.page.adapter.AddPeopleViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import com.khs.nbbang.page.ItemObj.NBB
-import com.khs.nbbang.page.ItemObj.People
-import kotlinx.android.synthetic.main.cview_edit_people.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import com.khs.nbbang.databinding.FragmentAddPeopleBinding
+import kotlinx.android.synthetic.main.cview_edit_people.view.*
 
 
 class AddPeopleFragment : BaseFragment() {
