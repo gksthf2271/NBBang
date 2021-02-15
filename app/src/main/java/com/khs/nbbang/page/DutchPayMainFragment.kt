@@ -1,14 +1,11 @@
 package com.khs.nbbang.page
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.ZoomOutPageTransformer
 import com.khs.nbbang.base.BaseFragment
@@ -19,7 +16,7 @@ import com.khs.nbbang.page.dutchPayPageFragments.PeopleCountFragment
 import com.khs.nbbang.page.dutchPayPageFragments.ResultPageFragment
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import kotlinx.android.synthetic.main.fragment_people_count.view.*
+import com.khs.nbbang.utils.KeyboardUtils
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class DutchPayMainFragment : BaseFragment() {
@@ -56,8 +53,9 @@ class DutchPayMainFragment : BaseFragment() {
         )
         mBinding.viewPager.currentItem = 0
         mBinding.viewPager.get(0).setOnTouchListener{ _, _ ->
+            KeyboardUtils().hideKeyboard(requireView(), requireContext())
             mBinding.viewModel.let {
-                if ( it!!.mNNBLiveData.value!!.mPeopleCount <= 0) {
+                if ( it!!.mNBBLiveData.value!!.mPeopleCount <= 0) {
                     return@setOnTouchListener true
                 }
             }
