@@ -15,9 +15,8 @@ interface HistoryPresenter {
                 NBBangHistory(
                     it.id,
                     it.date,
-                    it.peopleCount,
-                    it.totalPrice,
-                    it.joinPeople,
+                    it.place,
+                    it.dutchPay,
                     it.description
                 )
             }

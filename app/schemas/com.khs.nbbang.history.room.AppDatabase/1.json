@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cf9686ac8dd2b4be4d655f7483c447ce",
+    "identityHash": "012a4fa0c0296f5c91134ef748508dc0",
     "entities": [
       {
         "tableName": "nbb_place",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `date` INTEGER NOT NULL, `peopleCount` INTEGER NOT NULL, `totalPrice` INTEGER NOT NULL, `joinPeople` TEXT NOT NULL, `description` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `date` INTEGER NOT NULL, `place` TEXT NOT NULL, `dutchPay` TEXT NOT NULL, `description` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,20 +21,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "peopleCount",
-            "columnName": "peopleCount",
-            "affinity": "INTEGER",
+            "fieldPath": "place",
+            "columnName": "place",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "totalPrice",
-            "columnName": "totalPrice",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "joinPeople",
-            "columnName": "joinPeople",
+            "fieldPath": "dutchPay",
+            "columnName": "dutchPay",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -108,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf9686ac8dd2b4be4d655f7483c447ce')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '012a4fa0c0296f5c91134ef748508dc0')"
     ]
   }
 }

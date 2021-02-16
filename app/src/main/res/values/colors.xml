@@ -80,4 +80,14 @@
     <color name="search_loading_color">#66000000</color>
 
     <color name="blank">#99000000</color>
+
+
+
+    <!-- NBB -->
+    <color name="divider_center_color">#565757</color>
+    <color name="divider_start_end_color">#282A31</color>
+    <color name="title_color">#9E9E9E</color>
+    <color name="title_light_color">#FFFFFF</color>
+    <color name="description_color">#FFFFFF</color>
+
 </resources>

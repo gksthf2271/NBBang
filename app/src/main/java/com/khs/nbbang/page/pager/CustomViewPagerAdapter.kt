@@ -14,7 +14,6 @@ class CustomViewPagerAdapter(
 ) : FragmentStateAdapter(fm, lifecycle) {
     val TAG = this.javaClass.name
     private val mFragmentList: MutableList<BaseFragment> = fragments
-    private val mFragmentManager: FragmentManager = fm
 
     fun getViewPageList(): MutableList<BaseFragment> {
         return mFragmentList

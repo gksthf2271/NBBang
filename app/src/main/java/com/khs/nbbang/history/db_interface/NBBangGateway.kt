@@ -1,6 +1,8 @@
 package com.khs.nbbang.history.db_interface
 
+import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
+import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.page.ItemObj.People
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
@@ -32,9 +34,8 @@ interface NBBangGateway {
     fun remove(id: Long)
     fun add(
         date: Long,
-        peopleCount: Int,
-        totalPrice: Int,
-        joinPeople: List<People>,
+        place: List<Place>,
+        dutchPay: List<DutchPayPeople>,
         description: String
     ): Single<NBBangHistory>
 }

@@ -23,9 +23,8 @@ interface GetNbbangHistory : NBBangGateway, HistoryServices {
 interface AddNBBangHistory : NBBangGateway {
     fun addNBBangHistory(request: AddHistoryRequest): Single<NBBangHistory> = add(
         request.date,
-        request.peopleCount,
-        request.totalPrice,
-        request.joinPeople,
+        request.place,
+        request.dutchPay,
         request.description
     )
 }

@@ -23,7 +23,7 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryContoro
 
     fun renderHistorys(nbbangHistory: GetNBBangHistoryResult)
 
-    fun showHistory(sub: Scheduler, ob: Scheduler) {
+    fun handleShowHistory(sub: Scheduler, ob: Scheduler) {
         val d = getNBBangHistory()
             .subscribeOn(sub)
             .observeOn(ob)

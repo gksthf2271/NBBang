@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
+import com.khs.nbbang.history.data.DutchPayPeople
+import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.TypeConverter
@@ -18,14 +20,11 @@ data class NBBPlaceDataModel(
     @ColumnInfo(name = "date")
     var date: Long,
 
-    @ColumnInfo(name = "peopleCount")
-    var peopleCount: Int,
+    @ColumnInfo(name = "place")
+    var place: List<Place>,
 
-    @ColumnInfo(name = "totalPrice")
-    var totalPrice: Int,
-
-    @ColumnInfo(name = "joinPeople")
-    var joinPeople: List<People>,
+    @ColumnInfo(name = "dutchPay")
+    var dutchPay : List<DutchPayPeople>,
 
     @ColumnInfo(name = "description")
     var description: String

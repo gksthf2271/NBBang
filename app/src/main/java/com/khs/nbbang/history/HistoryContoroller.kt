@@ -1,6 +1,7 @@
 package com.khs.nbbang.history
 
 import com.khs.nbbang.history.data.AddHistoryRequest
+import com.khs.nbbang.history.data.NBBResultItem
 import com.khs.nbbang.history.data.NBBangHistory
 
 /**
@@ -11,13 +12,13 @@ import com.khs.nbbang.history.data.NBBangHistory
 interface HistoryContoroller {
     fun requestAddHistory(
         currentMs: Long,
-        nbbangHistory: NBBangHistory
+        nbbResultItem: NBBResultItem,
+        description : String
     ): AddHistoryRequest =
         AddHistoryRequest(
             currentMs,
-            nbbangHistory.peopleCount,
-            nbbangHistory.totalPrice,
-            nbbangHistory.joinPeople,
-            nbbangHistory.description
+            nbbResultItem.place,
+            nbbResultItem.dutchPay,
+            description
         )
 }

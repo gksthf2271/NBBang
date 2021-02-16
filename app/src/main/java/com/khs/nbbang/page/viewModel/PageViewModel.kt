@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.khs.nbbang.history.HistoryContoroller
-import com.khs.nbbang.history.data.GetNBBangHistoryResult
-import com.khs.nbbang.history.data.NBBangHistory
+import com.khs.nbbang.history.data.*
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
@@ -35,6 +34,8 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
     val mPlaceCount : LiveData<Int> get() = _placeCount
 
     private var mDutchPayMap = mutableMapOf<String, Int>()
+
+    private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
 
     init {
         mDB = db
@@ -149,6 +150,8 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
         var result = ""
         var peopleMap = mutableMapOf<String, People>()
         result += "\t\t 전체 계산서 "
+        clearNBBResultItem()
+
         for (key in _selectedPeopleMap.value!!.keys) {
             /**
              * TODO
@@ -174,19 +177,72 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
             result += "\n\t\t\t 사용 금액 : ${price}"
             result += "\n\t\t\t 더치페이 : ${price / peoplelist.size}"
             dutchPayBill(peoplelist, price / peoplelist.size)
+
+            createNBBResult(
+                Place(
+                    key,
+                    peoplelist.size,
+                    "",
+                    peoplelist as ArrayList<People>,
+                    price,
+                    (price / peoplelist.size).toLong()
+                )
+            )
+
+
             Log.v(TAG,"TEST, \n $result")
         }
 
         result += "\n\n\t\t 더치페이 정리 계산서\n"
         for (people in mDutchPayMap.keys) {
-            result += "\n\t\t\t $people : ${mDutchPayMap.get(people)}"
+            var price = mDutchPayMap.get(people)
+
+            if (price == null) {
+                Log.e(TAG, "더치페이 중 Price NULL 발생!!")
+                continue
+            }
+
+            createNBBResultDutchPayPeople(DutchPayPeople(
+                -1,
+                people,
+                price!!.toLong()
+            ))
+            result += "\n\t\t\t $people : ${price}"
         }
 
         return result
     }
 
+    private fun createNBBResultDutchPayPeople(dutchPayPeople: DutchPayPeople){
+        Log.v(TAG,"createNBBResultDutchPayPeople(...)" +
+                "\n index  : ${dutchPayPeople.index}" +
+                "\n 이   름 : ${dutchPayPeople.name}" +
+                "\n 더치페이 : ${dutchPayPeople.dutchPay}" )
+        mNBBResultItem.dutchPay.add(dutchPayPeople)
+    }
+
+    private fun createNBBResult(place: Place) {
+        Log.v(TAG,"createNBBResult(...)" +
+                "\n N차    : ${place.placeIndex}" +
+                "\n 참석인원 : ${place.joinPeopleCount}" +
+                "\n 장소 명 : ${place.placeName}" +
+                "\n 참석자  : ${StringUtils().getPeopleList(place.peopleList)}" +
+                "\n 비   용 : ${place.price}" +
+                "\n 더치페이 : ${place.dutchPay}" )
+
+        mNBBResultItem.place.add(place)
+    }
+
     fun clearDutchPayMap() {
         mDutchPayMap.clear()
+        mNBBResultItem.apply {
+            NBBResultItem(arrayListOf(), arrayListOf())
+        }
+    }
+
+    fun clearNBBResultItem() {
+        mNBBResultItem.place.clear()
+        mNBBResultItem.dutchPay.clear()
     }
 
     private fun dutchPayBill(peopleList: MutableList<People>, payment:Int) {
@@ -204,8 +260,10 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
             handleAddNBBangHistory(
                 Schedulers.io(),
                 AndroidSchedulers.mainThread(),
-                requestAddHistory(System.currentTimeMillis(),
-                    NBBangHistory(null, System.currentTimeMillis(), it!!.mPeopleCount, it!!.mPrice.toInt(), it!!.mPeopleList, "")
+                requestAddHistory(
+                    System.currentTimeMillis(),
+                    mNBBResultItem,
+                    ""
                 )
             )
         }
