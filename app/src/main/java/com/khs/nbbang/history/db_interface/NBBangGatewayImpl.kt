@@ -1,4 +1,4 @@
-package com.khs.nbbang.history.db
+package com.khs.nbbang.history.db_interface
 
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.room.NBBPlaceDataModel

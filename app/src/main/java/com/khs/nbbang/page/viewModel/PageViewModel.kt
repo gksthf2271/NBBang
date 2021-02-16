@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.khs.nbbang.history.HistoryContoroller
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.history.data.NBBangHistory
-import com.khs.nbbang.history.db.NBBangGatewayImpl
-import com.khs.nbbang.history.db.NBBangHistoryView
+import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
+import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.login.LoginCookie

@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
-import com.khs.nbbang.history.db.NBBangGatewayImpl
-import com.khs.nbbang.history.db.NBBangHistoryView
+import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
+import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBPlaceDao
 import io.reactivex.rxjava3.disposables.CompositeDisposable
