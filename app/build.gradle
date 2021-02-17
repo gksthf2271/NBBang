@@ -114,4 +114,7 @@ dependencies {
 
     //GSON
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Pie Chart Lib
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
