@@ -9,9 +9,12 @@ import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.time.Year
+import java.util.*
 
 class HistoryViewModel(val mDatabase: AppDatabase) : BaseViewModel(), NBBangHistoryView,
     NBBangGatewayImpl {
@@ -26,6 +29,7 @@ class HistoryViewModel(val mDatabase: AppDatabase) : BaseViewModel(), NBBangHist
 
     init {
         _db.value = mDatabase
+        _selectMonth.value = DateUtils().currentMonth()
     }
 
     override val compositeDisposable: CompositeDisposable
@@ -39,11 +43,34 @@ class HistoryViewModel(val mDatabase: AppDatabase) : BaseViewModel(), NBBangHist
     override val mNBBPlaceDao: NBBPlaceDao
         get() = _db.value.let { it!!.nbbangDao() }
 
-    fun showHistory() {
-        handleShowHistory(
+    fun showHistoryByMonth(month: Int) {
+        handleShowHistoryByMonth(
+            Schedulers.io(),
+            AndroidSchedulers.mainThread(),
+            DateUtils().getTimeMsByMonth(month),
+            DateUtils().getTimeMsByMonth(month+1) - 1
+        )
+    }
+
+    fun showAllHistory() {
+        handleShowAllHistory(
             Schedulers.io(),
             AndroidSchedulers.mainThread()
         )
+    }
+
+    fun increaseMonth() {
+        val month = _selectMonth.value!!.plus(1)
+        if (month > 12) return
+        _selectMonth.postValue(month)
+        Log.v(TAG,"increaseMonth(...) : ${_selectMonth.value}")
+    }
+
+    fun decreaseMonth() {
+        val month = _selectMonth.value!!.minus(1)
+        if (month< 1) return
+        _selectMonth.postValue(month)
+        Log.v(TAG,"decreaseMonth(...) : ${_selectMonth.value}")
     }
 
     override fun onCleared() {

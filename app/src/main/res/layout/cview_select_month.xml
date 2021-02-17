@@ -1,113 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/layout_rounded_select_month"
-    tools:layout_height="130dp">
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.khs.nbbang.history.HistoryViewModel" />
+    </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_group_select_month"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.9"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.25">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layout_rounded_select_month"
+        tools:layout_height="130dp">
 
-        <ImageView
-            android:id="@+id/img_left_indicator"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_group_select_month"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@mipmap/indicator_left"
+            android:layout_margin="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintHeight_percent="0.9"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.15" />
+            app:layout_constraintWidth_percent="0.25">
 
-        <TextView
-            android:id="@+id/txt_month"
+            <ImageView
+                android:id="@+id/img_left_indicator"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@mipmap/indicator_left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.8"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.15" />
+
+            <TextView
+                android:id="@+id/txt_month"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/search_text_color"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.8"
+                app:layout_constraintLeft_toRightOf="@id/img_left_indicator"
+                app:layout_constraintRight_toLeftOf="@id/img_right_indicator"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6"
+                tools:text="2월" />
+
+
+            <ImageView
+                android:id="@+id/img_right_indicator"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@mipmap/indicator_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.8"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.15" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="center"
-            android:singleLine="true"
-            android:textColor="@color/search_text_color"
-            android:textSize="25sp"
-            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/divider_color"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.8"
-            app:layout_constraintLeft_toRightOf="@id/img_left_indicator"
-            app:layout_constraintRight_toLeftOf="@id/img_right_indicator"
+            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintLeft_toRightOf="@id/layout_group_select_month"
+            app:layout_constraintRight_toLeftOf="@id/layout_group_description"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.6"
-            tools:text="2월" />
+            app:layout_constraintWidth_percent="0.01" />
 
 
-        <ImageView
-            android:id="@+id/img_right_indicator"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_group_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@mipmap/indicator_right"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintLeft_toRightOf="@+id/layout_group_select_month"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.15" />
+            app:layout_constraintWidth_percent="0.60">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/cview_1"
+                layout="@layout/cview_title_description"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/cview_2"
+                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/divider_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.6"
-        app:layout_constraintLeft_toRightOf="@id/layout_group_select_month"
-        app:layout_constraintRight_toLeftOf="@id/layout_group_description"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.01" />
+            <include
+                android:id="@+id/cview_2"
+                layout="@layout/cview_title_description"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintTop_toBottomOf="@id/cview_1" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_group_description"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.9"
-        app:layout_constraintLeft_toRightOf="@+id/layout_group_select_month"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.60">
-
-        <include
-            android:id="@+id/cview_1"
-            layout="@layout/cview_title_description"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.4"
-            app:layout_constraintBottom_toTopOf="@id/cview_2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/cview_2"
-            layout="@layout/cview_title_description"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.4"
-            app:layout_constraintTop_toBottomOf="@id/cview_1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -2,6 +2,8 @@ package com.khs.nbbang.utils
 
 import java.lang.Exception
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
 open class DateUtils {
     constructor()
@@ -30,7 +32,15 @@ open class DateUtils {
         return (diffTime / TIME_MAXIMUM.ONE_DAY.toLong()).toString() + "일 전"
     }
 
-    open fun getDate(date: String): Long {
+    open fun currentMonth() : Int {
+        return Calendar.getInstance().get(Calendar.MONTH).plus(1)
+    }
+
+    open fun currentYear() : Int {
+        return Calendar.getInstance().get(Calendar.YEAR)
+    }
+
+    open fun getDateByString(date: String): Long {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd-HH:mm:ss")
         val result = simpleDateFormat.parse(date.replace("T","-"))
         return result.time
@@ -48,5 +58,25 @@ open class DateUtils {
             return ""
         }
         return result
+    }
+
+    open fun getDateByMillis(timeMs:Long) : String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+        val timeInDate = Date(timeMs)
+        return sdf.format(timeInDate)
+    }
+
+    open fun getTimeMsByYearAndMonth(year: Int, month: Int) : Long{
+        val format = "${year}-${String.format("%02d", month)}-01 00:00:00.000"
+        val dateFormat =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+        return dateFormat.parse(format).time
+    }
+
+    open fun getTimeMsByMonth(month: Int) : Long{
+        return getTimeMsByYearAndMonth(currentYear(),month)
+    }
+
+    open fun getDateByMonth(year:Int, month: Int) {
+        val dateFormat = SimpleDateFormat(String.format("%02d", month))
     }
 }

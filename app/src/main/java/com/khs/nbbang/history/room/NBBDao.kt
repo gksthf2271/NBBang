@@ -14,6 +14,9 @@ interface NBBPlaceDao {
     @Query("SELECT * FROM nbb_place WHERE id = :id")
     fun get(id: Long): Maybe<NBBPlaceDataModel>
 
+    @Query("SELECT * FROM nbb_place WHERE date BETWEEN :minDate AND :maxDate")
+    fun get(minDate: Long, maxDate: Long): Single<List<NBBPlaceDataModel>>
+
     @Insert
     fun insert(nbb: NBBPlaceDataModel): Single<Long>
 

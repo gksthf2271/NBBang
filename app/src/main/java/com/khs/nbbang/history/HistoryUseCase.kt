@@ -13,7 +13,13 @@ import io.reactivex.rxjava3.core.Single
  */
 
 interface GetNbbangHistory : NBBangGateway, HistoryServices {
-    fun getNBBangHistory(): Single<GetNBBangHistoryResult> = get().map {
+    fun getNBBangAllHistory(): Single<GetNBBangHistoryResult> = get().map {
+        with(calculateProgress(it)) {
+            GetNBBangHistoryResult(it)
+        }
+    }
+
+    fun getNBBangHistoryByMonth(minTimeMs:Long, maxTimeMs:Long): Single<GetNBBangHistoryResult> = get(minTimeMs, maxTimeMs).map {
         with(calculateProgress(it)) {
             GetNBBangHistoryResult(it)
         }

@@ -13,24 +13,10 @@ import io.reactivex.rxjava3.core.Single
  */
 
 interface NBBangGateway {
-//
-//    interface NBBDataSource {
-//        interface GetPostsCallback {
-//            fun onNBBsLoaded(nbbs: List<NBBangHistory>)
-//            fun onError(t: Throwable)
-//        }
-//
-//        interface SaveTaskCallback {
-//            fun onSaveSuccess()
-//            fun onError(t: Throwable)
-//        }
-//
-//        fun get(id: Long, callback: GetPostsCallback) : Maybe<NBBangHistory>
-//        fun savePost(nbb: NBBangHistory) : Single<NBBangHistory>
-//    }
 
     fun get() : Single<List<NBBangHistory>>
     fun get(id: Long) : Maybe<NBBangHistory>
+    fun get(minTimeMs: Long, maxTimeMs: Long) : Single<List<NBBangHistory>>
     fun remove(id: Long)
     fun add(
         date: Long,

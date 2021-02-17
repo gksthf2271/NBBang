@@ -40,13 +40,12 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
 
         val layoutManager = LinearLayoutManager(context)
         mBinding.recyclerView.addItemDecoration(HistoryItemDecoration(10))
-        mBinding.recyclerView.setLayoutManager(layoutManager)
+        mBinding.recyclerView.layoutManager = layoutManager
 
         mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
-            mHistoryItem,
-            {
-                Log.v(TAG,"Clicked Item : ${it.id}")
-            }
-        )
+            mHistoryItem
+        ) {
+            Log.v(TAG, "Clicked Item : ${it.id}")
+        }
     }
 }

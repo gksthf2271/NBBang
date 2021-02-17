@@ -6,6 +6,7 @@ import com.khs.nbbang.history.HistoryContoroller
 import com.khs.nbbang.history.HistoryPresenter
 import com.khs.nbbang.history.data.AddHistoryRequest
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
+import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
@@ -23,8 +24,20 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryContoro
 
     fun renderHistorys(nbbangHistory: GetNBBangHistoryResult)
 
-    fun handleShowHistory(sub: Scheduler, ob: Scheduler) {
-        val d = getNBBangHistory()
+    fun handleShowAllHistory(sub: Scheduler, ob: Scheduler) {
+        val d = getNBBangAllHistory()
+            .subscribeOn(sub)
+            .observeOn(ob)
+            .subscribe { r ->
+                renderHistorys(
+                    presentHistory(r)
+                )
+            }
+        compositeDisposable.add(d)
+    }
+
+    fun handleShowHistoryByMonth(sub: Scheduler, ob: Scheduler, minTimeMs:Long, maxTimeMs:Long) {
+        val d = getNBBangHistoryByMonth(minTimeMs, maxTimeMs)
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
@@ -37,7 +50,7 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryContoro
 
     fun handleAddNBBangHistory(sub: Scheduler, ob: Scheduler, addHistoryRequest: AddHistoryRequest) {
         val d = addNBBangHistory(addHistoryRequest)
-            .flatMap { getNBBangHistory() }
+            .flatMap { getNBBangAllHistory() }
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
