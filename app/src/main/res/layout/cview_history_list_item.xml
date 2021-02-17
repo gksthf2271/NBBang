@@ -3,24 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="270dp">
+    android:background="@drawable/layout_rounded_select_month"
+    android:layout_height="230dp">
 
-    <include
-        android:id="@+id/group_date"
-        layout="@layout/cview_title_description"
+    <TextView
+        android:id="@+id/txt_date"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:gravity="center"
+        android:textColor="@color/common_title_color"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@id/group_item"
-        app:layout_constraintHeight_percent="0.15"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHeight_percent="0.07"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="DESCRIPTION" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/group_item"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.85"
-        app:layout_constraintTop_toBottomOf="@id/group_date">
+        app:layout_constraintHeight_percent="0.93"
+        app:layout_constraintTop_toBottomOf="@id/txt_date">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
@@ -33,11 +37,11 @@
             android:id="@+id/view_indicator"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            app:dotsColor="@color/title_light_color"
+            app:dotsColor="@color/common_title_light_color"
             app:dotsCornerRadius="8dp"
             app:dotsSize="5dp"
             app:dotsSpacing="4dp"
-            app:dotsStrokeColor="@color/title_light_color"
+            app:dotsStrokeColor="@color/common_title_light_color"
             app:dotsStrokeWidth="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.03"

@@ -13,16 +13,19 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class HistoryViewModel(database: AppDatabase) : BaseViewModel(), NBBangHistoryView,
+class HistoryViewModel(val mDatabase: AppDatabase) : BaseViewModel(), NBBangHistoryView,
     NBBangGatewayImpl {
     private val _db : MutableLiveData<AppDatabase> = MutableLiveData()
     val mDB : LiveData<AppDatabase> get() = _db
+
+    private val _selectMonth : MutableLiveData<Int> = MutableLiveData()
+    val mSelectMonth : LiveData<Int> get() = _selectMonth
 
     private val _history : MutableLiveData<GetNBBangHistoryResult> = MutableLiveData()
     val mHistory : LiveData<GetNBBangHistoryResult> get() = _history
 
     init {
-        _db.postValue(database)
+        _db.value = mDatabase
     }
 
     override val compositeDisposable: CompositeDisposable
@@ -42,7 +45,6 @@ class HistoryViewModel(database: AppDatabase) : BaseViewModel(), NBBangHistoryVi
             AndroidSchedulers.mainThread()
         )
     }
-
 
     override fun onCleared() {
         super.onCleared()

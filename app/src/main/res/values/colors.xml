@@ -11,9 +11,6 @@
 
     <color name="search_detail_vs">#1D1C1C</color>
     <color name="search_text_color">#FFFFFF</color>
-    <color name="search_list_win">#BF2196F3</color>
-    <color name="search_list_lose">#BFF3214B</color>
-    <color name="search_list_draw">#F0DFDFDF</color>
     <color name="search_list_header_background">#B3000000</color>
     <color name="search_detail_item_title_background">#000000</color>
     <color name="search_detail_dialog_background">#CC000000</color>
@@ -86,8 +83,22 @@
     <!-- NBB -->
     <color name="divider_center_color">#565757</color>
     <color name="divider_start_end_color">#282A31</color>
-    <color name="title_color">#9E9E9E</color>
-    <color name="title_light_color">#FFFFFF</color>
-    <color name="description_color">#FFFFFF</color>
+    <color name="common_title_color">#9E9E9E</color>
+    <color name="common_title_light_color">#FFFFFF</color>
+    <color name="common_description_color">#FFFFFF</color>
+    <color name="history_item_background">#99000000</color>
+
+
+
+    <color name="history_pie_chart_color_1">#BF2196F3</color>
+    <color name="history_pie_chart_color_2">#BFF3214B</color>
+    <color name="history_pie_chart_color_3">#F0DFDFDF</color>
+    <color name="history_pie_chart_color_4">#FF5722</color>
+    <color name="history_pie_chart_color_5">#2fCC71</color>
+    <color name="history_pie_chart_color_6">#FFEB3B</color>
+    <color name="history_pie_chart_color_7">#E6693423</color>
+    <color name="history_pie_chart_color_8">#673AB7</color>
+    <color name="history_pie_chart_color_9">#CDDC39</color>
+    <color name="history_pie_chart_color_10">#009688</color>
 
 </resources>

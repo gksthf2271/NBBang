@@ -1,13 +1,17 @@
 package com.khs.nbbang.history.itemView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
+import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentHistoryFirstGroupBinding
+import com.khs.nbbang.history.HistoryItemRecyclerViewAdapter
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.data.NBBangHistory
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -32,6 +36,17 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
     }
 
     fun initView() {
+        mBinding.viewModel ?: return
 
+        val layoutManager = LinearLayoutManager(context)
+        mBinding.recyclerView.addItemDecoration(HistoryItemDecoration(10))
+        mBinding.recyclerView.setLayoutManager(layoutManager)
+
+        mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
+            mHistoryItem,
+            {
+                Log.v(TAG,"Clicked Item : ${it.id}")
+            }
+        )
     }
 }

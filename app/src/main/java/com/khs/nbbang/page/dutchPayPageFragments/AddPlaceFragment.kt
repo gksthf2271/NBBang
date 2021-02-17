@@ -2,11 +2,13 @@ package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -17,10 +19,12 @@ import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.NBB
+import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import java.lang.NumberFormatException
 
 class AddPlaceFragment : BaseFragment() {
     lateinit var mBinding : FragmentAddPlaceBinding
@@ -87,8 +91,8 @@ class AddPlaceFragment : BaseFragment() {
             }
             this.tag = placeIndex
             this.txt_index.text = "$placeIndex 차"
-            this.edit_title.addTextChangedListener(getTextWatcher(TYPE_EDIT_PLACE_NAME, this.tag as Int))
-            this.edit_price.addTextChangedListener(getTextWatcher(TYPE_EDIT_PRICE, this.tag as Int))
+            this.edit_title.addTextChangedListener(getTextWatcher(edit_title, TYPE_EDIT_PLACE_NAME, this.tag as Int))
+            this.edit_price.addTextChangedListener(getTextWatcher(edit_price, TYPE_EDIT_PRICE, this.tag as Int))
         }
 
         mBinding.viewModel.let {
@@ -127,14 +131,28 @@ class AddPlaceFragment : BaseFragment() {
         view.layout_group_added_people.visibility = View.GONE
     }
 
-    private fun getTextWatcher(viewType : String, placeId:Int) : TextWatcher {
+    private fun getTextWatcher(view : EditText, viewType : String, placeId:Int) : TextWatcher {
         return object : TextWatcherAdapter() {
+            var pointNumStr = ""
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)
                 if (TYPE_EDIT_PLACE_NAME.equals(viewType)) {
                     mBinding.viewModel!!.savePlaceName(placeId, s.toString())
                 } else if (TYPE_EDIT_PRICE.equals(viewType)) {
                     mBinding.viewModel!!.savePrice(placeId, s.toString())
+                    if(!TextUtils.isEmpty(s.toString()) && !s.toString().equals(pointNumStr)) {
+                        try {
+                            pointNumStr = NumberUtils().makeCommaNumber(
+                                Integer.parseInt(
+                                    s.toString().replace(",", "")
+                                )
+                            )
+                        } catch (numberFormat: NumberFormatException) {
+                            Log.e(TAG,"numberFormat : $numberFormat")
+                        }
+                        view.setText(pointNumStr)
+                        view.setSelection(pointNumStr.length)  //커서를 오른쪽 끝으로 보냄
+                    }
                 }
             }
         }

@@ -13,16 +13,15 @@ import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NBBangHistoryView,
+class PageViewModel(loginCookie: LoginCookie, val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     NBBangGatewayImpl, HistoryContoroller {
     val TAG = this.javaClass.name
-
-    private val mDB : AppDatabase
 
     private val _NBBLiveData: MutableLiveData<NBB> = MutableLiveData()
     val mNBBLiveData : LiveData<NBB> get() = _NBBLiveData
@@ -38,7 +37,6 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
     private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
 
     init {
-        mDB = db
         _NBBLiveData.value = NBB()
         _selectedPeopleMap.value = HashMap()
         _placeCount.value = 0
@@ -82,7 +80,14 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
     }
 
     fun savePrice(placeId:Int, price: String) {
+        try {
+            price.replace(",","").toInt()
+        } catch (numberFormatException : NumberFormatException) {
+            Log.e(TAG, "numberFormatException : $numberFormatException")
+            return
+        }
         Log.v(TAG, "TAG : $placeId , savePrice : ${price}")
+
         _selectedPeopleMap.value.let {
             if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
@@ -158,11 +163,11 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
              * 결과 페이지 예외처리 필요
              */
             var peoplelist = _selectedPeopleMap.value!!.get(key)!!.mPeopleList
-            var price = 0
+            var priceInt = 0
             try {
-                price = Integer.parseInt(_selectedPeopleMap.value!!.get(key)!!.mPrice)
+                priceInt = Integer.parseInt(_selectedPeopleMap.value!!.get(key)!!.mPrice.replace(",",""))
             } catch (e : NumberFormatException) {
-                result += "\n\t$key 차, 사용 금액 오류"
+                result += "\n\t$key 차, 사용 금액 오류 ${_selectedPeopleMap.value!!.get(key)!!.mPrice}"
                 continue
             }
             if (peoplelist.isEmpty()) {
@@ -174,23 +179,20 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
             result += "\n\t\t\t 참석 인원 수 : ${peoplelist.size}"
             result += "\n\t\t\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist)}"
             result += "\n\t\t\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
-            result += "\n\t\t\t 사용 금액 : ${price}"
-            result += "\n\t\t\t 더치페이 : ${price / peoplelist.size}"
-            dutchPayBill(peoplelist, price / peoplelist.size)
+            result += "\n\t\t\t 사용 금액 : ${_selectedPeopleMap.value!!.get(key)!!.mPrice} 원"
+            result += "\n\t\t\t 더치페이 : ${NumberUtils().makeCommaNumber(priceInt / peoplelist.size)} 원"
+            dutchPayBill(peoplelist, priceInt / peoplelist.size)
 
             createNBBResult(
                 Place(
                     key,
                     peoplelist.size,
-                    "",
+                    _selectedPeopleMap.value!!.get(key)!!.mPlaceName,
                     peoplelist as ArrayList<People>,
-                    price,
-                    (price / peoplelist.size).toLong()
+                    priceInt,
+                    (priceInt / peoplelist.size).toLong()
                 )
             )
-
-
-            Log.v(TAG,"TEST, \n $result")
         }
 
         result += "\n\n\t\t 더치페이 정리 계산서\n"
@@ -207,7 +209,7 @@ class PageViewModel(loginCookie: LoginCookie, db :AppDatabase) : ViewModel(), NB
                 people,
                 price!!.toLong()
             ))
-            result += "\n\t\t\t $people : ${price}"
+            result += "\n\t\t\t $people : ${NumberUtils().makeCommaNumber(price)} 원"
         }
 
         return result

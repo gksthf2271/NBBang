@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.khs.nbbang.history.HistoryViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_height="200dp">
+
+        <com.khs.nbbang.history.PieChartView
+            android:id="@+id/custom_pie_chart"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintWidth_percent="0.45"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/group_info"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/group_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintWidth_percent="0.50"
+            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/custom_pie_chart"
+            app:layout_constraintRight_toRightOf="parent">
+
+
+            <include
+                android:id="@+id/group_info_1"
+                layout="@layout/cview_title_description"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/group_info_2"
+                />
+
+            <include
+                android:id="@+id/group_info_2"
+                layout="@layout/cview_title_description"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintTop_toBottomOf="@id/group_info_1"
+                app:layout_constraintBottom_toTopOf="@id/group_info_3"/>
+
+            <include
+                android:id="@+id/group_info_3"
+                layout="@layout/cview_title_description"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintWidth_percent="0.9"
+                app:layout_constraintTop_toBottomOf="@id/group_info_2"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

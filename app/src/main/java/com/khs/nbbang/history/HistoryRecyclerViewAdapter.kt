@@ -15,19 +15,18 @@ import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.itemView.HistoryGroupFirstFragment
 import com.khs.nbbang.history.itemView.HistoryGroupSecondFragment
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
+import com.khs.nbbang.utils.DateUtils
+import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_history_list_item.view.*
+import kotlinx.android.synthetic.main.cview_title_description.view.*
 
-class HistoryRecyclerViewAdapter (fm: FragmentManager, lifecycle: Lifecycle, historyResult: GetNBBangHistoryResult, val itemClick: (NBBangHistory) -> Unit) :
+class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifecycle, historyResult: GetNBBangHistoryResult, val itemClick: (NBBangHistory) -> Unit) :
     RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.name
     val DEBUG = BuildConfig.DEBUG
     val mNBBangHistoryList: List<NBBangHistory>
-    private val mFragmentManager: FragmentManager
-    private val mLifeCycle: Lifecycle
 
     init {
-        mFragmentManager = fm
-        mLifeCycle = lifecycle
         mNBBangHistoryList = historyResult.nbbangHistoryList
     }
 
@@ -56,13 +55,14 @@ class HistoryRecyclerViewAdapter (fm: FragmentManager, lifecycle: Lifecycle, his
         var mItemView: View = itemView
 
         fun bind(item: NBBangHistory) {
-            mItemView.view_pager.adapter.apply {
+            mItemView.txt_date.text = DateUtils().getDateforImg(item.date)
+            mItemView.view_pager.adapter =
                 CustomViewPagerAdapter(
-                    mFragmentManager,
-                    mLifeCycle,
+                    Fm,
+                    mLifecycle,
                     mutableListOf(HistoryGroupFirstFragment(item), HistoryGroupSecondFragment(item))
                 )
-            }
+
             mItemView.view_pager.currentItem = 0
             mItemView.view_pager.setPageTransformer(ZoomOutPageTransformer())
             mItemView.view_indicator.setViewPager2(mItemView.view_pager)

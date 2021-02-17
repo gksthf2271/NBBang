@@ -13,48 +13,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:id="@+id/layout_scroll"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <include
+                android:id="@+id/cview_select_month"
+                layout="@layout/cview_select_month"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/divider"
+                app:layout_constraintHeight_percent="0.20"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <include
-                    android:id="@+id/cview_select_mont"
-                    layout="@layout/cview_select_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintHeight_percent="0.25"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/divider"/>
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/horizontal_divider_color"
+                app:layout_constraintBottom_toTopOf="@id/recycler_view"
+                app:layout_constraintHeight_percent="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cview_select_month"
+                app:layout_constraintWidth_percent="0" />
 
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/divider_color"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHeight_percent="0.01"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cview_select_mont"
-                    app:layout_constraintBottom_toTopOf="@id/recycler_view"
-                    app:layout_constraintWidth_percent="0.9" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintHeight_percent="0.78"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintHeight_percent="0.75"
-                    app:layout_constraintTop_toBottomOf="@id/divider"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
