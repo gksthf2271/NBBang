@@ -34,7 +34,6 @@ class MainActivity : BaseActivity() {
     var CURRENT_TAG = TAG_DUTCH_PAY
     var mNavItemIndex = 0
 
-    private lateinit var mAppBarConfiguration: AppBarConfiguration
     private lateinit var mNavHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,16 +52,9 @@ class MainActivity : BaseActivity() {
     fun initNaviView() {
         mNavHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = mNavHostFragment.navController
-        mAppBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_dutch_pay, R.id.nav_history, R.id.nav_member_settings, R.id.nav_my_page
-            ), drawer_layout
-        )
         group_indicator.setOnClickListener {
             drawer_layout.openDrawer(GravityCompat.START)
         }
-//        setupActionBarWithNavController(navController, mAppBarConfiguration)
         addNaviListener()
 
     }
