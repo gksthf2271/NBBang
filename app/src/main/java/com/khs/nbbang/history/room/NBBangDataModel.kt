@@ -3,13 +3,9 @@ package com.khs.nbbang.history.room
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.google.gson.annotations.SerializedName
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.page.ItemObj.NBB
-import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.utils.TypeConverter
 
 @Entity(tableName = "nbb_place")
 data class NBBPlaceDataModel(

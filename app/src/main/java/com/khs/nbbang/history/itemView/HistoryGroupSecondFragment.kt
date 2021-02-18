@@ -17,6 +17,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentHistorySecondGroupBinding
 import com.khs.nbbang.history.HistoryViewModel
+import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.NumberUtils
@@ -47,30 +48,52 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
     fun initView() {
         val pieEntryList = arrayListOf<PieEntry>()
         var totalPrice = 0
+        var allPlaceSet = hashSetOf<String>()
+
         for (item in mHistoryItem.place) {
             totalPrice += item.price
+            allPlaceSet.add(item.placeName)
             pieEntryList.add(PieEntry(item.price.toFloat(), item.placeName, null, item.peopleList))
         }
         mBinding.customPieChart.setData(pieEntryList, totalPrice)
-
-        mBinding.groupInfo1.txt_title.text = "지출"
-        mBinding.groupInfo2.txt_title.text = "참석자"
-        mBinding.groupInfo3.txt_title.text = "내용"
+        loadTotalData(totalPrice, allPlaceSet, mHistoryItem.dutchPay)
 
         mBinding.customPieChart.mBinding.pieChart.setOnChartValueSelectedListener(object :
             OnChartValueSelectedListener {
             override fun onNothingSelected() {
                 Log.v(TAG,"onNothingSelected(...)")
+                loadTotalData(totalPrice, allPlaceSet, mHistoryItem.dutchPay)
             }
 
             override fun onValueSelected(e: Entry?, h: Highlight?) {
-                mBinding.groupInfo1.txt_description.text = NumberUtils().makeCommaNumber((e as PieEntry).value.toInt())
+                mBinding.groupInfo1.txt_title.text = "장소"
+                mBinding.groupInfo2.txt_title.text = "참석자"
+                mBinding.groupInfo3.txt_title.text = "지출"
+
+                mBinding.groupInfo1.txt_description.text = (e as PieEntry).label
                 mBinding.groupInfo2.txt_description.isSingleLine = false
                 mBinding.groupInfo2.txt_description.text =
                     StringUtils().getPeopleList((e as PieEntry).data as ArrayList<People>)
-                mBinding.groupInfo3.txt_description.text = (e as PieEntry).label
+                mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, (e as PieEntry).value.toInt())
             }
         })
+    }
 
+    fun loadTotalData(
+        totalPrice: Int,
+        allPlace: HashSet<String>,
+        dutchPeopleList: List<DutchPayPeople>
+    ) {
+        mBinding.groupInfo2.txt_description.isSingleLine = false
+        mBinding.groupInfo1.txt_title.isSingleLine = false
+        mBinding.groupInfo2.txt_title.isSingleLine = false
+
+        mBinding.groupInfo1.txt_title.text = "모든\n장소"
+        mBinding.groupInfo2.txt_title.text = "모든\n참석자"
+        mBinding.groupInfo3.txt_title.text = "총 지출"
+
+        mBinding.groupInfo1.txt_description.text = StringUtils().listToString(allPlace.toMutableList())
+        mBinding.groupInfo2.txt_description.text = StringUtils().dutchPayListToString(dutchPeopleList.toMutableList())
+        mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, totalPrice)
     }
 }

@@ -142,7 +142,7 @@ class PageViewModel(loginCookie: LoginCookie, val mDB :AppDatabase) : ViewModel(
             _NBBLiveData.postValue(it!!.apply {
                 Log.v(TAG,"savePeopleName(...), index : $peopleId, name : $name")
                 try {
-                    it!!.mPeopleList.get(peopleId).mName = name
+                    it!!.mPeopleList.get(peopleId).name = name
                 } catch (ioobe : IndexOutOfBoundsException) {
                     Log.v(TAG, "Exception, \n $ioobe")
                     it!!.mPeopleList.add(peopleId, People(peopleId, name))
@@ -180,7 +180,7 @@ class PageViewModel(loginCookie: LoginCookie, val mDB :AppDatabase) : ViewModel(
             result += "\n\t\t\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist)}"
             result += "\n\t\t\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
             result += "\n\t\t\t 사용 금액 : ${_selectedPeopleMap.value!!.get(key)!!.mPrice} 원"
-            result += "\n\t\t\t 더치페이 : ${NumberUtils().makeCommaNumber(priceInt / peoplelist.size)} 원"
+            result += "\n\t\t\t 더치페이 : ${NumberUtils().makeCommaNumber(true,priceInt / peoplelist.size)}"
             dutchPayBill(peoplelist, priceInt / peoplelist.size)
 
             createNBBResult(
@@ -209,7 +209,7 @@ class PageViewModel(loginCookie: LoginCookie, val mDB :AppDatabase) : ViewModel(
                 people,
                 price!!.toLong()
             ))
-            result += "\n\t\t\t $people : ${NumberUtils().makeCommaNumber(price)} 원"
+            result += "\n\t\t\t $people : ${NumberUtils().makeCommaNumber(true, price)}"
         }
 
         return result
@@ -249,11 +249,11 @@ class PageViewModel(loginCookie: LoginCookie, val mDB :AppDatabase) : ViewModel(
 
     private fun dutchPayBill(peopleList: MutableList<People>, payment:Int) {
         for (people in peopleList) {
-            if (mDutchPayMap.get(people.mName) == null) {
-                mDutchPayMap.put(people.mName, 0)
+            if (mDutchPayMap.get(people.name) == null) {
+                mDutchPayMap.put(people.name, 0)
             }
-            val totalPayment = mDutchPayMap.get(people.mName) as Int + payment
-            mDutchPayMap.put(people.mName, totalPayment)
+            val totalPayment = mDutchPayMap.get(people.name) as Int + payment
+            mDutchPayMap.put(people.name, totalPayment)
         }
     }
 

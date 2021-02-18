@@ -13,7 +13,8 @@ import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_history_list_place_item.view.*
 
-class HistoryItemRecyclerViewAdapter (private val mHistoryResult: NBBangHistory, val itemClick: (NBBangHistory) -> Unit) :
+
+class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: ArrayList<Place>, val itemClick: (NBBangHistory) -> Unit) :
     RecyclerView.Adapter<HistoryItemRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.name
     val DEBUG = BuildConfig.DEBUG
@@ -28,13 +29,13 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResult: NBBangHistory,
     }
 
     override fun getItemCount(): Int {
-        Log.v(TAG,"getItemCount : ${mHistoryResult.place.size}")
-        return mHistoryResult.place.let { mHistoryResult.place.size }
+        Log.v(TAG,"getItemCount : ${mHistoryResultPlaceList.size}")
+        return mHistoryResultPlaceList.let { mHistoryResultPlaceList.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
-        holder.bind(mHistoryResult.place.get(position))
+        holder.bind(mHistoryResultPlaceList.get(position))
     }
 
     inner class ViewHolder(itemView: View, itemClick: (NBBangHistory) -> Unit) :
@@ -46,7 +47,7 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResult: NBBangHistory,
             mItemView.txt_group_name.text = item.placeIndex.toString() +" 차"
             mItemView.txt_title.text = item.placeName
             mItemView.txt_join_people.text = StringUtils().getPeopleList(item.peopleList)
-            mItemView.txt_price.text = NumberUtils().makeCommaNumber(item.price) + " 원"
+            mItemView.txt_price.text = NumberUtils().makeCommaNumber(true, item.price)
         }
     }
 }

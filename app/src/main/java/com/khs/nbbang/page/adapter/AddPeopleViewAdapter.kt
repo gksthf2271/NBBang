@@ -55,7 +55,7 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<People>, call
         var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
-        itemView.txt_name.setText(mItemList.get(position).mName)
+        itemView.txt_name.setText(mItemList.get(position).name)
         itemView.txt_name.addTextChangedListener(object : TextWatcherAdapter() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)
@@ -70,7 +70,7 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<People>, call
     }
 
     override fun getItemId(position: Int): Long {
-        return mItemList.get(position).mIndex.toLong()
+        return mItemList.get(position).index.toLong()
     }
 
     override fun getCount(): Int {

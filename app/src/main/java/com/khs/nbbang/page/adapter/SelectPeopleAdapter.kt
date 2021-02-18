@@ -43,12 +43,12 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : Ba
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
         itemView.tag = people
-        itemView.checkbox_name.text = people.mName
+        itemView.checkbox_name.text = people.name
 
         mSelectNBB?.let {
             for (obj in it.mPeopleList){
                 if (people == obj) {
-                    Log.v(TAG,"Select People, ${people.mName}")
+                    Log.v(TAG,"Select People, ${people.name}")
                     itemView.checkbox_name.isChecked = true
                 }
             }
@@ -61,7 +61,7 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<People>) : Ba
     }
 
     override fun getItemId(position: Int): Long {
-        return mItemList.get(position).mIndex.toLong()
+        return mItemList.get(position).index.toLong()
     }
 
     override fun getCount(): Int {

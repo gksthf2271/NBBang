@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.khs.nbbang.history.HistoryViewModel" />
@@ -14,13 +15,60 @@
         android:layout_height="match_parent"
         tools:layout_height="250dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/group_indicator_up"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view"
+            app:layout_constraintHeight_percent="0.08"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/indicator_up"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:rotation="180"
+                android:src="@mipmap/indicator_down"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.15"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/group_indicator_down"
+            app:layout_constraintHeight_percent="0.84"
+            app:layout_constraintTop_toBottomOf="@id/group_indicator_up" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/group_indicator_down"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.95"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHeight_percent="0.08"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view">
+
+            <ImageView
+                android:id="@+id/indicator_down"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@mipmap/indicator_down"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.15"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

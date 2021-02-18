@@ -87,7 +87,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
     }
 
     fun addPeopleView(people: People){
-        Log.v(TAG,"peopleName : ${people.mName}")
+        Log.v(TAG,"peopleName : ${people.name}")
         Log.v(TAG,"peopleNameView Index : ${mGridViewAdapter.count}")
         mGridViewAdapter.addItem(mGridViewAdapter.count, people)
     }

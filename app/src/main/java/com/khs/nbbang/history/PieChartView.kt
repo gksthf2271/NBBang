@@ -29,7 +29,12 @@ class PieChartView @JvmOverloads constructor(
         initPie()
     }
 
-    val colorList = intArrayOf(
+    private val mColorList = intArrayOf(
+        ContextCompat.getColor(context, R.color.point_1),
+        ContextCompat.getColor(context, R.color.point_2),
+        ContextCompat.getColor(context, R.color.point_3),
+        ContextCompat.getColor(context, R.color.point_4),
+        ContextCompat.getColor(context, R.color.point_5),
         ContextCompat.getColor(context, R.color.history_pie_chart_color_1),
         ContextCompat.getColor(context, R.color.history_pie_chart_color_2),
         ContextCompat.getColor(context, R.color.history_pie_chart_color_3),
@@ -91,12 +96,7 @@ class PieChartView @JvmOverloads constructor(
         dataSet.iconsOffset = MPPointF(50f, 80f)
         dataSet.selectionShift = 5f
 
-        val colors = ArrayList<Int>()
-
-        for (c in colorList)
-            colors.add(c)
-
-        dataSet.colors = colors
+        dataSet.colors.addAll(mColorList.toMutableList())
 
         val data = PieData(dataSet)
         data.setValueFormatter(PercentFormatter(mBinding.pieChart))

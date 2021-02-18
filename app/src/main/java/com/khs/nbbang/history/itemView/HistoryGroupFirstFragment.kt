@@ -14,11 +14,13 @@ import com.khs.nbbang.databinding.FragmentHistoryFirstGroupBinding
 import com.khs.nbbang.history.HistoryItemRecyclerViewAdapter
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.data.NBBangHistory
+import com.khs.nbbang.history.data.Place
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment() {
     lateinit var mBinding : FragmentHistoryFirstGroupBinding
     val mViewModel: HistoryViewModel by sharedViewModel()
+    val PAGE_SIZE = 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +44,60 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
         mBinding.recyclerView.addItemDecoration(HistoryItemDecoration(10))
         mBinding.recyclerView.layoutManager = layoutManager
 
+        var currentPage = 1
+        var pageMap = getPageMap()
+
+        loadPage(currentPage, pageMap)
+
+        mBinding.groupIndicatorDown.setOnClickListener {
+            if (currentPage >= pageMap.keys.size) return@setOnClickListener
+            currentPage = currentPage.plus(1)
+            loadPage(currentPage, pageMap)
+        }
+
+        mBinding.groupIndicatorUp.setOnClickListener {
+            if (currentPage <= 1) return@setOnClickListener
+            currentPage = currentPage.minus(1)
+            loadPage(currentPage, pageMap)
+        }
+    }
+
+    fun loadPage(page: Int, pageMap : HashMap<Int, ArrayList<Place>>) {
         mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
-            mHistoryItem
+            pageMap.get(page-1) ?: arrayListOf()
         ) {
             Log.v(TAG, "Clicked Item : ${it.id}")
         }
+        updateIndicator(page, pageMap.size)
+    }
+
+    fun updateIndicator (currentPage : Int, pageSize : Int) {
+        if (pageSize == 1) {
+            mBinding.groupIndicatorUp.visibility = View.INVISIBLE
+            mBinding.groupIndicatorDown.visibility = View.INVISIBLE
+        } else if(pageSize > 1 && currentPage == 1) {
+            mBinding.groupIndicatorUp.visibility = View.INVISIBLE
+            mBinding.groupIndicatorDown.visibility = View.VISIBLE
+        } else if(pageSize > 1 && currentPage != 1 && currentPage != pageSize) {
+            mBinding.groupIndicatorUp.visibility = View.VISIBLE
+            mBinding.groupIndicatorDown.visibility = View.VISIBLE
+        } else if(pageSize > 1 && currentPage == pageSize) {
+            mBinding.groupIndicatorUp.visibility = View.VISIBLE
+            mBinding.groupIndicatorDown.visibility = View.INVISIBLE
+        }
+    }
+
+    fun getPageMap() : HashMap<Int, ArrayList<Place>>{
+        var pageHashMap : HashMap<Int, ArrayList<Place>> = hashMapOf()
+        var pageIndex = 0
+        for (place in mHistoryItem.place) {
+            pageHashMap.get(pageIndex) ?: pageHashMap.put(pageIndex, arrayListOf())
+            val currentArrayList = pageHashMap.get(pageIndex) as ArrayList<Place>
+            if (currentArrayList.size < PAGE_SIZE) {
+                currentArrayList.add(place)
+                if (currentArrayList.size >= PAGE_SIZE) pageIndex++
+            }
+        }
+        return pageHashMap
     }
 }

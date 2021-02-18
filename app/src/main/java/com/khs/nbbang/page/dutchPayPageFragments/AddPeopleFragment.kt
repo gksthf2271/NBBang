@@ -65,7 +65,7 @@ class AddPeopleFragment : BaseFragment() {
         mBinding.viewModel.let {
             if (peopleList.size == it!!.mNBBLiveData.value!!.mPeopleList.size) {
                 for (index in 0 until peopleList.size) {
-                    if (!peopleList.get(index).mName.equals(it!!.mNBBLiveData.value!!.mPeopleList.get(index).mName)){
+                    if (!peopleList.get(index).name.equals(it!!.mNBBLiveData.value!!.mPeopleList.get(index).name)){
                         return true
                     }
                 }

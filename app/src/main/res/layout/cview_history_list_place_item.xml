@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="55dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_group_name"
@@ -103,6 +103,7 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:singleLine="true"
+            android:paddingLeft="15dp"
             app:layout_constraintBottom_toBottomOf="@id/txt_join_people"
             app:layout_constraintHeight_percent="0.9"
             app:layout_constraintLeft_toRightOf="@id/txt_title"
