@@ -57,10 +57,6 @@
 
 
     <!-- version 2-->
-    <color name="primary_color">#23242A</color>
-    <color name="button_color">#282A31</color>
-    <color name="button_color_shadow">#282A31</color>
-    <color name="text_color">#ffffff</color>
     <color name="accent_color">#E91B45</color>
     <color name="grey1">#CBCBCB</color>
     <color name="grey2">#838383</color>
@@ -79,8 +75,14 @@
     <color name="blank">#99000000</color>
 
 
+    <!-- Default UI Colors -->
+    <color name="primary_color">#23242A</color>
+    <color name="button_color">#282A31</color>
+    <color name="button_color_shadow">#282A31</color>
 
-    <!-- NBB -->
+    <!-- textColors -->
+    <color name="text_color">#ffffff</color>
+
     <color name="divider_center_color">#565757</color>
     <color name="divider_start_end_color">#282A31</color>
     <color name="common_title_color">#9E9E9E</color>
@@ -88,8 +90,7 @@
     <color name="common_description_color">#FFFFFF</color>
     <color name="history_item_background">#99000000</color>
 
-
-
+    <!-- History Pie Chart Colors -->
     <color name="history_pie_chart_color_1">#BF2196F3</color>
     <color name="history_pie_chart_color_2">#BFF3214B</color>
     <color name="history_pie_chart_color_3">#F0DFDFDF</color>
@@ -100,5 +101,12 @@
     <color name="history_pie_chart_color_8">#673AB7</color>
     <color name="history_pie_chart_color_9">#CDDC39</color>
     <color name="history_pie_chart_color_10">#009688</color>
+
+    <!-- Point Colors -->
+    <color name="point_1">#FBC22C</color>
+    <color name="point_2">#F01486</color>
+    <color name="point_3">#A067AD</color>
+    <color name="point_4">#46A3D2</color>
+    <color name="point_5">#8CE33D</color>
 
 </resources>
