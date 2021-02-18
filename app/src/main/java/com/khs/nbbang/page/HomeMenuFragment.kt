@@ -13,13 +13,15 @@ import androidx.navigation.findNavController
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.login.LoginViewModel
+import com.khs.nbbang.page.viewModel.PageViewModel
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
-    val mViewModel: LoginViewModel by sharedViewModel()
+    val mLoginViewModel: LoginViewModel by sharedViewModel()
+    val mPageViewModel : PageViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,9 +34,16 @@ class HomeMenuFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
-        mBinding.viewModel = mViewModel
+        mBinding.viewModel = mLoginViewModel
 
         initView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mPageViewModel.let {
+            it!!.clearPageViewModel()
+        }
     }
 
     private fun initView(){
@@ -53,6 +62,7 @@ class HomeMenuFragment : BaseFragment() {
             }
         }
     }
+
     fun loadKakaoUserFragment() {
         Toast.makeText(requireContext(),"카카오 API 실행", Toast.LENGTH_SHORT).show()
 

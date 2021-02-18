@@ -37,6 +37,10 @@ class PageViewModel(loginCookie: LoginCookie, val mDB :AppDatabase) : ViewModel(
     private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
 
     init {
+        clearPageViewModel()
+    }
+
+    fun clearPageViewModel() {
         _NBBLiveData.value = NBB()
         _selectedPeopleMap.value = HashMap()
         _placeCount.value = 0
