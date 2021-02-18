@@ -26,10 +26,11 @@ class MainActivity : BaseActivity() {
     val mDBViewModel by viewModel<HistoryViewModel>()
 
     // tags used to attach the fragments
-    private val TAG_HOME = "home"
+    private val TAG_DUTCH_PAY = "dutchPay"
     private val TAG_HISTORY = "history"
-    private val TAG_SETTINGS = "settings"
-    var CURRENT_TAG = TAG_HOME
+    private val TAG_MEMBER_SETTINGS = "member_settings"
+    private val TAG_MY_PAGE = "my_page"
+    var CURRENT_TAG = TAG_DUTCH_PAY
     var mNavItemIndex = 0
 
     private lateinit var mAppBarConfiguration: AppBarConfiguration
@@ -55,7 +56,7 @@ class MainActivity : BaseActivity() {
         val navController = mNavHostFragment.navController
         mAppBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_history, R.id.nav_settings
+                R.id.nav_dutch_pay, R.id.nav_history, R.id.nav_member_settings, R.id.nav_my_page
             ), drawer_layout
         )
         setupActionBarWithNavController(navController, mAppBarConfiguration)
@@ -66,17 +67,21 @@ class MainActivity : BaseActivity() {
     private fun addNaviListener() {
         nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> {
+                R.id.nav_dutch_pay -> {
                     mNavItemIndex = 0
-                    CURRENT_TAG = TAG_HOME
+                    CURRENT_TAG = TAG_DUTCH_PAY
                 }
                 R.id.nav_history -> {
                     mNavItemIndex = 1
                     CURRENT_TAG = TAG_HISTORY
                 }
-                R.id.nav_settings -> {
+                R.id.nav_member_settings -> {
                     mNavItemIndex = 2
-                    CURRENT_TAG = TAG_SETTINGS
+                    CURRENT_TAG = TAG_MEMBER_SETTINGS
+                }
+                R.id.nav_my_page -> {
+                    mNavItemIndex = 3
+                    CURRENT_TAG = TAG_MY_PAGE
                 }
                 else -> mNavItemIndex = 0
             }
@@ -109,7 +114,7 @@ class MainActivity : BaseActivity() {
     private fun loadHome() {
         Log.v(TAG, "loadHome(...)")
         mNavItemIndex = 0
-        CURRENT_TAG = TAG_HOME
+        CURRENT_TAG = TAG_DUTCH_PAY
         selectNavMenu()
     }
 
@@ -119,9 +124,10 @@ class MainActivity : BaseActivity() {
 
     private fun navigateDestination() {
         when (CURRENT_TAG) {
-            TAG_HOME -> mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
+            TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
-            TAG_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
+            TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
+            TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
         }
 
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {

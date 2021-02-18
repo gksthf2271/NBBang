@@ -9,8 +9,14 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_history">History</string>
-    <string name="menu_settings">Settings</string>
+    <!--////////////-->
+
+
+
+    <!-- NBB -->
+    <string name="menu_dutch_pay">더치페이</string>
+    <string name="menu_history">기록</string>
+    <string name="menu_member_settings">멤버 관리</string>
+    <string name="menu_settings">마이페이지</string>
     <!--////////////-->
 </resources>
