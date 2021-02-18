@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.khs.nbbang.history.HistoryViewModel" />
@@ -11,7 +10,7 @@
 
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/fragment_history_xml_constraintlayout_scene">
@@ -27,7 +26,7 @@
             app:layout_constraintHeight_percent="0.15" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@id/recycler_view"
+            android:id="@id/history_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="10dp"

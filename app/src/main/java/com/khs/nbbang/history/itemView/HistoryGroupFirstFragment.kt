@@ -62,7 +62,8 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
         }
     }
 
-    fun loadPage(page: Int, pageMap : HashMap<Int, ArrayList<Place>>) {
+    private fun loadPage(page: Int, pageMap : HashMap<Int, ArrayList<Place>>) {
+        Log.v(TAG,"loadPage(...) page : $page, pageSize : ${pageMap.keys.size}")
         mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
             pageMap.get(page-1) ?: arrayListOf()
         ) {
@@ -71,7 +72,7 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
         updateIndicator(page, pageMap.size)
     }
 
-    fun updateIndicator (currentPage : Int, pageSize : Int) {
+    private fun updateIndicator (currentPage : Int, pageSize : Int) {
         if (pageSize == 1) {
             mBinding.groupIndicatorUp.visibility = View.INVISIBLE
             mBinding.groupIndicatorDown.visibility = View.INVISIBLE
@@ -87,7 +88,7 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
         }
     }
 
-    fun getPageMap() : HashMap<Int, ArrayList<Place>>{
+    private fun getPageMap() : HashMap<Int, ArrayList<Place>>{
         var pageHashMap : HashMap<Int, ArrayList<Place>> = hashMapOf()
         var pageIndex = 0
         for (place in mHistoryItem.place) {

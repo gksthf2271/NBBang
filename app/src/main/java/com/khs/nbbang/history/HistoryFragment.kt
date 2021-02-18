@@ -17,6 +17,7 @@ import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.utils.ServiceUtils
 import kotlinx.android.synthetic.main.cview_select_month.view.*
 import kotlinx.android.synthetic.main.cview_title_description.view.*
+import kotlinx.android.synthetic.main.fragment_history_end.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryFragment : BaseFragment(){
@@ -39,10 +40,15 @@ class HistoryFragment : BaseFragment(){
         addObserver()
     }
 
+    //TODO: History MotionLayout 충돌? 있음
+
     fun initView() {
         val layoutManager = LinearLayoutManager(context)
-        mBinding.recyclerView.addItemDecoration(HistoryItemDecoration(10))
-        mBinding.recyclerView.layoutManager = layoutManager
+        mBinding.historyRecyclerView.apply {
+            setHasFixedSize(true)
+            addItemDecoration(HistoryItemDecoration(10))
+            this.layoutManager = layoutManager
+        }
 
         mBinding.cviewSelectMonth.imgLeftIndicator.setOnClickListener {
             mBinding.viewModel.let { it!!.decreaseMonth() }
@@ -59,7 +65,7 @@ class HistoryFragment : BaseFragment(){
         mBinding.viewModel ?: return
         mBinding.viewModel!!.mHistory.observe(requireActivity(), Observer {
             Log.v(TAG, "updated mHistory : $it")
-            mBinding.recyclerView.adapter = HistoryRecyclerViewAdapter(
+            mBinding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
                 requireActivity().supportFragmentManager,
                 lifecycle,
                 (it as GetNBBangHistoryResult).nbbangHistoryList

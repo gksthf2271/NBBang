@@ -10,7 +10,7 @@
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@id/recycler_view"
+            app:touchAnchorId="@id/history_recycler_view"
             app:touchAnchorSide="top" />
 
         <KeyFrameSet>

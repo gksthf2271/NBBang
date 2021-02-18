@@ -10,11 +10,11 @@
     </data>
 
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/motion_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_history_xml_constraintlayout_scene">
+        android:layout_height="match_parent">
+<!--        app:layoutDescription="@xml/fragment_history_xml_constraintlayout_scene"-->
 
         <include
             android:id="@+id/cview_select_month"
@@ -23,12 +23,12 @@
             android:layout_height="0dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            app:layout_constraintBottom_toTopOf="@id/recycler_view"
+            app:layout_constraintBottom_toTopOf="@id/history_recycler_view"
             app:layout_constraintHeight_percent="0.15"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@id/recycler_view"
+            android:id="@+id/history_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="10dp"
@@ -37,6 +37,6 @@
             app:layout_constraintHeight_percent="0.83"
             app:layout_constraintTop_toBottomOf="@id/cview_select_month" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
