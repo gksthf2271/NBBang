@@ -38,7 +38,7 @@ open class NBApp : Application(){
         Log.v(TAG,"NBApp Start!, onCreate(...)")
 
         // Kakao SDK 초기화
-        KakaoSdk.init(this, "{1ba03cee909ded713fcf50d73b1d2ce9}")
+        KakaoSdk.init(this, "1ba03cee909ded713fcf50d73b1d2ce9")
 
         startKoin {
             androidLogger()
@@ -63,10 +63,6 @@ open class NBApp : Application(){
         single {
             PackageRepository(applicationContext)
         }
-
-        single{
-            LoginCookie()
-        }
     }
 
     val viewModelModule = module {
@@ -75,7 +71,7 @@ open class NBApp : Application(){
         }
 
         viewModel {
-            PageViewModel(get(), get())
+            PageViewModel(get())
         }
 
         viewModel {

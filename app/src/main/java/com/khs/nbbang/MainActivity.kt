@@ -27,6 +27,7 @@ class MainActivity : BaseActivity() {
     val mDBViewModel by viewModel<HistoryViewModel>()
 
     // tags used to attach the fragments
+    private val TAG_LOGIN = "login"
     private val TAG_DUTCH_PAY = "dutchPay"
     private val TAG_HISTORY = "history"
     private val TAG_MEMBER_SETTINGS = "member_settings"
@@ -56,7 +57,6 @@ class MainActivity : BaseActivity() {
             drawer_layout.openDrawer(GravityCompat.START)
         }
         addNaviListener()
-
     }
 
     private fun addNaviListener() {

@@ -7,12 +7,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.AuthType
+import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.khs.nbbang.base.BaseViewModel
+import com.khs.nbbang.kakaoUser.KaKaoUser
 
 class LoginViewModel(context: Context) : BaseViewModel() {
 
-    private val _loginLiveData: MutableLiveData<LoginCookie> = MutableLiveData()
+    private val _myDataFromKakao: MutableLiveData<KaKaoUser> = MutableLiveData()
+    private val _loginCookie: MutableLiveData<LoginCookie> = MutableLiveData()
     private val _isLogin: MutableLiveData<Boolean> = MutableLiveData()
     var mContext : Context
 
@@ -20,11 +23,9 @@ class LoginViewModel(context: Context) : BaseViewModel() {
         mContext = context
     }
 
-    val mIsLogin: LiveData<Boolean>
-        get() = _isLogin
-
-    val mLoginCookie: LiveData<LoginCookie>
-        get() = _loginLiveData
+    val mIsLogin: LiveData<Boolean> get() = _isLogin
+    val mLoginCookie: LiveData<LoginCookie> get() = _loginCookie
+    val mMyDataFrom: LiveData<KaKaoUser> get() = _myDataFromKakao
 
     fun checkCookie() {
 
@@ -39,17 +40,46 @@ class LoginViewModel(context: Context) : BaseViewModel() {
         if (LoginClient.instance.isKakaoTalkLoginAvailable(mContext)) {
             // 카카오톡으로 로그인
             LoginClient.instance.loginWithKakaoTalk(mContext) { token, error ->
-                if (error != null) {
-                    Log.e(TAG, "로그인 실패", error)
-                    _isLogin.postValue(false)
-                } else if (token != null) {
-                    Log.i(TAG, "로그인 성공 ${token.accessToken}")
-                    _isLogin.postValue(true)
-                }
+                checkLogin(token, error)
             }
         } else {
             Toast.makeText(mContext, "카카오톡 설치 필요!", Toast.LENGTH_SHORT).show()
+            LoginClient.instance.loginWithKakaoAccount(mContext) { token, error ->
+                checkLogin(token, error)
+            }
+        }
+    }
+
+    fun checkLogin(token : OAuthToken?, error : Throwable?) {
+        if (error != null) {
+            Log.e(TAG, "로그인 실패", error)
             _isLogin.postValue(false)
+        } else if (token != null) {
+            Log.i(TAG, "로그인 성공 ${token.accessToken}")
+            _isLogin.postValue(true)
+            _loginCookie.postValue(
+                LoginCookie(accessToken = token.accessToken))
+            loadMyDataFromKakao()
+        }
+    }
+
+    fun loadMyDataFromKakao() {
+        UserApiClient.instance.me { user, throwable ->
+            if (user == null) {
+                Log.e(TAG,"Failed loadMyData from KaKao : $throwable")
+                return@me
+            } else {
+                _myDataFromKakao.postValue(
+                    KaKaoUser(
+                        id = user.id,
+                        properties = user.properties,
+                        kakaoAccount = user.kakaoAccount,
+                        groupUserToken = user.groupUserToken,
+                        connectedAt = user.connectedAt,
+                        synchedAt = user.synchedAt
+                    )
+                )
+            }
         }
     }
 

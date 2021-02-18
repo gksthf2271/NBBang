@@ -40,8 +40,6 @@ class HistoryFragment : BaseFragment(){
         addObserver()
     }
 
-    //TODO: History MotionLayout 충돌? 있음
-
     fun initView() {
         val layoutManager = LinearLayoutManager(context)
         mBinding.historyRecyclerView.apply {

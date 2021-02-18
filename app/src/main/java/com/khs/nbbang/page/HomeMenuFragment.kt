@@ -17,6 +17,7 @@ import com.khs.nbbang.page.viewModel.PageViewModel
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
+//TODO : Login화면 분리 필요, 화면 별 순서 확립해야됨
 
 class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
@@ -54,23 +55,28 @@ class HomeMenuFragment : BaseFragment() {
         mBinding.btnKakaoLogin.setOnClickListener {
             mBinding.viewModel.let {
                 it!!.mLoginCookie.observe(requireActivity(), Observer {
-                    Log.d(TAG, "Login Cookie >>> ${it.cookieData}")
-                    if (!TextUtils.isEmpty(it.cookieData)) {
+                    Log.d(TAG, "Login Cookie >>> ${it.accessToken}")
+                    if (!TextUtils.isEmpty(it.accessToken)) {
                         loadKakaoUserFragment()
                     }
                 })
             }
         }
+
+        mBinding.viewModel.let {
+            it!!.mMyDataFrom.observe(requireActivity(), Observer {
+                Log.v(
+                    TAG, "MyData id : ${it.id}"
+                            + "\n name : ${it.properties?.get("nickname")}"
+                            + "\n profile_image : ${it.properties?.get("profile_image")}"
+                            + "\n thumbnail_image : ${it.properties?.get("thumbnail_image")}"
+                )
+            })
+        }
     }
 
     fun loadKakaoUserFragment() {
         Toast.makeText(requireContext(),"카카오 API 실행", Toast.LENGTH_SHORT).show()
-
-//        val bundle = bundleOf("api" to myDataset[position])
-//
-//        Navigation.findNavController(holder.item).navigate(
-//            R.id.action_leaderboard_to_userProfile,
-//            bundle)
     }
 
     fun loadFreeUserFragment() {
