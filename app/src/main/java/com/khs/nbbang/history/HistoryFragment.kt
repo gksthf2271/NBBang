@@ -13,6 +13,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentHistoryBinding
+import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.utils.ServiceUtils
 import kotlinx.android.synthetic.main.cview_select_month.view.*
 import kotlinx.android.synthetic.main.cview_title_description.view.*
@@ -61,7 +62,7 @@ class HistoryFragment : BaseFragment(){
             mBinding.recyclerView.adapter = HistoryRecyclerViewAdapter(
                 requireActivity().supportFragmentManager,
                 lifecycle,
-                it
+                (it as GetNBBangHistoryResult).nbbangHistoryList
             ) {
                 Log.v(TAG, "Clicked Item : ${it.id}")
             }

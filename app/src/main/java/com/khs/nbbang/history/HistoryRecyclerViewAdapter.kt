@@ -20,15 +20,10 @@ import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_history_list_item.view.*
 import kotlinx.android.synthetic.main.cview_title_description.view.*
 
-class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifecycle, historyResult: GetNBBangHistoryResult, val itemClick: (NBBangHistory) -> Unit) :
+class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifecycle, private val mHistoryList: List<NBBangHistory>, val itemClick: (NBBangHistory) -> Unit) :
     RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.name
     val DEBUG = BuildConfig.DEBUG
-    val mNBBangHistoryList: List<NBBangHistory>
-
-    init {
-        mNBBangHistoryList = historyResult.nbbangHistoryList
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -40,13 +35,13 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
     }
 
     override fun getItemCount(): Int {
-        Log.v(TAG,"getItemCount : ${mNBBangHistoryList!!.size}")
-        return mNBBangHistoryList.let { mNBBangHistoryList!!.size }
+        Log.v(TAG,"getItemCount : ${mHistoryList!!.size}")
+        return mHistoryList.let { mHistoryList!!.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
-        holder.bind(mNBBangHistoryList!!.get(position))
+        holder.bind(mHistoryList!!.get(position))
     }
 
     inner class ViewHolder(itemView: View, itemClick: (NBBangHistory) -> Unit) :
