@@ -16,6 +16,7 @@ import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -50,7 +51,6 @@ class MainActivity : BaseActivity() {
     }
 
     fun initNaviView() {
-        setSupportActionBar(toolbar)
         mNavHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = mNavHostFragment.navController
@@ -59,7 +59,10 @@ class MainActivity : BaseActivity() {
                 R.id.nav_dutch_pay, R.id.nav_history, R.id.nav_member_settings, R.id.nav_my_page
             ), drawer_layout
         )
-        setupActionBarWithNavController(navController, mAppBarConfiguration)
+        group_indicator.setOnClickListener {
+            drawer_layout.openDrawer(GravityCompat.START)
+        }
+//        setupActionBarWithNavController(navController, mAppBarConfiguration)
         addNaviListener()
 
     }
@@ -89,17 +92,6 @@ class MainActivity : BaseActivity() {
             navigateDestination()
             true
         }
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                drawer_layout.openDrawer(GravityCompat.START)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
