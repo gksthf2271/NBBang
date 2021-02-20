@@ -1,13 +1,14 @@
 package com.khs.nbbang
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.core.app.TaskStackBuilder
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
+import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.history.HistoryViewModel
@@ -55,6 +56,14 @@ class MainActivity : BaseActivity() {
         mNavHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         updateProfileInfo(null, null, null)
+
+        mBinding.drawerLayout.setScrimColor(Color.TRANSPARENT);
+        mBinding.drawerLayout.addDrawerListener(
+            NavigationDrawerEvent(
+                mBinding.contentView,
+                mBinding.navView
+            )
+        )
         addNaviListener()
     }
 
