@@ -2,21 +2,22 @@ package com.khs.nbbang
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import androidx.core.app.TaskStackBuilder
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.cview_title_description.view.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -53,14 +54,16 @@ class MainActivity : BaseActivity() {
     fun initNaviView() {
         mNavHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        group_indicator.setOnClickListener {
-            drawer_layout.openDrawer(GravityCompat.START)
-        }
+        updateProfileInfo(null, null, null)
         addNaviListener()
     }
 
     private fun addNaviListener() {
-        nav_view.setNavigationItemSelectedListener { menuItem ->
+        group_indicator.setOnClickListener {
+            drawer_layout.openDrawer(GravityCompat.START)
+        }
+
+        mBinding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_dutch_pay -> {
                     mNavItemIndex = 0
@@ -84,6 +87,41 @@ class MainActivity : BaseActivity() {
             navigateDestination()
             true
         }
+
+        mLoginViewModel ?: return
+        mLoginViewModel!!.mMyData.observe(this, Observer {
+            if (it != null) {
+                Log.v(TAG, "mMyDataFrom : ${it!!}")
+                if (it!! != null) {
+                    var id = it!!.id
+                    var name = it!!.properties?.get("nickname")
+                    var image = it!!.properties?.get("profile_image")
+                    var thumbnail = it!!.properties?.get("thumbnail_image")
+                    Log.v(
+                        TAG, "MyData id : ${id}"
+                                + "\n name : ${name}"
+                                + "\n profile_image : ${image}"
+                                + "\n thumbnail_image : ${thumbnail}"
+                    )
+                    updateProfileInfo(thumbnail, name, id.toString())
+                } else {
+                    updateProfileInfo(null, null, null)
+                }
+
+            } else {
+                Log.v(TAG, "isLogin : $it")
+                updateProfileInfo(null, null, null)
+            }
+        })
+    }
+
+    private fun updateProfileInfo(thumbnail: String?, name: String?, id: String?) {
+        var naviHeaderView = mBinding.navView.getHeaderView(0)
+        GlideUtils().drawImageWith(this, naviHeaderView.img_profile, thumbnail, null)
+        naviHeaderView.group_name.txt_title.text = "이름"
+        naviHeaderView.group_id.txt_title.text = "계정"
+        naviHeaderView.group_name.txt_description.text = name ?: "EMPTY"
+        naviHeaderView.group_id.txt_description.text = id ?: "EMPTY"
     }
 
     override fun onBackPressed() {
@@ -103,7 +141,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun selectNavMenu() {
-        nav_view.menu.getItem(mNavItemIndex).isChecked = true
+        mBinding.navView.menu.getItem(mNavItemIndex).isChecked = true
     }
 
     private fun navigateDestination() {

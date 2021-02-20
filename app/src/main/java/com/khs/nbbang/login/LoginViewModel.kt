@@ -10,14 +10,14 @@ import com.kakao.sdk.auth.model.AuthType
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.khs.nbbang.base.BaseViewModel
-import com.khs.nbbang.kakaoUser.KaKaoUser
+import com.khs.nbbang.user.KaKaoUser
 
 class LoginViewModel(context: Context) : BaseViewModel() {
 
     private val _myDataFromKakao: MutableLiveData<KaKaoUser> = MutableLiveData()
     private val _loginCookie: MutableLiveData<LoginCookie> = MutableLiveData()
     private val _isLogin: MutableLiveData<Boolean> = MutableLiveData()
-    var mContext : Context
+    var mContext: Context
 
     init {
         mContext = context
@@ -25,15 +25,20 @@ class LoginViewModel(context: Context) : BaseViewModel() {
 
     val mIsLogin: LiveData<Boolean> get() = _isLogin
     val mLoginCookie: LiveData<LoginCookie> get() = _loginCookie
-    val mMyDataFrom: LiveData<KaKaoUser> get() = _myDataFromKakao
+    val mMyData: LiveData<KaKaoUser> get() = _myDataFromKakao
 
-    fun checkCookie() {
+    fun resetMyData() {
+        _myDataFromKakao.value = null
+    }
 
+    fun logoutAndResetData() {
+        _isLogin.postValue(false)
+        resetMyData()
     }
 
     fun freeUser() {
-        Log.v(TAG,"freeUser(...)")
-        _isLogin.postValue(false)
+        Log.v(TAG, "freeUser(...)")
+        logoutAndResetData()
     }
 
     fun login() {
@@ -50,23 +55,22 @@ class LoginViewModel(context: Context) : BaseViewModel() {
         }
     }
 
-    fun checkLogin(token : OAuthToken?, error : Throwable?) {
+    private fun checkLogin(token: OAuthToken?, error: Throwable?) {
         if (error != null) {
             Log.e(TAG, "로그인 실패", error)
-            _isLogin.postValue(false)
+            logoutAndResetData()
         } else if (token != null) {
             Log.i(TAG, "로그인 성공 ${token.accessToken}")
+            updateMyDataFromKakao()
+            _loginCookie.postValue(LoginCookie(accessToken = token.accessToken))
             _isLogin.postValue(true)
-            _loginCookie.postValue(
-                LoginCookie(accessToken = token.accessToken))
-            loadMyDataFromKakao()
         }
     }
 
-    fun loadMyDataFromKakao() {
+    private fun updateMyDataFromKakao() {
         UserApiClient.instance.me { user, throwable ->
             if (user == null) {
-                Log.e(TAG,"Failed loadMyData from KaKao : $throwable")
+                Log.e(TAG, "Failed loadMyData from KaKao : $throwable")
                 return@me
             } else {
                 _myDataFromKakao.postValue(
@@ -92,6 +96,7 @@ class LoginViewModel(context: Context) : BaseViewModel() {
                     Log.e(TAG, "로그인 실패", error)
                 } else if (token != null) {
                     Log.i(TAG, "로그인 성공 ${token.accessToken}")
+                    _isLogin.postValue(true)
                 }
             }
         }
@@ -105,6 +110,7 @@ class LoginViewModel(context: Context) : BaseViewModel() {
                     Log.e(TAG, "연결 끊기 실패", error)
                 } else {
                     Log.i(TAG, "연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                    logoutAndResetData()
                 }
             }
         }
@@ -113,14 +119,14 @@ class LoginViewModel(context: Context) : BaseViewModel() {
     fun logout() {
         // 로그아웃
         if (LoginClient.instance.isKakaoTalkLoginAvailable(mContext)) {
-        UserApiClient.instance.logout { error ->
-            if (error != null) {
-                Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+            UserApiClient.instance.logout { error ->
+                if (error != null) {
+                    Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+                } else {
+                    Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+                    logoutAndResetData()
+                }
             }
-            else {
-                Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
-            }
-        }
         }
     }
 }

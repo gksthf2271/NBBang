@@ -1,7 +1,6 @@
 package com.khs.nbbang.page
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +37,7 @@ class HomeMenuFragment : BaseFragment() {
         mBinding.viewModel = mLoginViewModel
 
         initView()
+        addObserver()
     }
 
     override fun onResume() {
@@ -49,22 +49,13 @@ class HomeMenuFragment : BaseFragment() {
 
     private fun initView(){
         mBinding.btnFree.setOnClickListener {
-            loadFreeUserFragment()
+            loadDutchPayFragment()
         }
+    }
 
-        mBinding.btnKakaoLogin.setOnClickListener {
-            mBinding.viewModel.let {
-                it!!.mLoginCookie.observe(requireActivity(), Observer {
-                    Log.d(TAG, "Login Cookie >>> ${it.accessToken}")
-                    if (!TextUtils.isEmpty(it.accessToken)) {
-                        loadKakaoUserFragment()
-                    }
-                })
-            }
-        }
-
+    fun addObserver() {
         mBinding.viewModel.let {
-            it!!.mMyDataFrom.observe(requireActivity(), Observer {
+            it!!.mMyData.observe(requireActivity(), Observer {
                 Log.v(
                     TAG, "MyData id : ${it.id}"
                             + "\n name : ${it.properties?.get("nickname")}"
@@ -72,14 +63,17 @@ class HomeMenuFragment : BaseFragment() {
                             + "\n thumbnail_image : ${it.properties?.get("thumbnail_image")}"
                 )
             })
+
+            it!!.mIsLogin.observe(requireActivity(), Observer {
+                Log.d(TAG, "isLogin >>> $it")
+                if (it) {
+                    loadDutchPayFragment()
+                }
+            })
         }
     }
 
-    fun loadKakaoUserFragment() {
-        Toast.makeText(requireContext(),"카카오 API 실행", Toast.LENGTH_SHORT).show()
-    }
-
-    fun loadFreeUserFragment() {
+    fun loadDutchPayFragment() {
         requireActivity().nav_host_fragment.findNavController().navigate(R.id.action_home_menu_to_dutch_pay_home)
     }
 }
