@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.kakao.sdk.talk.TalkApiClient
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.page.ItemObj.NBB
@@ -40,6 +41,7 @@ class AddPeopleFragment : BaseFragment() {
         mBinding.viewModel = mViewModel
         initView()
         observer()
+        loadFriendsListWithKakao()
     }
 
     override fun onPause() {
@@ -124,6 +126,20 @@ class AddPeopleFragment : BaseFragment() {
                 mGridViewAdapter.addItem(index, people)
             } catch (IOOB: IndexOutOfBoundsException) {
                 Log.v(TAG,"$IOOB")
+            }
+        }
+    }
+
+    fun loadFriendsListWithKakao() {
+        // 카카오톡 친구 목록 가져오기 (기본)
+        TalkApiClient.instance.friends { friends, error ->
+            if (error != null) {
+                Log.e(TAG, "카카오톡 친구 목록 가져오기 실패", error)
+            }
+            else if (friends != null) {
+                Log.i(TAG, "카카오톡 친구 목록 가져오기 성공 \n${friends.elements.joinToString("\n")}")
+
+                // 친구의 UUID 로 메시지 보내기 가능
             }
         }
     }

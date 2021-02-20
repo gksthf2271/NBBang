@@ -73,16 +73,18 @@ class LoginViewModel(context: Context) : BaseViewModel() {
                 Log.e(TAG, "Failed loadMyData from KaKao : $throwable")
                 return@me
             } else {
+                var name = user.properties.let{ it!!.get("nickname")}
                 _myDataFromKakao.postValue(
                     KaKaoUser(
                         id = user.id,
-                        properties = user.properties,
-                        kakaoAccount = user.kakaoAccount,
-                        groupUserToken = user.groupUserToken,
-                        connectedAt = user.connectedAt,
-                        synchedAt = user.synchedAt
-                    )
-                )
+                        name = name ?: "",
+                            properties = user.properties,
+                            kakaoAccount = user.kakaoAccount,
+                            groupUserToken = user.groupUserToken,
+                            connectedAt = user.connectedAt,
+                            synchedAt = user.synchedAt
+                            )
+                            )
             }
         }
     }
@@ -118,14 +120,12 @@ class LoginViewModel(context: Context) : BaseViewModel() {
 
     fun logout() {
         // 로그아웃
-        if (LoginClient.instance.isKakaoTalkLoginAvailable(mContext)) {
-            UserApiClient.instance.logout { error ->
-                if (error != null) {
-                    Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
-                } else {
-                    Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
-                    logoutAndResetData()
-                }
+        UserApiClient.instance.logout { error ->
+            if (error != null) {
+                Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+            } else {
+                Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+                logoutAndResetData()
             }
         }
     }

@@ -17,6 +17,10 @@
         android:id="@+id/action_go_to_history"
         app:destination="@id/historyFragment" />
 
+    <action
+        android:id="@+id/action_go_to_my_page"
+        app:destination="@id/myPageFragment" />
+
     <fragment
         android:id="@+id/homeMenuFragment"
         android:name="com.khs.nbbang.page.HomeMenuFragment"
@@ -30,6 +34,10 @@
         <action
             android:id="@+id/action_home_menu_to_dutch_pay_home"
             app:destination="@id/dutchPayMainFragment" />
+
+        <action
+            android:id="@+id/action_home_menu_to_my_page"
+            app:destination="@id/myPageFragment" />
     </fragment>
 
     <fragment
@@ -58,6 +66,13 @@
             android:id="@+id/action_dutch_pay_home_to_home_menu"
             app:destination="@id/homeMenuFragment"/>
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.khs.nbbang.mypage.MyPageFragment"
+        android:label="MyPage"
+        tools:layout="@layout/fragment_my_page">
     </fragment>
 
 <!--    <include-->

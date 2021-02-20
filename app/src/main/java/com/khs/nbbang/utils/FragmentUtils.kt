@@ -1,8 +1,10 @@
 package com.khs.nbbang.utils
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.*
+import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
+import com.khs.nbbang.base.BaseFragment
 
 open class FragmentUtils{
 
@@ -28,4 +30,7 @@ open class FragmentUtils{
         return fragmentManager.findFragmentById(container_id)
     }
 
+    open fun currentFragmentClassName(fragmentContainerView: FragmentContainerView) : String{
+        return (fragmentContainerView.findNavController().currentDestination as FragmentNavigator.Destination).className
+    }
 }

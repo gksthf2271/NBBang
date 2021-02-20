@@ -158,19 +158,11 @@ class MainActivity : BaseActivity() {
             TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
             TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
-            TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
+            TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_my_page)
         }
 
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         }
-    }
-
-    fun currentDestination(): FragmentNavigator.Destination {
-        Log.v(
-            TAG,
-            "currentDestination : ${(mNavHostFragment.navController.currentDestination as FragmentNavigator.Destination).className}"
-        )
-        return mNavHostFragment.navController.currentDestination as FragmentNavigator.Destination
     }
 }
