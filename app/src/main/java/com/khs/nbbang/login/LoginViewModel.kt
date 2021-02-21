@@ -73,18 +73,18 @@ class LoginViewModel(context: Context) : BaseViewModel() {
                 Log.e(TAG, "Failed loadMyData from KaKao : $throwable")
                 return@me
             } else {
-                var name = user.properties.let{ it!!.get("nickname")}
+                var name = user.properties.let { it!!.get("nickname") }
                 _myDataFromKakao.postValue(
                     KaKaoUser(
                         id = user.id,
                         name = name ?: "",
-                            properties = user.properties,
-                            kakaoAccount = user.kakaoAccount,
-                            groupUserToken = user.groupUserToken,
-                            connectedAt = user.connectedAt,
-                            synchedAt = user.synchedAt
-                            )
-                            )
+                        properties = user.properties,
+                        kakaoAccount = user.kakaoAccount,
+                        groupUserToken = user.groupUserToken,
+                        connectedAt = user.connectedAt,
+                        synchedAt = user.synchedAt
+                    )
+                )
             }
         }
     }

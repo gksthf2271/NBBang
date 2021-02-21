@@ -4,45 +4,72 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        app:constraintSetEnd="@layout/fragment_history_end"
-        app:constraintSetStart="@layout/fragment_history"
-        app:duration="500">
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
 
         <OnSwipe
             app:dragDirection="dragUp"
             app:touchAnchorId="@id/history_recycler_view"
+            app:moveWhenScrollAtTop="true"
             app:touchAnchorSide="top" />
 
         <KeyFrameSet>
 
             <KeyAttribute
                 android:alpha="0"
-                motion:framePosition="40"
+                app:framePosition="50"
                 motion:motionTarget="@id/cview_select_month" />
 
-        </KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                android:scaleX="0"
+                android:scaleY="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/cview_select_month" />
 
+        </KeyFrameSet>
     </Transition>
 
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/cview_select_month"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/history_recycler_view"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/history_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.83"
+            app:layout_constraintTop_toBottomOf="@id/cview_select_month" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/cview_select_month"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toTopOf="@id/history_recycler_view"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/history_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHeight_percent="0.95"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/cview_select_month" />
+    </ConstraintSet>
 </MotionScene>
-
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-    <!--<MotionScene -->
-    <!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--    xmlns:motion="http://schemas.android.com/apk/res-auto">-->
-
-    <!--    <Transition-->
-    <!--        motion:constraintSetEnd="@+id/end"-->
-    <!--        motion:constraintSetStart="@id/start"-->
-    <!--        motion:duration="1000">-->
-    <!--       <KeyFrameSet>-->
-    <!--       </KeyFrameSet>-->
-    <!--    </Transition>-->
-
-    <!--    <ConstraintSet android:id="@+id/start">-->
-    <!--    </ConstraintSet>-->
-
-    <!--    <ConstraintSet android:id="@+id/end">-->
-    <!--    </ConstraintSet>-->
-    <!--</MotionScene>-->

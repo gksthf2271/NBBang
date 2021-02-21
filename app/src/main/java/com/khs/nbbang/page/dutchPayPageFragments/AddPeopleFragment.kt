@@ -1,6 +1,7 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,17 +12,17 @@ import androidx.lifecycle.Observer
 import com.kakao.sdk.talk.TalkApiClient
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.PeopleNameWatcherCallback
 import com.khs.nbbang.page.adapter.AddPeopleViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import org.koin.android.viewmodel.ext.android.sharedViewModel
-import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
-class AddPeopleFragment : BaseFragment() {
+class AddPeopleFragment : BaseFragment(){
     lateinit var mBinding : FragmentAddPeopleBinding
     lateinit var mGridViewAdapter : AddPeopleViewAdapter
     val mViewModel : PageViewModel by sharedViewModel()
@@ -89,6 +90,7 @@ class AddPeopleFragment : BaseFragment() {
         })
         mBinding.viewGrid.adapter = mGridViewAdapter
         initCircle()
+        initMotionLayout()
         mBinding.viewGrid.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             if (position == 0) {
                 mGridViewAdapter.addItem(
@@ -100,6 +102,10 @@ class AddPeopleFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    fun initMotionLayout() {
+
     }
 
     fun observer() {
