@@ -21,23 +21,15 @@
         android:id="@+id/action_go_to_my_page"
         app:destination="@id/myPageFragment" />
 
+    <action
+        android:id="@+id/action_go_to_group_management"
+        app:destination="@id/groupManagementFragment" />
+
     <fragment
         android:id="@+id/homeMenuFragment"
         android:name="com.khs.nbbang.page.HomeMenuFragment"
         android:label="메뉴"
         tools:layout="@layout/fragment_home_menu">
-
-        <action
-            android:id="@+id/action_home_menu_to_history"
-            app:destination="@id/historyFragment" />
-
-        <action
-            android:id="@+id/action_home_menu_to_dutch_pay_home"
-            app:destination="@id/dutchPayMainFragment" />
-
-        <action
-            android:id="@+id/action_home_menu_to_my_page"
-            app:destination="@id/myPageFragment" />
     </fragment>
 
     <fragment
@@ -52,20 +44,7 @@
         android:id="@+id/dutchPayMainFragment"
         android:name="com.khs.nbbang.page.DutchPayMainFragment"
         android:label="더치 페이"
-        tools:layout="@layout/fragment_page_home">
-
-        <argument android:name="api"
-            android:defaultValue="api"/>
-        <deepLink app:uri="page/{api}" />
-
-        <action
-            android:id="@+id/action_dutch_pay_home_to_history"
-            app:destination="@id/historyFragment"/>
-
-        <action
-            android:id="@+id/action_dutch_pay_home_to_home_menu"
-            app:destination="@id/homeMenuFragment"/>
-
+        tools:layout="@layout/fragment_dutchpay_home">
     </fragment>
 
     <fragment
@@ -75,7 +54,11 @@
         tools:layout="@layout/fragment_my_page">
     </fragment>
 
-<!--    <include-->
-<!--        app:graph="@navigation/nav_view_pager" />-->
+    <fragment
+        android:id="@+id/groupManagementFragment"
+        android:name="com.khs.nbbang.group.GroupManagementFragment"
+        android:label="MyPage"
+        tools:layout="@layout/fragment_group_management">
+    </fragment>
 
 </navigation>

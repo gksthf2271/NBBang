@@ -129,8 +129,8 @@ class MainActivity : BaseActivity() {
         GlideUtils().drawImageWith(this, naviHeaderView.img_profile, thumbnail, null)
         naviHeaderView.group_name.txt_title.text = "이름"
         naviHeaderView.group_id.txt_title.text = "계정"
-        naviHeaderView.group_name.txt_description.text = name ?: "EMPTY"
-        naviHeaderView.group_id.txt_description.text = id ?: "EMPTY"
+        naviHeaderView.group_name.txt_description.text = name ?: "FREE USER"
+        naviHeaderView.group_id.txt_description.text = id ?: "-"
     }
 
     override fun onBackPressed() {
@@ -157,7 +157,7 @@ class MainActivity : BaseActivity() {
         when (CURRENT_TAG) {
             TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
-            TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
+            TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_group_management)
             TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_my_page)
         }
 
