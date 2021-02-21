@@ -33,22 +33,21 @@
         <OnSwipe
             app:dragDirection="dragUp"
             app:moveWhenScrollAtTop="true"
-            app:touchAnchorId="@+id/group_scroll"
-            app:touchAnchorSide="middle" />
+            app:touchAnchorId="@+id/recycler_view" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@id/txt_title"
             android:layout_width="match_parent"
-            app:layout_constraintBottom_toTopOf="@id/group_scroll"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view"
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
-            android:id="@id/group_scroll"
+            android:id="@id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,14 +60,14 @@
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@id/txt_title"
-            app:layout_constraintBottom_toTopOf="@+id/group_scroll"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view"
             app:layout_constraintHeight_percent="0.1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
-            android:id="@id/group_scroll"
+            android:id="@id/recycler_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.9"
             app:layout_constraintLeft_toLeftOf="parent"

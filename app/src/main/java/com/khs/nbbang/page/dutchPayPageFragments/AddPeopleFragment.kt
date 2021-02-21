@@ -1,22 +1,21 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kakao.sdk.talk.TalkApiClient
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.page.PeopleNameWatcherCallback
-import com.khs.nbbang.page.adapter.AddPeopleViewAdapter
+import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -24,9 +23,10 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPeopleFragment : BaseFragment(){
     lateinit var mBinding : FragmentAddPeopleBinding
-    lateinit var mGridViewAdapter : AddPeopleViewAdapter
+    lateinit var mRecyclerViewAdapter : AddPeopleRecyclerViewAdapter
     val mViewModel : PageViewModel by sharedViewModel()
-    val DEFAULT_SIZE = 1
+    private val DEFAULT_SIZE = 1
+    private var mPeopleList = mutableListOf<People>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +49,9 @@ class AddPeopleFragment : BaseFragment(){
         super.onPause()
         var peopleListBuffer = mutableListOf<People>()
 
-        for (index in DEFAULT_SIZE .. mBinding.viewGrid.childCount - 1 ) {
+        for (index in DEFAULT_SIZE until mBinding.recyclerView.childCount) {
             try {
-                peopleListBuffer.add(People(index, mBinding.viewGrid.getChildAt(index).txt_name.text.toString()))
+                peopleListBuffer.add(People(index, mBinding.recyclerView.getChildAt(index).txt_name.text.toString()))
             } catch (e:Exception) {
                 Log.e(TAG,"$e,\n\n $index")
             }
@@ -64,7 +64,7 @@ class AddPeopleFragment : BaseFragment(){
         }
     }
 
-    fun isUpdatedPeople(peopleList: MutableList<People>) : Boolean{
+    private fun isUpdatedPeople(peopleList: MutableList<People>) : Boolean{
         mBinding.viewModel.let {
             if (peopleList.size == it!!.mNBBLiveData.value!!.mPeopleList.size) {
                 for (index in 0 until peopleList.size) {
@@ -80,31 +80,24 @@ class AddPeopleFragment : BaseFragment(){
     }
 
     fun initView() {
-        mGridViewAdapter = AddPeopleViewAdapter(requireContext(), mutableListOf(), object :
-            PeopleNameWatcherCallback {
-            override fun onCallback(peopleId: Int, name: String) {
-//                mBinding.viewModel.let {
-//                    it!!.savePeopleName(peopleId - DEFAULT_SIZE, name)
-//                }
-            }
-        })
-        mBinding.viewGrid.adapter = mGridViewAdapter
-        initCircle()
-        initMotionLayout()
-        mBinding.viewGrid.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            if (position == 0) {
-                mGridViewAdapter.addItem(
-                    mGridViewAdapter.count,
-                    People(mGridViewAdapter.count, "")
-                )
+        mRecyclerViewAdapter = AddPeopleRecyclerViewAdapter(requireContext(), mPeopleList) {
+            if (it.first == 0) {
+                mPeopleList.add(People(mPeopleList.size, ""))
                 mBinding.viewModel.let {
-                    it!!.setPeopleCount(mGridViewAdapter.mItemList.size - DEFAULT_SIZE)
+                    it!!.setPeopleCount(mRecyclerViewAdapter.mItemList.size - DEFAULT_SIZE)
                 }
+            } else {
+
             }
         }
-    }
 
-    fun initMotionLayout() {
+        mBinding.recyclerView.apply {
+            layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+            isFocusable = true
+            descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+            adapter = mRecyclerViewAdapter
+        }
+        initCircle()
 
     }
 
@@ -117,26 +110,28 @@ class AddPeopleFragment : BaseFragment(){
         }
     }
 
-    fun initCircle() {
-        mGridViewAdapter.mItemList.clear()
+    private fun initCircle() {
+        mPeopleList.clear()
         var dummyPeople = People(0," + ")
-        mGridViewAdapter.addItem(dummyPeople)
+        mPeopleList.add(dummyPeople)
+        mRecyclerViewAdapter.notifyDataSetChanged()
     }
 
-    fun updateCircle(NBB: NBB) {
+    private fun updateCircle(NBB: NBB) {
         Log.v(TAG,"updateCircle, count :${NBB.mPeopleCount}")
         initCircle()
         for (index in DEFAULT_SIZE .. NBB.mPeopleCount) {
             try {
                 val people = People(index,"")
-                mGridViewAdapter.addItem(index, people)
+                mPeopleList.add(index, people)
+                mRecyclerViewAdapter.notifyDataSetChanged()
             } catch (IOOB: IndexOutOfBoundsException) {
                 Log.v(TAG,"$IOOB")
             }
         }
     }
 
-    fun loadFriendsListWithKakao() {
+    private fun loadFriendsListWithKakao() {
         // 카카오톡 친구 목록 가져오기 (기본)
         TalkApiClient.instance.friends { friends, error ->
             if (error != null) {
