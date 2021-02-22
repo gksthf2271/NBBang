@@ -4,13 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.khs.nbbang.history.HistoryContoroller
+import com.khs.nbbang.history.HistoryController
 import com.khs.nbbang.history.data.*
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
+import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
-import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.NumberUtils
@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
-    NBBangGatewayImpl, HistoryContoroller {
+    NBBangGatewayImpl, HistoryController {
     val TAG = this.javaClass.name
 
     private val _NBBLiveData: MutableLiveData<NBB> = MutableLiveData()
@@ -289,4 +289,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     override val mNBBPlaceDao: NBBPlaceDao
         get() = mDB.nbbangDao()
+
+    override val mNBBMemberDao: NBBMemberDao
+        get() = mDB.nbbMemberDao()
 }

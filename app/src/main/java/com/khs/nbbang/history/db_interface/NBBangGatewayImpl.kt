@@ -3,8 +3,10 @@ package com.khs.nbbang.history.db_interface
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
+import com.khs.nbbang.history.room.NBBMemberDataModel
 import com.khs.nbbang.history.room.NBBPlaceDataModel
 import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.user.Member
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -45,7 +47,47 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
 
     override fun get(id: Long): Maybe<NBBangHistory> = mNBBPlaceDao.get(id).map(::convert)
 
-    override fun get(minDate: Long, maxDate: Long): Single<List<NBBangHistory>> = mNBBPlaceDao.get(minDate, maxDate).map {it.map(::convert) }
+    override fun get(minDate: Long, maxDate: Long): Single<List<NBBangHistory>> =
+        mNBBPlaceDao.get(minDate, maxDate).map { it.map(::convert) }
 
     override fun remove(id: Long) = mNBBPlaceDao.delete(id)
+
+    private fun convertMember(d: NBBMemberDataModel): Member =
+        Member(
+            d.id!!,
+            d.name,
+            d.groupId,
+            d.description,
+            d.resId
+        )
+
+    override fun addMember(name: String, groupId: Long, description: String, resId: Int): Single<Member> =
+        mNBBMemberDao.insert(
+            NBBMemberDataModel(
+                null,
+                0,
+                name,
+                description,
+                resId
+            )
+        ).map { id ->
+            Member(
+                id,
+                name,
+                groupId,
+                description,
+                resId
+            )
+        }
+
+    override fun getMembers(): Single<List<Member>> =
+        mNBBMemberDao.get().map { it.map(::convertMember) }
+
+    override fun getMember(id: Long): Maybe<Member> =
+        mNBBMemberDao.get(id).map(::convertMember)
+
+    override fun getMemberByGroupId(groupId: Long): Single<List<Member>> =
+        mNBBMemberDao.getByGroupId(groupId).map { it.map(::convertMember) }
+
+    override fun removeMember(id: Long) = mNBBMemberDao.delete(id)
 }

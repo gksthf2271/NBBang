@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.khs.nbbang.group.MemberManagementViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/member_add_item_background"
+        android:padding="30dp"
+        tools:layout_height="400dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/group_user_info"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="TEST_DESCRIPTION"
+                app:layout_constraintBottom_toTopOf="@id/group_name"
+                app:layout_constraintHeight_percent="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.5"
+                tools:srcCompat="@mipmap/ic_launcher_round" />
+
+            <include
+                android:id="@+id/group_name"
+                layout="@layout/cview_title_edittext"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/group_description"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_profile"
+                app:layout_constraintWidth_percent="0.7" />
+
+            <include
+                android:id="@+id/group_description"
+                layout="@layout/cview_title_edittext"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/group_name"
+                app:layout_constraintWidth_percent="0.7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.2"
+            android:background="@drawable/layout_rounded_black"
+            android:gravity="center"
+            android:text="SAVE"
+            android:textColor="@color/common_title_light_color"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/group_user_info" />
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            app:layout_constraintHeight_percent="0.3"-->
+        <!--            app:layout_constraintWidth_percent="0.7"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/group_user_info"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent">-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/btn_add"-->
+        <!--                android:layout_width="70dp"-->
+        <!--                android:layout_height="70dp"-->
+        <!--                android:background="@drawable/layout_rounded_black"-->
+        <!--                android:text="SAVE"-->
+        <!--                android:textSize="15sp"-->
+        <!--                android:textStyle="bold"-->
+        <!--                android:gravity="center"-->
+        <!--                android:textColor="@color/common_title_light_color"-->
+        <!--                app:layout_constraintTop_toTopOf="parent"-->
+        <!--                app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--                app:layout_constraintRight_toLeftOf="@id/btn_cancel"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/btn_cancel"-->
+        <!--                android:layout_width="70dp"-->
+        <!--                android:layout_height="70dp"-->
+        <!--                android:background="@drawable/layout_rounded_black"-->
+        <!--                android:text="CANCEL"-->
+        <!--                android:textSize="15sp"-->
+        <!--                android:textStyle="bold"-->
+        <!--                android:gravity="center"-->
+        <!--                android:textColor="@color/common_title_light_color"-->
+        <!--                app:layout_constraintTop_toTopOf="parent"-->
+        <!--                app:layout_constraintLeft_toRightOf="@id/btn_add"-->
+        <!--                app:layout_constraintRight_toRightOf="parent"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

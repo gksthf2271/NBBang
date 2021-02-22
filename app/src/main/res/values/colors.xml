@@ -112,4 +112,7 @@
     <color name="kakao_background">#FEE500</color>
     <color name="kakao_font_color">#D9FFFFFF</color>
 
+    <!-- Favorite Memeber -->
+    <color name="member_add_item_background">#E6000000</color>
+
 </resources>

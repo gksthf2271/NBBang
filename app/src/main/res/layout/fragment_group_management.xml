@@ -5,38 +5,33 @@
     <data>
         <variable
             name="viewModel"
-            type="com.khs.nbbang.history.HistoryViewModel" />
+            type="com.khs.nbbang.group.MemberManagementViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_group_management_xml_constraintlayout2_scene">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/group_title"
+            layout="@layout/cview_page_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="30dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view"/>
 
-            <include
-                android:id="@+id/group_title"
-                layout="@layout/cview_page_title"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.12"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.88"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/group_title" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.83"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/group_title" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add"
@@ -44,7 +39,20 @@
             android:layout_height="60dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_close"
+            android:background="@drawable/layout_rounded_black"
+            android:rotation="45"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <com.khs.nbbang.group.AddMemberView
+            android:id="@+id/add_member_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.9" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

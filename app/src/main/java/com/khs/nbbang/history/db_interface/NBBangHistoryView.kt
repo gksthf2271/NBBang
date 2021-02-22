@@ -2,11 +2,10 @@ package com.khs.nbbang.history.db_interface
 
 import com.khs.nbbang.history.AddNBBangHistory
 import com.khs.nbbang.history.GetNbbangHistory
-import com.khs.nbbang.history.HistoryContoroller
+import com.khs.nbbang.history.HistoryController
 import com.khs.nbbang.history.HistoryPresenter
 import com.khs.nbbang.history.data.AddHistoryRequest
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
-import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
@@ -17,7 +16,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
  *  - 개념적 프로그래밍이란? : DB, AOS, IOS, WEB 상관없이 사용되는 일련의 로직을 담고있음.
  */
 
-interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryContoroller,
+interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryController,
     HistoryPresenter {
 
     val compositeDisposable: CompositeDisposable

@@ -8,6 +8,7 @@ import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
+import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -16,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.time.Year
 import java.util.*
 
-class HistoryViewModel(val mDatabase: AppDatabase) : BaseViewModel(), NBBangHistoryView,
+class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NBBangHistoryView,
     NBBangGatewayImpl {
     private val _db : MutableLiveData<AppDatabase> = MutableLiveData()
     val mDB : LiveData<AppDatabase> get() = _db
@@ -42,6 +43,9 @@ class HistoryViewModel(val mDatabase: AppDatabase) : BaseViewModel(), NBBangHist
 
     override val mNBBPlaceDao: NBBPlaceDao
         get() = _db.value.let { it!!.nbbangDao() }
+
+    override val mNBBMemberDao: NBBMemberDao
+        get() = _db.value.let { it!!.nbbMemberDao()}
 
     fun showHistoryByMonth(month: Int) {
         handleShowHistoryByMonth(

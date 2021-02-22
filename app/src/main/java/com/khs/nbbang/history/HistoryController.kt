@@ -9,7 +9,7 @@ import com.khs.nbbang.history.data.NBBangHistory
  *  - UI 환경의 input event를 받아 Usecase의 requestModel을 생성함.
  */
 
-interface HistoryContoroller {
+interface HistoryController {
     fun requestAddHistory(
         currentMs: Long,
         nbbResultItem: NBBResultItem,

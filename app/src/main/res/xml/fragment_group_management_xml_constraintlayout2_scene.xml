@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="500">
+       <KeyFrameSet>
+           <KeyAttribute
+               motion:motionTarget="@id/add_member_view"
+               motion:framePosition="100"
+               android:alpha="1" />
+       </KeyFrameSet>
+        <OnClick motion:targetId="@+id/btn_add" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start"/>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/add_member_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintWidth_percent="0.9"
+            motion:layout_constraintHeight_percent="0.8"
+            motion:layout_constraintVertical_bias="0.05"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/btn_add"
+            android:rotation="90"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            motion:layout_constraintTop_toBottomOf="@id/add_member_view"
+            motion:layout_constraintBottom_toBottomOf="@id/add_member_view"
+            motion:layout_constraintRight_toRightOf="parent"
+            />
+    </ConstraintSet>
+
+
+
+<!--    RecyclerView Scroll motion-->
+<!--    <Transition-->
+<!--        motion:constraintSetEnd="@id/scroll_end"-->
+<!--        motion:constraintSetStart="@id/scroll_start"-->
+<!--        motion:duration="1000">-->
+
+<!--        <OnSwipe-->
+<!--            motion:dragDirection="dragUp"-->
+<!--            motion:targetId="@id/recycler_view"-->
+<!--            motion:touchAnchorSide="top" />-->
+
+<!--        <KeyFrameSet>-->
+<!--            <KeyAttribute-->
+<!--                motion:motionTarget="@+id/group_title"-->
+<!--                motion:framePosition="100"-->
+<!--                android:alpha="1" />-->
+<!--        </KeyFrameSet>-->
+<!--    </Transition>-->
+
+<!--    <ConstraintSet android:id="@+id/scroll_start">-->
+
+<!--        <Constraint-->
+<!--            android:id="@id/group_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            motion:layout_constraintHeight_percent="0.12"-->
+<!--            motion:layout_constraintTop_toTopOf="parent"-->
+<!--            motion:layout_constraintBottom_toTopOf="@id/recycler_view"/>-->
+
+<!--        <Constraint-->
+<!--            android:id="@id/recycler_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintHeight_percent="0.83"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintTop_toBottomOf="@id/group_title" />-->
+
+<!--    </ConstraintSet>-->
+
+<!--    <ConstraintSet android:id="@+id/scroll_end">-->
+<!--        <Constraint-->
+<!--            android:id="@id/group_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintBottom_toTopOf="parent"/>-->
+
+<!--        <Constraint-->
+<!--            android:id="@id/recycler_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintHeight_percent="0.99"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintTop_toBottomOf="@id/group_title"-->
+<!--            />-->
+<!--    </ConstraintSet>-->
+</MotionScene>

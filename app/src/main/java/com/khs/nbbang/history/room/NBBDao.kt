@@ -25,16 +25,19 @@ interface NBBPlaceDao {
 }
 
 @Dao
-interface NBBPeopleDao {
-    @Query("SELECT * FROM nbb_people")
-    fun get(): Single<List<NBBPeopleDataModel>>
+interface NBBMemberDao {
+    @Query("SELECT * FROM nbb_member")
+    fun get(): Single<List<NBBMemberDataModel>>
 
-    @Query("SELECT * FROM nbb_people WHERE id = :id")
-    fun get(id: Long): Maybe<NBBPeopleDataModel>
+    @Query("SELECT * FROM nbb_member WHERE id = :id")
+    fun get(id: Long): Maybe<NBBMemberDataModel>
+
+    @Query("SELECT * FROM nbb_member WHERE groupId = :groupId")
+    fun getByGroupId(groupId: Long): Single<List<NBBMemberDataModel>>
 
     @Insert
-    fun insert(nbb: NBBPeopleDataModel): Single<Long>
+    fun insert(nbb: NBBMemberDataModel): Single<Long>
 
-    @Query("DELETE from nbb_people WHERE id = :id")
+    @Query("DELETE from nbb_member WHERE id = :id")
     fun delete(id: Long)
 }

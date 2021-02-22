@@ -3,11 +3,12 @@ package com.khs.nbbang
 import android.app.Application
 import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
+import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.room.AppDatabase
+import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.page.viewModel.PageViewModel
-import com.khs.nbbang.login.LoginCookie
 import com.khs.nbbang.login.LoginViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -52,11 +53,17 @@ open class NBApp : Application(){
             return AppDatabase.getInstance(application)
         }
 
-        fun provideCountriesDao(database: AppDatabase): NBBPlaceDao {
+        fun provideNBBPlaceDao(database: AppDatabase): NBBPlaceDao {
             return database.nbbangDao()
         }
+
+        fun provideNBBMemberDao(database: AppDatabase): NBBMemberDao {
+            return database.nbbMemberDao()
+        }
+
         single { provideDatabase(androidApplication())}
-        single { provideCountriesDao(get()) }
+        single { provideNBBPlaceDao(get()) }
+        single { provideNBBMemberDao(get()) }
     }
 
     val dataModule = module {
@@ -76,6 +83,10 @@ open class NBApp : Application(){
 
         viewModel {
             HistoryViewModel(get())
+        }
+
+        viewModel {
+            MemberManagementViewModel(get())
         }
     }
 }
