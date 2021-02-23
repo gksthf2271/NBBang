@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "012a4fa0c0296f5c91134ef748508dc0",
+    "identityHash": "a0b6df5365da7ac9bb67a379598ab32e",
     "entities": [
       {
         "tableName": "nbb_place",
@@ -49,8 +49,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "nbb_people",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `date` INTEGER NOT NULL, `dutchPay` INTEGER NOT NULL, `joinPlace` TEXT NOT NULL, `description` TEXT NOT NULL)",
+        "tableName": "nbb_member",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `groupId` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `resId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -59,26 +59,14 @@
             "notNull": false
           },
           {
+            "fieldPath": "groupId",
+            "columnName": "groupId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "name",
             "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "date",
-            "columnName": "date",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "dutchPay",
-            "columnName": "dutchPay",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "joinPlace",
-            "columnName": "joinPlace",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -86,6 +74,12 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "resId",
+            "columnName": "resId",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -102,7 +96,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '012a4fa0c0296f5c91134ef748508dc0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a0b6df5365da7ac9bb67a379598ab32e')"
     ]
   }
 }
