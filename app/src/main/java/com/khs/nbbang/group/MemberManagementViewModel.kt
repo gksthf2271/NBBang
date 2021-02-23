@@ -22,6 +22,9 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     private val _memberList : MutableLiveData<GetNBBangMemberResult> = MutableLiveData()
     val mMemberList : LiveData<GetNBBangMemberResult> get() = _memberList
 
+    private val _selectMember : MutableLiveData<Member> = MutableLiveData()
+    val mSelectMember : LiveData<Member> get() = _selectMember
+
     override val mNBBPlaceDao: NBBPlaceDao
         get() = _db.value.let { it!!.nbbangDao() }
 
@@ -48,10 +51,22 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         )
     }
 
+    fun deleteMember(member: Member) {
+        handleDeleteMember(
+            Schedulers.io(),
+            AndroidSchedulers.mainThread(),
+            member
+        )
+    }
+
     fun showMemberList() {
         handleShowAllMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread())
+    }
+
+    fun selectMember(member : Member?) {
+        _selectMember.postValue(member)
     }
 
     override fun onCleared() {

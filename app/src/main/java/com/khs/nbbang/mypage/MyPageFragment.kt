@@ -5,8 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.khs.nbbang.R
@@ -14,7 +12,6 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentMyPageBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.utils.GlideUtils
-import com.khs.nbbang.utils.ResourceUtils
 import kotlinx.android.synthetic.main.cview_title_description.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -74,7 +71,7 @@ class MyPageFragment : BaseFragment() {
 
     private fun updateProfileInfo(thumbnail: String?, name: String?) {
         mBinding.viewModel.let {
-            GlideUtils().drawImageWith(requireContext(), mBinding.imgProfile, thumbnail, null)
+            GlideUtils().drawImage(mBinding.imgProfile, thumbnail, null)
             mBinding.groupName.txt_title.text = "이름"
             mBinding.groupName.txt_description.text = name ?: "FREE USER"
 

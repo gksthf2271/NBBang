@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
@@ -126,7 +125,7 @@ class MainActivity : BaseActivity() {
 
     private fun updateProfileInfo(thumbnail: String?, name: String?, id: String?) {
         var naviHeaderView = mBinding.navView.getHeaderView(0)
-        GlideUtils().drawImageWith(this, naviHeaderView.img_profile, thumbnail, null)
+        GlideUtils().drawImage(naviHeaderView.img_profile, thumbnail, null)
         naviHeaderView.group_name.txt_title.text = "이름"
         naviHeaderView.group_id.txt_title.text = "계정"
         naviHeaderView.group_name.txt_description.text = name ?: "FREE USER"

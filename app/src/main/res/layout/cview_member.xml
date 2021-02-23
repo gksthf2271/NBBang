@@ -40,7 +40,7 @@
 
             <include
                 android:id="@+id/group_name"
-                layout="@layout/cview_title_edittext"
+                layout="@layout/cview_title_description"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@id/group_description"
@@ -52,7 +52,7 @@
 
             <include
                 android:id="@+id/group_description"
-                layout="@layout/cview_title_edittext"
+                layout="@layout/cview_title_description"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -64,14 +64,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/btn_save"
+            android:id="@+id/btn_delete"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.15"
             app:layout_constraintWidth_percent="0.2"
             android:background="@drawable/layout_rounded_black"
             android:gravity="center"
-            android:text="SAVE"
+            android:text="DELETE"
             android:textColor="@color/common_title_light_color"
             android:textSize="15sp"
             android:textStyle="bold"

@@ -13,7 +13,7 @@
                motion:framePosition="100"
                android:alpha="1" />
        </KeyFrameSet>
-        <OnClick motion:targetId="@+id/btn_add" />
+<!--        <OnClick motion:targetId="@+id/btn_add" />-->
     </Transition>
 
     <ConstraintSet android:id="@+id/start"/>
@@ -40,7 +40,50 @@
             motion:layout_constraintBottom_toBottomOf="@id/add_member_view"
             motion:layout_constraintRight_toRightOf="parent"
             />
+
     </ConstraintSet>
+
+
+<!--    Member Click Motion-->
+
+    <Transition
+        motion:constraintSetEnd="@id/clicked_member_end"
+        motion:constraintSetStart="@id/clicked_member_start"
+        motion:duration="500">
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@id/member_view"
+                motion:framePosition="100"
+                android:alpha="1" />
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/clicked_member_start"/>
+
+    <ConstraintSet android:id="@+id/clicked_member_end">
+        <Constraint
+            android:id="@id/member_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintWidth_percent="0.9"
+            motion:layout_constraintHeight_percent="0.8"
+            motion:layout_constraintVertical_bias="0.05"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/btn_add"
+            android:rotation="90"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            motion:layout_constraintTop_toBottomOf="@id/member_view"
+            motion:layout_constraintBottom_toBottomOf="@id/member_view"
+            motion:layout_constraintRight_toRightOf="parent"
+            />
+    </ConstraintSet>
+
 
 
 

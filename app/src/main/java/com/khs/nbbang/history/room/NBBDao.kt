@@ -1,8 +1,8 @@
 package com.khs.nbbang.history.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.khs.nbbang.user.Member
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -39,5 +39,11 @@ interface NBBMemberDao {
     fun insert(nbb: NBBMemberDataModel): Single<Long>
 
     @Query("DELETE from nbb_member WHERE id = :id")
-    fun delete(id: Long)
+    fun delete(id: Long) : Single<Int>
+
+    @Delete
+    fun delete(member:NBBMemberDataModel) : Completable
+
+//    @Update
+//    fun update(nbb: NBBMemberDataModel) : Maybe<NBBMemberDataModel>
 }

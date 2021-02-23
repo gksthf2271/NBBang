@@ -1,10 +1,14 @@
 package com.khs.nbbang.group
 
+import android.util.Log
 import com.khs.nbbang.user.Member
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-interface NBBangMemberView : AddNBBangMember, GetNbbangMember, MemberController,
+interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMember,
+    DeleteNBBangMember, MemberController,
     MemberPresenter {
 
     val compositeDisposable: CompositeDisposable
@@ -23,7 +27,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, MemberController,
         compositeDisposable.add(d)
     }
 
-    fun handleShowHistoryByGroupId(sub: Scheduler, ob: Scheduler, groupId: Long) {
+    fun handleShowMembersByGroupId(sub: Scheduler, ob: Scheduler, groupId: Long) {
         val d = getNBBangAllMemberByGroupId(groupId)
             .subscribeOn(sub)
             .observeOn(ob)
@@ -47,6 +51,27 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, MemberController,
             }
         compositeDisposable.add(d)
     }
+
+    fun handleDeleteMember(sub: Scheduler, ob: Scheduler, member: Member) {
+        val d = deleteNBBangMember(requestAddMember(member))
+            .subscribeOn(sub)
+            .observeOn(ob)
+            .subscribe { r ->
+                Log.v(this.javaClass.name,"delete return value : $r")
+                handleShowAllMember(sub, ob)
+            }
+        compositeDisposable.add(d)
+    }
+
+//    fun handleUpdateMember(sub: Scheduler, ob: Scheduler, member : Member) {
+//        val d = updateNBBangMember(requestAddMember(member))
+//            .subscribeOn(sub)
+//            .observeOn(ob)
+//            .subscribe { r ->
+//                handleShowAllMember(sub, ob)
+//            }
+//        compositeDisposable.add(d)
+//    }
 
     fun handleDestroy() {
         compositeDisposable.dispose()

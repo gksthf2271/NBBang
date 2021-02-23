@@ -5,8 +5,8 @@ import com.khs.nbbang.user.Member
 interface MemberController {
     fun requestAddMember(
         member: Member
-    ): AddMemberRequest =
-        AddMemberRequest(
+    ): memberRequest =
+        memberRequest(
             member.id,
             member.name,
             member.groupId,

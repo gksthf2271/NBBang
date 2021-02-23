@@ -19,8 +19,6 @@ import com.khs.nbbang.utils.FragmentUtils
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-//TODO : Login화면 분리 필요, 화면 별 순서 확립해야됨
-
 class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
     val mLoginViewModel: LoginViewModel by sharedViewModel()

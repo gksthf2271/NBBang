@@ -10,11 +10,11 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-<!--        app:layoutDescription="@xml/fragment_history_xml_constraintlayout_scene"-->
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_history_xml_constraintlayout_scene">
 
         <include
             android:id="@+id/cview_select_month"
@@ -39,6 +39,6 @@
             app:layout_constraintHeight_percent="0.83"
             app:layout_constraintTop_toBottomOf="@id/cview_select_month" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>

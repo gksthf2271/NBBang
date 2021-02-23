@@ -21,10 +21,15 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class GroupManagementFragment : BaseFragment() {
     lateinit var mBinding : FragmentGroupManagementBinding
-    lateinit var mRecyclerViewAdapter : MemberRecyclerViewAdapter
+    private val mItemTouchInterceptor = RecyclerViewTouchEvent()
     val mViewModel: MemberManagementViewModel by sharedViewModel()
-    val mItemTouchEvent by lazy { RecyclerViewTouchEvent() }
-    var mMemberList: List<Member> = listOf(
+
+    companion object {
+        val TAG_SAVE_BUTTON = "SAVE"
+        val TAG_DELETE_BUTTON = "DELETE"
+    }
+
+    var mMemberList: ArrayList<Member> = arrayListOf(
         Member(0, "김한솔", 0, "월곡회", R.drawable.icon_user),
         Member(1, "신상은", 0, "월곡회", R.drawable.icon_user),
         Member(2, "정용인", 0, "월곡회", R.drawable.icon_user),
@@ -60,40 +65,72 @@ class GroupManagementFragment : BaseFragment() {
     fun initView() {
         mBinding.groupTitle.txt_title.text = "Favorite Member"
 
-        mBinding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            isFocusable = true
-//            addOnItemTouchListener(mItemTouchEvent)
-            addItemDecoration(HistoryItemDecoration(30))
-            descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-        }
-
         mBinding.viewModel.let {
             it!!.showMemberList()
             mBinding.addMemberView.setViewModel(it!!)
+            mBinding.memberView.setViewModel(it!!)
         }
 
+        //TODO : memberView button 기능 정리
+        mBinding.recyclerMemberList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(HistoryItemDecoration(30))
+            addOnItemTouchListener(mItemTouchInterceptor)
+            adapter =
+                MemberRecyclerViewAdapter(arrayListOf()) {
+                    Log.v(TAG, "ItemClicked : $it")
+                    mBinding.viewModel!!.selectMember(it)
+                    mBinding.motionLayout.setTransition(R.id.clicked_member_start, R.id.clicked_member_end)
+                    var isShown =
+                        mBinding.motionLayout.currentState == mBinding.motionLayout.endState
+                    if (isShown) {
+                        mBinding.motionLayout.transitionToStart()
+                    } else {
+                        mBinding.motionLayout.transitionToEnd()
+                    }
+                    mBinding.motionLayout.updateState()
+                }
+        }
 
+        mBinding.btnAdd.setOnClickListener {
+            var isShown = mBinding.motionLayout.currentState == mBinding.motionLayout.endState
+            Log.v(TAG,"isShown AddMemeberView : $isShown")
+            mBinding.motionLayout.setTransition(R.id.start, R.id.end)
+            if (isShown) {
+                mBinding.motionLayout.transitionToStart()
+
+            } else {
+                mBinding.viewModel!!.selectMember(null)
+                mBinding.motionLayout.transitionToEnd()
+            }
+            mBinding.motionLayout.updateState()
+        }
 
         mBinding.motionLayout.setTransitionListener({ start, end ->
             Log.v(TAG, "motionLayout State start: $start , end: $end")
+            mItemTouchInterceptor.enable()
             KeyboardUtils().hideKeyboard(requireView(), requireContext())
-        },{ completion ->
+        }, { completion ->
+            mItemTouchInterceptor.disable()
             Log.v(TAG, "motionLayout State completion: $completion")
         })
-
     }
 
     private fun addObserver() {
         mBinding.viewModel ?: return
 
         mBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer{
-            mRecyclerViewAdapter =
-                MemberRecyclerViewAdapter(requireContext(), it?.nbbangMemberList ?: mMemberList) {
-                Log.v(TAG,"ItemClicked : $it")
-            }
-            mBinding.groupTitle.txt_sub_title.text = "${(it?.nbbangMemberList ?: mMemberList).size}명 대기중..."
-            mBinding.recyclerView.adapter = mRecyclerViewAdapter
+            val adapter = (mBinding.recyclerMemberList.adapter as? MemberRecyclerViewAdapter) ?: return@Observer
+            adapter.setItem(it.nbbangMemberList)
+
+            mBinding.groupTitle.txt_sub_title.text =
+                "${(it?.nbbangMemberList ?: mMemberList).size}명 대기중..."
+        })
+
+        mBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
+            Log.v(TAG,"Select Member : $it")
+            it ?: return@Observer
+            mBinding.memberView.setMember(it)
         })
     }
 }
