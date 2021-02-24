@@ -98,7 +98,6 @@ class AddPeopleFragment : BaseFragment(){
             adapter = mRecyclerViewAdapter
         }
         initCircle()
-
     }
 
     fun observer() {

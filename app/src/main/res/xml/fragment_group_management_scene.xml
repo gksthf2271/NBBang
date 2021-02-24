@@ -3,6 +3,7 @@
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
+        android:transitionName="add_motion_transition"
         android:id="@+id/add_motion_transition"
         motion:constraintSetEnd="@id/end"
         motion:constraintSetStart="@id/start"
@@ -42,6 +43,7 @@
 
     <!--    Member Click Motion-->
     <Transition
+        android:transitionName="update_motion_transition"
         android:id="@+id/update_motion_transition"
         motion:constraintSetEnd="@id/clicked_member_end"
         motion:constraintSetStart="@id/clicked_member_start"
@@ -78,71 +80,76 @@
     </ConstraintSet>
 
 
-    <!--        RecyclerView Scroll motion-->
-    <Transition
-        android:id="@+id/scroll_motion_transition"
-        motion:constraintSetEnd="@id/scroll_end"
-        motion:constraintSetStart="@id/scroll_start"
-        motion:duration="1000">
+<!--    &lt;!&ndash;        RecyclerView Scroll motion&ndash;&gt;-->
+<!--    <Transition-->
+<!--        android:transitionName="scroll_motion_transition"-->
+<!--        android:id="@+id/scroll_motion_transition"-->
+<!--        motion:constraintSetEnd="@id/scroll_end"-->
+<!--        motion:constraintSetStart="@id/scroll_start"-->
+<!--        motion:duration="1000">-->
 
-        <OnSwipe
-            motion:dragDirection="dragDown"
-            motion:targetId="@id/recycler_member_list"
-            motion:moveWhenScrollAtTop="true"
-            motion:touchAnchorSide="top" />
 
-        <KeyFrameSet>
+<!--&lt;!&ndash;        TODO: 확인사항, dragUp, dragDown 뭐가 맞지?&ndash;&gt;-->
+<!--        <OnSwipe-->
+<!--            motion:dragDirection="dragUp"-->
+<!--            motion:targetId="@id/recycler_member_list"-->
+<!--            motion:moveWhenScrollAtTop="true"-->
+<!--            motion:touchAnchorSide="top" />-->
 
-            <KeyAttribute
-                android:alpha="0"
-                motion:framePosition="50"
-                motion:motionTarget="@id/group_title" />
+<!--        <KeyFrameSet>-->
 
-            <KeyAttribute
-                android:alpha="0"
-                android:scaleX="0"
-                android:scaleY="0"
-                motion:framePosition="100"
-                motion:motionTarget="@+id/group_title" />
-        </KeyFrameSet>
-    </Transition>
+<!--            <KeyAttribute-->
+<!--                android:alpha="0"-->
+<!--                motion:framePosition="50"-->
+<!--                motion:motionTarget="@id/group_title" />-->
 
-    <ConstraintSet android:id="@+id/scroll_start">
+<!--            <KeyAttribute-->
+<!--                android:alpha="0"-->
+<!--                android:scaleX="0"-->
+<!--                android:scaleY="0"-->
+<!--                motion:framePosition="100"-->
+<!--                motion:motionTarget="@+id/group_title" />-->
+<!--        </KeyFrameSet>-->
+<!--    </Transition>-->
 
-        <Constraint
-            android:id="@id/group_title"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            motion:layout_constraintBottom_toTopOf="@id/recycler_member_list"
-            motion:layout_constraintHeight_percent="0.12"
-            motion:layout_constraintTop_toTopOf="parent" />
+<!--    <ConstraintSet android:id="@+id/scroll_start">-->
 
-        <Constraint
-            android:id="@id/recycler_member_list"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/group_title" />
+<!--        <Constraint-->
+<!--            android:id="@id/group_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            motion:layout_constraintBottom_toTopOf="@id/recycler_member_list"-->
+<!--            motion:layout_constraintHeight_percent="0.12"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintTop_toTopOf="parent"  />-->
 
-    </ConstraintSet>
+<!--        <Constraint-->
+<!--            android:id="@id/recycler_member_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="500dp"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintTop_toBottomOf="@id/group_title" />-->
 
-    <ConstraintSet android:id="@+id/scroll_end">
-        <Constraint
-            android:id="@id/group_title"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            motion:layout_constraintBottom_toTopOf="@id/recycler_member_list"
-            motion:layout_constraintLeft_toLeftOf="parent"
-            motion:layout_constraintRight_toRightOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+<!--    </ConstraintSet>-->
 
-        <Constraint
-            android:id="@id/recycler_member_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintLeft_toLeftOf="parent"
-            motion:layout_constraintRight_toRightOf="parent"
-            motion:layout_constraintTop_toBottomOf="@id/group_title" />
-    </ConstraintSet>
+<!--    <ConstraintSet android:id="@+id/scroll_end">-->
+<!--        <Constraint-->
+<!--            android:id="@id/group_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            motion:layout_constraintBottom_toTopOf="@id/recycler_member_list"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <Constraint-->
+<!--            android:id="@id/recycler_member_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            motion:layout_constraintBottom_toBottomOf="parent"-->
+<!--            motion:layout_constraintLeft_toLeftOf="parent"-->
+<!--            motion:layout_constraintRight_toRightOf="parent"-->
+<!--            motion:layout_constraintTop_toBottomOf="@id/group_title" />-->
+<!--    </ConstraintSet>-->
 </MotionScene>

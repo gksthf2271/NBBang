@@ -24,4 +24,8 @@ class RecyclerViewTouchEvent : RecyclerView.OnItemTouchListener {
     fun disable(){
         intercept = false
     }
+
+    fun getIntercept() : Boolean {
+        return intercept
+    }
 }

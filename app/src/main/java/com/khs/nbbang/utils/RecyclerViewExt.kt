@@ -8,7 +8,6 @@ fun RecyclerView.setOnItemTouchListener(
 ) {
     addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
         override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-            onTouch?.invoke(e)
         }
 
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
@@ -19,5 +18,20 @@ fun RecyclerView.setOnItemTouchListener(
         override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
         }
 
+    })
+}
+
+fun RecyclerView.setOnScorllingListenenr(
+    isUpAction : ((isUpAction : Boolean) -> Unit)
+){
+    addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            if (dy > 0) {
+                isUpAction(true)
+            } else {
+                isUpAction(false)
+            }
+        }
     })
 }

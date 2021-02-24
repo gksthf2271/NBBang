@@ -21,6 +21,7 @@ import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.KeyboardUtils
 import com.khs.nbbang.utils.setOnItemTouchListener
+import com.khs.nbbang.utils.setOnScorllingListenenr
 import com.khs.nbbang.utils.setTransitionListener
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -80,22 +81,32 @@ class GroupManagementFragment : BaseFragment() {
                 MemberRecyclerViewAdapter(arrayListOf()) {
                     Log.v(TAG, "ItemClicked : $it")
                     mBinding.viewModel!!.selectMember(it)
-                    mBinding.motionLayout.setTransition(R.id.update_motion_transition)
+                    updateTransition(R.id.update_motion_transition)
                     mBinding.motionLayout.transitionToEnd()
                 }
         }
+        motionLayoutInit()
+    }
 
+    private fun motionLayoutInit() {
         mBinding.btnAdd.setOnClickListener {
-            mBinding.motionLayout.setTransition(R.id.add_motion_transition)
+            updateTransition(R.id.add_motion_transition)
             mBinding.motionLayout.transitionToEnd()
         }
 
-        mBinding.recyclerMemberList.setOnItemTouchListener {
-            mBinding.motionLayout.setTransition(R.id.scroll_motion_transition)
-        }
+//        mBinding.recyclerMemberList.setOnScorllingListenenr {
+//            if(mItemTouchInterceptor.getIntercept()) return@setOnScorllingListenenr
+//            Log.v(TAG,"isUpScrolling : $it")
+//            updateTransition(R.id.scroll_motion_transition)
+//            when (it) {
+//                true -> mBinding.motionLayout.transitionToEnd()
+//                false -> mBinding.motionLayout.transitionToStart()
+//            }
+//        }
 
-        mBinding.motionLayout.setTransitionListener({ start, end ->
-            Log.v(TAG, "motionLayout Transition Changed: $start , end: $end")
+        mBinding.motionLayout.setTransitionListener({ transitionName ->
+            Log.v(TAG, "motionLayout Transition Changed: $transitionName")
+            mItemTouchInterceptor.enable()
         },{ start, end ->
             Log.v(TAG, "motionLayout State start: $start , end: $end")
             mItemTouchInterceptor.enable()
@@ -122,5 +133,9 @@ class GroupManagementFragment : BaseFragment() {
             it ?: return@Observer
             mBinding.memberView.setMember(it)
         })
+    }
+
+    private fun updateTransition(transitionId: Int) {
+        mBinding.motionLayout.setTransition(transitionId)
     }
 }
