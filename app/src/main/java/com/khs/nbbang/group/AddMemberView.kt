@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.findFragment
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.CviewAddMemberBinding
 import com.khs.nbbang.utils.GlideUtils
@@ -37,9 +38,17 @@ class AddMemberView @JvmOverloads constructor(
                     )
                     mBinding.groupName.edit_description.setText("")
                     mBinding.groupDescription.edit_description.setText("")
-                    mBinding.groupName.edit_description.isFocusable = true
                     Toast.makeText(context,"멤버가 추가 되었습니다.", Toast.LENGTH_SHORT).show()
+                    findFragment<GroupManagementFragment>().mBinding.motionLayout.transitionToStart()
+                    mBinding.groupName.edit_description.isSelected = true
                 }
+            }
+
+            it.btnCancel.setOnClickListener {
+                mBinding.groupName.edit_description.setText("")
+                mBinding.groupDescription.edit_description.setText("")
+                findFragment<GroupManagementFragment>().mBinding.motionLayout.transitionToStart()
+                mBinding.groupName.edit_description.isSelected = true
             }
         }
     }

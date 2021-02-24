@@ -12,7 +12,7 @@
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_group_management_xml_constraintlayout2_scene">
+        app:layoutDescription="@xml/fragment_group_management_scene">
 
         <include
             android:id="@+id/group_title"
@@ -27,7 +27,6 @@
             android:id="@+id/recycler_member_list"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:splitMotionEvents="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -48,8 +47,7 @@
         <com.khs.nbbang.group.AddMemberView
             android:id="@+id/add_member_view"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.8"
+            android:layout_height="400dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
@@ -58,8 +56,7 @@
         <com.khs.nbbang.group.MemberView
             android:id="@+id/member_view"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.8"
+            android:layout_height="400dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="parent"

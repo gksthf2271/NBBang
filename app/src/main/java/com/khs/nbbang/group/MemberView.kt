@@ -45,6 +45,10 @@ class MemberView  @JvmOverloads constructor(
                     findFragment<GroupManagementFragment>().mBinding.motionLayout.transitionToStart()
                 }
             }
+
+            it.btnCancel.setOnClickListener {
+                findFragment<GroupManagementFragment>().mBinding.motionLayout.transitionToStart()
+            }
         }
     }
 
