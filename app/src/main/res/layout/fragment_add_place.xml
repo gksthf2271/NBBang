@@ -46,17 +46,5 @@
                 app:layout_constraintHeight_percent="0.5"
                 app:layout_constraintTop_toBottomOf="@+id/txt_title" />
         </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/ic_close"
-            android:background="@drawable/layout_rounded_black"
-            android:rotation="45"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
