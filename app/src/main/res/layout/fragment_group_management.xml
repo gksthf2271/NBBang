@@ -8,11 +8,10 @@
             type="com.khs.nbbang.group.MemberManagementViewModel" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_group_management_scene">
+        android:layout_height="match_parent">
 
         <include
             android:id="@+id/group_title"
@@ -21,7 +20,7 @@
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.12"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/recycler_view"/>
+            app:layout_constraintBottom_toTopOf="@id/recycler_member_list"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_member_list"
@@ -31,35 +30,60 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/group_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/ic_close"
-            android:background="@drawable/layout_rounded_black"
-            android:rotation="45"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+<!--    <androidx.constraintlayout.motion.widget.MotionLayout-->
+<!--        android:id="@+id/motion_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layoutDescription="@xml/fragment_group_management_scene">-->
 
-        <com.khs.nbbang.group.AddMemberView
-            android:id="@+id/add_member_view"
-            android:layout_width="0dp"
-            android:layout_height="400dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.9" />
+<!--        <include-->
+<!--            android:id="@+id/group_title"-->
+<!--            layout="@layout/cview_page_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintHeight_percent="0.12"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/recycler_view"/>-->
 
-        <com.khs.nbbang.group.MemberView
-            android:id="@+id/member_view"
-            android:layout_width="0dp"
-            android:layout_height="400dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.9" />
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recycler_member_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="500dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/group_title" />-->
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/btn_add"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:src="@drawable/ic_close"-->
+<!--            android:background="@drawable/layout_rounded_black"-->
+<!--            android:rotation="45"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent" />-->
+
+<!--        <com.khs.nbbang.group.AddMemberView-->
+<!--            android:id="@+id/add_member_view"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="400dp"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="parent"-->
+<!--            app:layout_constraintWidth_percent="0.9" />-->
+
+<!--        <com.khs.nbbang.group.MemberView-->
+<!--            android:id="@+id/member_view"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="400dp"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="parent"-->
+<!--            app:layout_constraintWidth_percent="0.9" />-->
+<!--    </androidx.constraintlayout.motion.widget.MotionLayout>-->
 </layout>

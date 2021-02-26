@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.findFragment
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.CviewMemberBinding
+import com.khs.nbbang.page.ButtonCallBackListener
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.cview_memeber_item.view.*
@@ -38,23 +38,26 @@ class MemberView  @JvmOverloads constructor(
             GlideUtils().drawImageWithResId(it.imgProfile, member.resId, null)
             it.groupName.txt_description.text = member.name
             it.groupDescription.txt_description.text = member.description
-
-            it.btnDelete.setOnClickListener {
-                mBinding.viewModel.let {
-                    it!!.deleteMember(member)
-                    findFragment<GroupManagementFragment>().mBinding.motionLayout.transitionToStart()
-                }
-            }
-
-            it.btnCancel.setOnClickListener {
-                findFragment<GroupManagementFragment>().mBinding.motionLayout.transitionToStart()
-            }
         }
     }
 
     fun setViewModel(vm : BaseViewModel) {
         mBinding.run {
             viewModel = vm as? MemberManagementViewModel
+        }
+    }
+
+    fun setCallBackListener(callback: ButtonCallBackListener) {
+        mBinding.let {
+            it.btnDelete.setOnClickListener {
+                mBinding.viewModel.let {
+                    callback.onClickedDeleteBtn()
+                }
+            }
+
+            it.btnCancel.setOnClickListener {
+                callback.onClickedCancelBtn()
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,124 +19,119 @@ import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.animation.RecyclerViewTouchEvent
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
+import com.khs.nbbang.page.FloatingButtonBaseFragment
+import com.khs.nbbang.page.dutchPayPageFragments.AddPeopleFragment
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.user.User
 import com.khs.nbbang.utils.KeyboardUtils
 import com.khs.nbbang.utils.setOnItemTouchListener
 import com.khs.nbbang.utils.setOnScorllingListenenr
 import com.khs.nbbang.utils.setTransitionListener
 import kotlinx.android.synthetic.main.cview_page_title.view.*
+import kotlinx.android.synthetic.main.cview_page_title.view.txt_title
+import kotlinx.android.synthetic.main.cview_title_edittext.view.*
+import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class GroupManagementFragment : BaseFragment() {
-    lateinit var mBinding : FragmentGroupManagementBinding
-    private val mItemTouchInterceptor = RecyclerViewTouchEvent()
+class GroupManagementFragment : FloatingButtonBaseFragment() {
     val mViewModel: MemberManagementViewModel by sharedViewModel()
-
-    var mMemberList: ArrayList<Member> = arrayListOf(
-        Member(0, "김한솔", 0, "월곡회", R.drawable.icon_user),
-        Member(1, "신상은", 0, "월곡회", R.drawable.icon_user),
-        Member(2, "정용인", 0, "월곡회", R.drawable.icon_user),
-        Member(3, "김진혁", 0, "월곡회", R.drawable.icon_user),
-        Member(4, "조현우", 0, "월곡회", R.drawable.icon_user),
-        Member(5, "최종휘", 0, "월곡회", R.drawable.icon_user),
-        Member(6, "김진근", 0, "월곡회", R.drawable.icon_user),
-        Member(7, "이진형", 0, "월곡회", R.drawable.icon_user),
-        Member(8, "배재룡", 0, "월곡회", R.drawable.icon_user),
-        Member(9, "정준호", 0, "월곡회", R.drawable.icon_user),
-        Member(10, "박소연", 0, "월곡회", R.drawable.icon_user),
-        Member(11, "장선형", 0, "월곡회", R.drawable.icon_user),
-        Member(12, "신주연", 0, "월곡회", R.drawable.icon_user),
-        Member(13, "주경애", 0, "월곡회", R.drawable.icon_user)
-    )
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_group_management, container, false)
+    val mGroupManagementContentsFragment by lazy { GroupManagementContentsFragment()
+    }
+    override fun makeContentsFragment(): Fragment? {
+        return mGroupManagementContentsFragment
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
-        mBinding.viewModel = mViewModel
-        initView()
-        addObserver()
+    override fun init() {
+        mGroupManagementContentsFragment.initView(this)
     }
 
-    fun initView() {
-        mBinding.groupTitle.txt_title.text = "Favorite Member"
+    override fun add(obj: User?) {
+        obj.let {
+            if (obj !is Member) return
+            mViewModel.let {
+                it!!.saveMember(obj.id, obj.groupId, obj.name, obj.description, obj.resId) }
+        }
+    }
 
-        mBinding.viewModel.let {
-            it!!.showMemberList()
-            mBinding.addMemberView.setViewModel(it!!)
-            mBinding.memberView.setViewModel(it!!)
+    override fun delete() {
+        mViewModel.let {
+            val selectMember = mViewModel.mSelectMember.value
+            if (selectMember == null) {
+                Log.e(TAG,"Delete Member Error!, selectMember is null!")
+                return
+            }
+            it!!.deleteMember(selectMember)
+        }
+    }
+
+    override fun update(old: User, new: User) {
+        Log.v(TAG,"update(...)")
+    }
+
+    companion object class GroupManagementContentsFragment : BaseFragment() {
+        lateinit var mBinding: FragmentGroupManagementBinding
+        val mViewModel: MemberManagementViewModel by sharedViewModel()
+        private lateinit var mParentFragment: FloatingButtonBaseFragment
+
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            return inflater.inflate(R.layout.fragment_group_management, container, false)
         }
 
-        mBinding.recyclerMemberList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(HistoryItemDecoration(30))
-            addOnItemTouchListener(mItemTouchInterceptor)
-            adapter =
-                MemberRecyclerViewAdapter(arrayListOf()) {
-                    Log.v(TAG, "ItemClicked : $it")
-                    mBinding.viewModel!!.selectMember(it)
-                    updateTransition(R.id.update_motion_transition)
-                    mBinding.motionLayout.transitionToEnd()
-                }
-        }
-        motionLayoutInit()
-    }
-
-    private fun motionLayoutInit() {
-        mBinding.btnAdd.setOnClickListener {
-            updateTransition(R.id.add_motion_transition)
-            mBinding.motionLayout.transitionToEnd()
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            mBinding = DataBindingUtil.bind(view)!!
+            mBinding.viewModel = mViewModel
         }
 
-//        mBinding.recyclerMemberList.setOnScorllingListenenr {
-//            if(mItemTouchInterceptor.getIntercept()) return@setOnScorllingListenenr
-//            Log.v(TAG,"isUpScrolling : $it")
-//            updateTransition(R.id.scroll_motion_transition)
-//            when (it) {
-//                true -> mBinding.motionLayout.transitionToEnd()
-//                false -> mBinding.motionLayout.transitionToStart()
-//            }
-//        }
+        fun initView(parentFragment: FloatingButtonBaseFragment) {
+            mParentFragment = parentFragment
+            mBinding.groupTitle.txt_title.text = "Favorite Member"
 
-        mBinding.motionLayout.setTransitionListener({ transitionName ->
-            Log.v(TAG, "motionLayout Transition Changed: $transitionName")
-            mItemTouchInterceptor.enable()
-        },{ start, end ->
-            Log.v(TAG, "motionLayout State start: $start , end: $end")
-            mItemTouchInterceptor.enable()
-            KeyboardUtils().hideKeyboard(requireView(), requireContext())
-        }, { completion ->
-            mItemTouchInterceptor.disable()
-            Log.v(TAG, "motionLayout State completion: $completion")
-        })
-    }
+            mBinding.viewModel.let {
+                it!!.showMemberList()
+                mParentFragment.setViewModel(it!!)
+            }
 
-    private fun addObserver() {
-        mBinding.viewModel ?: return
+            mBinding.recyclerMemberList.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                addItemDecoration(HistoryItemDecoration(30))
+                addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
+                adapter =
+                    MemberRecyclerViewAdapter(arrayListOf()) {
+                        Log.v(TAG, "ItemClicked : $it")
+                        mBinding.viewModel!!.selectMember(it)
+                        mParentFragment.showMemberView()
+                    }
+            }
+            addObserver()
+        }
 
-        mBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer{
-            val adapter = (mBinding.recyclerMemberList.adapter as? MemberRecyclerViewAdapter) ?: return@Observer
-            adapter.setItem(it.nbbangMemberList)
+        private fun addObserver() {
+            mBinding.viewModel ?: return
 
-            mBinding.groupTitle.txt_sub_title.text =
-                "${(it?.nbbangMemberList ?: mMemberList).size}명 대기중..."
-        })
+            mBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
+                val adapter = (mBinding.recyclerMemberList.adapter as? MemberRecyclerViewAdapter)
+                    ?: return@Observer
+                adapter.setItem(it)
 
-        mBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
-            Log.v(TAG,"Select Member : $it")
-            it ?: return@Observer
-            mBinding.memberView.setMember(it)
-        })
-    }
+                mBinding.groupTitle.txt_sub_title.text =
+                    "${it.size}명 대기중..."
+            })
 
-    private fun updateTransition(transitionId: Int) {
-        mBinding.motionLayout.setTransition(transitionId)
+            mBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
+                Log.v(TAG, "Select Member : $it")
+                it ?: return@Observer
+                mParentFragment.selectMember(it)
+            })
+        }
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            mBinding.recyclerMemberList.removeOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
+        }
     }
 }

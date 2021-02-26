@@ -60,10 +60,29 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         })
     }
 
+    fun addPeople(people: People){
+        Log.v(TAG,"addPeople(...) people : ${people.name}")
+        _NBBLiveData.value.let {
+            _NBBLiveData.postValue(_NBBLiveData.value.apply {
+                it!!.mPeopleList.add(it!!.mPeopleList.lastIndex, people)
+            })
+        }
+    }
+
+    fun deletePeople(people: People) {
+        Log.v(TAG,"deletePeople(...) people : ${people.name}")
+        _NBBLiveData.value.let {
+            _NBBLiveData.postValue(_NBBLiveData.value.apply {
+                it!!.mPeopleList.remove(people)
+            })
+        }
+    }
+
     fun increasePeople() {
         _NBBLiveData.value.let {
             _NBBLiveData!!.postValue(it.apply {
                 it!!.mPeopleCount += 1
+                it!!.mPeopleList.add(People(it!!.mPeopleList.size, ""))
                 Log.v(TAG, "increasePeople(...) ${it!!.mPeopleCount}")
             })
         }
@@ -79,6 +98,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             if (it!!.mPeopleCount!! <= 0) return
             _NBBLiveData.postValue(it.apply {
                 it!!.mPeopleCount -= 1
+                it!!.mPeopleList.removeAt(it!!.mPeopleList.lastIndex)
             })
         }
     }
