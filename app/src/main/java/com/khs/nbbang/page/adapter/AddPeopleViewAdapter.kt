@@ -8,13 +8,13 @@ import android.widget.BaseAdapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
 import com.khs.nbbang.page.PeopleNameWatcherCallback
-import com.khs.nbbang.page.ItemObj.JoinPeople
+import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 
-class AddPeopleViewAdapter(context: Context, itemList: MutableList<JoinPeople>, callback: PeopleNameWatcherCallback) : BaseAdapter() {
+class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, callback: PeopleNameWatcherCallback) : BaseAdapter() {
     val TAG = this.javaClass.name
-    var mItemList: MutableList<JoinPeople>
+    var mItemList: MutableList<Member>
     var mItemView : MutableList<View>
     var mContext: Context
     val mCallback : PeopleNameWatcherCallback
@@ -77,12 +77,12 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<JoinPeople>, 
         return mItemList.size
     }
 
-    fun addItem(joinPeople: JoinPeople) {
-        mItemList.add(joinPeople)
+    fun addItem(member: Member) {
+        mItemList.add(member)
     }
 
-    fun addItem(index: Int, joinPeople: JoinPeople) {
-        mItemList.add(index, joinPeople)
+    fun addItem(index: Int, member: Member) {
+        mItemList.add(index, member)
         notifyDataSetChanged()
     }
 }

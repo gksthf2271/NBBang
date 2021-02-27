@@ -1,3 +1,3 @@
 package com.khs.nbbang.page.ItemObj
 
-open class People(var name: String, var resId: Int)
+abstract class People(open var name: String, open var resId: Int)

@@ -19,7 +19,6 @@ import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.ItemObj.NBB
-import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
@@ -102,7 +101,7 @@ class AddPlaceFragment : BaseFragment() {
             it!!.mSelectedPeopleMap.observe(requireActivity(), Observer {
                 it.get(infoView.tag as Int) ?: return@Observer
                 Log.v(TAG, "_selectedPeopleMap, Observer(...) : $it")
-                if (it!!.get(infoView.tag as Int)!!.mJoinPeopleList.isEmpty()) {
+                if (it!!.get(infoView.tag as Int)!!.mMemberList.isEmpty()) {
                     hideAddedPeopleView(infoView)
                 } else {
                     showAddedPeopleView(infoView, it!!.get(infoView.tag as Int)!!)
@@ -122,7 +121,7 @@ class AddPlaceFragment : BaseFragment() {
     private fun showAddedPeopleView(view : ConstraintLayout, NBB: NBB) {
         Log.v(TAG,"showAddedPeopleView(...), ${view.txt_index.text}")
         view.txt_added_people.apply {
-            this!!.text = StringUtils().getPeopleList(NBB.mJoinPeopleList as MutableList<People>)
+            this!!.text = StringUtils().getPeopleList(NBB.mMemberList)
         }
         view.layout_group_added_people.visibility = View.VISIBLE
     }

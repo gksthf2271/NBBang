@@ -16,8 +16,6 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.page.FloatingButtonBaseFragment
-import com.khs.nbbang.page.ItemObj.JoinPeople
-import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
@@ -39,10 +37,9 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         mAddPeopleContentsFragment.initView(this)
     }
 
-    override fun add(obj: People?) {
-        var joinPeople = obj as? JoinPeople ?: return
+    override fun add(obj: Member?) {
         mPageViewModel.let {
-            it!!.addJoinPeople(joinPeople)
+            it!!.addJoinPeople(obj ?: return)
         }
     }
 
@@ -52,7 +49,8 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         }
     }
 
-    override fun update(old: People, new: People) {
+    override fun update(name: String, description: String, resId: Int) {
+        mPageViewModel.updateJoinPeople(name, description, resId)
     }
 
 
@@ -62,7 +60,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         private val mPageViewModel: PageViewModel by sharedViewModel()
         private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
 
-        private var mJoinPeopleList = arrayListOf<JoinPeople>()
+        private var mMemberList = arrayListOf<Member>()
         private lateinit var mParentFragment: AddPeopleFragment
 
         override fun onCreateView(
@@ -82,7 +80,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         override fun onPause() {
             //TODO : 성능저하 요소 리팩토링 필요
             super.onPause()
-            var peopleListBuffer = mutableListOf<JoinPeople>()
+            var peopleListBuffer = mutableListOf<Member>()
 
             for (index in 0 until mBinding.recyclerView.childCount) {
                 try {
@@ -94,7 +92,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                             0,
                             "",
                             0
-                        ) as JoinPeople
+                        ) as Member
                     )
                 } catch (e: Exception) {
                     Log.e(TAG, "$e,\n\n $index")
@@ -109,12 +107,12 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
             }
         }
 
-        private fun isUpdatedPeople(joinPeopleList: MutableList<JoinPeople>): Boolean {
+        private fun isUpdatedPeople(memberList: MutableList<Member>): Boolean {
             mBinding.viewModel.let {
-                if (joinPeopleList.size == it!!.mNBBLiveData.value!!.mJoinPeopleList.size) {
-                    for (index in 0 until joinPeopleList.size) {
-                        if (!joinPeopleList.get(index).name.equals(
-                                it!!.mNBBLiveData.value!!.mJoinPeopleList.get(
+                if (memberList.size == it!!.mNBBLiveData.value!!.mMemberList.size) {
+                    for (index in 0 until memberList.size) {
+                        if (!memberList.get(index).name.equals(
+                                it!!.mNBBLiveData.value!!.mMemberList.get(
                                     index
                                 ).name
                             )
@@ -132,7 +130,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         fun initView(parentFragment: AddPeopleFragment) {
             mParentFragment = parentFragment
             mRecyclerViewAdapter = AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                Log.v(TAG,"ItemClicked, joinPeople : ${it.second}")
+                Log.v(TAG,"ItemClicked, member : ${it.second}")
                 mBinding.viewModel ?: return@AddPeopleRecyclerViewAdapter
                 mBinding.viewModel!!.selectPeople(it.second)
                 mParentFragment.showMemberView()
@@ -152,16 +150,16 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         fun observer() {
             mBinding.viewModel.let {
                 it!!.mNBBLiveData.observe(requireActivity(), Observer {
-                    Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mJoinPeopleCount}")
-                    mJoinPeopleList.clear()
-                    mJoinPeopleList.addAll(it!!.mJoinPeopleList)
-                    mRecyclerViewAdapter.setItemList(this.mJoinPeopleList)
+                    Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mMemberCount}")
+                    mMemberList.clear()
+                    mMemberList.addAll(it!!.mMemberList)
+                    mRecyclerViewAdapter.setItemList(this.mMemberList)
                 })
 
                 it!!.mSelectJoinPeople.observe(requireActivity(), Observer {
                     Log.v(TAG, "Select JoinPeople : $it")
                     it ?: return@Observer
-                    mParentFragment.selectPeople(it)
+                    mParentFragment.selectMember(it)
                 })
             }
         }

@@ -12,10 +12,7 @@ import com.khs.nbbang.animation.RecyclerViewTouchEvent
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.FragmentFloatingBtnBaseBinding
-import com.khs.nbbang.page.ItemObj.JoinPeople
-import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.user.User
 import com.khs.nbbang.utils.KeyboardUtils
 import com.khs.nbbang.utils.setTransitionListener
 
@@ -62,11 +59,11 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
     protected abstract fun init()
 
-    protected abstract fun add(obj : People?)
+    protected abstract fun add(obj: Member?)
 
     protected abstract fun delete()
 
-    protected abstract fun update(old : People, new: People)
+    protected abstract fun update(name: String, description: String, resId: Int)
 
     private fun initView() {
         mBinding.memberView.setCallBackListener(this)
@@ -136,11 +133,11 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         }
     }
 
-    fun selectPeople(joinPeople: JoinPeople) {
-        mBinding.let {
-            mBinding.memberView.setPeople(joinPeople)
-        }
-    }
+//    fun selectPeople(joinPeople: JoinPeople) {
+//        mBinding.let {
+//            mBinding.memberView.setPeople(joinPeople)
+//        }
+//    }
 
     override fun onClickedCancelBtn() {
         Log.v(TAG,"onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}")
@@ -155,15 +152,21 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
     }
 
-    override fun onClickedSaveBtn(obj : People?) {
+    override fun onClickedSaveBtn(obj: Member?) {
         Log.v(TAG,"onClickedSaveBtn(...)")
         hideAddMemberView()
         add(obj)
     }
+
+    override fun onClickedUpdateBtn(name: String, description: String, resId: Int) {
+        hideMemeberView()
+        update(name, description, resId)
+    }
 }
 
 interface ButtonCallBackListener{
-    fun onClickedSaveBtn(obj : People?)
+    fun onClickedSaveBtn(obj: Member?)
     fun onClickedCancelBtn()
     fun onClickedDeleteBtn()
+    fun onClickedUpdateBtn(name: String, description: String, resId: Int)
 }

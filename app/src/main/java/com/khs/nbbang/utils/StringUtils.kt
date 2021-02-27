@@ -2,12 +2,12 @@ package com.khs.nbbang.utils
 
 import android.util.Log
 import com.khs.nbbang.history.data.DutchPayPeople
-import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.user.Member
 
 class StringUtils() {
     val TAG = this.javaClass.name
 
-    fun getPeopleList(list : MutableList<People>) : String{
+    fun getPeopleList(list : MutableList<Member>) : String{
         var peopleNameString = ""
         for(people in list) {
             Log.v(TAG,"peopleName : ${people.name}")

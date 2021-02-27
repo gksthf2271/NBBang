@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
-import com.khs.nbbang.page.ItemObj.JoinPeople
 import com.khs.nbbang.page.ItemObj.NBB
+import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
 import kotlinx.android.synthetic.main.cview_text_people.view.*
 
-class SelectPeopleAdapter (context: Context, itemList: MutableList<JoinPeople>) : BaseAdapter() {
+class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : BaseAdapter() {
     val TAG = this.javaClass.name
-    var mItemList: MutableList<JoinPeople>
+    var mItemList: MutableList<Member>
     var mItemView : MutableList<View>
     var mContext: Context
     var mSelectNBB : NBB?
@@ -39,16 +39,16 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<JoinPeople>) 
         var itemView: ConstraintLayout =
             inflater.inflate(R.layout.cview_text_people, parent, false) as ConstraintLayout
         var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
-        var joinPeople = mItemList.get(position)
+        var member = mItemList.get(position)
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
-        itemView.tag = joinPeople
-        itemView.checkbox_name.text = joinPeople.name
+        itemView.tag = member
+        itemView.checkbox_name.text = member.name
 
         mSelectNBB?.let {
-            for (obj in it.mJoinPeopleList){
-                if (joinPeople == obj) {
-                    Log.v(TAG,"Select joinPeople, ${joinPeople.name}")
+            for (obj in it.mMemberList){
+                if (member == obj) {
+                    Log.v(TAG,"Select member, ${member.name}")
                     itemView.checkbox_name.isChecked = true
                 }
             }
@@ -68,27 +68,27 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<JoinPeople>) 
         return mItemList.size
     }
 
-    fun addItem(joinPeople: JoinPeople) {
-        mItemList.add(joinPeople)
+    fun addItem(member: Member) {
+        mItemList.add(member)
     }
 
-    fun addItem(index: Int, joinPeople: JoinPeople) {
-        mItemList.add(index, joinPeople)
+    fun addItem(index: Int, member: Member) {
+        mItemList.add(index, member)
         notifyDataSetChanged()
     }
 
-    fun getSelectedJoinPeopleList() : MutableList<JoinPeople>{
-        var checkedJoinPeopleList = mutableListOf<JoinPeople>()
+    fun getSelectedMemberList() : MutableList<Member>{
+        var checkedMemberList = mutableListOf<Member>()
         for (index in 0 until mItemView.size) {
-            if (mItemView.get(index).tag is JoinPeople && mItemView.get(index).checkbox_name.isChecked) {
-                checkedJoinPeopleList.add(mItemView.get(index).tag as JoinPeople)
+            if (mItemView.get(index).tag is Member && mItemView.get(index).checkbox_name.isChecked) {
+                checkedMemberList.add(mItemView.get(index).tag as Member)
             }
         }
-        return checkedJoinPeopleList
+        return checkedMemberList
     }
 
-    fun setSelectJoinPeople(nbb: NBB) {
-        Log.v(TAG,"setSelectJoinPeople, $nbb")
+    fun setSelectMember(nbb: NBB) {
+        Log.v(TAG,"setSelectMember, $nbb")
         mSelectNBB = nbb
     }
 }

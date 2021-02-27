@@ -55,7 +55,7 @@ class DutchPayMainFragment : BaseFragment() {
         mBinding.viewPager.get(0).setOnTouchListener{ _, _ ->
             KeyboardUtils().hideKeyboard(requireView(), requireContext())
             mBinding.viewModel.let {
-                if ( it!!.mNBBLiveData.value!!.mJoinPeopleCount <= 0) {
+                if ( it!!.mNBBLiveData.value!!.mMemberCount <= 0) {
                     return@setOnTouchListener true
                 }
             }

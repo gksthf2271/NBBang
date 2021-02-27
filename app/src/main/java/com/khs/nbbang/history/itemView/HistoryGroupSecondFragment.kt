@@ -16,8 +16,7 @@ import com.khs.nbbang.databinding.FragmentHistorySecondGroupBinding
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
-import com.khs.nbbang.page.ItemObj.JoinPeople
-import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_title_description.view.*
@@ -70,7 +69,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
                 mBinding.groupInfo1.txt_description.text = (e as PieEntry).label
                 mBinding.groupInfo2.txt_description.isSingleLine = false
                 mBinding.groupInfo2.txt_description.text =
-                    StringUtils().getPeopleList((e as PieEntry).data as ArrayList<People>)
+                    StringUtils().getPeopleList((e as PieEntry).data as ArrayList<Member>)
                 mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, (e as PieEntry).value.toInt())
             }
         })

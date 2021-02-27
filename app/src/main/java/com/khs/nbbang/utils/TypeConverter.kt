@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.page.ItemObj.NBB
-import com.khs.nbbang.page.ItemObj.JoinPeople
 import com.khs.nbbang.user.Member
 import java.lang.reflect.Type
 

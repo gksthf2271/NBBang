@@ -43,7 +43,7 @@
 
             <include
                 android:id="@+id/group_name"
-                layout="@layout/cview_title_description"
+                layout="@layout/cview_title_edittext"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@id/group_description"
@@ -55,7 +55,7 @@
 
             <include
                 android:id="@+id/group_description"
-                layout="@layout/cview_title_description"
+                layout="@layout/cview_title_edittext"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -90,6 +90,23 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/btn_update"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btn_update"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.25"
+                app:layout_constraintHeight_percent="0.8"
+                android:background="@drawable/layout_rounded_black"
+                android:gravity="center"
+                android:text="UPDATE"
+                android:textColor="@color/common_title_light_color"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/btn_delete"
                 app:layout_constraintRight_toLeftOf="@id/btn_cancel"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,7 +123,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/btn_delete"
+                app:layout_constraintLeft_toRightOf="@id/btn_update"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

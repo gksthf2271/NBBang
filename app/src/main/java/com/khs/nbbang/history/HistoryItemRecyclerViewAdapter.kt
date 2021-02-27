@@ -9,7 +9,6 @@ import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.R
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
-import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_history_list_place_item.view.*
@@ -47,7 +46,7 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
         fun bind(item: Place) {
             mItemView.txt_group_name.text = item.placeIndex.toString() +" 차"
             mItemView.txt_title.text = item.placeName
-            mItemView.txt_join_people.text = StringUtils().getPeopleList(item.joinPeopleList as MutableList<People>)
+            mItemView.txt_join_people.text = StringUtils().getPeopleList(item.joinPeopleList)
             mItemView.txt_price.text = NumberUtils().makeCommaNumber(true, item.price)
         }
     }

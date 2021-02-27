@@ -51,7 +51,7 @@
             android:singleLine="true"
             android:textColor="@color/search_text_color"
             android:textSize="90sp"
-            android:text="@{Integer.toString(viewModel.mNBBLiveData.MJoinPeopleCount)}"
+            android:text="@{Integer.toString(viewModel.mNBBLiveData.MMemberCount)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.20"
             app:layout_constraintLeft_toLeftOf="parent"

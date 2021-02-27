@@ -3,35 +3,19 @@ package com.khs.nbbang.group
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
-import com.khs.nbbang.animation.RecyclerViewTouchEvent
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
-import com.khs.nbbang.page.ItemObj.People
-import com.khs.nbbang.page.dutchPayPageFragments.AddPeopleFragment
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.user.User
-import com.khs.nbbang.utils.KeyboardUtils
-import com.khs.nbbang.utils.setOnItemTouchListener
-import com.khs.nbbang.utils.setOnScorllingListenenr
-import com.khs.nbbang.utils.setTransitionListener
 import kotlinx.android.synthetic.main.cview_page_title.view.*
-import kotlinx.android.synthetic.main.cview_page_title.view.txt_title
-import kotlinx.android.synthetic.main.cview_title_edittext.view.*
-import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class GroupManagementFragment : FloatingButtonBaseFragment() {
@@ -46,7 +30,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         mGroupManagementContentsFragment.initView(this)
     }
 
-    override fun add(obj: People?) {
+    override fun add(obj: Member?) {
         obj.let {
             if (obj !is Member) return
             mViewModel.let {
@@ -65,7 +49,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         }
     }
 
-    override fun update(old: People, new: People) {
+    override fun update(name: String, description: String, resId: Int) {
         Log.v(TAG,"update(...)")
     }
 
