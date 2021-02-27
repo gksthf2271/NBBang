@@ -1,9 +1,12 @@
 package com.khs.nbbang.user
 
+import com.khs.nbbang.page.ItemObj.JoinPeople
+
 data class Member(
-    override var id: Long,
-    override var name: String,
+    var id: Long = -1,
+    var memberIndex: Int = -1,
+    var memberName: String = "",
     var groupId: Long,
     var description: String,
-    var resId: Int
-) : User(id, name)
+    var memberResId: Int
+) : JoinPeople(memberIndex, memberName, memberResId)

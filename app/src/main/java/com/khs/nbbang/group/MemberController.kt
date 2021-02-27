@@ -8,6 +8,7 @@ interface MemberController {
     ): memberRequest =
         memberRequest(
             member.id,
+            member.index,
             member.name,
             member.groupId,
             member.description,

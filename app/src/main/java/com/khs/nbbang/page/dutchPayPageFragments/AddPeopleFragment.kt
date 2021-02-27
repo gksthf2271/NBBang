@@ -16,15 +16,17 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.page.FloatingButtonBaseFragment
+import com.khs.nbbang.page.ItemObj.JoinPeople
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import com.khs.nbbang.user.User
+import com.khs.nbbang.user.Member
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPeopleFragment : FloatingButtonBaseFragment() {
     private val mPageViewModel: PageViewModel by sharedViewModel()
+    private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
     private val mAddPeopleContentsFragment by lazy {
         AddPeopleContentsFragment()
     }
@@ -37,19 +39,20 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         mAddPeopleContentsFragment.initView(this)
     }
 
-
-    //TODO :: Member, People 정리 필요 현재까지는 여기까지 정상작동하지만, line 44에서 return 
-    override fun add(obj: User?) {
-        var people = obj as? People
-        people ?: return
-        mPageViewModel.addPeople(people)
+    override fun add(obj: People?) {
+        var joinPeople = obj as? JoinPeople ?: return
+        mPageViewModel.let {
+            it!!.addJoinPeople(joinPeople)
+        }
     }
 
     override fun delete() {
-
+        mPageViewModel.let{
+            it!!.deleteJoinPeople(mPageViewModel.mSelectJoinPeople.value ?: return)
+        }
     }
 
-    override fun update(old: User, new: User) {
+    override fun update(old: People, new: People) {
     }
 
 
@@ -59,7 +62,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         private val mPageViewModel: PageViewModel by sharedViewModel()
         private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
 
-        private var mPeopleList = arrayListOf<People>()
+        private var mJoinPeopleList = arrayListOf<JoinPeople>()
         private lateinit var mParentFragment: AddPeopleFragment
 
         override fun onCreateView(
@@ -79,15 +82,19 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         override fun onPause() {
             //TODO : 성능저하 요소 리팩토링 필요
             super.onPause()
-            var peopleListBuffer = mutableListOf<People>()
+            var peopleListBuffer = mutableListOf<JoinPeople>()
 
             for (index in 0 until mBinding.recyclerView.childCount) {
                 try {
                     peopleListBuffer.add(
-                        People(
-                            index,
-                            mBinding.recyclerView.getChildAt(index).txt_name.text.toString()
-                        )
+                        Member(
+                            -1,
+                            -1,
+                            mBinding.recyclerView.getChildAt(index).txt_name.text.toString(),
+                            0,
+                            "",
+                            0
+                        ) as JoinPeople
                     )
                 } catch (e: Exception) {
                     Log.e(TAG, "$e,\n\n $index")
@@ -102,12 +109,12 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
             }
         }
 
-        private fun isUpdatedPeople(peopleList: MutableList<People>): Boolean {
+        private fun isUpdatedPeople(joinPeopleList: MutableList<JoinPeople>): Boolean {
             mBinding.viewModel.let {
-                if (peopleList.size == it!!.mNBBLiveData.value!!.mPeopleList.size) {
-                    for (index in 0 until peopleList.size) {
-                        if (!peopleList.get(index).name.equals(
-                                it!!.mNBBLiveData.value!!.mPeopleList.get(
+                if (joinPeopleList.size == it!!.mNBBLiveData.value!!.mJoinPeopleList.size) {
+                    for (index in 0 until joinPeopleList.size) {
+                        if (!joinPeopleList.get(index).name.equals(
+                                it!!.mNBBLiveData.value!!.mJoinPeopleList.get(
                                     index
                                 ).name
                             )
@@ -125,12 +132,10 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         fun initView(parentFragment: AddPeopleFragment) {
             mParentFragment = parentFragment
             mRecyclerViewAdapter = AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                if (it.first == 0) {
-                    mPeopleList.add(People(mPeopleList.size, ""))
-                    mBinding.viewModel.let {
-                        it!!.setPeopleCount(mRecyclerViewAdapter.mItemList.size)
-                    }
-                }
+                Log.v(TAG,"ItemClicked, joinPeople : ${it.second}")
+                mBinding.viewModel ?: return@AddPeopleRecyclerViewAdapter
+                mBinding.viewModel!!.selectPeople(it.second)
+                mParentFragment.showMemberView()
             }
 
             mBinding.recyclerView.apply {
@@ -147,17 +152,16 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         fun observer() {
             mBinding.viewModel.let {
                 it!!.mNBBLiveData.observe(requireActivity(), Observer {
-                    Log.v(TAG, "observer, call updateCircle(...) peoplecount : ${it!!.mPeopleCount}")
-                    mPeopleList.clear()
-                    for (people in it!!.mPeopleList) {
-                        try {
-                            val people = People(people.index, people.name)
-                            this.mPeopleList.add(people)
-                        } catch (IOOB: IndexOutOfBoundsException) {
-                            Log.e(TAG, "$IOOB")
-                        }
-                    }
-                    mRecyclerViewAdapter.setItemList(this.mPeopleList)
+                    Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mJoinPeopleCount}")
+                    mJoinPeopleList.clear()
+                    mJoinPeopleList.addAll(it!!.mJoinPeopleList)
+                    mRecyclerViewAdapter.setItemList(this.mJoinPeopleList)
+                })
+
+                it!!.mSelectJoinPeople.observe(requireActivity(), Observer {
+                    Log.v(TAG, "Select JoinPeople : $it")
+                    it ?: return@Observer
+                    mParentFragment.selectPeople(it)
                 })
             }
         }

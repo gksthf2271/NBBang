@@ -9,14 +9,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.R
-import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.page.ItemObj.JoinPeople
 import com.khs.nbbang.utils.DisplayUtils
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 
 class AddPeopleRecyclerViewAdapter(
     val mContext: Context,
-    val mItemList: ArrayList<People>,
-    val mItemClick: (Pair<Int, People>) -> Unit
+    val mItemList: ArrayList<JoinPeople>,
+    val mItemClick: (Pair<Int, JoinPeople>) -> Unit
 ) : RecyclerView.Adapter<AddPeopleRecyclerViewAdapter.PeopleViewHolder>() {
     private val TAG: String = javaClass.name
     val DEBUG = BuildConfig.DEBUG
@@ -91,30 +91,30 @@ class AddPeopleRecyclerViewAdapter(
 //        }
 //    }
 
-    inner class PeopleViewHolder(itemView: View, itemClick: (Pair<Int, People>) -> Unit) :
+    inner class PeopleViewHolder(itemView: View, itemClick: (Pair<Int, JoinPeople>) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.name
         var mItemView: View = itemView
         var mItemClick = itemClick
 
-        fun bind(people: People, position: Int) {
-            mItemView.txt_name.text = people.name
+        fun bind(joinPeople: JoinPeople, position: Int) {
+            mItemView.txt_name.text = joinPeople.name
             mItemView.setOnClickListener {
-                mItemClick(Pair(position, people))
+                mItemClick(Pair(position, joinPeople))
             }
         }
     }
 
-    fun setItem(people: People) {
-        Log.v(TAG,"setItem(...) people count : ${people}")
-        this.mItemList.add(mItemList.size, people)
+    fun setItem(joinPeople: JoinPeople) {
+        Log.v(TAG,"setItem(...) joinPeople : ${joinPeople}")
+        this.mItemList.add(mItemList.size, joinPeople)
         notifyDataSetChanged()
     }
 
-    fun setItemList(peopleList: ArrayList<People>) {
-        Log.v(TAG,"setItem(...) people count : ${peopleList.size}")
+    fun setItemList(joinPeopleList: ArrayList<JoinPeople>) {
+        Log.v(TAG,"setItem(...) joinPeople count : ${joinPeopleList.size}")
         mItemList.clear()
-        mItemList.addAll(peopleList)
+        mItemList.addAll(joinPeopleList)
         notifyDataSetChanged()
     }
 }

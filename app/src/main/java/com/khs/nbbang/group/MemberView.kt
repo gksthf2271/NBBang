@@ -3,14 +3,17 @@ package com.khs.nbbang.group
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.CviewMemberBinding
 import com.khs.nbbang.page.ButtonCallBackListener
+import com.khs.nbbang.page.ItemObj.JoinPeople
+import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.user.User
 import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_memeber_item.view.*
-import kotlinx.android.synthetic.main.cview_title_edittext.view.*
+import kotlinx.android.synthetic.main.cview_title_description.view.*
 import org.koin.core.component.KoinComponent
 
 class MemberView  @JvmOverloads constructor(
@@ -19,6 +22,7 @@ class MemberView  @JvmOverloads constructor(
 
     val TAG = this.javaClass.name
     var mBinding: CviewMemberBinding
+    lateinit var mCurrentUser : People
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -34,10 +38,21 @@ class MemberView  @JvmOverloads constructor(
     }
 
     fun setMember(member: Member) {
+        mCurrentUser = member
         mBinding.let {
             GlideUtils().drawImageWithResId(it.imgProfile, member.resId, null)
             it.groupName.txt_description.text = member.name
             it.groupDescription.txt_description.text = member.description
+            it.groupDescription.visibility = View.VISIBLE
+        }
+    }
+
+    fun setPeople(joinPeople: JoinPeople) {
+        mCurrentUser = joinPeople
+        mBinding.let {
+            GlideUtils().drawImageWithResId(it.imgProfile, joinPeople.resId, null)
+            it.groupName.txt_description.text = joinPeople.name
+            it.groupDescription.visibility = View.INVISIBLE
         }
     }
 
@@ -50,9 +65,7 @@ class MemberView  @JvmOverloads constructor(
     fun setCallBackListener(callback: ButtonCallBackListener) {
         mBinding.let {
             it.btnDelete.setOnClickListener {
-                mBinding.viewModel.let {
-                    callback.onClickedDeleteBtn()
-                }
+                callback.onClickedDeleteBtn()
             }
 
             it.btnCancel.setOnClickListener {

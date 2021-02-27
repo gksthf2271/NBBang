@@ -1,6 +1,6 @@
 package com.khs.nbbang.history.data
 
-import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.user.Member
 
 data class NBBResultItem(
     val place: ArrayList<Place>,
@@ -11,12 +11,12 @@ data class Place(
     val placeIndex : Int,
     val joinPeopleCount : Int,
     val placeName : String,
-    val peopleList : ArrayList<People>,
+    val joinPeopleList : ArrayList<Member>,
     val price : Int,
     val dutchPay : Long)
 
 data class DutchPayPeople(
-    val index : Long,
-    val name : String,
+    val dutchPayPeopleIndex : Long,
+    val dutchPayPeopleName : String,
     val dutchPay : Long
 )

@@ -33,7 +33,7 @@ class StringUtils() {
     fun dutchPayListToString(list : MutableList<DutchPayPeople>) : String{
         var result = ""
         for(dutchPayPeople in list) {
-            result += dutchPayPeople.name
+            result += dutchPayPeople.dutchPayPeopleName
             if (dutchPayPeople != list.lastOrNull()) {
                 result += ", "
             }

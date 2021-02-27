@@ -12,6 +12,8 @@ import com.khs.nbbang.animation.RecyclerViewTouchEvent
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.FragmentFloatingBtnBaseBinding
+import com.khs.nbbang.page.ItemObj.JoinPeople
+import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.user.User
 import com.khs.nbbang.utils.KeyboardUtils
@@ -60,11 +62,11 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
     protected abstract fun init()
 
-    protected abstract fun add(obj: User?)
+    protected abstract fun add(obj : People?)
 
     protected abstract fun delete()
 
-    protected abstract fun update(old: User, new: User)
+    protected abstract fun update(old : People, new: People)
 
     private fun initView() {
         mBinding.memberView.setCallBackListener(this)
@@ -134,6 +136,12 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         }
     }
 
+    fun selectPeople(joinPeople: JoinPeople) {
+        mBinding.let {
+            mBinding.memberView.setPeople(joinPeople)
+        }
+    }
+
     override fun onClickedCancelBtn() {
         Log.v(TAG,"onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}")
         hideMemeberView()
@@ -147,7 +155,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
     }
 
-    override fun onClickedSaveBtn(obj: User?) {
+    override fun onClickedSaveBtn(obj : People?) {
         Log.v(TAG,"onClickedSaveBtn(...)")
         hideAddMemberView()
         add(obj)
@@ -155,7 +163,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 }
 
 interface ButtonCallBackListener{
-    fun onClickedSaveBtn(obj : User?)
+    fun onClickedSaveBtn(obj : People?)
     fun onClickedCancelBtn()
     fun onClickedDeleteBtn()
 }

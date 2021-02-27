@@ -9,6 +9,7 @@ interface MemberPresenter {
             result.nbbangMemberList.map {
                 Member(
                     it.id,
+                    it.index,
                     it.name,
                     it.groupId,
                     it.description,

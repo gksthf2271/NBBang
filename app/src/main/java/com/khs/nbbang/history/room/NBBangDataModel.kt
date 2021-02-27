@@ -32,6 +32,9 @@ data class NBBMemberDataModel(
     @ColumnInfo(name = "id")
     var id: Long?,
 
+    @ColumnInfo(name = "index")
+    var index: Int,
+
     @ColumnInfo(name = "groupId")
     var groupId: Long,
 

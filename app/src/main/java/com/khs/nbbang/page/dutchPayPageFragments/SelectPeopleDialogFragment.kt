@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentSelectPeopleBinding
-import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.page.ItemObj.JoinPeople
 import com.khs.nbbang.page.adapter.SelectPeopleAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -66,7 +66,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
 
         mBinding.btnSave.setOnClickListener {
             mBinding.viewModel.let {
-                it!!.saveSelectedPeople(tag!!.toInt(), mGridViewAdapter.getSelectedPeopleList())
+                it!!.saveSelectedPeople(tag!!.toInt(), mGridViewAdapter.getSelectedJoinPeopleList())
             }
             dismiss()
         }
@@ -74,21 +74,21 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
         mBinding.viewModel.let {
             it!!.mNBBLiveData.observe(requireActivity(), Observer {
                 if (isAdded) {
-                    for (people in it.mPeopleList) {
+                    for (people in it.mJoinPeopleList) {
                         addPeopleView(people)
                     }
                 }
             })
 
             it.mSelectedPeopleMap.value!!.get(tag!!.toInt())?.let {
-                mGridViewAdapter.setSelectPeople(it!!)
+                mGridViewAdapter.setSelectJoinPeople(it!!)
             }
         }
     }
 
-    fun addPeopleView(people: People){
-        Log.v(TAG,"peopleName : ${people.name}")
+    fun addPeopleView(joinPeople: JoinPeople){
+        Log.v(TAG,"peopleName : ${joinPeople.name}")
         Log.v(TAG,"peopleNameView Index : ${mGridViewAdapter.count}")
-        mGridViewAdapter.addItem(mGridViewAdapter.count, people)
+        mGridViewAdapter.addItem(mGridViewAdapter.count, joinPeople)
     }
 }

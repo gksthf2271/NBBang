@@ -5,9 +5,7 @@ import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.history.room.NBBMemberDataModel
 import com.khs.nbbang.history.room.NBBPlaceDataModel
-import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.user.Member
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -56,16 +54,18 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
     private fun convertMember(d: NBBMemberDataModel): Member =
         Member(
             d.id!!,
+            d.index,
             d.name,
             d.groupId,
             d.description,
             d.resId
         )
 
-    override fun addMember(name: String, groupId: Long, description: String, resId: Int): Single<Member> =
+    override fun addMember(name: String, index : Int, groupId: Long, description: String, resId: Int): Single<Member> =
         mNBBMemberDao.insert(
             NBBMemberDataModel(
                 null,
+                0,
                 0,
                 name,
                 description,
@@ -74,6 +74,7 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
         ).map { id ->
             Member(
                 id,
+                index,
                 name,
                 groupId,
                 description,

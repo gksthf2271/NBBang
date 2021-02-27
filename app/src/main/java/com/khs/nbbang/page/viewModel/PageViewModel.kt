@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.khs.nbbang.R
 import com.khs.nbbang.history.HistoryController
 import com.khs.nbbang.history.data.*
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
@@ -12,7 +13,9 @@ import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.page.ItemObj.NBB
+import com.khs.nbbang.page.ItemObj.JoinPeople
 import com.khs.nbbang.page.ItemObj.People
+import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -32,6 +35,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     private val _placeCount: MutableLiveData<Int> = MutableLiveData()
     val mPlaceCount : LiveData<Int> get() = _placeCount
 
+    private val _selectJoinPeople: MutableLiveData<JoinPeople> = MutableLiveData()
+    val mSelectJoinPeople : LiveData<JoinPeople> get() = _selectJoinPeople
+
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
     private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
@@ -46,59 +52,67 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _placeCount.value = 0
     }
 
-    fun updatePeopleList(peopleList: MutableList<People>) {
+    fun updatePeopleList(joinPeopleList: MutableList<JoinPeople>) {
         _NBBLiveData.postValue(_NBBLiveData.value.apply {
-            this!!.mPeopleList = peopleList
+            this!!.mJoinPeopleList = joinPeopleList
         })
-        Log.v(TAG, "updatePeopleList(...), ${_NBBLiveData.value!!.mPeopleList}")
+        Log.v(TAG, "updatePeopleList(...), ${_NBBLiveData.value!!.mJoinPeopleList}")
     }
 
     fun setPeopleCount(peopleCount: Int) {
         Log.v(TAG,"setPeopleCount(...) peopleCount : $peopleCount")
         _NBBLiveData.postValue(_NBBLiveData.value.apply {
-            this!!.mPeopleCount = peopleCount
+            this!!.mJoinPeopleCount = peopleCount
         })
     }
 
-    fun addPeople(people: People){
-        Log.v(TAG,"addPeople(...) people : ${people.name}")
+    fun selectPeople(joinPeople: JoinPeople) {
+        _selectJoinPeople.postValue(joinPeople)
+    }
+
+    fun addJoinPeople(joinPeople: JoinPeople){
+        Log.v(TAG,"addPeople(...) people : ${joinPeople.name}")
         _NBBLiveData.value.let {
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                it!!.mPeopleList.add(it!!.mPeopleList.lastIndex, people)
+                it!!.mJoinPeopleList.add(it!!.mJoinPeopleList.size, joinPeople)
+                it!!.mJoinPeopleCount = it!!.mJoinPeopleList.size
+                updateJoinPlaceCount(it!!.mJoinPeopleCount)
             })
         }
     }
 
-    fun deletePeople(people: People) {
-        Log.v(TAG,"deletePeople(...) people : ${people.name}")
+    fun deleteJoinPeople(joinPeople: JoinPeople) {
+        Log.v(TAG,"deletePeople(...) people : ${joinPeople.name}")
         _NBBLiveData.value.let {
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                it!!.mPeopleList.remove(people)
+                it!!.mJoinPeopleList.remove(joinPeople)
+                it!!.mJoinPeopleCount = it!!.mJoinPeopleList.size
+                updateJoinPlaceCount(it!!.mJoinPeopleCount)
             })
         }
     }
 
-    fun increasePeople() {
+    fun increaseJoinPeopleCount() {
         _NBBLiveData.value.let {
             _NBBLiveData!!.postValue(it.apply {
-                it!!.mPeopleCount += 1
-                it!!.mPeopleList.add(People(it!!.mPeopleList.size, ""))
-                Log.v(TAG, "increasePeople(...) ${it!!.mPeopleCount}")
+                it!!.mJoinPeopleCount += 1
+                it!!.mJoinPeopleList.add(Member(0,it!!.mJoinPeopleList.size,"", -1,"", R.drawable.icon_user))
+                Log.v(TAG, "increaseJoinPeopleCount(...) ${it!!.mJoinPeopleCount}")
             })
         }
     }
 
-    fun updatePlaceCount(placeCount: Int) {
+    fun updateJoinPlaceCount(placeCount: Int) {
         _placeCount.postValue(placeCount)
     }
 
-    fun decreasePeople() {
-        Log.v(TAG, "decreasePeople(...)")
+    fun decreaseJoinPeopleCount() {
+        Log.v(TAG, "decreaseJoinPeopleCount(...)")
         _NBBLiveData.value.let {
-            if (it!!.mPeopleCount!! <= 0) return
+            if (it!!.mJoinPeopleCount!! <= 0) return
             _NBBLiveData.postValue(it.apply {
-                it!!.mPeopleCount -= 1
-                it!!.mPeopleList.removeAt(it!!.mPeopleList.lastIndex)
+                it!!.mJoinPeopleCount -= 1
+                it!!.mJoinPeopleList.removeAt(it!!.mJoinPeopleList.lastIndex)
             })
         }
     }
@@ -130,12 +144,12 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         }
     }
 
-    fun saveSelectedPeople(placeId: Int, selectedPeopleList: MutableList<People>) {
+    fun saveSelectedPeople(placeId: Int, selectedJoinPeopleList: MutableList<JoinPeople>) {
         Log.v(TAG,"saveSelectedPeople(...)")
         _selectedPeopleMap.value!!.let {
             if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
-                it!!.get(placeId)!!.mPeopleList = selectedPeopleList
+                it!!.get(placeId)!!.mJoinPeopleList = selectedJoinPeopleList
             })
         }
     }
@@ -145,31 +159,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _selectedPeopleMap.value!!.let {
             _selectedPeopleMap.postValue(it.apply {
                 for(key in it.keys) {
-                    this.get(key)!!.mPeopleList.clear()
-                }
-            })
-        }
-    }
-
-    fun savePeopleName(peopleId: Int, name:String){
-        /**
-         * 고민필요
-         * 해당 로직은 AddPeople 단계에서 People Name 수정될 때 마다 트리거로 발생하는 메소드.
-         * 현 문제 정리
-         *  1. 해당 메소드가 호출 될 때 NBB의 mPeopleList가 정의 되어있지 않음.
-         *  2. '1'의 문제를 해결 하기 위해 List 형태가 아닌 Map형태로 데이터 관리 필요
-         *      단, Map 형태의 데이터 관리 시 기존 로직이 대거 수정필요.
-         *  3. Map 형태로 수정하는게 맞는것인가? 고민 필요.
-         */
-
-        _NBBLiveData.value!!.let{
-            _NBBLiveData.postValue(it!!.apply {
-                Log.v(TAG,"savePeopleName(...), index : $peopleId, name : $name")
-                try {
-                    it!!.mPeopleList.get(peopleId).name = name
-                } catch (ioobe : IndexOutOfBoundsException) {
-                    Log.v(TAG, "Exception, \n $ioobe")
-                    it!!.mPeopleList.add(peopleId, People(peopleId, name))
+                    this.get(key)!!.mJoinPeopleList.clear()
                 }
             })
         }
@@ -177,7 +167,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun resultNBB() : String {
         var result = ""
-        var peopleMap = mutableMapOf<String, People>()
+        var peopleMap = mutableMapOf<String, JoinPeople>()
         result += "\t\t 전체 계산서 "
         clearNBBResultItem()
 
@@ -186,7 +176,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
              * TODO
              * 결과 페이지 예외처리 필요
              */
-            var peoplelist = _selectedPeopleMap.value!!.get(key)!!.mPeopleList
+            var peoplelist = _selectedPeopleMap.value!!.get(key)!!.mJoinPeopleList
             var priceInt = 0
             try {
                 priceInt = Integer.parseInt(_selectedPeopleMap.value!!.get(key)!!.mPrice.replace(",",""))
@@ -201,7 +191,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             result += "\n\t\t\t\t\t"
             result += "\n\t\t ${key}차"
             result += "\n\t\t\t 참석 인원 수 : ${peoplelist.size}"
-            result += "\n\t\t\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist)}"
+            result += "\n\t\t\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist as MutableList<People>)}"
             result += "\n\t\t\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
             result += "\n\t\t\t 사용 금액 : ${_selectedPeopleMap.value!!.get(key)!!.mPrice} 원"
             result += "\n\t\t\t 더치페이 : ${NumberUtils().makeCommaNumber(true,priceInt / peoplelist.size)}"
@@ -212,7 +202,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
                     key,
                     peoplelist.size,
                     _selectedPeopleMap.value!!.get(key)!!.mPlaceName,
-                    peoplelist as ArrayList<People>,
+                    peoplelist as ArrayList<Member>,
                     priceInt,
                     (priceInt / peoplelist.size).toLong()
                 )
@@ -241,8 +231,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     private fun createNBBResultDutchPayPeople(dutchPayPeople: DutchPayPeople){
         Log.v(TAG,"createNBBResultDutchPayPeople(...)" +
-                "\n index  : ${dutchPayPeople.index}" +
-                "\n 이   름 : ${dutchPayPeople.name}" +
+                "\n index  : ${dutchPayPeople.dutchPayPeopleIndex}" +
+                "\n 이   름 : ${dutchPayPeople.dutchPayPeopleName}" +
                 "\n 더치페이 : ${dutchPayPeople.dutchPay}" )
         mNBBResultItem.dutchPay.add(dutchPayPeople)
     }
@@ -252,7 +242,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
                 "\n N차    : ${place.placeIndex}" +
                 "\n 참석인원 : ${place.joinPeopleCount}" +
                 "\n 장소 명 : ${place.placeName}" +
-                "\n 참석자  : ${StringUtils().getPeopleList(place.peopleList)}" +
+                "\n 참석자  : ${StringUtils().getPeopleList(place.joinPeopleList as MutableList<People>)}" +
                 "\n 비   용 : ${place.price}" +
                 "\n 더치페이 : ${place.dutchPay}" )
 
@@ -271,8 +261,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         mNBBResultItem.dutchPay.clear()
     }
 
-    private fun dutchPayBill(peopleList: MutableList<People>, payment:Int) {
-        for (people in peopleList) {
+    private fun dutchPayBill(joinPeopleList: MutableList<JoinPeople>, payment:Int) {
+        for (people in joinPeopleList) {
             if (mDutchPayMap.get(people.name) == null) {
                 mDutchPayMap.put(people.name, 0)
             }

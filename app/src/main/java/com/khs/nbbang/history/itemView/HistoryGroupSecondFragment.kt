@@ -3,15 +3,12 @@ package com.khs.nbbang.history.itemView
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.ChartTouchListener
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
@@ -19,10 +16,10 @@ import com.khs.nbbang.databinding.FragmentHistorySecondGroupBinding
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
+import com.khs.nbbang.page.ItemObj.JoinPeople
 import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
-import kotlinx.android.synthetic.main.cview_pie_chart.view.*
 import kotlinx.android.synthetic.main.cview_title_description.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -53,7 +50,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         for (item in mHistoryItem.place) {
             totalPrice += item.price
             allPlaceSet.add(item.placeName)
-            pieEntryList.add(PieEntry(item.price.toFloat(), item.placeName, null, item.peopleList))
+            pieEntryList.add(PieEntry(item.price.toFloat(), item.placeName, null, item.joinPeopleList))
         }
         mBinding.customPieChart.setData(pieEntryList, totalPrice)
         loadTotalData(totalPrice, allPlaceSet, mHistoryItem.dutchPay)

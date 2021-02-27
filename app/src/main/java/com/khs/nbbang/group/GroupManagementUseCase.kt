@@ -21,6 +21,7 @@ interface GetNbbangMember : NBBangGateway {
 interface AddNBBangMember : NBBangGateway {
     fun addNBBangMember(request: memberRequest): Single<Member> = addMember(
         request.name,
+        request.index,
         request.groupId,
         request.description,
         request.resId

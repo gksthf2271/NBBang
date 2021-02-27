@@ -9,7 +9,7 @@ class ServiceUtils() {
         var totalAmountOfPayment = 0
         for(nbbangHistory in nbbangHistoryResult.nbbangHistoryList) {
             for(dutchPayPeople in nbbangHistory.dutchPay){
-                if (dutchPayPeople.name.equals(name)){
+                if (dutchPayPeople.dutchPayPeopleName.equals(name)){
                     totalAmountOfPayment += dutchPayPeople.dutchPay.toInt()
                 }
             }

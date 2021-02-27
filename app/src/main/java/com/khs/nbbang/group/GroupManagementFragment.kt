@@ -20,6 +20,7 @@ import com.khs.nbbang.animation.RecyclerViewTouchEvent
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
+import com.khs.nbbang.page.ItemObj.People
 import com.khs.nbbang.page.dutchPayPageFragments.AddPeopleFragment
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.user.User
@@ -45,7 +46,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         mGroupManagementContentsFragment.initView(this)
     }
 
-    override fun add(obj: User?) {
+    override fun add(obj: People?) {
         obj.let {
             if (obj !is Member) return
             mViewModel.let {
@@ -64,7 +65,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         }
     }
 
-    override fun update(old: User, new: User) {
+    override fun update(old: People, new: People) {
         Log.v(TAG,"update(...)")
     }
 

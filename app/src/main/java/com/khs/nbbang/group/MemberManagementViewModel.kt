@@ -41,20 +41,20 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     var mDummyMemberList: ArrayList<Member> = arrayListOf(
-        Member(0, "김한솔", 0, "월곡회", R.drawable.icon_user),
-        Member(1, "신상은", 0, "월곡회", R.drawable.icon_user),
-        Member(2, "정용인", 0, "월곡회", R.drawable.icon_user),
-        Member(3, "김진혁", 0, "월곡회", R.drawable.icon_user),
-        Member(4, "조현우", 0, "월곡회", R.drawable.icon_user),
-        Member(5, "최종휘", 0, "월곡회", R.drawable.icon_user),
-        Member(6, "김진근", 0, "월곡회", R.drawable.icon_user),
-        Member(7, "이진형", 0, "월곡회", R.drawable.icon_user),
-        Member(8, "배재룡", 0, "월곡회", R.drawable.icon_user),
-        Member(9, "정준호", 0, "월곡회", R.drawable.icon_user),
-        Member(10, "박소연", 0, "월곡회", R.drawable.icon_user),
-        Member(11, "장선형", 0, "월곡회", R.drawable.icon_user),
-        Member(12, "신주연", 0, "월곡회", R.drawable.icon_user),
-        Member(13, "주경애", 0, "월곡회", R.drawable.icon_user)
+        Member(0, 0,"김한솔", 0, "월곡회", R.drawable.icon_user),
+        Member(1, 1,"신상은", 0, "월곡회", R.drawable.icon_user),
+        Member(2, 2,"정용인", 0, "월곡회", R.drawable.icon_user),
+        Member(3, 3,"김진혁", 0, "월곡회", R.drawable.icon_user),
+        Member(4, 4,"조현우", 0, "월곡회", R.drawable.icon_user),
+        Member(5, 5,"최종휘", 0, "월곡회", R.drawable.icon_user),
+        Member(6, 6,"김진근", 0, "월곡회", R.drawable.icon_user),
+        Member(7, 7,"이진형", 0, "월곡회", R.drawable.icon_user),
+        Member(8, 8,"배재룡", 0, "월곡회", R.drawable.icon_user),
+        Member(9, 9, "정준호", 0, "월곡회", R.drawable.icon_user),
+        Member(10, 10,"박소연", 0, "월곡회", R.drawable.icon_user),
+        Member(11, 11,"장선형", 0, "월곡회", R.drawable.icon_user),
+        Member(12, 12,"신주연", 0, "월곡회", R.drawable.icon_user),
+        Member(13, 13,"주경애", 0, "월곡회", R.drawable.icon_user)
     )
 
     override fun renderMembers(nbbangMemberresult: GetNBBangMemberResult) {
@@ -67,7 +67,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         handleAddMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
-            Member(id ?: -1, name, groupId ?: 0, description, resId ?: R.drawable.icon_user)
+            Member(id ?: -1, -1, name, groupId ?: 0, description, resId ?: R.drawable.icon_user)
         )
     }
 

@@ -40,6 +40,7 @@ class AddMemberView @JvmOverloads constructor(
                 callback.onClickedSaveBtn(
                     Member(
                         -1,
+                        -1,
                         mBinding.groupName.edit_description.text.toString(),
                         0,
                         mBinding.groupDescription.edit_description.text.toString(),
