@@ -14,4 +14,19 @@ interface MemberController {
             member.description,
             member.resId
         )
+
+
+
+    fun requestUpdateMember(
+        targetMember : Member,
+        updateMember : Member
+    ): memberRequest =
+        memberRequest(
+            targetMember.id,
+            targetMember.index,
+            updateMember.name,
+            updateMember.groupId,
+            updateMember.description,
+            updateMember.resId
+        )
 }

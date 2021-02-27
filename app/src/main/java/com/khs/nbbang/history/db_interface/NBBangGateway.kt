@@ -3,7 +3,9 @@ package com.khs.nbbang.history.db_interface
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
+import com.khs.nbbang.history.room.NBBMemberDataModel
 import com.khs.nbbang.user.Member
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -31,7 +33,7 @@ interface NBBangGateway {
     fun getMember(id: Long) : Maybe<Member>
     fun getMemberByGroupId(groupId: Long) : Single<List<Member>>
     fun removeMember(id: Long) : Single<Int>
-//    fun updateMember(member: Member) : Maybe<NBBMemberDataModel>
+    fun updateMember(member: Member) : Single<Int>
     fun addMember(
         name : String,
         index : Int,

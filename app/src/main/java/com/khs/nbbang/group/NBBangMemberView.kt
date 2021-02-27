@@ -63,15 +63,15 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
         compositeDisposable.add(d)
     }
 
-//    fun handleUpdateMember(sub: Scheduler, ob: Scheduler, member : Member) {
-//        val d = updateNBBangMember(requestAddMember(member))
-//            .subscribeOn(sub)
-//            .observeOn(ob)
-//            .subscribe { r ->
-//                handleShowAllMember(sub, ob)
-//            }
-//        compositeDisposable.add(d)
-//    }
+    fun handleUpdateMember(sub: Scheduler, ob: Scheduler, targetMember : Member, updateMember : Member) {
+        val d = updateNBBangMember(requestUpdateMember(targetMember, updateMember))
+            .subscribeOn(sub)
+            .observeOn(ob)
+            .subscribe { r ->
+                handleShowAllMember(sub, ob)
+            }
+        compositeDisposable.add(d)
+    }
 
     fun handleDestroy() {
         compositeDisposable.dispose()

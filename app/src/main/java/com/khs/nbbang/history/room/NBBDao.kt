@@ -45,5 +45,8 @@ interface NBBMemberDao {
     fun delete(member:NBBMemberDataModel) : Completable
 
 //    @Update
-//    fun update(nbb: NBBMemberDataModel) : Maybe<NBBMemberDataModel>
+//    fun update(member: Member) : Maybe<NBBMemberDataModel>
+
+    @Query("UPDATE nbb_member SET name = :updateName, description = :updateDescription, resId = :updateResId WHERE id == :targetId  ")
+    fun update(targetId : Long, updateName : String, updateDescription : String, updateResId : Int) : Single<Int>
 }

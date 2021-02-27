@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.CviewMemberBinding
 import com.khs.nbbang.page.ButtonCallBackListener
@@ -73,7 +74,7 @@ class MemberView  @JvmOverloads constructor(
                 callback.onClickedUpdateBtn(
                     mBinding.groupName.edit_description.text.toString(),
                     mBinding.groupDescription.edit_description.text.toString(),
-                    mBinding.imgProfile.id
+                    R.drawable.icon_user
                 )
             }
         }

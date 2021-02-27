@@ -51,6 +51,9 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
 
     override fun update(name: String, description: String, resId: Int) {
         Log.v(TAG,"update(...)")
+        mViewModel.let {
+            it!!.updateMember(name, description, resId)
+        }
     }
 
     companion object class GroupManagementContentsFragment : BaseFragment() {

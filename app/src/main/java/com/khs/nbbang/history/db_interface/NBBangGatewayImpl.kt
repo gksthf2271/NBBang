@@ -6,6 +6,7 @@ import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.history.room.NBBMemberDataModel
 import com.khs.nbbang.history.room.NBBPlaceDataModel
 import com.khs.nbbang.user.Member
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -93,7 +94,5 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
 
     override fun removeMember(id: Long) : Single<Int> = mNBBMemberDao.delete(id)
 
-//    override fun updateMember(member: Member) : Maybe<NBBMemberDataModel> = mNBBMemberDao.update(
-//        NBBMemberDataModel(member.id, member.groupId, member.name, member.description, member.resId)
-//    )
+    override fun updateMember(member: Member) : Single<Int> = mNBBMemberDao.update(member.id, member.name, member.description, member.resId)
 }

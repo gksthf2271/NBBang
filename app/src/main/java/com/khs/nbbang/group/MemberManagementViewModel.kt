@@ -79,6 +79,24 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         )
     }
 
+    fun updateMember(name: String, description: String, resId: Int) {
+        Log.v(TAG,"updateJoinPeople(...)")
+        handleUpdateMember(
+            Schedulers.io(),
+            AndroidSchedulers.mainThread(),
+            mSelectMember.value ?: return,
+            Member(-1, -1, name, -1, description, resId)
+        )
+//        var selectMember = mSelectMember.value
+//        _memberList.value.let {
+//            var index = it!!.indexOf(selectMember)
+//            _memberList.postValue(_memberList.value.apply {
+//                it!!.get(index).name = name
+//                it!!.get(index).description = description
+//            })
+//        }
+    }
+
     fun showMemberList() {
         handleShowAllMember(
             Schedulers.io(),

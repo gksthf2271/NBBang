@@ -35,13 +35,14 @@ interface DeleteNBBangMember : NBBangGateway {
 }
 
 interface UpdateNBBangMember : NBBangGateway {
-//    fun updateNBBangMember(request: memberRequest): Maybe<NBBMemberDataModel> = updateMember(
-//        Member(
-//            request.id,
-//            request.name,
-//            request.groupId,
-//            request.description,
-//            request.resId
-//        )
-//    )
+    fun updateNBBangMember(request: memberRequest) : Single<Int> = updateMember(
+        Member(
+            request.id,
+            request.index,
+            request.name,
+            request.groupId,
+            request.description,
+            request.resId
+        )
+    )
 }
