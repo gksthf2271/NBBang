@@ -105,6 +105,9 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
             } else {
                 Log.v(TAG, "isUpdatedPeople, true")
             }
+
+            mParentFragment.hideMemeberView()
+            mParentFragment.hideAddMemberView()
         }
 
         private fun isUpdatedPeople(memberList: MutableList<Member>): Boolean {
