@@ -36,6 +36,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     private val _selectJoinPeople: MutableLiveData<Member> = MutableLiveData()
     val mSelectJoinPeople : LiveData<Member> get() = _selectJoinPeople
 
+    private val _selectPlace: MutableLiveData<Int> = MutableLiveData()
+    val mSelectPlace : LiveData<Int> get() = _selectPlace
+
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
     private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
@@ -62,6 +65,10 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _NBBLiveData.postValue(_NBBLiveData.value.apply {
             this!!.mMemberCount = peopleCount
         })
+    }
+
+    fun selectPlace(placeKey : Int) {
+        _selectPlace.postValue(placeKey)
     }
 
     fun selectPeople(joinPeople: Member) {
@@ -158,7 +165,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _selectedPeopleMap.value!!.let {
             if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
-                it!!.get(placeId)!!.mMemberList = selectedJoinPeopleList
+                it!!.get(placeId)!!.mMemberList.clear()
+                it!!.get(placeId)!!.mMemberList.addAll(selectedJoinPeopleList)
             })
         }
     }

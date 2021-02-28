@@ -35,6 +35,7 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : Ba
     }
 
     private fun addJoinPeopleView(parent: ViewGroup?, position: Int) : View {
+        Log.v(TAG,"addJoinPeopleView(...) position :$position")
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         var itemView: ConstraintLayout =
             inflater.inflate(R.layout.cview_text_people, parent, false) as ConstraintLayout
@@ -44,6 +45,7 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : Ba
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
         itemView.tag = member
         itemView.checkbox_name.text = member.name
+        itemView.checkbox_name.isChecked = false
 
         mSelectNBB?.let {
             for (obj in it.mMemberList){

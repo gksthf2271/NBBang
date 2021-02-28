@@ -25,27 +25,17 @@
             android:textColor="@color/search_text_color"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/layout_scroll"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view"
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/layout_scroll"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.7"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title">
-
-            <LinearLayout
-                android:id="@+id/layout_group"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintHeight_percent="0.5"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
-        </androidx.core.widget.NestedScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/txt_title"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add"

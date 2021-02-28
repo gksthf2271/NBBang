@@ -87,7 +87,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     peopleListBuffer.add(
                         Member(
                             -1,
-                            -1,
+                            index,
                             mBinding.recyclerView.getChildAt(index).txt_name.text.toString(),
                             0,
                             "",
@@ -101,9 +101,9 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
             if (isUpdatedPeople(peopleListBuffer)) {
                 Log.v(TAG, "isUpdatedPeople, false")
-                mBinding.viewModel.let { it!!.updatePeopleList(peopleListBuffer) }
             } else {
                 Log.v(TAG, "isUpdatedPeople, true")
+                mBinding.viewModel.let { it!!.updatePeopleList(peopleListBuffer) }
             }
 
             mParentFragment.hideMemeberView()

@@ -1,98 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
-    android:background="@color/blank"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/txt_index"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:textColor="@color/search_text_color"
-        android:textStyle="bold"
-        tools:text="no 1."
-        app:layout_constraintWidth_percent="0.2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/layout_group"
-        app:layout_constraintBottom_toBottomOf="@id/layout_group"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_group"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:layout_constraintWidth_percent="0.6"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/txt_index">
-
-        <EditText
-            android:id="@+id/edit_title"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:hint="장소명을 입력 해주세요."
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            app:layout_constraintHeight_percent="0.48"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/edit_price"/>
-
-        <EditText
-            android:id="@+id/edit_price"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:hint="지출 비용 입력 해주세요."
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:inputType="number"
-            app:layout_constraintHeight_percent="0.48"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_title"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/btn_join"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:text="참석자 \n추가"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:textColor="@color/search_text_color"
-        app:layout_constraintTop_toTopOf="@id/layout_group"
-        app:layout_constraintBottom_toBottomOf="@id/layout_group"
-        app:layout_constraintWidth_percent="0.2"
-        app:layout_constraintLeft_toRightOf="@id/layout_group"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_group_added_people"
+        android:id="@+id/motion_layout"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:visibility="gone"
-        tools:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/layout_group">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/blank">
 
         <TextView
-            android:id="@+id/txt_added_people"
-            android:layout_width="match_parent"
+            android:id="@+id/txt_index"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textSize="12sp"
+            android:gravity="center"
             android:textColor="@color/search_text_color"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            tools:text="홍길동 임꺽정 흥부 놀부"
-            />
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/layout_group"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_group"
+            app:layout_constraintWidth_percent="0.2"
+            tools:text="no 1." />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_group"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            app:layout_constraintLeft_toRightOf="@id/txt_index"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.6">
+
+            <EditText
+                android:id="@+id/edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:hint="장소명을 입력 해주세요."
+                android:paddingLeft="10dp"
+                app:layout_constraintBottom_toTopOf="@id/edit_price"
+                app:layout_constraintHeight_percent="0.48"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_price"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:hint="지출 비용 입력 해주세요."
+                android:inputType="number"
+                android:paddingLeft="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.48"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_join"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="참석자 \n추가"
+            android:textColor="@color/search_text_color"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_group"
+            app:layout_constraintLeft_toRightOf="@id/layout_group"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layout_group"
+            app:layout_constraintWidth_percent="0.2" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_group_added_people"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/layout_group"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/txt_added_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/search_text_color"
+                android:textSize="12sp"
+                tools:text="홍길동 임꺽정 흥부 놀부" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
