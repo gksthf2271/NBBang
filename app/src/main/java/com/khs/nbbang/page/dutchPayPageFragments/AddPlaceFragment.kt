@@ -16,22 +16,20 @@ import androidx.lifecycle.Observer
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
+import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
-import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
-import kotlinx.android.synthetic.main.cview_add_edit_place.view.*
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import java.lang.NumberFormatException
 
 class AddPlaceFragment : BaseFragment() {
-    lateinit var mBinding : FragmentAddPlaceBinding
+    lateinit var mBinding: FragmentAddPlaceBinding
 
-    val TYPE_EDIT_PLACE_NAME :String = "TYPE_EDIT_PLACE_NAME"
-    val TYPE_EDIT_PRICE :String = "TYPE_EDIT_PRICE"
-    val mViewModel : PageViewModel by sharedViewModel()
+    val TYPE_EDIT_PLACE_NAME: String = "TYPE_EDIT_PLACE_NAME"
+    val TYPE_EDIT_PRICE: String = "TYPE_EDIT_PRICE"
+    val mViewModel: PageViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,21 +49,14 @@ class AddPlaceFragment : BaseFragment() {
     }
 
 
-    private fun initView() {
+    fun initView() {
         val rootView = mBinding.layoutGroup
-        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val addView: ConstraintLayout =
-            inflater.inflate(R.layout.cview_add_edit_place, rootView, false) as ConstraintLayout
-        rootView.addView(addView)
+        val inflater =
+            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        rootView.btn_add.setOnClickListener {
-            rootView.addView(createPlaceInfoView(rootView, inflater), rootView.childCount - 1)
-        }
-
-        mBinding.viewModel.let {
-            it!!.mPlaceCount.observe(requireActivity(), Observer {
-                if (it == 0) return@Observer
-            })
+        rootView.addView(createPlaceInfoView(rootView, inflater), rootView.childCount)
+        mBinding.btnAdd.setOnClickListener {
+            rootView.addView(createPlaceInfoView(rootView, inflater), rootView.childCount)
         }
     }
 
@@ -79,11 +70,14 @@ class AddPlaceFragment : BaseFragment() {
         }
     }
 
-    private fun createPlaceInfoView(rootView: LinearLayout, inflater: LayoutInflater): ConstraintLayout {
+    private fun createPlaceInfoView(
+        rootView: LinearLayout,
+        inflater: LayoutInflater
+    ): ConstraintLayout {
         val infoView: ConstraintLayout =
             inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
 
-        var placeIndex = rootView.childCount
+        var placeIndex = rootView.childCount + 1
 
         infoView.apply {
             this.btn_join.setOnClickListener {
@@ -91,8 +85,24 @@ class AddPlaceFragment : BaseFragment() {
             }
             this.tag = placeIndex
             this.txt_index.text = "$placeIndex 차"
-            this.edit_title.addTextChangedListener(getTextWatcher(edit_title, TYPE_EDIT_PLACE_NAME, this.tag as Int))
-            this.edit_price.addTextChangedListener(getTextWatcher(edit_price, TYPE_EDIT_PRICE, this.tag as Int))
+            this.edit_title.addTextChangedListener(
+                getTextWatcher(
+                    edit_title,
+                    TYPE_EDIT_PLACE_NAME,
+                    this.tag as Int
+                )
+            )
+            this.edit_price.addTextChangedListener(
+                getTextWatcher(
+                    edit_price,
+                    TYPE_EDIT_PRICE,
+                    this.tag as Int
+                )
+            )
+
+            setOnClickListener {
+                Log.v(TAG, "Clicked ${this.tag}차 PlaceInfoView!")
+            }
         }
 
         mBinding.viewModel.let {
@@ -112,26 +122,26 @@ class AddPlaceFragment : BaseFragment() {
         return infoView
     }
 
-    private fun showSelectPeopleDialog(tag:String){
-        Log.v(TAG,"showSelectPeopleDialog(...)")
+    private fun showSelectPeopleDialog(tag: String) {
+        Log.v(TAG, "showSelectPeopleDialog(...)")
         var selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
         selectPeopleDialog.show(requireActivity().supportFragmentManager, tag)
     }
 
-    private fun showAddedPeopleView(view : ConstraintLayout, NBB: NBB) {
-        Log.v(TAG,"showAddedPeopleView(...), ${view.txt_index.text}")
+    private fun showAddedPeopleView(view: ConstraintLayout, NBB: NBB) {
+        Log.v(TAG, "showAddedPeopleView(...), ${view.txt_index.text}")
         view.txt_added_people.apply {
             this!!.text = StringUtils().getPeopleList(NBB.mMemberList)
         }
         view.layout_group_added_people.visibility = View.VISIBLE
     }
 
-    private fun hideAddedPeopleView(view : ConstraintLayout) {
-        Log.v(TAG,"hideAddedPeopleView(...), ${view.txt_index}")
+    private fun hideAddedPeopleView(view: ConstraintLayout) {
+        Log.v(TAG, "hideAddedPeopleView(...), ${view.txt_index}")
         view.layout_group_added_people.visibility = View.GONE
     }
 
-    private fun getTextWatcher(view : EditText, viewType : String, placeId:Int) : TextWatcher {
+    private fun getTextWatcher(view: EditText, viewType: String, placeId: Int): TextWatcher {
         return object : TextWatcherAdapter() {
             var pointNumStr = ""
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -140,7 +150,7 @@ class AddPlaceFragment : BaseFragment() {
                     mBinding.viewModel!!.savePlaceName(placeId, s.toString())
                 } else if (TYPE_EDIT_PRICE.equals(viewType)) {
                     mBinding.viewModel!!.savePrice(placeId, s.toString())
-                    if(!TextUtils.isEmpty(s.toString()) && !s.toString().equals(pointNumStr)) {
+                    if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(pointNumStr)) {
                         try {
                             pointNumStr = NumberUtils().makeCommaNumber(
                                 Integer.parseInt(
