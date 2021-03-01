@@ -20,11 +20,11 @@ import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
+import kotlinx.android.synthetic.main.fragment_add_people.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPeopleFragment : FloatingButtonBaseFragment() {
     private val mPageViewModel: PageViewModel by sharedViewModel()
-    private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
     private val mAddPeopleContentsFragment by lazy {
         AddPeopleContentsFragment()
     }
@@ -131,6 +131,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         }
 
         fun initView(parentFragment: AddPeopleFragment) {
+            mMemberViewModel.showMemberList()
             mParentFragment = parentFragment
             mRecyclerViewAdapter = AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
                 Log.v(TAG,"ItemClicked, member : ${it.second}")
@@ -165,6 +166,21 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     mParentFragment.selectMember(it)
                 })
             }
+
+            mMemberViewModel.mMemberList.observe(requireActivity(), Observer {
+                if (it.isEmpty()) {
+                    mBinding.rowFavoriteMember.visibility = View.GONE
+                    return@Observer
+                }
+                mBinding.rowFavoriteMember.initView(mPageViewModel)
+                mBinding.rowFavoriteMember.setTitle("MEMBER")
+                mBinding.rowFavoriteMember.setList(it)
+
+                //TEST Group
+                mBinding.rowFavoriteGroup.initView(mPageViewModel)
+                mBinding.rowFavoriteGroup.setTitle("GROUP")
+                mBinding.rowFavoriteGroup.setList(it)
+            })
         }
 
         private fun loadFriendsListWithKakao() {

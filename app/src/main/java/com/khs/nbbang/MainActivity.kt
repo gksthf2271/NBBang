@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityMainBinding
+import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
@@ -28,7 +29,7 @@ class MainActivity : BaseActivity() {
     lateinit var mBinding: ActivityMainBinding
     val mPageViewModel by viewModel<PageViewModel>()
     val mLoginViewModel by viewModel<LoginViewModel>()
-    val mDBViewModel by viewModel<HistoryViewModel>()
+    val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
 
     // tags used to attach the fragments
     private val TAG_LOGIN = "login"

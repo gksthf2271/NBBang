@@ -32,7 +32,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
  *  3. AddPeopleFragment AddMemberView 출력 시 하단 FavoriteMember 보이고, 선택하여 추가 할 수 있는 기능 구현 ---> 2순위
  *  4. UI 정리(테마 변경)                                                                            ---> 3순위
  *  5. AddPlaceFragment UI 일관성 유지되도록 수정 FloatingButton에 MotionView                           ---> 완료, 중복소스 존재
- *  6. AddPlaceRecyclerViewAdapter 에서 motionLayout 처리 간 이슈 발생                                 ---> 1순위
+ *  6. AddPlaceRecyclerViewAdapter 에서 motionLayout 처리 간 이슈 발생                                 ---> 보류(후순위)
  *  -------------------------------------------- 목표일 !!!!!3월 28일 출시!!!!!!
  *  Group관리 기능은 2.0에 구현
  * **/

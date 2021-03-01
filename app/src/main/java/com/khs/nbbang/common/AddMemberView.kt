@@ -1,4 +1,4 @@
-package com.khs.nbbang.group
+package com.khs.nbbang.common
 
 import android.content.Context
 import android.util.AttributeSet
@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.CviewAddMemberBinding
+import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.page.ButtonCallBackListener
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils

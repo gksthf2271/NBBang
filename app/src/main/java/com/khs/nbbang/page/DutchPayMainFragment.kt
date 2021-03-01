@@ -10,6 +10,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.animation.ZoomOutPageTransformer
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentDutchpayHomeBinding
+import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.page.dutchPayPageFragments.AddPeopleFragment
 import com.khs.nbbang.page.dutchPayPageFragments.AddPlaceFragment
 import com.khs.nbbang.page.dutchPayPageFragments.PeopleCountFragment
@@ -18,10 +19,12 @@ import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.KeyboardUtils
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DutchPayMainFragment : BaseFragment() {
     lateinit var mBinding : FragmentDutchpayHomeBinding
     val mViewModel: PageViewModel by sharedViewModel()
+    val mMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
 
     private val mPageViewList: MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),

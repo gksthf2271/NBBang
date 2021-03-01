@@ -20,7 +20,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class GroupManagementFragment : FloatingButtonBaseFragment() {
     val mViewModel: MemberManagementViewModel by sharedViewModel()
-    val mGroupManagementContentsFragment by lazy { GroupManagementContentsFragment()
+    private val mGroupManagementContentsFragment by lazy { GroupManagementContentsFragment()
     }
     override fun makeContentsFragment(): Fragment? {
         return mGroupManagementContentsFragment

@@ -68,7 +68,7 @@
 <!--            app:layout_constraintBottom_toBottomOf="parent"-->
 <!--            app:layout_constraintRight_toRightOf="parent" />-->
 
-<!--        <com.khs.nbbang.group.AddMemberView-->
+<!--        <com.khs.nbbang.common.AddMemberView-->
 <!--            android:id="@+id/add_member_view"-->
 <!--            android:layout_width="0dp"-->
 <!--            android:layout_height="400dp"-->
@@ -77,7 +77,7 @@
 <!--            app:layout_constraintTop_toBottomOf="parent"-->
 <!--            app:layout_constraintWidth_percent="0.9" />-->
 
-<!--        <com.khs.nbbang.group.MemberView-->
+<!--        <com.khs.nbbang.common.MemberView-->
 <!--            android:id="@+id/member_view"-->
 <!--            android:layout_width="0dp"-->
 <!--            android:layout_height="400dp"-->

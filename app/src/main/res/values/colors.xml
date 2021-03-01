@@ -79,6 +79,7 @@
     <color name="primary_color">#23242A</color>
     <color name="button_color">#282A31</color>
     <color name="button_color_shadow">#282A31</color>
+    <color name="black">#000000</color>
 
     <!-- textColors -->
     <color name="text_color">#ffffff</color>
