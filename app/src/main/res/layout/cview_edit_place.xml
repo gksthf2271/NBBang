@@ -12,7 +12,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
-        android:background="@color/blank">
+        android:background="@color/blank"
+        app:layoutDescription="@xml/cview_place_item_scene">
 
         <TextView
             android:id="@+id/txt_index"
@@ -77,26 +78,39 @@
             app:layout_constraintTop_toTopOf="@id/layout_group"
             app:layout_constraintWidth_percent="0.2" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_group_added_people"
+        <TextView
+            android:id="@+id/txt_added_people"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/search_text_color"
+            android:textSize="12sp"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/layout_group"
-            tools:visibility="visible">
+            tools:text="홍길동 임꺽정 흥부 놀부" />
 
-            <TextView
-                android:id="@+id/txt_added_people"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:textColor="@color/search_text_color"
-                android:textSize="12sp"
-                tools:text="홍길동 임꺽정 흥부 놀부" />
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/layout_group_added_people"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/layout_group"-->
+<!--            tools:visibility="visible">-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/txt_added_people"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="@color/search_text_color"-->
+<!--                android:textSize="12sp"-->
+<!--                tools:text="홍길동 임꺽정 흥부 놀부" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

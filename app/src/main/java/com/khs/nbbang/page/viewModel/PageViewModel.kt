@@ -167,6 +167,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             _selectedPeopleMap.postValue(it!!.apply {
                 it!!.get(placeId)!!.mMemberList.clear()
                 it!!.get(placeId)!!.mMemberList.addAll(selectedJoinPeopleList)
+                it!!.get(placeId)!!.mPlaceIndex = placeId
             })
         }
     }

@@ -10,7 +10,7 @@
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@id/recycler_view"
+            app:touchAnchorId="@id/layout_scroll"
             app:touchAnchorSide="top" />
 
         <KeyFrameSet>
@@ -41,7 +41,7 @@
             app:layout_constraintBottom_toTopOf="@id/view_grid"/>
 
         <Constraint
-            android:id="@id/recycler_view"
+            android:id="@id/layout_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +61,7 @@
             app:layout_constraintBottom_toTopOf="@+id/view_grid" />
 
         <Constraint
-            android:id="@id/recycler_view"
+            android:id="@id/layout_scroll"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.9"
             app:layout_constraintLeft_toLeftOf="parent"

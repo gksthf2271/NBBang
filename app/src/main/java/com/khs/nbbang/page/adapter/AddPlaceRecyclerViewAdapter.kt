@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -22,9 +22,9 @@ import kotlinx.android.synthetic.main.cview_edit_place.view.*
 class AddPlaceRecyclerViewAdapter(
     val mObserverOwner : LifecycleOwner,
     val mViewModel : PageViewModel,
-    val mItemList: ArrayList<Int>,
-    val mItemClick: (Int) -> Unit,
-    val mJoinBtnClick : (Int) -> Unit
+    val mItemList: ArrayList<NBB>,
+    val mItemClick: (NBB) -> Unit,
+    val mJoinBtnClick : (NBB) -> Unit
 ) : RecyclerView.Adapter<AddPlaceRecyclerViewAdapter.PlaceViewHolder>() {
     private val TAG: String = javaClass.name
     val DEBUG = BuildConfig.DEBUG
@@ -39,124 +39,70 @@ class AddPlaceRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (!DEBUG) Log.v(TAG, "getItemCount : ${mItemList.size}")
+        if (DEBUG) Log.v(TAG, "getItemCount : ${mItemList.size}")
         return mItemList.let { mItemList.size }
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
-        if (!DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
+        if (DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
         holder.bind(mItemList.get(position), position)
     }
 
-    inner class PlaceViewHolder(itemView: View, itemClick: (Int) -> Unit) :
+    inner class PlaceViewHolder(itemView: View, itemClick: (NBB) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.name
         var mItemView: View = itemView
         var mItemClick = itemClick
 
-        fun bind(placeIndex: Int, position: Int) {
-            mItemView.tag = placeIndex
+        fun bind(nbb: NBB, position: Int) {
+            mItemView.tag = nbb.mPlaceIndex
 
             mItemView.btn_join.setOnClickListener {
-                mJoinBtnClick(placeIndex)
+                mJoinBtnClick(nbb)
             }
-            mItemView.txt_index.text = "$placeIndex 차"
-            mItemView.edit_title.addTextChangedListener(
-                getTextWatcher(
-                    mItemView.edit_title,
-                    TYPE_EDIT_PLACE_NAME,
-                    placeIndex
-                )
-            )
-            mItemView.edit_price.addTextChangedListener(
-                getTextWatcher(
-                    mItemView.edit_price,
-                    TYPE_EDIT_PRICE,
-                    placeIndex
-                )
-            )
+            mItemView.txt_index.text = "${nbb.mPlaceIndex} 차"
 
             mItemView.setOnClickListener {
-                mItemClick(position)
+                mItemClick(nbb)
             }
 
             mViewModel.let {
-                it!!.updateJoinPlaceCount(placeIndex)
+                it!!.updateJoinPlaceCount(nbb.mPlaceIndex)
             }
 
-            mViewModel.mSelectedPeopleMap.observe(mObserverOwner, Observer {
-                it.get(placeIndex) ?: return@Observer
-                Log.v(TAG, "_selectedPeopleMap, Observer(...) : $it")
-                if (it!!.get(placeIndex)!!.mMemberList.isEmpty()) {
-                    hideAddedPeopleView(mItemView as ConstraintLayout)
-                } else {
-                    showAddedPeopleView(mItemView as ConstraintLayout, it!!.get(placeIndex)!!)
-                }
-            })
+            if (mItemView !is MotionLayout) return
+            when {
+                nbb.mMemberList.isEmpty() -> hideAddedPeopleView(mItemView as MotionLayout)
+                else -> showAddedPeopleView(mItemView as MotionLayout, nbb)
+            }
         }
     }
 
-    fun updateSelectedMember(targetView : ConstraintLayout, nbb: NBB?) {
-        Log.v(TAG,"updateSelectedMember(...)")
-        nbb ?: return
-        if (nbb.mMemberList.isEmpty()){
-            hideAddedPeopleView(targetView)
-        } else {
-            showAddedPeopleView(targetView, nbb)
-        }
-    }
-
-    fun setItem(placeIndex: Int) {
-        Log.v(TAG,"setItem(...) placeIndex : ${placeIndex}")
-        this.mItemList.add(mItemList.size, mItemList.last() + 1)
+    fun setItem(nbb: NBB) {
+        Log.v(TAG,"setItem(...) placeIndex : ${nbb.mPlaceIndex}")
+        this.mItemList.add(mItemList.size, nbb)
         notifyDataSetChanged()
     }
 
-    fun setItemList(placeIndexList: ArrayList<Int>) {
-        Log.v(TAG,"setItem(...) placeIndexList count : ${placeIndexList.size}")
+    fun setItemList(nbbList: List<NBB>) {
+        Log.v(TAG,"setItem(...) placeIndexList count : ${nbbList.size}")
         mItemList.clear()
-        mItemList.addAll(placeIndexList)
+        mItemList.addAll(nbbList)
         notifyDataSetChanged()
     }
 
-    private fun showAddedPeopleView(view: ConstraintLayout, NBB: NBB) {
+    private fun showAddedPeopleView(view: MotionLayout, nbb: NBB) {
         Log.v(TAG, "showAddedPeopleView(...), ${view.txt_index.text}")
-        view.txt_added_people.apply {
-            this!!.text = StringUtils().getPeopleList(NBB.mMemberList)
-            Log.v(TAG,"addedMember : ${this!!.text}")
-        }
-        view.layout_group_added_people.visibility = View.VISIBLE
+        view.txt_added_people.text = StringUtils().getPeopleList(nbb.mMemberList)
+        Log.v(TAG,"addedMember : ${view.txt_added_people.text}")
+
+//        view.motion_layout.setTransition(R.id.motion_place_item)
+//        view.motion_layout.transitionToEnd()
     }
 
-    fun hideAddedPeopleView(view: ConstraintLayout) {
+    fun hideAddedPeopleView(view: MotionLayout) {
         Log.v(TAG, "hideAddedPeopleView(...), ${view.txt_index}")
-        view.layout_group_added_people.visibility = View.GONE
-    }
-
-    private fun getTextWatcher(view: EditText, viewType: String, placeId: Int): TextWatcher {
-        return object : TextWatcherAdapter() {
-            var pointNumStr = ""
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                super.onTextChanged(s, start, before, count)
-                if (TYPE_EDIT_PLACE_NAME.equals(viewType)) {
-                    mViewModel.savePlaceName(placeId, s.toString())
-                } else if (TYPE_EDIT_PRICE.equals(viewType)) {
-                    mViewModel.savePrice(placeId, s.toString())
-                    if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(pointNumStr)) {
-                        try {
-                            pointNumStr = NumberUtils().makeCommaNumber(
-                                Integer.parseInt(
-                                    s.toString().replace(",", "")
-                                )
-                            )
-                        } catch (numberFormat: NumberFormatException) {
-                            Log.e(TAG, "numberFormat : $numberFormat")
-                        }
-                        view.setText(pointNumStr)
-                        view.setSelection(pointNumStr.length)  //커서를 오른쪽 끝으로 보냄
-                    }
-                }
-            }
-        }
+//        view.motion_layout.setTransition(R.id.motion_place_item)
+//        view.motion_layout.transitionToStart()
     }
 }

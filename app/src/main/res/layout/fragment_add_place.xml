@@ -29,13 +29,24 @@
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/layout_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.7"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title"/>
+            app:layout_constraintTop_toBottomOf="@+id/txt_title">
+
+            <LinearLayout
+                android:id="@+id/layout_group"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintHeight_percent="0.5"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+        </androidx.core.widget.NestedScrollView>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add"
