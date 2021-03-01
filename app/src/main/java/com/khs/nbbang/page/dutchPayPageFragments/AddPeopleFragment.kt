@@ -80,31 +80,31 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         override fun onPause() {
             //TODO : 성능저하 요소 리팩토링 필요
             super.onPause()
-            var peopleListBuffer = mutableListOf<Member>()
-
-            for (index in 0 until mBinding.recyclerView.childCount) {
-                try {
-                    peopleListBuffer.add(
-                        Member(
-                            -1,
-                            index,
-                            mBinding.recyclerView.getChildAt(index).txt_name.text.toString(),
-                            0,
-                            "",
-                            0
-                        ) as Member
-                    )
-                } catch (e: Exception) {
-                    Log.e(TAG, "$e,\n\n $index")
-                }
-            }
-
-            if (isUpdatedPeople(peopleListBuffer)) {
-                Log.v(TAG, "isUpdatedPeople, false")
-            } else {
-                Log.v(TAG, "isUpdatedPeople, true")
-                mBinding.viewModel.let { it!!.updatePeopleList(peopleListBuffer) }
-            }
+//            var peopleListBuffer = mutableListOf<Member>()
+//
+//            for (index in 0 until mRecyclerViewAdapter.itemCount) {
+//                try {
+//                    peopleListBuffer.add(
+//                        Member(
+//                            -1,
+//                            index,
+//                            mBinding.recyclerView.getChildAt(index).txt_name.text.toString(),
+//                            0,
+//                            "",
+//                            0
+//                        )
+//                    )
+//                } catch (e: Exception) {
+//                    Log.e(TAG, "$e,\n\n $index")
+//                }
+//            }
+//
+//            if (isUpdatedPeople(peopleListBuffer)) {
+//                Log.v(TAG, "isUpdatedPeople, false")
+//            } else {
+//                Log.v(TAG, "isUpdatedPeople, true")
+//                mBinding.viewModel.let { it!!.updatePeopleList(peopleListBuffer) }
+//            }
 
             mParentFragment.hideMemeberView()
             mParentFragment.hideAddMemberView()
@@ -159,7 +159,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     mMemberList.addAll(it!!.mMemberList)
                     mRecyclerViewAdapter.setItemList(this.mMemberList)
                     if (isResumed) {
-                        mBinding.motionLayout.transitionToEnd()
+                        if (mBinding.motionLayout.progress == 1f) mBinding.motionLayout.transitionToEnd()
                         (mBinding.recyclerView.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
                             mRecyclerViewAdapter.itemCount - 1, mRecyclerViewAdapter.itemCount - 1
                         )
