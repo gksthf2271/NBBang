@@ -3,8 +3,11 @@ package com.khs.nbbang
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.RelativeLayout
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.khs.nbbang.animation.NavigationDrawerEvent
@@ -59,7 +62,7 @@ class MainActivity : BaseActivity() {
         mBinding.drawerLayout.setScrimColor(Color.TRANSPARENT);
         mBinding.drawerLayout.addDrawerListener(
             NavigationDrawerEvent(
-                mBinding.contentView,
+                mBinding.layoutContent,
                 mBinding.navView
             )
         )

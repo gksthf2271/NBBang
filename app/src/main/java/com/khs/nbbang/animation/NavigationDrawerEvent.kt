@@ -1,24 +1,23 @@
 package com.khs.nbbang.animation
 
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 
 
-class NavigationDrawerEvent(private val contentView : View, private val navigationView: NavigationView) : DrawerLayout.SimpleDrawerListener() {
-
+class NavigationDrawerEvent(private val contentView : RelativeLayout, private val navigationView: NavigationView) : DrawerLayout.SimpleDrawerListener() {
+    private val MIN_SCALE = 0.85f
     override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-        Log.v("onDrawerSlide","slideOffset : $slideOffset")
-        super.onDrawerSlide(drawerView, slideOffset)
-        contentView.setX(navigationView.width * slideOffset)
-//        val lp = contentView.layoutParams as ViewGroup.MarginLayoutParams
+        val diffScaledOffset: Float = slideOffset * (1 - MIN_SCALE)
+        val offsetScale = 1 - diffScaledOffset
+        contentView.scaleX = offsetScale
+        contentView.scaleY = offsetScale
 
-//        lp.height = (drawerView.height - (drawerView.height * slideOffset * 0.3f)).toInt()
-//        Log.v("onDrawerSlide","height : ${lp.height}")
-//        lp.topMargin = (drawerView.height - lp.height) / 2
-//        contentView.layoutParams = lp
+        val xOffset = drawerView.width * slideOffset
+        val xOffsetDiff = contentView.width * diffScaledOffset / 2
+        val xTranslation = xOffset - xOffsetDiff
+        contentView.translationX = xTranslation
     }
 
     override fun onDrawerClosed(drawerView: View) {
