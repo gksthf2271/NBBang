@@ -158,6 +158,12 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     mMemberList.clear()
                     mMemberList.addAll(it!!.mMemberList)
                     mRecyclerViewAdapter.setItemList(this.mMemberList)
+                    if (isResumed) {
+                        mBinding.motionLayout.transitionToEnd()
+                        (mBinding.recyclerView.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
+                            mRecyclerViewAdapter.itemCount - 1, mRecyclerViewAdapter.itemCount - 1
+                        )
+                    }
                 })
 
                 it!!.mSelectJoinPeople.observe(requireActivity(), Observer {

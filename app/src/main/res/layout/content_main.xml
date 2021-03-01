@@ -6,13 +6,24 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintTop_toTopOf="@id/group_indicator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:navGraph="@navigation/nav_main_graph" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/group_indicator"
         android:layout_height="0dp"
         android:layout_width="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@id/nav_host_fragment"
         app:layout_constraintHeight_percent="0.05"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,16 +41,4 @@
             app:layout_constraintWidth_percent="0.9" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintTop_toBottomOf="@id/group_indicator"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.92"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:navGraph="@navigation/nav_main_graph" />
 </androidx.constraintlayout.widget.ConstraintLayout>
