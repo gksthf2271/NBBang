@@ -11,13 +11,21 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/group_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/member_add_item_background"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="20dp"
-        tools:layout_height="400dp">
+        tools:layout_height="400dp"
+        android:duplicateParentState="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/group_user_info"
@@ -26,7 +34,8 @@
             app:layout_constraintHeight_percent="0.8"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:duplicateParentState="true">
 
             <ImageView
                 android:id="@+id/img_profile"
@@ -74,9 +83,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/group_user_info"
-            app:layout_constraintWidth_percent="0.7">
+            app:layout_constraintWidth_percent="0.7"
+            android:duplicateParentState="true">
 
-            <TextView
+            <Button
                 android:id="@+id/btn_save"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -90,27 +100,53 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/btn_cancel"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/btn_cancel"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintWidth_percent="0.25"
-                app:layout_constraintHeight_percent="0.8"
-                android:background="@drawable/layout_rounded_black"
-                android:gravity="center"
-                android:text="CANCEL"
-                android:textColor="@color/common_title_light_color"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/btn_save"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+<!--            <Button-->
+<!--                android:id="@+id/btn_save"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                app:layout_constraintWidth_percent="0.25"-->
+<!--                app:layout_constraintHeight_percent="0.8"-->
+<!--                android:background="@drawable/layout_rounded_black"-->
+<!--                android:gravity="center"-->
+<!--                android:text="SAVE"-->
+<!--                android:textColor="@color/common_title_light_color"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toLeftOf="@id/btn_cancel"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_cancel"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                app:layout_constraintWidth_percent="0.25"-->
+<!--                app:layout_constraintHeight_percent="0.8"-->
+<!--                android:background="@drawable/layout_rounded_black"-->
+<!--                android:gravity="center"-->
+<!--                android:text="CANCEL"-->
+<!--                android:textColor="@color/common_title_light_color"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toRightOf="@id/btn_save"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_close"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintRight_toRightOf="@id/group_layout"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
