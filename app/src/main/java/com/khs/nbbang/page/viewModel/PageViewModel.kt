@@ -56,6 +56,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun updatePeopleList(joinPeopleList: MutableList<Member>) {
         _NBBLiveData.postValue(_NBBLiveData.value.apply {
             this!!.mMemberList = joinPeopleList
+            this!!.mMemberCount = joinPeopleList.size
         })
         Log.v(TAG, "updatePeopleList(...), ${_NBBLiveData.value!!.mMemberList}")
     }
@@ -75,15 +76,29 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _selectJoinPeople.postValue(joinPeople)
     }
 
-    fun addJoinPeople(member: Member){
+    fun addJoinPeople(member: Member) {
         Log.v(TAG,"addJoinPeople(...) people : ${member.name}")
-        _NBBLiveData.value.let {
+        _NBBLiveData.value.let { nbb ->
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                it!!.mMemberList.add(it!!.mMemberList.size, member)
-                it!!.mMemberCount = it!!.mMemberList.size
-                updateJoinPlaceCount(it!!.mMemberCount)
+                var emptyIndex = getEmptyPeopleCircleView(nbb!!.mMemberList)
+                if (emptyIndex == nbb!!.mMemberList.size) {
+                    nbb!!.mMemberList.add(emptyIndex, member)
+                } else {
+                    nbb!!.mMemberList.set(emptyIndex, member)
+                }
+                nbb!!.mMemberCount = nbb!!.mMemberList.size
+                updateJoinPlaceCount(nbb!!.mMemberCount)
             })
         }
+    }
+
+    fun getEmptyPeopleCircleView(memberList : List<Member>) : Int {
+        for (member in memberList) {
+            if (member.id <= 0 && member.name.isEmpty()) {
+                return memberList.indexOf(member)
+            }
+        }
+        return memberList.size
     }
 
     fun deleteJoinPeople(member: Member) {
