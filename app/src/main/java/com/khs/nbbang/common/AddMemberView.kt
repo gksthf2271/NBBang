@@ -28,6 +28,7 @@ class AddMemberView @JvmOverloads constructor(
     }
 
     fun initView() {
+        mBinding.groupLayout.setOnClickListener { false }
         mBinding.let {
             GlideUtils().drawImage(it.imgProfile, null, null)
             it.groupName.txt_title.text = "이름"
