@@ -11,6 +11,7 @@ import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.R
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
+import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 
 class AddPeopleRecyclerViewAdapter(
@@ -45,10 +46,11 @@ class AddPeopleRecyclerViewAdapter(
         var mItemView: View = itemView
         var mItemClick = itemClick
 
-        fun bind(name: Member, position: Int) {
-            mItemView.txt_name.text = name.name
+        fun bind(member: Member, position: Int) {
+            mItemView.txt_name.text = member.name
+            GlideUtils().drawImageWithResId(mItemView.img_profile, member.resId, null)
             mItemView.setOnClickListener {
-                mItemClick(Pair(position, name))
+                mItemClick(Pair(position, member))
             }
         }
     }

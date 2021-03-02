@@ -10,6 +10,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.page.PeopleNameWatcherCallback
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
+import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 
 class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, callback: PeopleNameWatcherCallback) : BaseAdapter() {
@@ -55,7 +56,8 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, call
         var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
-        itemView.txt_name.setText(mItemList.get(position).name)
+        itemView.txt_name.text = mItemList.get(position).name
+        GlideUtils().drawImageWithResId(itemView.img_profile, mItemList.get(position).resId, null)
         itemView.txt_name.addTextChangedListener(object : TextWatcherAdapter() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)
