@@ -19,6 +19,7 @@ import com.khs.nbbang.utils.setTransitionListener
 abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListener{
     lateinit var mBinding: FragmentFloatingBtnBaseBinding
     var mItemTouchInterceptor = RecyclerViewTouchEvent()
+    var mCurrentTransitionId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,6 +88,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     }
 
     private fun updateTransition(transitionId: Int) {
+        mCurrentTransitionId = transitionId
         mBinding.let {
             mBinding.motionLayout.setTransition(transitionId)
         }
@@ -103,6 +105,13 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         mBinding.let {
             updateTransition(R.id.update_motion_transition)
             mBinding.motionLayout.transitionToEnd()
+        }
+    }
+
+    fun hideAnyView() {
+        mBinding.let {
+            updateTransition(mCurrentTransitionId)
+            mBinding.motionLayout.transitionToStart()
         }
     }
 
@@ -133,16 +142,9 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         }
     }
 
-//    fun selectPeople(joinPeople: JoinPeople) {
-//        mBinding.let {
-//            mBinding.memberView.setPeople(joinPeople)
-//        }
-//    }
-
     override fun onClickedCancelBtn() {
         Log.v(TAG,"onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}")
-        hideMemeberView()
-        hideAddMemberView()
+        hideAnyView()
     }
 
     override fun onClickedDeleteBtn() {
