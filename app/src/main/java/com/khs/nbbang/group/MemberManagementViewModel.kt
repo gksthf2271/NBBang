@@ -1,5 +1,6 @@
 package com.khs.nbbang.group
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,20 +42,20 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     var mDummyMemberList: ArrayList<Member> = arrayListOf(
-        Member(0, 0,"김한솔", 0, "월곡회", R.drawable.icon_user),
-        Member(1, 1,"신상은", 0, "월곡회", R.drawable.icon_user),
-        Member(2, 2,"정용인", 0, "월곡회", R.drawable.icon_user),
-        Member(3, 3,"김진혁", 0, "월곡회", R.drawable.icon_user),
-        Member(4, 4,"조현우", 0, "월곡회", R.drawable.icon_user),
-        Member(5, 5,"최종휘", 0, "월곡회", R.drawable.icon_user),
-        Member(6, 6,"김진근", 0, "월곡회", R.drawable.icon_user),
-        Member(7, 7,"이진형", 0, "월곡회", R.drawable.icon_user),
-        Member(8, 8,"배재룡", 0, "월곡회", R.drawable.icon_user),
-        Member(9, 9, "정준호", 0, "월곡회", R.drawable.icon_user),
-        Member(10, 10,"박소연", 0, "월곡회", R.drawable.icon_user),
-        Member(11, 11,"장선형", 0, "월곡회", R.drawable.icon_user),
-        Member(12, 12,"신주연", 0, "월곡회", R.drawable.icon_user),
-        Member(13, 13,"주경애", 0, "월곡회", R.drawable.icon_user)
+        Member(0, 0,"김한솔", 0, "월곡회"),
+        Member(1, 1,"신상은", 0, "월곡회"),
+        Member(2, 2,"정용인", 0, "월곡회"),
+        Member(3, 3,"김진혁", 0, "월곡회"),
+        Member(4, 4,"조현우", 0, "월곡회"),
+        Member(5, 5,"최종휘", 0, "월곡회"),
+        Member(6, 6,"김진근", 0, "월곡회"),
+        Member(7, 7,"이진형", 0, "월곡회"),
+        Member(8, 8,"배재룡", 0, "월곡회"),
+        Member(9, 9, "정준호", 0, "월곡회"),
+        Member(10, 10,"박소연", 0, "월곡회"),
+        Member(11, 11,"장선형", 0, "월곡회"),
+        Member(12, 12,"신주연", 0, "월곡회"),
+        Member(13, 13,"주경애", 0, "월곡회")
     )
 
     override fun renderMembers(nbbangMemberresult: GetNBBangMemberResult) {
@@ -63,11 +64,23 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         _memberList.postValue(list)
     }
 
-    fun saveMember(id : Long?, groupId : Long?, name : String, description : String, resId: Int?) {
+    fun saveMember(
+        id: Long?, groupId: Long?, name: String, description: String, kakaoId: Long,
+        thumbnailImage: String?,
+        profileImage: String?,
+        profileUri: Uri?
+    ) {
         handleAddMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
-            Member(id ?: -1, -1, name, groupId ?: 0, description, resId ?: R.drawable.icon_user)
+            Member(
+                name = name,
+                description = description,
+                kakaoId = kakaoId,
+                thumbnailImage = thumbnailImage,
+                profileImage = profileImage,
+                profileUri = profileUri
+            )
         )
     }
 
@@ -79,13 +92,23 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         )
     }
 
-    fun updateMember(name: String, description: String, resId: Int) {
+    fun updateMember(
+        groupId: Long, name: String, description: String, kakaoId: Long,
+        thumbnailImage: String?,
+        profileImage: String?,
+        profileUri: Uri
+    ) {
         Log.v(TAG,"updateJoinPeople(...)")
         handleUpdateMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
             mSelectMember.value ?: return,
-            Member(-1, -1, name, -1, description, resId)
+            Member(
+                -1, -1, name, groupId, description, kakaoId,
+                thumbnailImage,
+                profileImage,
+                profileUri
+            )
         )
 //        var selectMember = mSelectMember.value
 //        _memberList.value.let {

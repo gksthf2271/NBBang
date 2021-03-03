@@ -1,10 +1,18 @@
 package com.khs.nbbang.common
 
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.CviewMemberBinding
@@ -12,7 +20,11 @@ import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.page.ButtonCallBackListener
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
+import com.khs.nbbang.utils.StringUtils
+import kotlinx.android.synthetic.main.cview_title_description.view.*
+import kotlinx.android.synthetic.main.cview_title_description.view.txt_title
 import kotlinx.android.synthetic.main.cview_title_edittext.view.*
+import lv.chi.photopicker.PhotoPickerFragment
 import org.koin.core.component.KoinComponent
 
 class MemberView  @JvmOverloads constructor(
@@ -21,7 +33,8 @@ class MemberView  @JvmOverloads constructor(
 
     val TAG = this.javaClass.name
     var mBinding: CviewMemberBinding
-    lateinit var mCurrentMember : Member
+    lateinit var gCurrentMember : Member
+    private val URI_HEADER = "android.resource://com.khs.nbbang/"
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -31,18 +44,45 @@ class MemberView  @JvmOverloads constructor(
     fun initView() {
         mBinding.groupLayout.setOnClickListener { false }
         mBinding.let {
-            GlideUtils().drawImage(it.imgProfile, null, null)
+            GlideUtils().drawImageWithString(it.imgProfile, null, null)
             it.groupName.txt_title.text = "이름"
             it.groupDescription.txt_title.text = "분류"
         }
     }
 
+    fun updateProfileImg(photos: ArrayList<Uri>) {
+        Log.v(TAG,"updateProfileImg(...)")
+        GlideUtils().drawImageWithT(mBinding.imgProfile, photos.get(0), object : RequestListener<Drawable>{
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                Log.v(TAG,"onLoadFailed, exception : $e")
+                return true
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                Log.v(TAG,"onResourceReady, resource : $resource")
+                return true
+            }
+
+        })
+    }
+
     fun setMember(member: Member) {
-        mCurrentMember = member
+        gCurrentMember = member
         mBinding.let {
-            GlideUtils().drawImageWithResId(it.imgProfile, member.resId, null)
-            it.groupName.edit_description.setText(member.name)
-            it.groupDescription.edit_description.setText(member.description)
+            GlideUtils().drawImageWithT(it.imgProfile, gCurrentMember.profileImage ?: gCurrentMember.profileUri, null)
+            it.groupName.edit_description.setText(gCurrentMember.name)
+            it.groupDescription.edit_description.setText(gCurrentMember.description)
             it.groupDescription.visibility = View.VISIBLE
         }
     }
@@ -73,11 +113,14 @@ class MemberView  @JvmOverloads constructor(
             }
 
             it.btnUpdate.setOnClickListener {
-                callback.onClickedUpdateBtn(
-                    mBinding.groupName.edit_description.text.toString(),
-                    mBinding.groupDescription.edit_description.text.toString(),
-                    R.drawable.icon_user
-                )
+                gCurrentMember.name = mBinding.groupName.edit_description.text.toString()
+                gCurrentMember.description = mBinding.groupDescription.edit_description.text.toString()
+                callback.onClickedUpdateBtn(gCurrentMember)
+            }
+
+            it.imgProfile.setOnClickListener {
+                Log.v(TAG,"Clicked ImgProfile!")
+                callback.onClickedProfile(this)
             }
         }
     }

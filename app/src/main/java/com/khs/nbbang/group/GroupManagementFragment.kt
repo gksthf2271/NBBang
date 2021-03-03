@@ -1,5 +1,6 @@
 package com.khs.nbbang.group
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,7 +35,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         obj.let {
             if (obj !is Member) return
             mViewModel.let {
-                it!!.saveMember(obj.id, obj.groupId, obj.name, obj.description, obj.resId) }
+                it!!.saveMember(obj.id, obj.groupId, obj.name, obj.description, obj.kakaoId, obj.thumbnailImage, obj.profileImage, obj.profileUri) }
         }
     }
 
@@ -49,10 +50,10 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         }
     }
 
-    override fun update(name: String, description: String, resId: Int) {
+    override fun update(member: Member) {
         Log.v(TAG,"update(...)")
         mViewModel.let {
-            it!!.updateMember(name, description, resId)
+            it!!.updateMember(member)
         }
     }
 

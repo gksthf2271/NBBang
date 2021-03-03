@@ -1,5 +1,6 @@
 package com.khs.nbbang.history.room
 
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -44,6 +45,15 @@ data class NBBMemberDataModel(
     @ColumnInfo(name = "description")
     var description: String,
 
-    @ColumnInfo(name = "resId")
-    var resId: Int
+    @ColumnInfo(name = "kakao_id")
+    var kakaoId: Long,
+
+    @ColumnInfo(name = "thumbnail_image")
+    var thumbnailImage : String?,
+
+    @ColumnInfo(name = "profile_image")
+    var profileImage : String?,
+
+    @ColumnInfo(name = "profile_uri")
+    var profileUri: Uri?
 )

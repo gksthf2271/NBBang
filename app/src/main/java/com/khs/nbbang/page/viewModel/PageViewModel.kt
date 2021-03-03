@@ -112,13 +112,13 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         }
     }
 
-    fun updateJoinPeople(name: String, description: String, resId: Int) {
+    fun updateJoinPeople(member: Member) {
         Log.v(TAG,"updateJoinPeople(...)")
         var selectJoinPeople = mSelectJoinPeople.value
         _NBBLiveData.value.let {
             var index = it!!.mMemberList.indexOf(selectJoinPeople)
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                it!!.mMemberList.get(index).name = name
+                it!!.mMemberList.get(index).name = member.name
             })
         }
     }
@@ -127,7 +127,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _NBBLiveData.value.let {
             _NBBLiveData!!.postValue(it.apply {
                 it!!.mMemberCount += 1
-                it!!.mMemberList.add(Member(0,it!!.mMemberList.size,"", -1,"", R.drawable.icon_user))
+                it!!.mMemberList.add(Member(index = it!!.mMemberList.size))
                 Log.v(TAG, "increaseJoinPeopleCount(...) ${it!!.mMemberCount}")
             })
         }

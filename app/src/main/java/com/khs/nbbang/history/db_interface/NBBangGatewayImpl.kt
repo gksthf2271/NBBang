@@ -1,5 +1,6 @@
 package com.khs.nbbang.history.db_interface
 
+import android.net.Uri
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
@@ -59,10 +60,21 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
             d.name,
             d.groupId,
             d.description,
-            d.resId
+            d.kakaoId,
+            d.thumbnailImage,
+            d.profileImage,
+            d.profileUri
         )
 
-    override fun addMember(name: String, index : Int, groupId: Long, description: String, resId: Int): Single<Member> =
+    override fun addMember(name : String,
+                           index : Int,
+                           groupId: Long,
+                           description: String,
+                           kakaoId: Long,
+                           thumbnailImage: String?,
+                           profileImage: String?,
+                           profileUri: Uri?
+    ): Single<Member> =
         mNBBMemberDao.insert(
             NBBMemberDataModel(
                 null,
@@ -70,7 +82,10 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
                 0,
                 name,
                 description,
-                resId
+                kakaoId,
+                thumbnailImage,
+                profileImage,
+                profileUri
             )
         ).map { id ->
             Member(
@@ -79,7 +94,10 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
                 name,
                 groupId,
                 description,
-                resId
+                kakaoId,
+                thumbnailImage,
+                profileImage,
+                profileUri
             )
         }
 
@@ -94,5 +112,13 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
 
     override fun removeMember(id: Long) : Single<Int> = mNBBMemberDao.delete(id)
 
-    override fun updateMember(member: Member) : Single<Int> = mNBBMemberDao.update(member.id, member.name, member.description, member.resId)
+    override fun updateMember(member: Member): Single<Int> = mNBBMemberDao.update(
+        member.id,
+        member.name,
+        member.description,
+        member.kakaoId,
+        member.thumbnailImage,
+        member.profileImage,
+        member.profileUri
+    )
 }

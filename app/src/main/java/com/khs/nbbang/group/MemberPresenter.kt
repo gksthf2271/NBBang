@@ -13,7 +13,10 @@ interface MemberPresenter {
                     it.name,
                     it.groupId,
                     it.description,
-                    it.resId
+                    it.kakaoId,
+                    it.thumbnailImage,
+                    it.profileImage,
+                    it.profileUri
                 )
             }
         )

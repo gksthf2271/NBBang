@@ -1,5 +1,6 @@
 package com.khs.nbbang.utils
 
+import android.net.Uri
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.khs.nbbang.history.data.DutchPayPeople
@@ -73,5 +74,16 @@ class TypeConverter {
     fun joinPeopleListToString(list: List<Member>?): String? {
         val gson = Gson()
         return gson.toJson(list)
+    }
+
+
+    @androidx.room.TypeConverter
+    fun uriToString(uri: Uri?): String? {
+        return uri.toString()
+    }
+
+    @androidx.room.TypeConverter
+    fun stringToUri(str: String?): Uri? {
+        return Uri.parse(str)
     }
 }

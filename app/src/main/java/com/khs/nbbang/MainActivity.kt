@@ -3,18 +3,14 @@ package com.khs.nbbang
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.RelativeLayout
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.group.MemberManagementViewModel
-import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.GlideUtils
@@ -129,7 +125,7 @@ class MainActivity : BaseActivity() {
 
     private fun updateProfileInfo(thumbnail: String?, name: String?, id: String?) {
         var naviHeaderView = mBinding.navView.getHeaderView(0)
-        GlideUtils().drawImage(naviHeaderView.img_profile, thumbnail, null)
+        GlideUtils().drawImageWithString(naviHeaderView.img_profile, thumbnail, null)
         naviHeaderView.group_name.txt_title.text = "이름"
         naviHeaderView.group_id.txt_title.text = "계정"
         naviHeaderView.group_name.txt_description.text = name ?: "FREE USER"

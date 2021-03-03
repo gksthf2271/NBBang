@@ -30,6 +30,17 @@ class StringUtils() {
         return result
     }
 
+    fun <T> listToAny(list : MutableList<T>) : String {
+        var result = ""
+        for(item in list) {
+            result += item.toString()
+            if (item.toString() != list.lastOrNull()) {
+                result += ", "
+            }
+        }
+        return result
+    }
+
     fun dutchPayListToString(list : MutableList<DutchPayPeople>) : String{
         var result = ""
         for(dutchPayPeople in list) {

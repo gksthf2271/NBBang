@@ -49,8 +49,8 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         }
     }
 
-    override fun update(name: String, description: String, resId: Int) {
-        mPageViewModel.updateJoinPeople(name, description, resId)
+    override fun update(member: Member) {
+        mPageViewModel.updateJoinPeople(member)
     }
 
 

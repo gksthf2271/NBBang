@@ -1,22 +1,30 @@
 package com.khs.nbbang.page
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.RecyclerViewTouchEvent
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.base.BaseViewModel
+import com.khs.nbbang.common.AddMemberView
+import com.khs.nbbang.common.MemberView
 import com.khs.nbbang.databinding.FragmentFloatingBtnBaseBinding
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.GlideUtils
 import com.khs.nbbang.utils.KeyboardUtils
+import com.khs.nbbang.utils.StringUtils
 import com.khs.nbbang.utils.setTransitionListener
+import lv.chi.photopicker.PhotoPickerFragment
 
-abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListener{
+abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListener,
+    PhotoPickerFragment.Callback {
     lateinit var mBinding: FragmentFloatingBtnBaseBinding
     var mItemTouchInterceptor = RecyclerViewTouchEvent()
     var mCurrentTransitionId = 0
@@ -64,7 +72,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
     protected abstract fun delete()
 
-    protected abstract fun update(name: String, description: String, resId: Int)
+    protected abstract fun update(member: Member)
 
     private fun initView() {
         mBinding.memberView.setCallBackListener(this)
@@ -88,9 +96,10 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     }
 
     private fun updateTransition(transitionId: Int) {
-        mCurrentTransitionId = transitionId
         mBinding.let {
+            if (transitionId == 0) return
             mBinding.motionLayout.setTransition(transitionId)
+            mCurrentTransitionId = transitionId
         }
     }
 
@@ -109,9 +118,11 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     }
 
     fun hideAnyView() {
-        mBinding.let {
-            updateTransition(mCurrentTransitionId)
-            mBinding.motionLayout.transitionToStart()
+        if (isAdded) {
+            mBinding.let {
+                updateTransition(mCurrentTransitionId)
+                mBinding.motionLayout.transitionToStart()
+            }
         }
     }
 
@@ -129,7 +140,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         }
     }
 
-    fun hideAddMemberView(){
+    fun hideAddMemberView() {
         mBinding.let {
             updateTransition(R.id.add_motion_transition)
             mBinding.motionLayout.transitionToStart()
@@ -143,32 +154,60 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     }
 
     override fun onClickedCancelBtn() {
-        Log.v(TAG,"onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}")
+        Log.v(
+            TAG,
+            "onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}"
+        )
         hideAnyView()
     }
 
     override fun onClickedDeleteBtn() {
-        Log.v(TAG,"onClickedDeleteBtn(...)")
+        Log.v(TAG, "onClickedDeleteBtn(...)")
         hideMemeberView()
         delete()
 
     }
 
     override fun onClickedSaveBtn(obj: Member?) {
-        Log.v(TAG,"onClickedSaveBtn(...)")
+        Log.v(TAG, "onClickedSaveBtn(...)")
         hideAddMemberView()
         add(obj)
     }
 
-    override fun onClickedUpdateBtn(name: String, description: String, resId: Int) {
+    override fun onClickedUpdateBtn(member: Member) {
         hideMemeberView()
-        update(name, description, resId)
+        update(member)
+    }
+
+    override fun onClickedProfile(view: View) {
+        gCurrentView = view
+        PhotoPickerFragment.newInstance(
+            multiple = true,
+            allowCamera = false,
+            maxSelection = 1,
+            theme = R.style.ChiliPhotoPicker_Dark
+        ).show(childFragmentManager, null)
+    }
+
+    var gCurrentView : View? = null
+
+    override fun onImagesPicked(photos: ArrayList<Uri>) {
+        Log.v(TAG, "Picked Images Url : ${StringUtils().listToAny(photos)}")
+        when (gCurrentView) {
+            is MemberView -> {
+                mBinding.memberView.updateProfileImg(photos)
+            }
+            is AddMemberView -> {
+                mBinding.addMemberView.updateProfileImg(photos)
+            }
+        }
     }
 }
 
-interface ButtonCallBackListener{
+interface ButtonCallBackListener {
     fun onClickedSaveBtn(obj: Member?)
     fun onClickedCancelBtn()
     fun onClickedDeleteBtn()
-    fun onClickedUpdateBtn(name: String, description: String, resId: Int)
+    fun onClickedUpdateBtn(obj: Member)
+    fun onClickedProfile(view: View)
 }

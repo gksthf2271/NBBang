@@ -1,7 +1,7 @@
 package com.khs.nbbang.history.room
 
+import android.net.Uri
 import androidx.room.*
-import com.khs.nbbang.user.Member
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
@@ -47,6 +47,6 @@ interface NBBMemberDao {
 //    @Update
 //    fun update(member: Member) : Maybe<NBBMemberDataModel>
 
-    @Query("UPDATE nbb_member SET name = :updateName, description = :updateDescription, resId = :updateResId WHERE id == :targetId  ")
-    fun update(targetId : Long, updateName : String, updateDescription : String, updateResId : Int) : Single<Int>
+    @Query("UPDATE nbb_member SET name = :updateName, description = :updateDescription, kakao_id = :updateKakaoId, thumbnail_image = :updateThumbnailImage, profile_image = :updateProfileImage, profile_uri = :updateProfileUri WHERE id == :targetId")
+    fun update(targetId : Long, updateName : String, updateDescription : String, updateKakaoId : Long, updateThumbnailImage: String?, updateProfileImage: String?, updateProfileUri: Uri?) : Single<Int>
 }

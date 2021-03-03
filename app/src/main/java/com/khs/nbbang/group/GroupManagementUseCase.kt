@@ -1,5 +1,6 @@
 package com.khs.nbbang.group
 
+import android.net.Uri
 import com.khs.nbbang.history.db_interface.NBBangGateway
 import com.khs.nbbang.history.room.NBBMemberDataModel
 import com.khs.nbbang.user.Member
@@ -24,7 +25,10 @@ interface AddNBBangMember : NBBangGateway {
         request.index,
         request.groupId,
         request.description,
-        request.resId
+        request.kakaoId,
+        request.thumbnailImage ?: "",
+        request.profileImage ?: "",
+        request.profileUri ?: Uri.EMPTY
     )
 }
 
@@ -42,7 +46,10 @@ interface UpdateNBBangMember : NBBangGateway {
             request.name,
             request.groupId,
             request.description,
-            request.resId
+            request.kakaoId,
+            request.thumbnailImage ?: "",
+            request.profileImage ?: "",
+            request.profileUri ?: Uri.EMPTY
         )
     )
 }

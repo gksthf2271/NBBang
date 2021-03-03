@@ -10,6 +10,8 @@ import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.login.LoginViewModel
+import com.khs.nbbang.utils.GlideUtils
+import lv.chi.photopicker.ChiliPhotoPicker
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -46,6 +48,11 @@ open class NBApp : Application(){
             androidContext(this@NBApp)
             modules(listOf(databaseModule, dataModule, viewModelModule))
         }
+
+        ChiliPhotoPicker.init(
+            loader = GlideUtils.GideImageLoader(),
+            authority = "com.khs.nbbang"
+        )
     }
 
     val databaseModule = module {

@@ -12,7 +12,10 @@ interface MemberController {
             member.name,
             member.groupId,
             member.description,
-            member.resId
+            member.kakaoId,
+            member.thumbnailImage,
+            member.profileImage,
+            member.profileUri
         )
 
 
@@ -27,6 +30,9 @@ interface MemberController {
             updateMember.name,
             updateMember.groupId,
             updateMember.description,
-            updateMember.resId
+            updateMember.kakaoId,
+            updateMember.thumbnailImage,
+            updateMember.profileImage,
+            updateMember.profileUri
         )
 }

@@ -1,5 +1,6 @@
 package com.khs.nbbang.history.db_interface
 
+import android.net.Uri
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
@@ -28,7 +29,6 @@ interface NBBangGateway {
     ): Single<NBBangHistory>
 
 
-
     fun getMembers() : Single<List<Member>>
     fun getMember(id: Long) : Maybe<Member>
     fun getMemberByGroupId(groupId: Long) : Single<List<Member>>
@@ -39,6 +39,9 @@ interface NBBangGateway {
         index : Int,
         groupId: Long,
         description: String,
-        resId: Int
+        kakaoId: Long,
+        thumbnailImage: String?,
+        profileImage: String?,
+        profileUri: Uri?
     ): Single<Member>
 }
