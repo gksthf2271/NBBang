@@ -80,9 +80,14 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
                 }
             })
 
-            it.mSelectedPeopleMap.value!!.get(tag!!.toInt())?.let {
-                mGridViewAdapter.setSelectMember(it!!)
-            }
+            it.mSelectedPeopleMap?.observe(requireActivity(), Observer {
+                Log.v(TAG,"observer(...)")
+                it ?: return@Observer
+                tag ?: return@Observer
+                it!!.get(tag!!.toInt()).let{nbb ->
+                    mGridViewAdapter.setSelectMember(nbb ?: return@Observer)
+                }
+            })
         }
     }
 

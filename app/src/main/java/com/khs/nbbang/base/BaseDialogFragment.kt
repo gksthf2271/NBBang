@@ -21,11 +21,11 @@ open class BaseDialogFragment : DialogFragment() {
         setBackgroundColorDialog()
     }
 
-    fun setBackgroundColorDialog() {
+    private fun setBackgroundColorDialog() {
         dialog?.window?.setBackgroundDrawableResource(R.color.blank)
     }
 
-    fun resizeDialog(dialogType : DIALOG_TYPE){
+    private fun resizeDialog(dialogType : DIALOG_TYPE){
         val size = DisplayUtils().getDisplaySize(requireContext())
         val params: ViewGroup.LayoutParams? = dialog?.window?.attributes
         val deviceWidth = size.x

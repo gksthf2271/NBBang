@@ -2,38 +2,33 @@ package com.khs.nbbang.page.adapter
 
 import android.content.Context
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.khs.nbbang.R
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.itemView.SelectPeopleView
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.utils.DisplayUtils
-import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_text_people.view.*
 
-class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : BaseAdapter() {
+class SelectPeopleAdapter (private val mContext: Context, private val mItemList: MutableList<Member>) : BaseAdapter() {
     val TAG = this.javaClass.name
-    var mItemList: MutableList<Member>
-    var mItemView : MutableList<View>
-    var mContext: Context
+    private val mItemViewList : MutableList<View> = mutableListOf()
     var mSelectNBB : NBB?
 
     init {
-        mItemList = itemList
-        mContext = context
-        mItemView = mutableListOf()
         mSelectNBB = null
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        if (mItemView.size <= position) {
-            mItemView.add(position, addJoinPeopleView(position))
+        Log.v(TAG,"TEST, getView(...)")
+
+        var itemView : View? = convertView
+
+        if (convertView == null) {
+            itemView = addJoinPeopleView(position)
+            mItemViewList.add(position, itemView)
         }
-        return mItemView.get(position)
+
+        return itemView!!
     }
 
     private fun addJoinPeopleView(position: Int) : View {
@@ -41,25 +36,25 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : Ba
         var itemView = SelectPeopleView(mContext)
         itemView.setViewSize(3)
         var member = mItemList.get(position)
-        itemView.setMember(member)
 
-        mSelectNBB?.let {
-            for (obj in it.mMemberList){
-                if (member == obj) {
-                    Log.v(TAG,"Select member, ${member.name}")
-                    itemView.selectCircleView()
-                }
+        itemView.setMember(member.apply {
+            mSelectNBB?.let {
+                Log.v(TAG,"currentMember : ${member.name}")
+                itemView.setCheckedMember(it.mMemberList.contains(member))
             }
-        }
+        })
+
         return itemView
     }
 
     override fun getItem(position: Int): Any {
+        Log.v(TAG,"getItem(...) position : $position")
         return mItemList.get(position)
     }
 
     override fun getItemId(position: Int): Long {
-        return mItemList.get(position).index.toLong()
+        Log.v(TAG,"getItemId(...) position : $position")
+        return mItemList.get(position).id
     }
 
     override fun getCount(): Int {
@@ -77,9 +72,9 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : Ba
 
     fun getSelectedMemberList() : MutableList<Member>{
         var checkedMemberList = mutableListOf<Member>()
-        for (index in 0 until mItemView.size) {
-            if (mItemView.get(index).tag is Member && mItemView.get(index).checkbox_name.isChecked) {
-                checkedMemberList.add(mItemView.get(index).tag as Member)
+        for (itemView in mItemViewList) {
+            if (itemView.tag is Member && (itemView as SelectPeopleView).isCheckedMember()) {
+                checkedMemberList.add(itemView.tag as Member)
             }
         }
         return checkedMemberList
