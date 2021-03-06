@@ -9,8 +9,10 @@ import android.widget.BaseAdapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
 import com.khs.nbbang.page.ItemObj.NBB
+import com.khs.nbbang.page.itemView.SelectPeopleView
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
+import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.cview_text_people.view.*
 
 class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : BaseAdapter() {
@@ -29,29 +31,23 @@ class SelectPeopleAdapter (context: Context, itemList: MutableList<Member>) : Ba
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         if (mItemView.size <= position) {
-            mItemView.add(position, addJoinPeopleView(parent, position))
+            mItemView.add(position, addJoinPeopleView(position))
         }
         return mItemView.get(position)
     }
 
-    private fun addJoinPeopleView(parent: ViewGroup?, position: Int) : View {
+    private fun addJoinPeopleView(position: Int) : View {
         Log.v(TAG,"addJoinPeopleView(...) position :$position")
-        val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var itemView: ConstraintLayout =
-            inflater.inflate(R.layout.cview_text_people, parent, false) as ConstraintLayout
-        var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
+        var itemView = SelectPeopleView(mContext)
+        itemView.setViewSize(3)
         var member = mItemList.get(position)
-
-        itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
-        itemView.tag = member
-        itemView.checkbox_name.text = member.name
-        itemView.checkbox_name.isChecked = false
+        itemView.setMember(member)
 
         mSelectNBB?.let {
             for (obj in it.mMemberList){
                 if (member == obj) {
                     Log.v(TAG,"Select member, ${member.name}")
-                    itemView.checkbox_name.isChecked = true
+                    itemView.selectCircleView()
                 }
             }
         }
