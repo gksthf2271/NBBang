@@ -2,10 +2,12 @@ package com.khs.nbbang.group
 
 import android.util.Log
 import com.khs.nbbang.user.Member
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMember,
     DeleteNBBangMember, MemberController,
@@ -58,7 +60,8 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .observeOn(ob)
             .subscribe { r ->
                 Log.v(this.javaClass.name,"delete return value : $r")
-                handleShowAllMember(sub, ob)
+                handleShowAllMember(Schedulers.io(),
+                    AndroidSchedulers.mainThread())
             }
         compositeDisposable.add(d)
     }
@@ -68,7 +71,9 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                handleShowAllMember(sub, ob)
+                handleShowAllMember(
+                    Schedulers.io(),
+                    AndroidSchedulers.mainThread())
             }
         compositeDisposable.add(d)
     }

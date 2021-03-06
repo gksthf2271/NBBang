@@ -51,9 +51,9 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
     }
 
     override fun update(member: Member) {
-        Log.v(TAG,"update(...)")
+        Log.v(TAG,"update(...) member : $member")
         mViewModel.let {
-            it!!.updateMember(member)
+            it!!.update(member)
         }
     }
 
@@ -85,18 +85,21 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                 mParentFragment.setViewModel(it!!)
             }
 
-            mBinding.recyclerMemberList.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                addItemDecoration(HistoryItemDecoration(30))
-                addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
-                adapter =
-                    MemberRecyclerViewAdapter(arrayListOf()) {
-                        Log.v(TAG, "ItemClicked : $it")
-                        mBinding.viewModel!!.selectMember(it)
-                        mParentFragment.showMemberView()
-                    }
+            // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
+            if (mBinding.recyclerMemberList.adapter == null) {
+                mBinding.recyclerMemberList.apply {
+                    layoutManager = LinearLayoutManager(requireContext())
+                    addItemDecoration(HistoryItemDecoration(30))
+                    addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
+                    adapter =
+                        MemberRecyclerViewAdapter(arrayListOf()) {
+                            Log.v(TAG, "ItemClicked : $it")
+                            mBinding.viewModel!!.selectMember(it)
+                            mParentFragment.showMemberView()
+                        }
+                }
+                addObserver()
             }
-            addObserver()
         }
 
         private fun addObserver() {

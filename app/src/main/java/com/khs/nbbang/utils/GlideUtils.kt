@@ -63,9 +63,9 @@ class GlideUtils(){
                 drawImageWithString(targetView, member.profileImage, listener)
                 return
             }
-            !member.profileUri.toString().isNullOrEmpty() -> {
+            !member.profileUri.isNullOrEmpty() -> {
                 Log.v(TAG,"draw Member ProfileUrl")
-                drawImageWithT(targetView, member.profileUri, listener)
+                drawImageWithT(targetView, Uri.parse(member.profileUri), listener)
                 return
             }
             else -> {

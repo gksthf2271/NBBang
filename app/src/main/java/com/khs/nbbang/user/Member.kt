@@ -11,5 +11,5 @@ data class Member(
     var kakaoId: Long = -1,
     var thumbnailImage : String? = null,
     var profileImage : String? = null,
-    var profileUri: Uri? = null
+    var profileUri: String? = null
 )

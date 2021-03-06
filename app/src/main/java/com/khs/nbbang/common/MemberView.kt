@@ -34,6 +34,7 @@ class MemberView  @JvmOverloads constructor(
     val TAG = this.javaClass.name
     var mBinding: CviewMemberBinding
     lateinit var gCurrentMember : Member
+    var gCurrentImageUri = ""
     private val URI_HEADER = "android.resource://com.khs.nbbang/"
 
     init {
@@ -71,6 +72,7 @@ class MemberView  @JvmOverloads constructor(
                 isFirstResource: Boolean
             ): Boolean {
                 Log.v(TAG,"onResourceReady, resource : $resource")
+                gCurrentImageUri = photos.get(0).toString()
                 return false
             }
 
@@ -105,17 +107,23 @@ class MemberView  @JvmOverloads constructor(
     fun setCallBackListener(callback: ButtonCallBackListener) {
         mBinding.let {
             it.btnDelete.setOnClickListener {
+                gCurrentImageUri = ""
                 callback.onClickedDeleteBtn()
             }
 
             it.btnCancel.setOnClickListener {
+                gCurrentImageUri = ""
                 callback.onClickedCancelBtn()
             }
 
             it.btnUpdate.setOnClickListener {
                 gCurrentMember.name = mBinding.groupName.edit_description.text.toString()
                 gCurrentMember.description = mBinding.groupDescription.edit_description.text.toString()
-                callback.onClickedUpdateBtn(gCurrentMember)
+                callback.onClickedUpdateBtn(gCurrentMember.apply {
+                    if (!gCurrentImageUri.isNullOrEmpty()) {
+                        profileUri = gCurrentImageUri
+                    }
+                })
             }
 
             it.imgProfile.setOnClickListener {

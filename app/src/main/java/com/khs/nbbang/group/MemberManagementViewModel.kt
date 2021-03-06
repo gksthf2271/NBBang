@@ -1,6 +1,5 @@
 package com.khs.nbbang.group
 
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -59,16 +58,19 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     )
 
     override fun renderMembers(nbbangMemberresult: GetNBBangMemberResult) {
-        Log.v(TAG,"renderMembers(...)")
+        var currentTime = System.currentTimeMillis()
+        Log.v(TAG,"renderMembers(...) startTime : ${currentTime}")
         var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
+        Log.v(TAG,"TEST, 1, time : ${System.currentTimeMillis() - currentTime}")
         _memberList.postValue(list)
+        Log.v(TAG,"TEST, 2, time : ${System.currentTimeMillis() - currentTime}")
     }
 
     fun saveMember(
         id: Long?, groupId: Long?, name: String, description: String, kakaoId: Long,
         thumbnailImage: String?,
         profileImage: String?,
-        profileUri: Uri?
+        profileUri: String?
     ) {
         handleAddMember(
             Schedulers.io(),
@@ -92,22 +94,22 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         )
     }
 
-    fun updateMember(
-        groupId: Long, name: String, description: String, kakaoId: Long,
-        thumbnailImage: String?,
-        profileImage: String?,
-        profileUri: Uri
-    ) {
-        Log.v(TAG,"updateJoinPeople(...)")
+    fun update(updateMember: Member) {
+        Log.v(TAG,"updateJoinPeople(...) beforeMember : ${mSelectMember.value}, afterMember : ${updateMember}")
         handleUpdateMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
             mSelectMember.value ?: return,
             Member(
-                -1, -1, name, groupId, description, kakaoId,
-                thumbnailImage,
-                profileImage,
-                profileUri
+                -1,
+                -1,
+                updateMember.name,
+                updateMember.groupId,
+                updateMember.description,
+                updateMember.kakaoId,
+                updateMember.thumbnailImage,
+                updateMember.profileImage,
+                updateMember.profileUri
             )
         )
 //        var selectMember = mSelectMember.value

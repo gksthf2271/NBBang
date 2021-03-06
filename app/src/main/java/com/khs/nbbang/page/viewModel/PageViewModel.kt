@@ -113,12 +113,17 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     }
 
     fun updateJoinPeople(member: Member) {
-        Log.v(TAG,"updateJoinPeople(...)")
+        Log.v(TAG,"updateJoinPeople(...) newMember : $member")
         var selectJoinPeople = mSelectJoinPeople.value
         _NBBLiveData.value.let {
             var index = it!!.mMemberList.indexOf(selectJoinPeople)
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
                 it!!.mMemberList.get(index).name = member.name
+                it!!.mMemberList.get(index).thumbnailImage = member.thumbnailImage
+                it!!.mMemberList.get(index).profileImage = member.profileImage
+                it!!.mMemberList.get(index).profileUri = member.profileUri
+                it!!.mMemberList.get(index).description = member.description
+                it!!.mMemberList.get(index).groupId = member.groupId
             })
         }
     }

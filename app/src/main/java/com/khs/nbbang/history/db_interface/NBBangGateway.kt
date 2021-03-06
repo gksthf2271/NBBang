@@ -42,6 +42,6 @@ interface NBBangGateway {
         kakaoId: Long,
         thumbnailImage: String?,
         profileImage: String?,
-        profileUri: Uri?
+        profileUri: String?
     ): Single<Member>
 }

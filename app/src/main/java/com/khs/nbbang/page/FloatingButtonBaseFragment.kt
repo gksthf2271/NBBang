@@ -46,7 +46,6 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         initView()
     }
 
-
     override fun onStart() {
         super.onStart()
         init()

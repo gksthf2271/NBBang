@@ -60,8 +60,6 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         lateinit var mRecyclerViewAdapter: AddPeopleRecyclerViewAdapter
         private val mPageViewModel: PageViewModel by sharedViewModel()
         private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
-
-        private var mMemberList = arrayListOf<Member>()
         private lateinit var mParentFragment: AddPeopleFragment
 
         override fun onCreateView(
@@ -88,31 +86,36 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         fun initView(parentFragment: AddPeopleFragment) {
             mMemberViewModel.showMemberList()
             mParentFragment = parentFragment
-            mRecyclerViewAdapter = AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                Log.v(TAG,"ItemClicked, member : ${it.second}")
-                mBinding.viewModel ?: return@AddPeopleRecyclerViewAdapter
-                mBinding.viewModel!!.selectPeople(it.second)
-                mParentFragment.showMemberView()
-            }
 
-            mBinding.recyclerView.apply {
-                layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-                isFocusable = true
-                descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-                adapter = mRecyclerViewAdapter
-            }
+            if (mBinding.recyclerView.adapter == null) {
+                mRecyclerViewAdapter =
+                    AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
+                        Log.v(TAG, "ItemClicked, member : ${it.second}")
+                        mBinding.viewModel ?: return@AddPeopleRecyclerViewAdapter
+                        mBinding.viewModel!!.selectPeople(it.second)
+                        mParentFragment.showMemberView()
+                    }
 
-            mParentFragment.setViewModel(mMemberViewModel)
-            observer()
+                mBinding.recyclerView.apply {
+                    layoutManager =
+                        GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+                    isFocusable = true
+                    descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+                    adapter = mRecyclerViewAdapter
+                }
+
+                mParentFragment.setViewModel(mMemberViewModel)
+                observer()
+            }
         }
 
         fun observer() {
             mBinding.viewModel.let {
                 it!!.mNBBLiveData.observe(requireActivity(), Observer {
                     Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mMemberCount}")
-                    mMemberList.clear()
-                    mMemberList.addAll(it!!.mMemberList)
-                    mRecyclerViewAdapter.setItemList(this.mMemberList)
+                    var newMemberArrayList = arrayListOf<Member>()
+                    newMemberArrayList.addAll(it!!.mMemberList)
+                    mRecyclerViewAdapter.setItemList(newMemberArrayList)
                     if (isResumed) {
                         if (mBinding.motionLayout.progress == 1f) mBinding.motionLayout.transitionToEnd()
                         (mBinding.recyclerView.layoutManager as GridLayoutManager).scrollToPositionWithOffset(

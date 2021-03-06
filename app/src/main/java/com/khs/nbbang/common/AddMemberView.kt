@@ -33,7 +33,7 @@ class AddMemberView @JvmOverloads constructor(
     val TAG = this.javaClass.name
     var mBinding: CviewAddMemberBinding
     var gCurrentMember : Member
-    var gCurrentMemberProfileUri : Uri? = null
+    var gCurrentMemberProfileUri : String? = null
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -111,7 +111,7 @@ class AddMemberView @JvmOverloads constructor(
                 isFirstResource: Boolean
             ): Boolean {
                 Log.v(TAG,"onResourceReady, resource : $resource")
-                gCurrentMemberProfileUri = photos.get(0)
+                gCurrentMemberProfileUri = photos.get(0).toString()
                 return false
             }
 

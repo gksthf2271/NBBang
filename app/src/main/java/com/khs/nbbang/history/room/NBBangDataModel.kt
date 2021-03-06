@@ -55,5 +55,5 @@ data class NBBMemberDataModel(
     var profileImage : String?,
 
     @ColumnInfo(name = "profile_uri")
-    var profileUri: Uri?
+    var profileUri: String?
 )

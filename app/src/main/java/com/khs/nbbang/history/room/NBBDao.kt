@@ -48,5 +48,5 @@ interface NBBMemberDao {
 //    fun update(member: Member) : Maybe<NBBMemberDataModel>
 
     @Query("UPDATE nbb_member SET name = :updateName, description = :updateDescription, kakao_id = :updateKakaoId, thumbnail_image = :updateThumbnailImage, profile_image = :updateProfileImage, profile_uri = :updateProfileUri WHERE id == :targetId")
-    fun update(targetId : Long, updateName : String, updateDescription : String, updateKakaoId : Long, updateThumbnailImage: String?, updateProfileImage: String?, updateProfileUri: Uri?) : Single<Int>
+    fun update(targetId : Long, updateName : String, updateDescription : String, updateKakaoId : Long, updateThumbnailImage: String?, updateProfileImage: String?, updateProfileUri: String?) : Single<Int>
 }

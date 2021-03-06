@@ -28,7 +28,7 @@ interface AddNBBangMember : NBBangGateway {
         request.kakaoId,
         request.thumbnailImage ?: "",
         request.profileImage ?: "",
-        request.profileUri ?: Uri.EMPTY
+        request.profileUri ?: ""
     )
 }
 
@@ -49,7 +49,7 @@ interface UpdateNBBangMember : NBBangGateway {
             request.kakaoId,
             request.thumbnailImage ?: "",
             request.profileImage ?: "",
-            request.profileUri ?: Uri.EMPTY
+            request.profileUri ?: ""
         )
     )
 }
