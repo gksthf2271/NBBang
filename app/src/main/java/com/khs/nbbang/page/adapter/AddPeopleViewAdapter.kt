@@ -57,11 +57,8 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, call
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
         itemView.txt_name.text = mItemList.get(position).name
-        GlideUtils().drawImageWithT(
-            itemView.img_profile,
-            mItemList.get(position).profileImage ?: mItemList.get(position).profileUri,
-            null
-        )
+
+        GlideUtils().drawMemberProfile(itemView.img_profile, mItemList.get(position), null)
         itemView.txt_name.addTextChangedListener(object : TextWatcherAdapter() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)

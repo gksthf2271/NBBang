@@ -45,7 +45,7 @@ class MemberRecyclerViewAdapter(
         fun bind(member: Member) {
             mItemView.txt_name.text = member.name
             mItemView.txt_description.text = member.description
-            GlideUtils().drawImageWithT(mItemView.img_profile, member.profileImage ?: member.profileUri, null)
+            GlideUtils().drawMemberProfile(mItemView.img_profile, member, null)
             mItemView.setOnClickListener { mItemClick(member) }
         }
     }

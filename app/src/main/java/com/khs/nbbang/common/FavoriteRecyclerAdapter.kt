@@ -41,7 +41,7 @@ class FavoriteRecyclerAdapter(
         var mItemClick = itemClick
 
         fun bind(member: Member, position: Int) {
-            GlideUtils().drawImageWithT(mItemView.img_profile, member.profileImage ?: member.profileUri, null)
+            GlideUtils().drawMemberProfile(mItemView.img_profile, member, null)
 
             mItemView.txt_name.text = member.name
             mItemView.group_user_info.setOnClickListener {

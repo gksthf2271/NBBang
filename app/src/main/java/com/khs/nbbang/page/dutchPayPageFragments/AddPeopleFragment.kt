@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kakao.sdk.talk.TalkApiClient
+import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
@@ -78,9 +79,10 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         }
 
         override fun onPause() {
-            //TODO : 성능저하 요소 리팩토링 필요
             super.onPause()
-            mParentFragment.hideAnyView()
+            if ((requireActivity() as MainActivity).isRunningActivity()) {
+                mParentFragment.hideAnyView()
+            }
         }
 
         fun initView(parentFragment: AddPeopleFragment) {

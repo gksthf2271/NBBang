@@ -48,7 +48,7 @@ class AddPeopleRecyclerViewAdapter(
 
         fun bind(member: Member, position: Int) {
             mItemView.txt_name.text = member.name
-            GlideUtils().drawImageWithT(mItemView.img_profile, member.profileImage ?: member.profileUri, null)
+            GlideUtils().drawMemberProfile(mItemView.img_profile, member, null)
             mItemView.setOnClickListener {
                 mItemClick(Pair(position, member))
             }

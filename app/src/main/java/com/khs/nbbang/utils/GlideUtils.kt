@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.khs.nbbang.R
+import com.khs.nbbang.user.Member
 import lv.chi.photopicker.loader.ImageLoader
 
 class GlideUtils(){
@@ -28,7 +29,7 @@ class GlideUtils(){
             .load(res ?: R.drawable.icon_user)
             .placeholder(R.drawable.icon_user)
             .error(R.drawable.icon_user)
-            .fitCenter()
+            .circleCrop()
             .skipMemoryCache(false)
             .listener(listener ?: object : RequestListener<Drawable> {
                 override fun onLoadFailed(
@@ -48,11 +49,31 @@ class GlideUtils(){
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.v(TAG,"onResourceReady, resource : $resource")
-                    return true
+                    Log.v(TAG,"onResourceReady, resource : ${resource}")
+                    return false
                 }
             })
             .into(targetView)
+    }
+
+    fun drawMemberProfile(targetView: ImageView, member : Member, listener: RequestListener<Drawable>?) {
+        when {
+            !member.profileImage.isNullOrEmpty() -> {
+                Log.v(TAG,"draw Member ProfileImage")
+                drawImageWithString(targetView, member.profileImage, listener)
+                return
+            }
+            !member.profileUri.toString().isNullOrEmpty() -> {
+                Log.v(TAG,"draw Member ProfileUrl")
+                drawImageWithT(targetView, member.profileUri, listener)
+                return
+            }
+            else -> {
+                Log.e(TAG,"Profile draw issue!, 프로필 이미지 확인 필요! profileImage : ${member.profileImage}, profileUrl : ${member.profileUri}.")
+                drawImageWithT(targetView, null, listener)
+                return
+            }
+        }
     }
 
     class GideImageLoader : ImageLoader {
@@ -61,7 +82,7 @@ class GlideUtils(){
                 .load(uri)
                 .placeholder(R.drawable.icon_user)
                 .error(R.drawable.ic_menu_gallery)
-                .fitCenter()
+                .circleCrop()
                 .into(view)
         }
     }

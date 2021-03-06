@@ -15,6 +15,7 @@ open class BaseActivity : AppCompatActivity() {
     val TAG = this.javaClass.name
     val DEBUG = true
     val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
+    var gIsRunningActivity : Boolean = false
 
     inline fun <reified I : Activity> launch(resultLauncher: ActivityResultLauncher<Intent>, loginType: LoginType?) {
         resultLauncher.launch(Intent(applicationContext, I::class.java).putExtra(KEY_LOGIN_TYPE, loginType))
@@ -29,20 +30,34 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        gIsRunningActivity = true
     }
 
     override fun onStart() {
-        super.onStart()
         Log.v(TAG,"onStart(...)")
+        gIsRunningActivity = true
+        super.onStart()
+    }
+
+    override fun onPause() {
+        Log.v(TAG,"onPause(...)")
+        gIsRunningActivity = false
+        super.onPause()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         Log.v(TAG,"onDestroy(...)")
+        gIsRunningActivity = false
+        super.onDestroy()
     }
 
     override fun onResume() {
-        super.onResume()
         Log.v(TAG,"onResume(...)")
+        gIsRunningActivity = true
+        super.onResume()
+    }
+
+    fun isRunningActivity() : Boolean{
+        return gIsRunningActivity
     }
 }

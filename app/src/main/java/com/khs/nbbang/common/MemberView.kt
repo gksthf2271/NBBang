@@ -71,7 +71,7 @@ class MemberView  @JvmOverloads constructor(
                 isFirstResource: Boolean
             ): Boolean {
                 Log.v(TAG,"onResourceReady, resource : $resource")
-                return true
+                return false
             }
 
         })
@@ -80,7 +80,7 @@ class MemberView  @JvmOverloads constructor(
     fun setMember(member: Member) {
         gCurrentMember = member
         mBinding.let {
-            GlideUtils().drawImageWithT(it.imgProfile, gCurrentMember.profileImage ?: gCurrentMember.profileUri, null)
+            GlideUtils().drawMemberProfile(it.imgProfile, member, null)
             it.groupName.edit_description.setText(gCurrentMember.name)
             it.groupDescription.edit_description.setText(gCurrentMember.description)
             it.groupDescription.visibility = View.VISIBLE

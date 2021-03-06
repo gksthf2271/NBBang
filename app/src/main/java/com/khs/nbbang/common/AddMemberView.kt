@@ -65,8 +65,7 @@ class AddMemberView @JvmOverloads constructor(
 
             it.btnCancel.setOnClickListener {
                 callback.onClickedCancelBtn()
-                mBinding.groupName.edit_description.setText("")
-                mBinding.groupDescription.edit_description.setText("")
+                clearView()
             }
 
             it.imgProfile.setOnClickListener {
