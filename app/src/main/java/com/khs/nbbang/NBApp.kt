@@ -10,6 +10,7 @@ import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.login.LoginViewModel
+import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.utils.GlideUtils
 import lv.chi.photopicker.ChiliPhotoPicker
 import org.koin.android.ext.koin.androidApplication
@@ -94,6 +95,10 @@ open class NBApp : Application(){
 
         viewModel {
             MemberManagementViewModel(get())
+        }
+
+        viewModel {
+            SelectMemberViewModel(get())
         }
     }
 }

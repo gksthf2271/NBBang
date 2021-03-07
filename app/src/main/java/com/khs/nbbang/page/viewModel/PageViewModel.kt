@@ -118,12 +118,14 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _NBBLiveData.value.let {
             var index = it!!.mMemberList.indexOf(selectJoinPeople)
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                it!!.mMemberList.get(index).name = member.name
-                it!!.mMemberList.get(index).thumbnailImage = member.thumbnailImage
-                it!!.mMemberList.get(index).profileImage = member.profileImage
-                it!!.mMemberList.get(index).profileUri = member.profileUri
-                it!!.mMemberList.get(index).description = member.description
-                it!!.mMemberList.get(index).groupId = member.groupId
+                it!!.mMemberList.get(index).run {
+                    name = member.name
+                    thumbnailImage = member.thumbnailImage
+                    profileImage = member.profileImage
+                    profileUri = member.profileUri
+                    description = member.description
+                    groupId = member.groupId
+                }
             })
         }
     }
@@ -185,9 +187,11 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _selectedPeopleMap.value!!.let {
             if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
-                it!!.get(placeId)!!.mMemberList.clear()
-                it!!.get(placeId)!!.mMemberList.addAll(selectedJoinPeopleList)
-                it!!.get(placeId)!!.mPlaceIndex = placeId
+                it!!.get(placeId)!!.run {
+                    mMemberList.clear()
+                    mMemberList.addAll(selectedJoinPeopleList)
+                    mPlaceIndex = placeId
+                }
             })
         }
     }

@@ -12,16 +12,11 @@ import com.kakao.sdk.user.UserApiClient
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.user.KaKaoUser
 
-class LoginViewModel(context: Context) : BaseViewModel() {
+class LoginViewModel(val mContext: Context) : BaseViewModel() {
 
     private val _myDataFromKakao: MutableLiveData<KaKaoUser> = MutableLiveData()
     private val _loginCookie: MutableLiveData<LoginCookie> = MutableLiveData()
     private val _isLogin: MutableLiveData<Boolean> = MutableLiveData()
-    var mContext: Context
-
-    init {
-        mContext = context
-    }
 
     val mIsLogin: LiveData<Boolean> get() = _isLogin
     val mLoginCookie: LiveData<LoginCookie> get() = _loginCookie

@@ -13,6 +13,7 @@ import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -26,6 +27,7 @@ class MainActivity : BaseActivity() {
     val mPageViewModel by viewModel<PageViewModel>()
     val mLoginViewModel by viewModel<LoginViewModel>()
     val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
+    val mSelectMemberViewModel by viewModel<SelectMemberViewModel>()
 
     // tags used to attach the fragments
     private val TAG_LOGIN = "login"
