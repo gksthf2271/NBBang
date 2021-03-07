@@ -6,7 +6,7 @@
         android:id="@+id/transition_update_circle_background"
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="100">
+        motion:duration="300">
         <KeyFrameSet>
             <KeyAttribute
                 android:alpha="0.5"

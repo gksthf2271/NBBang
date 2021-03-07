@@ -5,8 +5,10 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
 import com.khs.nbbang.databinding.CviewTextPeopleBinding
+import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
 import com.khs.nbbang.utils.GlideUtils
@@ -18,6 +20,9 @@ class SelectPeopleView @JvmOverloads constructor(
     private val gClickLock : Any = Any()
     val TAG = this.javaClass.name
     private var gIsSelectedView = false
+    private val gSelectMemberViewModel: SelectMemberViewModel by lazy {
+        (context as MainActivity).mSelectMemberViewModel
+    }
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -36,16 +41,16 @@ class SelectPeopleView @JvmOverloads constructor(
             mBinding.txtName.text = member.name
             GlideUtils().drawMemberProfile(mBinding.imgProfile, member, null)
             mBinding.layoutRoot.setOnClickListener {
-                Log.v(TAG,"onClicked Member! isSelected : $gIsSelectedView")
+                Log.v(TAG,"onClicked Member! before isSelected : $gIsSelectedView ----------------------------")
                 gIsSelectedView = !gIsSelectedView
-                selectCircleView(gIsSelectedView)
-                Log.v(TAG,"-----------------------------------------------")
+                selectCircleView(gIsSelectedView, member)
+                Log.v(TAG,"------------------after isSelected : $gIsSelectedView ----------------------------")
             }
-            selectCircleView(gIsSelectedView)
+            selectCircleView(gIsSelectedView, member)
         }
     }
 
-    private fun selectCircleView(isSelected: Boolean) {
+    private fun selectCircleView(isSelected: Boolean, member: Member) {
         synchronized(gClickLock) {
             Log.v(TAG, "selectCircleView(...) isSelected : $isSelected")
 
@@ -57,10 +62,12 @@ class SelectPeopleView @JvmOverloads constructor(
                 true -> {
                     Log.v(TAG, "motion transition To End!")
                     mBinding.layoutRoot.transitionToEnd()
+                    gSelectMemberViewModel.addSelectedMember(member)
                 }
                 false -> {
                     Log.v(TAG, "motion transition To Start!")
                     mBinding.layoutRoot.transitionToStart()
+                    gSelectMemberViewModel.removeSelectedMember(member)
                 }
             }
         }
