@@ -13,7 +13,7 @@ import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
 import com.khs.nbbang.utils.GlideUtils
 
-class SelectPeopleView @JvmOverloads constructor(
+class SelectMemberView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     val mBinding: CviewTextPeopleBinding
@@ -78,6 +78,7 @@ class SelectPeopleView @JvmOverloads constructor(
     }
 
     fun setCheckedMember(isSelected: Boolean) {
+        Log.v(TAG,"setCheckedMember(...) isSelected : $isSelected")
         gIsSelectedView = isSelected
     }
 }
