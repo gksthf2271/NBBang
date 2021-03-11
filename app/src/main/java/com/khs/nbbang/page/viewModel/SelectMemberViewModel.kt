@@ -44,4 +44,13 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
     fun getSelectedMemberList(): ArrayList<Member> {
         return _selectedMemberList.value!!
     }
+
+    fun clearSelectedMemberList() {
+        _selectedMemberList.value.let {
+            _selectedMemberList.postValue(it!!.apply {
+                this.clear()
+            })
+        }
+    }
+
 }

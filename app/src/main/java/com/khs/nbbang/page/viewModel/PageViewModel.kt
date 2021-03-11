@@ -44,6 +44,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
 
     init {
+        Log.v(TAG,"createPageViewModel : ${this}")
         clearPageViewModel()
     }
 
@@ -183,11 +184,11 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     }
 
     fun saveSelectedPeople(placeId: Int, selectedJoinPeopleList: MutableList<Member>) {
-        Log.v(TAG,"saveSelectedPeople(...)")
+        Log.v(TAG,"saveSelectedPeople(...) : ${selectedJoinPeopleList.count()}")
         _selectedPeopleMap.value!!.let {
             if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
             _selectedPeopleMap.postValue(it!!.apply {
-                it!!.get(placeId)!!.run {
+                this!!.get(placeId)!!.run {
                     mMemberList.clear()
                     mMemberList.addAll(selectedJoinPeopleList)
                     mPlaceIndex = placeId

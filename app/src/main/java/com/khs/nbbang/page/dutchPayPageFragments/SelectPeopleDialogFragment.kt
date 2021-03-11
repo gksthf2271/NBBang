@@ -7,19 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentSelectPeopleBinding
-import com.khs.nbbang.page.adapter.SelectPeopleAdapter
+import com.khs.nbbang.page.adapter.SelectPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class SelectPeopleDialogFragment : BaseDialogFragment(){
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
     lateinit var mBinding: FragmentSelectPeopleBinding
-    lateinit var mGridViewAdapter : SelectPeopleAdapter
-    val mViewModel : PageViewModel by sharedViewModel()
+    lateinit var mRecyclerViewAdapter: SelectPeopleRecyclerViewAdapter
+    private val mPageViewModel : PageViewModel by sharedViewModel()
+    private val mSelectMemberViewModel : SelectMemberViewModel by sharedViewModel()
 
     companion object {
         @Volatile
@@ -55,18 +59,29 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
         CURRENT_DIALOG_TYPE = DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG
         super.onResume()
     }
+
     fun initView() {
         Log.v(TAG,"initView(...), TAG : $tag")
-        mGridViewAdapter = SelectPeopleAdapter(requireContext(), mutableListOf())
-        mBinding.viewGrid.adapter = mGridViewAdapter
+        mRecyclerViewAdapter = SelectPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
+            Log.v(TAG, "ItemClicked, member : ${it.second}")
+        }
+
+        mBinding.recyclerView.apply {
+            layoutManager =
+                GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+            isFocusable = true
+            descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+            adapter = mRecyclerViewAdapter
+        }
 
         mBinding.btnClose.setOnClickListener {
             dismiss()
         }
 
         mBinding.btnSave.setOnClickListener {
-            mBinding.viewModel.let {
-                it!!.saveSelectedPeople(tag!!.toInt(), mGridViewAdapter.getSelectedMemberList())
+            mBinding.viewModel.let {pageViewModel ->
+                mBinding.viewModel!!.saveSelectedPeople(tag!!.toInt(), mSelectMemberViewModel.getSelectedMemberList())
+                mSelectMemberViewModel.clearSelectedMemberList()
             }
             dismiss()
         }
@@ -74,26 +89,33 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
         mBinding.viewModel.let {
             it!!.mNBBLiveData.observe(requireActivity(), Observer {
                 if (isAdded) {
-                    for (people in it.mMemberList) {
-                        addPeopleView(people)
+                    var allPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
+                    for (member in it!!.mMemberList) {
+                        allPairList.add(Pair(member,false))
                     }
+                    mRecyclerViewAdapter.setItemList(allPairList)
                 }
             })
 
             it.mSelectedPeopleMap?.observe(requireActivity(), Observer {
                 Log.v(TAG,"observer(...)")
+                if (isAdded) {
                 it ?: return@Observer
                 tag ?: return@Observer
-                it!!.get(tag!!.toInt()).let{nbb ->
-                    mGridViewAdapter.setSelectMember(nbb ?: return@Observer)
+                    it!!.get(tag!!.toInt()).let { nbb ->
+                        nbb ?: return@Observer
+                        var selectedPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
+                        for (member in nbb!!.mMemberList) {
+                            selectedPairList.add(Pair(member,true))
+                        }
+                        mRecyclerViewAdapter.setSelectedMemberList(selectedPairList)
+                    }
                 }
             })
-        }
-    }
 
-    fun addPeopleView(member: Member){
-        Log.v(TAG,"memberName : ${member.name}")
-        Log.v(TAG,"memberNameView Index : ${mGridViewAdapter.count}")
-        mGridViewAdapter.addItem(mGridViewAdapter.count, member)
+            mSelectMemberViewModel.gSelectedMemberList.observe(requireActivity(), Observer {
+                Log.v(TAG,"selectedList : ${it!!}")
+            })
+        }
     }
 }

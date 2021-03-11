@@ -167,7 +167,7 @@ class AddPlaceFragment : BaseFragment() {
 
             it!!.mSelectedPeopleMap.observe(requireActivity(), Observer {
                 it.get(infoView.tag as Int) ?: return@Observer
-                Log.v(TAG, "_selectedPeopleMap, Observer(...) : $it")
+                Log.v(TAG, "_selectedPeopleMap, Observer(...) : ${it.count()}")
                 if (it!!.get(infoView.tag as Int)!!.mMemberList.isEmpty()) {
                     hideAddedPeopleView(infoView)
                 } else {
