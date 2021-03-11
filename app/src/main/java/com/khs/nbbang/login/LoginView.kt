@@ -6,7 +6,7 @@ import com.khs.nbbang.base.BaseView
 import com.khs.nbbang.page.viewModel.PageViewModel
 
 class LoginView : BaseView{
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
 
     override fun showError(error: Int) {
         Log.v(TAG,"showError(...)")

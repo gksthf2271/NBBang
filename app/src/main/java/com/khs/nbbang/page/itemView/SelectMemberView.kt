@@ -18,7 +18,7 @@ class SelectMemberView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     val mBinding: CviewTextPeopleBinding
     private val gClickLock : Any = Any()
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
     private var gIsSelectedView = false
     private val gSelectMemberViewModel: SelectMemberViewModel by lazy {
         (context as MainActivity).mSelectMemberViewModel

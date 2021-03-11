@@ -47,7 +47,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
         Log.v(TAG,"onViewCreated(...)")
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
-        mBinding.viewModel = mViewModel
+        mBinding.viewModel = mPageViewModel
         initView()
     }
 

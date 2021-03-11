@@ -59,7 +59,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                Log.v(this.javaClass.name,"delete return value : $r")
+                Log.v(this.javaClass.simpleName,"delete return value : $r")
                 handleShowAllMember(Schedulers.io(),
                     AndroidSchedulers.mainThread())
             }

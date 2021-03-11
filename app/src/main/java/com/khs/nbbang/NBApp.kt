@@ -35,7 +35,7 @@ get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
  */
 
 open class NBApp : Application(){
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
 
     override fun onCreate() {
         super.onCreate()

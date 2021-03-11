@@ -14,7 +14,7 @@ import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.cview_edit_people.view.*
 
 class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, callback: PeopleNameWatcherCallback) : BaseAdapter() {
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
     var mItemList: MutableList<Member>
     var mItemView : MutableList<View>
     var mContext: Context

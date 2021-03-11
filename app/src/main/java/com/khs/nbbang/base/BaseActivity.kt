@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.khs.nbbang.login.LoginType
 
 open class BaseActivity : AppCompatActivity() {
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
     val DEBUG = true
     val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
     var gIsRunningActivity : Boolean = false
@@ -24,7 +24,7 @@ open class BaseActivity : AppCompatActivity() {
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
-                if (DEBUG) Toast.makeText(this, this.javaClass.name + " 활성화 됨.", Toast.LENGTH_SHORT).show()
+                if (DEBUG) Toast.makeText(this, this.javaClass.simpleName + " 활성화 됨.", Toast.LENGTH_SHORT).show()
             }
         }
 

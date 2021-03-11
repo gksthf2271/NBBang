@@ -15,7 +15,7 @@
 //
 //class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context,attrs) {
 //    val DEBUG = true
-//    val TAG = this.javaClass.name
+//    val TAG = this.javaClass.simpleName
 //    private var mEnable: Boolean = false
 //
 //    override fun onTouchEvent(ev: MotionEvent?): Boolean {

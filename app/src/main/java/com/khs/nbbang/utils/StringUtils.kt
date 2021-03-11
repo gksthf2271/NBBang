@@ -5,7 +5,7 @@ import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.user.Member
 
 class StringUtils() {
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
 
     fun getPeopleList(list : MutableList<Member>) : String{
         var peopleNameString = ""

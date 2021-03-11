@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryCheckerDialogFragment : BaseDialogFragment(){
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
     lateinit var mBinding: FragmentHistorySaveDialogBinding
     val mHistoryViewModel : HistoryViewModel by sharedViewModel()
     val mPageViewModel : PageViewModel by sharedViewModel()

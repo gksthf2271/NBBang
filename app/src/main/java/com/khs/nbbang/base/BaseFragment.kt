@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 
 open class BaseFragment :Fragment() {
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
 
     override fun onStart() {
         super.onStart()

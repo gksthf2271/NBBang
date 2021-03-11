@@ -22,7 +22,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     NBBangGatewayImpl, HistoryController {
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
 
     private val _NBBLiveData: MutableLiveData<NBB> = MutableLiveData()
     val mNBBLiveData : LiveData<NBB> get() = _NBBLiveData

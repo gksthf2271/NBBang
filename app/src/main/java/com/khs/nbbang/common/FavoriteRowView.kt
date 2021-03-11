@@ -15,7 +15,7 @@ import com.khs.nbbang.user.Member
 class FavoriteRowView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-    val TAG = this.javaClass.name
+    val TAG = this.javaClass.simpleName
     var mBinding: CviewFavoriteRowBinding
     lateinit var mRecyclerViewAdapter : FavoriteRecyclerAdapter
     lateinit var mPageViewModel : PageViewModel
