@@ -20,8 +20,6 @@ import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
-import kotlinx.android.synthetic.main.cview_edit_people.view.*
-import kotlinx.android.synthetic.main.fragment_add_people.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPeopleFragment : FloatingButtonBaseFragment() {
@@ -105,11 +103,12 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 }
 
                 mParentFragment.setViewModel(mMemberViewModel)
-                observer()
             }
+            addObserver()
         }
 
-        fun observer() {
+        fun addObserver() {
+            Log.v(TAG,"addObserver(...)")
             mBinding.viewModel.let {
                 it!!.mNBBLiveData.observe(requireActivity(), Observer {
                     Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mMemberCount}")
