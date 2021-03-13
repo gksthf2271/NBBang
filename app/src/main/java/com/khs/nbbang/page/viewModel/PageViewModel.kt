@@ -70,25 +70,37 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     }
 
     fun selectPlace(placeKey : Int) {
+        Log.v(TAG,"selectPeople placeKey : $placeKey")
         _selectPlace.postValue(placeKey)
     }
 
     fun selectPeople(joinPeople: Member) {
+        Log.v(TAG,"selectPeople joinPeople : ${joinPeople.name}")
         _selectJoinPeople.postValue(joinPeople)
     }
+
 
     fun addJoinPeople(member: Member) {
         Log.v(TAG,"addJoinPeople(...) people : ${member.name}")
         _NBBLiveData.value.let { nbb ->
-            _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                var emptyIndex = getEmptyPeopleCircleView(nbb!!.mMemberList)
-                if (emptyIndex == nbb!!.mMemberList.size) {
-                    nbb!!.mMemberList.add(emptyIndex, member)
-                } else {
-                    nbb!!.mMemberList.set(emptyIndex, member)
+            if (nbb!!.mMemberList.contains(member)){
+                for (member in nbb!!.mMemberList) {
+                    Log.v(TAG, "member : $member")
                 }
-                nbb!!.mMemberCount = nbb!!.mMemberList.size
-                updateJoinPlaceCount(nbb!!.mMemberCount)
+                Log.v(TAG,"Conflict, 이미 추가된 멤버 : $member")
+                return
+            }
+            _NBBLiveData.postValue(_NBBLiveData.value.apply {
+                var emptyIndex = getEmptyPeopleCircleView(this!!.mMemberList)
+                if (emptyIndex == this!!.mMemberList.size) {
+                    Log.v(TAG,"emptyPeopleCircle is null")
+                    this!!.mMemberList.add(member)
+                } else {
+                    Log.v(TAG,"emptyPeopleCircle is not null")
+                    this!!.mMemberList.set(emptyIndex, member)
+                }
+                this!!.mMemberCount = this!!.mMemberList.size
+                updateJoinPlaceCount(this!!.mMemberCount)
             })
         }
     }
