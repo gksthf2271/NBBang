@@ -31,26 +31,32 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:numColumns="3"
-            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/group_favorite"
             app:layout_constraintHeight_percent="0.62"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_title">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3"
+                android:orientation="horizontal"
+                android:overScrollMode="never"/>
+
+        </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/group_favorite"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.3"
-            app:layout_constraintTop_toBottomOf="@id/recycler_view"
+            app:layout_constraintTop_toBottomOf="@id/scroll_view"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <com.khs.nbbang.common.FavoriteRowView

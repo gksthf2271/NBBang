@@ -19,9 +19,8 @@ import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.KeyboardUtils
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
-class DutchPayMainFragment : BaseFragment() {
+class DutchPayMainFragment : BaseFragment(){
     lateinit var mBinding : FragmentDutchpayHomeBinding
     val mViewModel: PageViewModel by sharedViewModel()
     val mMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
