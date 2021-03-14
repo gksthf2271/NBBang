@@ -48,8 +48,7 @@ class MainActivity : BaseActivity() {
         initNaviView()
 
         if (savedInstanceState == null) {
-            loadHome()
-            navigateDestination()
+            gotoHome()
         }
     }
 
@@ -93,8 +92,8 @@ class MainActivity : BaseActivity() {
                 }
                 else -> mNavItemIndex = 0
             }
-            selectNavMenu()
             navigateDestination()
+            selectNavMenu()
             true
         }
 
@@ -123,6 +122,10 @@ class MainActivity : BaseActivity() {
                 updateProfileInfo(null, null, null)
             }
         })
+
+        mBinding.navView.getHeaderView(0).setOnClickListener {
+            gotoMyPage()
+        }
     }
 
     private fun updateProfileInfo(thumbnail: String?, name: String?, id: String?) {
@@ -138,15 +141,22 @@ class MainActivity : BaseActivity() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            loadHome()
-            navigateDestination()
+            gotoHome()
         }
     }
 
-    private fun loadHome() {
+    private fun gotoHome() {
         Log.v(TAG, "loadHome(...)")
         mNavItemIndex = 0
         CURRENT_TAG = TAG_DUTCH_PAY
+        navigateDestination()
+        selectNavMenu()
+    }
+
+    private fun gotoMyPage() {
+        mNavItemIndex = 3
+        CURRENT_TAG = TAG_MY_PAGE
+        navigateDestination()
         selectNavMenu()
     }
 
