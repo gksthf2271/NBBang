@@ -57,7 +57,6 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
                     mLifecycle,
                     mutableListOf(HistoryGroupFirstFragment(item), HistoryGroupSecondFragment(item))
                 )
-
             mItemView.view_pager.currentItem = 0
             mItemView.view_pager.setPageTransformer(ZoomOutPageTransformer())
             mItemView.view_indicator.setViewPager2(mItemView.view_pager)
