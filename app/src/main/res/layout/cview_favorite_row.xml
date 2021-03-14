@@ -23,7 +23,7 @@
             android:singleLine="true"
             tools:text="FAVORITE MEMBER"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.khs.nbbang.common.CustomRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"

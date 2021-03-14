@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:windowSoftInputMode="stateHidden|adjustPan"
+        android:windowSoftInputMode="stateHidden"
         android:requestLegacyExternalStorage="true">
         <!-- TODO External Storage 권한 이슈 있음 -->
 

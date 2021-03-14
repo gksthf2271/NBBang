@@ -51,9 +51,10 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     }
 
     fun clearPageViewModel() {
-        _NBBLiveData.value = NBB()
+        Log.v(TAG,"clearPageViewModel(...)")
+        _NBBLiveData.postValue(NBB())
         _selectedPeopleMap.value = HashMap()
-        _placeCount.value = 0
+        _placeCount.postValue(0)
     }
 
     fun updatePeopleList(joinPeopleList: MutableList<Member>) {
