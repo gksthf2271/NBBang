@@ -26,7 +26,7 @@ class AddPlaceRecyclerViewAdapter(
     val mItemClick: (NBB) -> Unit,
     val mJoinBtnClick : (NBB) -> Unit
 ) : RecyclerView.Adapter<AddPlaceRecyclerViewAdapter.PlaceViewHolder>() {
-    private val TAG: String = javaClass.name
+    private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
 
     val TYPE_EDIT_PLACE_NAME: String = "TYPE_EDIT_PLACE_NAME"
@@ -50,7 +50,7 @@ class AddPlaceRecyclerViewAdapter(
 
     inner class PlaceViewHolder(itemView: View, itemClick: (NBB) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        val TAG: String = javaClass.name
+        val TAG: String = javaClass.simpleName
         var mItemView: View = itemView
         var mItemClick = itemClick
 

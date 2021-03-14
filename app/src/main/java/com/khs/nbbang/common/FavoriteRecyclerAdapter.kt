@@ -15,7 +15,7 @@ class FavoriteRecyclerAdapter(
     val mItemList: ArrayList<Member>,
     val mItemClick: (Member) -> Unit
 ) : RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.name
+    private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,7 +36,7 @@ class FavoriteRecyclerAdapter(
 
     inner class ViewHolder(itemView: View, itemClick: (Member) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        val TAG: String = javaClass.name
+        val TAG: String = javaClass.simpleName
         var mItemView: View = itemView
         var mItemClick = itemClick
 

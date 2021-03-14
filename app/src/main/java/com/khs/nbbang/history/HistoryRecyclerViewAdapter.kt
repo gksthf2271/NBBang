@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.cview_title_description.view.*
 
 class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifecycle, private val mHistoryList: List<NBBangHistory>, val itemClick: (NBBangHistory) -> Unit) :
     RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.name
+    private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,7 +46,7 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
 
     inner class ViewHolder(itemView: View, itemClick: (NBBangHistory) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        val TAG: String = javaClass.name
+        val TAG: String = javaClass.simpleName
         var mItemView: View = itemView
 
         fun bind(item: NBBangHistory) {

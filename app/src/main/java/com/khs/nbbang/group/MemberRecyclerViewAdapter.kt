@@ -16,7 +16,7 @@ class MemberRecyclerViewAdapter(
     private val itemClick: (Member) -> Unit
 ) :
     RecyclerView.Adapter<MemberRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.name
+    private val TAG: String = javaClass.simpleName
     val DEBUG = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,7 +38,7 @@ class MemberRecyclerViewAdapter(
 
     class ViewHolder(itemView: View, itemClick: (Member) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        val TAG: String = javaClass.name
+        val TAG: String = javaClass.simpleName
         var mItemView: View = itemView
         var mItemClick = itemClick
 

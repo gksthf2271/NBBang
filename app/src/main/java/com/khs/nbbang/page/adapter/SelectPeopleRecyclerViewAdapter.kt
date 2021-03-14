@@ -13,7 +13,7 @@ class SelectPeopleRecyclerViewAdapter (
     val mItemList: ArrayList<Pair<Member, Boolean>>,
     val mItemClick: (Pair<Int, Member>) -> Unit
 ) : RecyclerView.Adapter<SelectPeopleRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.name
+    private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
 
     var mAllItemList: ArrayList<Pair<Member, Boolean>> = arrayListOf()
@@ -38,7 +38,7 @@ class SelectPeopleRecyclerViewAdapter (
 
     inner class ViewHolder(itemView: SelectMemberView, itemClick: (Pair<Int, Member>) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        val TAG: String = javaClass.name
+        val TAG: String = javaClass.simpleName
         var mItemView: SelectMemberView = itemView
         var mItemClick = itemClick
 

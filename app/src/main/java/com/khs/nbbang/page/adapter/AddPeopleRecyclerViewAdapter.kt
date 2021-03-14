@@ -19,7 +19,7 @@ class AddPeopleRecyclerViewAdapter(
     val mItemList: ArrayList<Member>,
     val mItemClick: (Pair<Int, Member>) -> Unit
 ) : RecyclerView.Adapter<AddPeopleRecyclerViewAdapter.PeopleViewHolder>() {
-    private val TAG: String = javaClass.name
+    private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
 
 
@@ -42,7 +42,7 @@ class AddPeopleRecyclerViewAdapter(
 
     inner class PeopleViewHolder(itemView: View, itemClick: (Pair<Int, Member>) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        val TAG: String = javaClass.name
+        val TAG: String = javaClass.simpleName
         var mItemView: View = itemView
         var mItemClick = itemClick
 
