@@ -59,7 +59,6 @@ class AddMemberView @JvmOverloads constructor(
                 Log.v(TAG,"save, profileUri : ${gCurrentMember.profileUri}")
                 callback.onClickedSaveBtn(gCurrentMember)
 
-                Toast.makeText(context, "멤버가 추가 되었습니다.", Toast.LENGTH_SHORT).show()
                 clearView()
             }
 
@@ -76,6 +75,7 @@ class AddMemberView @JvmOverloads constructor(
     }
 
     fun clearView() {
+        gCurrentMember = Member()
         mBinding.groupName.edit_description.setText("")
         mBinding.groupDescription.edit_description.setText("")
 
