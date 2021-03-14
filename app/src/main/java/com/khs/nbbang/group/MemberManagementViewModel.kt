@@ -61,9 +61,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         var currentTime = System.currentTimeMillis()
         Log.v(TAG,"renderMembers(...) startTime : ${currentTime}")
         var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
-        Log.v(TAG,"TEST, 1, time : ${System.currentTimeMillis() - currentTime}")
         _memberList.postValue(list)
-        Log.v(TAG,"TEST, 2, time : ${System.currentTimeMillis() - currentTime}")
     }
 
     fun saveMember(

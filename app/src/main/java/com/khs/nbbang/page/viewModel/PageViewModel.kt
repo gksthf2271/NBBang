@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.khs.nbbang.R
 import com.khs.nbbang.history.HistoryController
-import com.khs.nbbang.history.data.*
+import com.khs.nbbang.history.data.DutchPayPeople
+import com.khs.nbbang.history.data.GetNBBangHistoryResult
+import com.khs.nbbang.history.data.NBBResultItem
+import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
@@ -80,34 +82,41 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     }
 
 
-    fun addJoinPeople(member: Member) {
-        Log.v(TAG,"addJoinPeople(...) people : ${member.name}")
+    fun addJoinPeople(member: Member) : Boolean{
+        Log.v(TAG,"addJoinPeople(...) people : ${member}")
         _NBBLiveData.value.let { nbb ->
             if (nbb!!.mMemberList.contains(member)){
                 for (member in nbb!!.mMemberList) {
                     Log.v(TAG, "member : $member")
                 }
-                Log.v(TAG,"Conflict, 이미 추가된 멤버 : $member")
-                return
+                return false
             }
+
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
                 var emptyIndex = getEmptyPeopleCircleView(this!!.mMemberList)
                 if (emptyIndex == this!!.mMemberList.size) {
-                    Log.v(TAG,"emptyPeopleCircle is null")
+                    Log.v(TAG, "emptyPeopleCircle is null")
                     this!!.mMemberList.add(member)
                 } else {
-                    Log.v(TAG,"emptyPeopleCircle is not null")
-                    this!!.mMemberList.set(emptyIndex, member)
+                    Log.v(TAG, "emptyPeopleCircle is not null")
+                    this!!.mMemberList[emptyIndex] = member
                 }
                 this!!.mMemberCount = this!!.mMemberList.size
                 updateJoinPlaceCount(this!!.mMemberCount)
             })
+            return true
         }
     }
 
-    fun getEmptyPeopleCircleView(memberList : List<Member>) : Int {
+    private fun getEmptyPeopleCircleView(memberList : List<Member>) : Int {
         for (member in memberList) {
-            if (member.id <= 0 && member.name.isEmpty()) {
+            if (member.id <= 0
+                && member.name.isNullOrEmpty()
+                && member.description.isNullOrEmpty()
+                && member.profileImage.isNullOrEmpty()
+                && member.thumbnailImage.isNullOrEmpty()
+                && member.profileUri.isNullOrEmpty()
+            ) {
                 return memberList.indexOf(member)
             }
         }
