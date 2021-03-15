@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="FAVORITE MEMBER" />
 
-        <androidx.core.widget.NestedScrollView
+        <com.khs.nbbang.common.NestedScrollableHost
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"
                 android:overScrollMode="never" />
 
-        </androidx.core.widget.NestedScrollView>
+        </com.khs.nbbang.common.NestedScrollableHost>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
