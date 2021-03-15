@@ -29,7 +29,7 @@
             app:layout_constraintHeight_percent="0.3"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.khs.nbbang.common.NestedScrollableHost
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/layout_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -40,12 +40,10 @@
             <LinearLayout
                 android:id="@+id/layout_group"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintHeight_percent="0.5"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
-        </com.khs.nbbang.common.NestedScrollableHost>
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" />
+        </androidx.core.widget.NestedScrollView>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

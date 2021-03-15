@@ -10,15 +10,14 @@
 
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@id/scroll_view"
+            app:touchAnchorId="@id/history_recycler_view"
             app:moveWhenScrollAtTop="true"
             app:touchAnchorSide="top" />
 
         <KeyFrameSet>
 
             <KeyAttribute
-                android:alpha="0"
-                app:framePosition="50"
+                app:framePosition="0"
                 motion:motionTarget="@id/cview_select_month" />
 
             <KeyAttribute
@@ -26,7 +25,8 @@
                 android:scaleX="0"
                 android:scaleY="0"
                 app:framePosition="100"
-                app:motionTarget="@+id/cview_select_month" />
+                motion:motionTarget="@id/cview_select_month" />
+
 
         </KeyFrameSet>
     </Transition>
@@ -36,13 +36,13 @@
             android:id="@+id/cview_select_month"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintHeight_percent="0.12"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
-            android:id="@+id/scroll_view"
+            android:id="@+id/history_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="500dp"
             app:layout_constraintHeight_percent="0.8"
@@ -58,10 +58,10 @@
             android:layout_height="0dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintBottom_toTopOf="parent" />
 
         <Constraint
-            android:id="@+id/scroll_view"
+            android:id="@+id/history_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             motion:layout_constraintBottom_toBottomOf="parent"

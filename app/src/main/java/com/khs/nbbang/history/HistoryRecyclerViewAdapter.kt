@@ -51,15 +51,17 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
 
         fun bind(item: NBBangHistory) {
             mItemView.txt_date.text = DateUtils().getDateforImg(item.date)
-            mItemView.view_pager.adapter =
-                CustomViewPagerAdapter(
-                    Fm,
-                    mLifecycle,
-                    mutableListOf(HistoryGroupFirstFragment(item), HistoryGroupSecondFragment(item))
-                )
-            mItemView.view_pager.currentItem = 0
-            mItemView.view_pager.setPageTransformer(ZoomOutPageTransformer())
-            mItemView.view_indicator.setViewPager2(mItemView.view_pager)
+            mItemView.view_pager.apply {
+                view_pager.adapter =
+                    CustomViewPagerAdapter(
+                        Fm,
+                        mLifecycle,
+                        mutableListOf(HistoryGroupFirstFragment(item), HistoryGroupSecondFragment(item))
+                    )
+                view_pager.currentItem = 0
+                view_pager.setPageTransformer(ZoomOutPageTransformer())
+                mItemView.view_indicator.setViewPager2(view_pager)
+            }
         }
     }
 }
