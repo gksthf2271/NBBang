@@ -76,6 +76,8 @@
 
 
     <!-- Default UI Colors -->
+    <color name="app_point_color">#695AF1</color>
+
     <color name="primary_color">#23242A</color>
     <color name="button_color">#282A31</color>
     <color name="button_color_shadow">#282A31</color>
