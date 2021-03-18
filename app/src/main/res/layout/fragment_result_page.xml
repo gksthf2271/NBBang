@@ -23,8 +23,9 @@
             android:textColor="@color/search_text_color"
             android:textSize="25sp"
             android:textStyle="bold"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toTopOf="@id/layout_guide"
-            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintHeight_percent="0.20"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +34,7 @@
             android:layout_height="0dp"
             android:background="@drawable/layout_background_dot_line"
             app:layout_constraintWidth_percent="0.95"
-            app:layout_constraintHeight_percent="0.73"
+            app:layout_constraintHeight_percent="0.78"
             app:layout_constraintTop_toBottomOf="@+id/txt_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
