@@ -27,6 +27,9 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     private val _selectMember : MutableLiveData<Member> = MutableLiveData()
     val mSelectMember : LiveData<Member> get() = _selectMember
 
+    private val _showLoadingView: MutableLiveData<Boolean> = MutableLiveData()
+    val mShowLoadingView : LiveData<Boolean> get() = _showLoadingView
+
     override val mNBBPlaceDao: NBBPlaceDao
         get() = _db.value.let { it!!.nbbangDao() }
 
@@ -37,6 +40,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         get() = CompositeDisposable()
 
     init {
+        _showLoadingView.value = false
         _db.value = mDatabase
     }
 
@@ -61,6 +65,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         var currentTime = System.currentTimeMillis()
         Log.v(TAG,"renderMembers(...) startTime : ${currentTime}")
         var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
+        _showLoadingView.value = false
         _memberList.postValue(list)
     }
 
@@ -70,6 +75,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         profileImage: String?,
         profileUri: String?
     ) {
+        _showLoadingView.value = true
         handleAddMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -85,6 +91,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     fun deleteMember(member: Member) {
+        _showLoadingView.value = true
         handleDeleteMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -94,6 +101,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     fun update(updateMember: Member) {
         Log.v(TAG,"updateJoinPeople(...) beforeMember : ${mSelectMember.value}, afterMember : ${updateMember}")
+        _showLoadingView.value = true
         handleUpdateMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -121,6 +129,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     fun showMemberList() {
+        _showLoadingView.value = true
         handleShowAllMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread())

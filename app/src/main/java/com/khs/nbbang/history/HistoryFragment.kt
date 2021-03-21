@@ -4,16 +4,15 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.common.setCustomVisibility
 import com.khs.nbbang.databinding.FragmentHistoryBinding
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.login.LoginViewModel
@@ -76,12 +75,23 @@ class HistoryFragment : BaseFragment(){
         })
         mBinding.viewModel!!.mHistory.observe(requireActivity(), Observer {
             Log.v(TAG, "updated mHistory : $it")
+
             mBinding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
                 requireActivity().supportFragmentManager,
                 lifecycle,
                 (it as GetNBBangHistoryResult).nbbangHistoryList
             ) { nbbHisory ->
                 Log.v(TAG, "Clicked Item : ${nbbHisory.id}")
+            }
+
+            if (it.nbbangHistoryList.isNullOrEmpty()) {
+                Log.v(TAG,"empty List!, show emptyView")
+                mBinding.historyRecyclerView.setCustomVisibility(View.GONE)
+                mBinding.emptyView.setCustomVisibility(View.VISIBLE)
+            } else {
+                Log.v(TAG,"show Item View")
+                mBinding.historyRecyclerView.setCustomVisibility(View.VISIBLE)
+                mBinding.emptyView.setCustomVisibility(View.GONE)
             }
 
             mBinding.cviewSelectMonth.cview1.txt_description.text = it.nbbangHistoryList.size.toString()

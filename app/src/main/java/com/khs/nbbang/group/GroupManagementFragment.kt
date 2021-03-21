@@ -110,6 +110,13 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         private fun addObserver() {
             mGroupManagementBinding.viewModel ?: return
 
+            mGroupManagementBinding.viewModel!!.mShowLoadingView.observe(requireActivity(), Observer {
+                when (it) {
+                    true -> showLoadingView()
+                    false -> hideLoadingView()
+                }
+            })
+
             mGroupManagementBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
                 val adapter = (mGroupManagementBinding.recyclerMemberList.adapter as? MemberRecyclerViewAdapter)
                     ?: return@Observer
