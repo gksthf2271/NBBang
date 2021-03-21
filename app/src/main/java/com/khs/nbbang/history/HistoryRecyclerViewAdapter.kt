@@ -10,15 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.ZoomOutPageTransformer
-import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.itemView.HistoryGroupFirstFragment
 import com.khs.nbbang.history.itemView.HistoryGroupSecondFragment
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import com.khs.nbbang.utils.DateUtils
-import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_history_list_item.view.*
-import kotlinx.android.synthetic.main.cview_title_description.view.*
 
 class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifecycle, private val mHistoryList: List<NBBangHistory>, val itemClick: (NBBangHistory) -> Unit) :
     RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder>() {
@@ -35,7 +32,7 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
     }
 
     override fun getItemCount(): Int {
-        Log.v(TAG,"getItemCount : ${mHistoryList!!.size}")
+        if (DEBUG) Log.v(TAG,"getItemCount : ${mHistoryList!!.size}")
         return mHistoryList.let { mHistoryList!!.size }
     }
 
@@ -52,15 +49,15 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
         fun bind(item: NBBangHistory) {
             mItemView.txt_date.text = DateUtils().getDateforImg(item.date)
             mItemView.view_pager.apply {
-                view_pager.adapter =
+                adapter =
                     CustomViewPagerAdapter(
                         Fm,
                         mLifecycle,
                         mutableListOf(HistoryGroupFirstFragment(item), HistoryGroupSecondFragment(item))
                     )
-                view_pager.currentItem = 0
-                view_pager.setPageTransformer(ZoomOutPageTransformer())
-                mItemView.view_indicator.setViewPager2(view_pager)
+                currentItem = 0
+                setPageTransformer(ZoomOutPageTransformer())
+                mItemView.view_indicator.setViewPager2(this)
             }
         }
     }

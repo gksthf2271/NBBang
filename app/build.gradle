@@ -95,6 +95,7 @@ dependencies {
     implementation "com.kakao.sdk:v2-talk:2.0.5" // 친구, 메시지(카카오톡)
 
     //ViewPager Indicator Lib
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
     //Room

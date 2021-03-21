@@ -32,21 +32,21 @@ open class DateUtils {
         return (diffTime / TIME_MAXIMUM.ONE_DAY.toLong()).toString() + "일 전"
     }
 
-    open fun currentMonth() : Int {
+    fun currentMonth() : Int {
         return Calendar.getInstance().get(Calendar.MONTH).plus(1)
     }
 
-    open fun currentYear() : Int {
+    private fun currentYear() : Int {
         return Calendar.getInstance().get(Calendar.YEAR)
     }
 
-    open fun getDateByString(date: String): Long {
+    fun getDateByString(date: String): Long {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd-HH:mm:ss")
         val result = simpleDateFormat.parse(date.replace("T","-"))
         return result.time
     }
 
-    open fun getDateforImg(date: Long): String {
+    fun getDateforImg(date: Long): String {
         var simpleDateFormat: SimpleDateFormat
         var result: String
         try {
@@ -60,19 +60,19 @@ open class DateUtils {
         return result
     }
 
-    open fun getDateByMillis(timeMs:Long) : String {
+    fun getDateByMillis(timeMs:Long) : String {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
         val timeInDate = Date(timeMs)
         return sdf.format(timeInDate)
     }
 
-    open fun getTimeMsByYearAndMonth(year: Int, month: Int) : Long{
+    fun getTimeMsByYearAndMonth(year: Int, month: Int) : Long{
         val format = "${year}-${String.format("%02d", month)}-01 00:00:00.000"
         val dateFormat =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
         return dateFormat.parse(format).time
     }
 
-    open fun getTimeMsByMonth(month: Int) : Long{
+    fun getTimeMsByMonth(month: Int) : Long{
         return getTimeMsByYearAndMonth(currentYear(),month)
     }
 

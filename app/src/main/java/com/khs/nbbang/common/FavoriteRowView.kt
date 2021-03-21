@@ -4,10 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.databinding.CviewFavoriteRowBinding
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
@@ -42,6 +44,31 @@ class FavoriteRowView @JvmOverloads constructor(
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             isFocusable = true
             descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+            val listener = object : RecyclerView.OnItemTouchListener {
+                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                    val action = e.action
+                    if (canScrollHorizontally(RecyclerView.FOCUS_FORWARD)) {
+                        when (action) {
+                            MotionEvent.ACTION_MOVE -> rv.parent
+                                .requestDisallowInterceptTouchEvent(true)
+                        }
+                        return false
+                    }
+                    else {
+                        when (action) {
+                            MotionEvent.ACTION_MOVE -> rv.parent
+                                .requestDisallowInterceptTouchEvent(false)
+                        }
+                        removeOnItemTouchListener(this)
+                        return true
+                    }
+                }
+
+                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+            }
+
+            addOnItemTouchListener(listener)
             adapter = mRecyclerViewAdapter
         }
     }

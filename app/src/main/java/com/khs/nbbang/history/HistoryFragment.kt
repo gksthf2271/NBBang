@@ -3,11 +3,13 @@ package com.khs.nbbang.history
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
@@ -66,8 +68,8 @@ class HistoryFragment : BaseFragment(){
                 requireActivity().supportFragmentManager,
                 lifecycle,
                 (it as GetNBBangHistoryResult).nbbangHistoryList
-            ) {
-                Log.v(TAG, "Clicked Item : ${it.id}")
+            ) { nbbHisory ->
+                Log.v(TAG, "Clicked Item : ${nbbHisory.id}")
             }
 
             mBinding.cviewSelectMonth.cview1.txt_description.text = it.nbbangHistoryList.size.toString()
