@@ -1,5 +1,6 @@
 package com.khs.nbbang.history
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -41,6 +42,11 @@ class HistoryFragment : BaseFragment(){
         addObserver()
     }
 
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
+    }
+
     fun initView() {
         val layoutManager = LinearLayoutManager(context)
         mBinding.historyRecyclerView.apply {
@@ -62,6 +68,12 @@ class HistoryFragment : BaseFragment(){
 
     private fun addObserver() {
         mBinding.viewModel ?: return
+        mBinding.viewModel!!.mShowLoadingView.observe(requireActivity(), Observer {
+            when (it) {
+                true -> showLoadingView()
+                false -> hideLoadingView()
+            }
+        })
         mBinding.viewModel!!.mHistory.observe(requireActivity(), Observer {
             Log.v(TAG, "updated mHistory : $it")
             mBinding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(

@@ -1,6 +1,8 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
+import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +32,11 @@ class PeopleCountFragment : BaseFragment() {
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
         initView()
+    }
+
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
     }
 
     fun initView() {

@@ -1,5 +1,6 @@
 package com.khs.nbbang.history.itemView
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,6 +40,11 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
         initView()
+    }
+
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
     }
 
     fun initView() {

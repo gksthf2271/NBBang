@@ -1,5 +1,6 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,6 +46,11 @@ class ResultPageFragment : BaseFragment() {
             it!!.clearDutchPayMap()
             mBinding.txtResult.text = it!!.resultNBB()
         }
+    }
+
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
     }
 
     private fun showHistoryCheckerDialog() {

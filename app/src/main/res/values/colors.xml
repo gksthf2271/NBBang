@@ -38,8 +38,6 @@
     <color name="player_grade_silver_startColor">#E68F8F8F</color>
     <color name="player_grade_bronze_startColor">#E6582D1D</color>
 
-    <color name="loading_background">#242424</color>
-
     <color name="main_background">#2B2B2B</color>
     <color name="text_color_highlight">#EB012AD5</color>
     <color name="player_detail_dailog_background">#E6000000</color>
@@ -91,6 +89,7 @@
     <color name="common_title_color">#9E9E9E</color>
     <color name="common_title_light_color">#FFFFFF</color>
     <color name="common_description_color">#FFFFFF</color>
+    <color name="common_background">#99000000</color>
     <color name="history_item_background">#99000000</color>
 
     <!-- History Pie Chart Colors -->
@@ -117,5 +116,8 @@
 
     <!-- Favorite Memeber -->
     <color name="member_add_item_background">#E6000000</color>
+
+    <!-- Loading View Color -->
+    <color name="loading_background">#66000000</color>
 
 </resources>

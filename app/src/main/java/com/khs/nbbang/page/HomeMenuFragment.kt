@@ -1,5 +1,6 @@
 package com.khs.nbbang.page
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -48,13 +49,18 @@ class HomeMenuFragment : BaseFragment() {
         }
     }
 
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
+    }
+
     private fun initView(){
         mBinding.btnFree.setOnClickListener {
             loadDutchPayFragment()
         }
     }
 
-    fun addObserver() {
+    private fun addObserver() {
         mBinding.viewModel.let {
             it!!.mMyData.observe(requireActivity(), Observer {
                 it ?: return@Observer
@@ -75,7 +81,7 @@ class HomeMenuFragment : BaseFragment() {
         }
     }
 
-    fun loadDutchPayFragment() {
+    private fun loadDutchPayFragment() {
         requireActivity().nav_host_fragment.findNavController().navigate(R.id.action_go_to_dutch_pay)
     }
 }

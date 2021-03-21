@@ -1,6 +1,6 @@
 package com.khs.nbbang.group
 
-import android.net.Uri
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -57,8 +57,13 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         }
     }
 
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
+    }
+
     companion object class GroupManagementContentsFragment : BaseFragment() {
-        lateinit var mBinding: FragmentGroupManagementBinding
+        lateinit var mGroupManagementBinding: FragmentGroupManagementBinding
         val mViewModel: MemberManagementViewModel by sharedViewModel()
         private lateinit var mParentFragment: FloatingButtonBaseFragment
 
@@ -72,29 +77,29 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            mBinding = DataBindingUtil.bind(view)!!
-            mBinding.viewModel = mViewModel
+            mGroupManagementBinding = DataBindingUtil.bind(view)!!
+            mGroupManagementBinding.viewModel = mViewModel
         }
 
         fun initView(parentFragment: FloatingButtonBaseFragment) {
             mParentFragment = parentFragment
-            mBinding.groupTitle.txt_title.text = "Favorite Member"
+            mGroupManagementBinding.groupTitle.txt_title.text = "Favorite Member"
 
-            mBinding.viewModel.let {
+            mGroupManagementBinding.viewModel.let {
                 it!!.showMemberList()
                 mParentFragment.setViewModel(it!!)
             }
 
             // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
-            if (mBinding.recyclerMemberList.adapter == null) {
-                mBinding.recyclerMemberList.apply {
+            if (mGroupManagementBinding.recyclerMemberList.adapter == null) {
+                mGroupManagementBinding.recyclerMemberList.apply {
                     layoutManager = LinearLayoutManager(requireContext())
                     addItemDecoration(HistoryItemDecoration(30))
                     addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
                     adapter =
                         MemberRecyclerViewAdapter(arrayListOf()) {
                             Log.v(TAG, "ItemClicked : $it")
-                            mBinding.viewModel!!.selectMember(it)
+                            mGroupManagementBinding.viewModel!!.selectMember(it)
                             mParentFragment.showMemberView()
                         }
                 }
@@ -103,18 +108,18 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         }
 
         private fun addObserver() {
-            mBinding.viewModel ?: return
+            mGroupManagementBinding.viewModel ?: return
 
-            mBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
-                val adapter = (mBinding.recyclerMemberList.adapter as? MemberRecyclerViewAdapter)
+            mGroupManagementBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
+                val adapter = (mGroupManagementBinding.recyclerMemberList.adapter as? MemberRecyclerViewAdapter)
                     ?: return@Observer
                 adapter.setItem(it)
 
-                mBinding.groupTitle.txt_sub_title.text =
+                mGroupManagementBinding.groupTitle.txt_sub_title.text =
                     "${it.size}명 대기중..."
             })
 
-            mBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
+            mGroupManagementBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
                 Log.v(TAG, "Select Member : $it")
                 it ?: return@Observer
                 mParentFragment.selectMember(it)
@@ -123,7 +128,12 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
 
         override fun onDestroyView() {
             super.onDestroyView()
-            mBinding.recyclerMemberList.removeOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
+            mGroupManagementBinding.recyclerMemberList.removeOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
+        }
+
+        override fun makeCustomLoadingView(): Dialog? {
+            Log.v(TAG,"makeCustomLoadingView(...)")
+            return null
         }
     }
 }

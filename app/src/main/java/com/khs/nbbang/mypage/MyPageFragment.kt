@@ -1,5 +1,6 @@
 package com.khs.nbbang.mypage
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,6 +35,11 @@ class MyPageFragment : BaseFragment() {
         mBinding.viewModel = mViewModel
         initView()
         addObserver()
+    }
+
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
     }
 
     fun initView() {

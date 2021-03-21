@@ -42,6 +42,7 @@
             app:dotsSize="5dp"
             app:dotsSpacing="4dp"
             app:dotsStrokeColor="@color/common_title_light_color"
+            app:selectedDotColor="@color/app_point_color"
             app:dotsStrokeWidth="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.03"

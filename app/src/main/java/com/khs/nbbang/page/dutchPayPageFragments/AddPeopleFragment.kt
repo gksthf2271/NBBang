@@ -1,5 +1,6 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -57,9 +58,13 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         mPageViewModel.updateJoinPeople(member)
     }
 
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
+    }
 
     companion object class AddPeopleContentsFragment : BaseFragment() {
-        lateinit var mBinding: FragmentAddPeopleBinding
+        lateinit var mAddPeopleContentsBinding: FragmentAddPeopleBinding
         lateinit var mRecyclerViewAdapter: AddPeopleRecyclerViewAdapter
         private val mPageViewModel: PageViewModel by sharedViewModel()
         private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
@@ -75,8 +80,8 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            mBinding = DataBindingUtil.bind(view)!!
-            mBinding.viewModel = mPageViewModel
+            mAddPeopleContentsBinding = DataBindingUtil.bind(view)!!
+            mAddPeopleContentsBinding.viewModel = mPageViewModel
         }
 
         override fun onPause() {
@@ -86,20 +91,25 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
             }
         }
 
+        override fun makeCustomLoadingView(): Dialog? {
+            Log.v(TAG,"makeCustomLoadingView(...)")
+            return null
+        }
+
         fun initView(parentFragment: AddPeopleFragment) {
             mMemberViewModel.showMemberList()
             mParentFragment = parentFragment
 
-            if (mBinding.recyclerView.adapter == null) {
+            if (mAddPeopleContentsBinding.recyclerView.adapter == null) {
                 mRecyclerViewAdapter =
                     AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
                         Log.v(TAG, "ItemClicked, member : ${it.second}")
-                        mBinding.viewModel ?: return@AddPeopleRecyclerViewAdapter
-                        mBinding.viewModel!!.selectPeople(it.second)
+                        mAddPeopleContentsBinding.viewModel ?: return@AddPeopleRecyclerViewAdapter
+                        mAddPeopleContentsBinding.viewModel!!.selectPeople(it.second)
                         mParentFragment.showMemberView()
                     }
 
-                mBinding.recyclerView.apply {
+                mAddPeopleContentsBinding.recyclerView.apply {
                     layoutManager =
                         GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
                     isFocusable = true
@@ -114,15 +124,15 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
         fun addObserver() {
             Log.v(TAG,"addObserver(...)")
-            mBinding.viewModel.let {
+            mAddPeopleContentsBinding.viewModel.let {
                 it!!.mNBBLiveData.observe(requireActivity(), Observer {
                     Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mMemberCount}")
                     var newMemberArrayList = arrayListOf<Member>()
                     newMemberArrayList.addAll(it!!.mMemberList)
                     mRecyclerViewAdapter.setItemList(newMemberArrayList)
                     if (isResumed) {
-                        if (mBinding.motionLayout.progress == 1f) mBinding.motionLayout.transitionToEnd()
-                        (mBinding.recyclerView.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
+                        if (mAddPeopleContentsBinding.motionLayout.progress == 1f) mAddPeopleContentsBinding.motionLayout.transitionToEnd()
+                        (mAddPeopleContentsBinding.recyclerView.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
                             mRecyclerViewAdapter.itemCount - 1, mRecyclerViewAdapter.itemCount - 1
                         )
                     }
@@ -137,17 +147,17 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
             mMemberViewModel.mMemberList.observe(requireActivity(), Observer {
                 if (it.isEmpty()) {
-                    mBinding.rowFavoriteMember.visibility = View.GONE
+                    mAddPeopleContentsBinding.rowFavoriteMember.visibility = View.GONE
                     return@Observer
                 }
-                mBinding.rowFavoriteMember.initView(mPageViewModel)
-                mBinding.rowFavoriteMember.setTitle("MEMBER")
-                mBinding.rowFavoriteMember.setList(it)
+                mAddPeopleContentsBinding.rowFavoriteMember.initView(mPageViewModel)
+                mAddPeopleContentsBinding.rowFavoriteMember.setTitle("MEMBER")
+                mAddPeopleContentsBinding.rowFavoriteMember.setList(it)
 
                 //TEST Group
-                mBinding.rowFavoriteGroup.initView(mPageViewModel)
-                mBinding.rowFavoriteGroup.setTitle("GROUP")
-                mBinding.rowFavoriteGroup.setList(it)
+                mAddPeopleContentsBinding.rowFavoriteGroup.initView(mPageViewModel)
+                mAddPeopleContentsBinding.rowFavoriteGroup.setTitle("GROUP")
+                mAddPeopleContentsBinding.rowFavoriteGroup.setList(it)
             })
         }
 

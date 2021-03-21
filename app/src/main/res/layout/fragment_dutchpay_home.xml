@@ -28,6 +28,7 @@
             app:dotsSpacing="4dp"
             app:dotsStrokeColor="@color/search_text_color"
             app:dotsStrokeWidth="1dp"
+            app:selectedDotColor="@color/app_point_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.03"
             app:layout_constraintLeft_toLeftOf="parent"

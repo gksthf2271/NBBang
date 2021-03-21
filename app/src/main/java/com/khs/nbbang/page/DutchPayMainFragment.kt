@@ -1,6 +1,8 @@
 package com.khs.nbbang.page
 
+import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +47,11 @@ class DutchPayMainFragment : BaseFragment(){
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
         initView()
+    }
+
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
     }
 
     private fun initView() {

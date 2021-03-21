@@ -1,5 +1,6 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
@@ -69,6 +70,10 @@ class AddPlaceFragment : BaseFragment() {
         mViewModel.selectPlace(-1)
     }
 
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
+    }
 
     fun initView() {
         val rootView = mBinding.layoutGroup

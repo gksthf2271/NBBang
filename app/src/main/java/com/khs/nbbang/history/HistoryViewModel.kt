@@ -28,7 +28,11 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     private val _history : MutableLiveData<GetNBBangHistoryResult> = MutableLiveData()
     val mHistory : LiveData<GetNBBangHistoryResult> get() = _history
 
+    private val _showLoadingView: MutableLiveData<Boolean> = MutableLiveData()
+    val mShowLoadingView : LiveData<Boolean> get() = _showLoadingView
+
     init {
+        _showLoadingView.value = false
         _db.value = mDatabase
         _selectMonth.value = DateUtils().currentMonth()
     }
@@ -38,6 +42,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
 
     override fun renderHistorys(nbbangHistory: GetNBBangHistoryResult) {
         Log.v(TAG,"renderHistory(...)")
+        _showLoadingView.value = false
         _history.postValue(nbbangHistory)
     }
 
@@ -48,6 +53,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         get() = _db.value.let { it!!.nbbMemberDao()}
 
     fun showHistoryByMonth(month: Int) {
+        _showLoadingView.value = true
         handleShowHistoryByMonth(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -57,6 +63,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     }
 
     fun showAllHistory() {
+        _showLoadingView.value = true
         handleShowAllHistory(
             Schedulers.io(),
             AndroidSchedulers.mainThread()
