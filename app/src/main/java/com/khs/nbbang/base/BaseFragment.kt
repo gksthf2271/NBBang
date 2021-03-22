@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.khs.nbbang.common.LoadingView
+import com.khs.nbbang.common.LoadingDialog
 
 open abstract class BaseFragment :Fragment() {
     val TAG = this.javaClass.simpleName
@@ -52,27 +52,27 @@ open abstract class BaseFragment :Fragment() {
     }
 
     fun isShownLoadingView() : Boolean {
-        return (gLoadingView as? LoadingView).let {
+        return (gLoadingView as? LoadingDialog).let {
             return@let it!!.isShowing
         }
     }
 
-    private fun makeCommonLoadingView() : LoadingView {
+    private fun makeCommonLoadingView() : LoadingDialog {
         Log.v(TAG,"makeCommonLoadingView(...)")
-        return LoadingView(requireContext())
+        return LoadingDialog(requireContext())
     }
 
     protected abstract fun makeCustomLoadingView() : Dialog?
 
     protected fun showLoadingView() {
-        (gLoadingView as? LoadingView).let {
+        (gLoadingView as? LoadingDialog).let {
             if (!it!!.isShowing)
                 it!!.show()
         }
     }
 
     protected fun hideLoadingView() {
-        (gLoadingView as? LoadingView).let {
+        (gLoadingView as? LoadingDialog).let {
             if (it!!.isShowing)
                 it!!.hide()
         }
