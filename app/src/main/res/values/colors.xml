@@ -119,5 +119,7 @@
 
     <!-- Loading View Color -->
     <color name="loading_background">#66000000</color>
+    <color name="blank_color">#00000000</color>
+
 
 </resources>

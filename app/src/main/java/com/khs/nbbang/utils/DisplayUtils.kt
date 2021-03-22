@@ -16,7 +16,7 @@ class DisplayUtils() {
         return ((screenWidth * 0.95) / count).toInt()
     }
 
-    open fun getDisplaySize(context: Context): Point {
+    fun getDisplaySize(context: Context): Point {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
         val size = Point()
