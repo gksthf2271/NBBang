@@ -16,6 +16,7 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.DateUtils
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -83,12 +84,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
 
         fun initView(parentFragment: FloatingButtonBaseFragment) {
             mParentFragment = parentFragment
-            mGroupManagementBinding.groupTitle.txt_title.text = "Favorite Member"
-
-            mGroupManagementBinding.viewModel.let {
-                it!!.showMemberList()
-                mParentFragment.setViewModel(it!!)
-            }
+//            mGroupManagementBinding.toolbarTitle.title = "멤버 관리"
 
             // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
             if (mGroupManagementBinding.recyclerMemberList.adapter == null) {
@@ -104,6 +100,11 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                         }
                 }
                 addObserver()
+            }
+
+            mGroupManagementBinding.viewModel.let {
+                it!!.showMemberList()
+                mParentFragment.setViewModel(it!!)
             }
         }
 
@@ -122,8 +123,11 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                     ?: return@Observer
                 adapter.setItem(it)
 
+                mGroupManagementBinding.groupTitle.txt_title.text =
+                    "Favorite Member"
                 mGroupManagementBinding.groupTitle.txt_sub_title.text =
                     "${it.size}명 대기중..."
+                mGroupManagementBinding.viewModel!!.updateLoadingFlag(false)
             })
 
             mGroupManagementBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {

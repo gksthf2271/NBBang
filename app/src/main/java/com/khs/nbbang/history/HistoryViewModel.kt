@@ -42,7 +42,6 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
 
     override fun renderHistorys(nbbangHistory: GetNBBangHistoryResult) {
         Log.v(TAG,"renderHistory(...)")
-        _showLoadingView.value = false
         _history.postValue(nbbangHistory)
     }
 
@@ -53,7 +52,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         get() = _db.value.let { it!!.nbbMemberDao()}
 
     fun showHistoryByMonth(month: Int) {
-        _showLoadingView.value = true
+        updateLoadingFlag(true)
         handleShowHistoryByMonth(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -82,6 +81,11 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         if (month< 1) return
         _selectMonth.postValue(month)
         Log.v(TAG,"decreaseMonth(...) : ${_selectMonth.value}")
+    }
+
+    fun updateLoadingFlag(isShown : Boolean) {
+        Log.v(TAG,"updateLoadingFlag : $isShown")
+        _showLoadingView.value = isShown
     }
 
     override fun onCleared() {

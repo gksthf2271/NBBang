@@ -1,6 +1,7 @@
 package com.khs.nbbang.group
 
 import android.util.Log
+import android.util.TimeUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.R
@@ -10,6 +11,7 @@ import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -40,7 +42,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         get() = CompositeDisposable()
 
     init {
-        _showLoadingView.value = false
+        updateLoadingFlag(false)
         _db.value = mDatabase
     }
 
@@ -63,9 +65,8 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     override fun renderMembers(nbbangMemberresult: GetNBBangMemberResult) {
         var currentTime = System.currentTimeMillis()
-        Log.v(TAG,"renderMembers(...) startTime : ${currentTime}")
+        Log.v(TAG,"renderMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
         var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
-        _showLoadingView.value = false
         _memberList.postValue(list)
     }
 
@@ -75,7 +76,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         profileImage: String?,
         profileUri: String?
     ) {
-        _showLoadingView.value = true
+        updateLoadingFlag(true)
         handleAddMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -91,7 +92,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     fun deleteMember(member: Member) {
-        _showLoadingView.value = true
+        updateLoadingFlag(true)
         handleDeleteMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -101,7 +102,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     fun update(updateMember: Member) {
         Log.v(TAG,"updateJoinPeople(...) beforeMember : ${mSelectMember.value}, afterMember : ${updateMember}")
-        _showLoadingView.value = true
+        updateLoadingFlag(true)
         handleUpdateMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
@@ -129,7 +130,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     fun showMemberList() {
-        _showLoadingView.value = true
+        updateLoadingFlag(true)
         handleShowAllMember(
             Schedulers.io(),
             AndroidSchedulers.mainThread())
@@ -137,6 +138,11 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     fun selectMember(member : Member?) {
         _selectMember.postValue(member)
+    }
+
+    fun updateLoadingFlag(isShown : Boolean) {
+        Log.v(TAG,"updateLoadingFlag : $isShown")
+        _showLoadingView.value = isShown
     }
 
     override fun onCleared() {

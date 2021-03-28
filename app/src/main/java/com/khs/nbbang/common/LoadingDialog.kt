@@ -13,6 +13,7 @@ import com.khs.nbbang.utils.DisplayUtils
 class LoadingDialog(context: Context) : Dialog(context) {
     init {
         setCanceledOnTouchOutside(false)
+        setCancelable(false)
         val displaySize = DisplayUtils().getDisplaySize(context)
         val params: ViewGroup.LayoutParams = ViewGroup.LayoutParams(displaySize.x, displaySize.y)
         this.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

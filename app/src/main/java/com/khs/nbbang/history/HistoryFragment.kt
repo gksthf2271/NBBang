@@ -96,6 +96,7 @@ class HistoryFragment : BaseFragment(){
 
             mBinding.cviewSelectMonth.cview1.txt_description.text = it.nbbangHistoryList.size.toString()
             mBinding.cviewSelectMonth.cview2.txt_description.text = ServiceUtils().getTotalAmountOfPayment("김한솔", it)
+            mBinding.viewModel!!.updateLoadingFlag(false)
         })
 
         mBinding.viewModel!!.mSelectMonth.observe(requireActivity(), Observer {

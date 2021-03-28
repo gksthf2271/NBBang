@@ -1,11 +1,7 @@
 package com.khs.nbbang.group
 
-import android.net.Uri
 import com.khs.nbbang.history.db_interface.NBBangGateway
-import com.khs.nbbang.history.room.NBBMemberDataModel
 import com.khs.nbbang.user.Member
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 interface GetNbbangMember : NBBangGateway {

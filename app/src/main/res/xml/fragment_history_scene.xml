@@ -22,7 +22,6 @@
 
             <KeyAttribute
                 android:alpha="0"
-                android:scaleX="0"
                 android:scaleY="0"
                 app:framePosition="100"
                 motion:motionTarget="@id/cview_select_month" />
@@ -43,7 +42,7 @@
         <Constraint
             android:id="@+id/history_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="480dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cview_select_month"
             app:visibilityMode="ignore" >
@@ -67,7 +66,7 @@
         <Constraint
             android:id="@+id/history_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="580dp"
+            android:layout_height="560dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"

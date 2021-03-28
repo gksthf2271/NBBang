@@ -65,6 +65,7 @@ open abstract class BaseFragment :Fragment() {
     protected abstract fun makeCustomLoadingView() : Dialog?
 
     protected fun showLoadingView() {
+        Log.v(TAG,"showLoadingView(...)")
         (gLoadingView as? LoadingDialog).let {
             if (!it!!.isShowing)
                 it!!.show()
@@ -72,6 +73,7 @@ open abstract class BaseFragment :Fragment() {
     }
 
     protected fun hideLoadingView() {
+        Log.v(TAG,"hideLoadingView(...)")
         (gLoadingView as? LoadingDialog).let {
             if (it!!.isShowing)
                 it!!.hide()
