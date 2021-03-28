@@ -2,9 +2,10 @@ package com.khs.nbbang.common
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.R
 import com.khs.nbbang.utils.DisplayUtils
@@ -14,7 +15,7 @@ class LoadingDialog(context: Context) : Dialog(context) {
         setCanceledOnTouchOutside(false)
         val displaySize = DisplayUtils().getDisplaySize(context)
         val params: ViewGroup.LayoutParams = ViewGroup.LayoutParams(displaySize.x, displaySize.y)
-        this.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        this.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         this.setContentView(LoadingView(context), params)
     }
 
