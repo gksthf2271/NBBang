@@ -6,19 +6,23 @@ import androidx.fragment.app.DialogFragment
 import com.khs.nbbang.R
 import com.khs.nbbang.utils.DisplayUtils
 
-open class BaseDialogFragment : DialogFragment() {
+open class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragment() {
     enum class DIALOG_TYPE {
         TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
         TYPE_HISTORY_CHECKER,
+        TYPE_COMMON_LOADING,
         NONE
     }
 
-    var CURRENT_DIALOG_TYPE = DIALOG_TYPE.NONE
-
     override fun onResume() {
         super.onResume()
-        resizeDialog(CURRENT_DIALOG_TYPE)
-        setBackgroundColorDialog()
+        when (gDialogType) {
+            DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
+            DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
+                resizeDialog(gDialogType)
+                setBackgroundColorDialog()
+            }
+        }
     }
 
     private fun setBackgroundColorDialog() {

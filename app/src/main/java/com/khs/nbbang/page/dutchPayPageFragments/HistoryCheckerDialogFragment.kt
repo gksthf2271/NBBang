@@ -19,7 +19,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class HistoryCheckerDialogFragment : BaseDialogFragment(){
+class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY_CHECKER){
     val TAG = this.javaClass.simpleName
     lateinit var mBinding: FragmentHistorySaveDialogBinding
     val mHistoryViewModel : HistoryViewModel by sharedViewModel()
@@ -54,11 +54,6 @@ class HistoryCheckerDialogFragment : BaseDialogFragment(){
         mBinding.viewModel = mHistoryViewModel
 
         initView()
-    }
-
-    override fun onResume() {
-        CURRENT_DIALOG_TYPE = DIALOG_TYPE.TYPE_HISTORY_CHECKER
-        super.onResume()
     }
 
     fun initView() {

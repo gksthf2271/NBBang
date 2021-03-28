@@ -18,7 +18,7 @@ import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class SelectPeopleDialogFragment : BaseDialogFragment(){
+class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG){
     val TAG = this.javaClass.simpleName
     lateinit var mBinding: FragmentSelectPeopleBinding
     lateinit var mRecyclerViewAdapter: SelectPeopleRecyclerViewAdapter
@@ -53,11 +53,6 @@ class SelectPeopleDialogFragment : BaseDialogFragment(){
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mPageViewModel
         initView()
-    }
-
-    override fun onResume() {
-        CURRENT_DIALOG_TYPE = DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG
-        super.onResume()
     }
 
     fun initView() {
