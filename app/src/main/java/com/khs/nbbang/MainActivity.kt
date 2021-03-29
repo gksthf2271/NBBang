@@ -166,7 +166,7 @@ class MainActivity : BaseActivity() {
 
     private fun navigateDestination() {
         when (CURRENT_TAG) {
-            TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_home_menu)
+            TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_dutch_pay)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
             TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_group_management)
             TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_my_page)
