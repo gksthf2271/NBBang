@@ -121,5 +121,7 @@
     <color name="loading_background">#66000000</color>
     <color name="blank_color">#00000000</color>
 
+    <!-- logo Color info -->
+    <color name="logo_background_color">#0F0F0F</color>
 
 </resources>

@@ -17,8 +17,8 @@ open class BaseActivity : AppCompatActivity() {
     val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
     var gIsRunningActivity : Boolean = false
 
-    inline fun <reified I : Activity> launch(resultLauncher: ActivityResultLauncher<Intent>, loginType: LoginType?) {
-        resultLauncher.launch(Intent(applicationContext, I::class.java).putExtra(KEY_LOGIN_TYPE, loginType))
+    inline fun <reified I : Activity> launch(resultLauncher: ActivityResultLauncher<Intent>) {
+        resultLauncher.launch(Intent(applicationContext, I::class.java))
     }
 
     val startForResult =
