@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "a0b6df5365da7ac9bb67a379598ab32e",
+    "identityHash": "d44b1ab72e5aba7b25955ca9051feecb",
     "entities": [
       {
         "tableName": "nbb_place",
@@ -50,13 +50,19 @@
       },
       {
         "tableName": "nbb_member",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `groupId` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `resId` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `index` INTEGER NOT NULL, `groupId` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `kakao_id` INTEGER NOT NULL, `thumbnail_image` TEXT, `profile_image` TEXT, `profile_uri` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "index",
+            "columnName": "index",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "groupId",
@@ -77,10 +83,28 @@
             "notNull": true
           },
           {
-            "fieldPath": "resId",
-            "columnName": "resId",
+            "fieldPath": "kakaoId",
+            "columnName": "kakao_id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "thumbnailImage",
+            "columnName": "thumbnail_image",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "profileImage",
+            "columnName": "profile_image",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "profileUri",
+            "columnName": "profile_uri",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -96,7 +120,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a0b6df5365da7ac9bb67a379598ab32e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd44b1ab72e5aba7b25955ca9051feecb')"
     ]
   }
 }
