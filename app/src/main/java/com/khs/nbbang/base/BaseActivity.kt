@@ -4,27 +4,31 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.khs.nbbang.login.LoginType
+import com.khs.nbbang.LoadingActivity
 
 open class BaseActivity : AppCompatActivity() {
     val TAG = this.javaClass.simpleName
     val DEBUG = true
     val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
+    val RESULT_FINISH = 1000
     var gIsRunningActivity : Boolean = false
 
     inline fun <reified I : Activity> launch(resultLauncher: ActivityResultLauncher<Intent>) {
-        resultLauncher.launch(Intent(applicationContext, I::class.java))
+        var intent = Intent(applicationContext, I::class.java)
+        if(this is LoadingActivity){
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
+        resultLauncher.launch(intent)
     }
 
     val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                if (DEBUG) Toast.makeText(this, this.javaClass.simpleName + " 활성화 됨.", Toast.LENGTH_SHORT).show()
+            when(result.resultCode){
+                RESULT_FINISH -> finish()
             }
         }
 

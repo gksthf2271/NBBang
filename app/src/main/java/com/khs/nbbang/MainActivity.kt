@@ -3,6 +3,12 @@ package com.khs.nbbang
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.KeyEvent
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -37,6 +43,7 @@ class MainActivity : BaseActivity() {
     private val TAG_MY_PAGE = "my_page"
     var CURRENT_TAG = TAG_DUTCH_PAY
     var mNavItemIndex = 0
+    private var mPopupWindow: PopupWindow? = null
 
     private lateinit var mNavHostFragment: NavHostFragment
 
@@ -137,11 +144,46 @@ class MainActivity : BaseActivity() {
         naviHeaderView.group_id.txt_description.text = id ?: "-"
     }
 
+    private val gFinishToast by lazy {
+        Toast.makeText(this, "한번 더 뒤로가기 입력 시 종료됩니다.", Toast.LENGTH_SHORT)
+    }
+
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
+        } else if (CURRENT_TAG == TAG_DUTCH_PAY){
+            if (gFinishToast != null && gFinishToast.view.isShown) {
+                setResult(RESULT_FINISH)
+                finish()
+            } else {
+                gFinishToast.show()
+            }
+
+            //추후 종료 안내 팝업으로 전환 시 아래 함수 사용
+//            showFinishPopup()
         } else {
             gotoHome()
+        }
+    }
+
+    private fun showFinishPopup() {
+        val popupView = layoutInflater.inflate(R.layout.activity_main_finish, null)
+        mPopupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        mPopupWindow!!.setFocusable(true)
+        mPopupWindow!!.showAtLocation(popupView, Gravity.CENTER, 0, 0)
+
+
+        val cancel = popupView.findViewById(R.id.btn_cancel) as Button
+        cancel.setOnClickListener { mPopupWindow!!.dismiss() }
+
+        val ok = popupView.findViewById(R.id.btn_ok) as Button
+        ok.setOnClickListener {
+            mPopupWindow!!.dismiss()
+            finish()
         }
     }
 
@@ -175,5 +217,10 @@ class MainActivity : BaseActivity() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        Log.v(TAG,"keyCode: $keyCode , event : ${event}")
+        return super.onKeyDown(keyCode, event)
     }
 }
