@@ -126,4 +126,7 @@ dependencies {
     //ChiliPhotoPicker
     implementation "com.github.ChiliLabs:ChiliPhotoPicker:0.3.1"
 
+    //Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
 }
