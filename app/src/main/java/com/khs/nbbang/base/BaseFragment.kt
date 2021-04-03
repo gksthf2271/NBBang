@@ -3,11 +3,13 @@ package com.khs.nbbang.base
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.khs.nbbang.common.IKeyEvent
 import com.khs.nbbang.common.LoadingDialog
 
-open abstract class BaseFragment :Fragment() {
+open abstract class BaseFragment :Fragment(), IKeyEvent{
     val TAG = this.javaClass.simpleName
     lateinit var gLoadingView: Dialog
 

@@ -3,6 +3,7 @@ package com.khs.nbbang.mypage
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,5 +91,13 @@ class MyPageFragment : BaseFragment() {
                 mBinding.txtLogout.visibility = View.INVISIBLE
             }
         }
+    }
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                //todo 팝업 기능 추가 시 hide는 여기서 처리
+            }
+        }
+        return false
     }
 }

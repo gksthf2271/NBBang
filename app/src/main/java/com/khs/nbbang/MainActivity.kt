@@ -11,10 +11,12 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
+import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
@@ -155,18 +157,18 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else if (CURRENT_TAG == TAG_DUTCH_PAY){
-            if (gFinishToast != null && gFinishToast.view.isShown) {
-                setResult(RESULT_FINISH)
-                finish()
-            } else {
-                gFinishToast.show()
-            }
-        } else {
-            gotoHome()
-        }
+//        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+//            drawer_layout.closeDrawer(GravityCompat.START)
+//        } else if (CURRENT_TAG == TAG_DUTCH_PAY){
+//            if (gFinishToast != null && gFinishToast.view.isShown) {
+//                setResult(RESULT_FINISH)
+//                finish()
+//            } else {
+//                gFinishToast.show()
+//            }
+//        } else {
+//            gotoHome()
+//        }
     }
 
     private fun showCheckPopup(callback : (Boolean) -> Unit) {
@@ -240,6 +242,29 @@ class MainActivity : BaseActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         Log.v(TAG,"keyCode: $keyCode , event : ${event}")
+        val currentFragment = (supportFragmentManager.fragments.get(0) as? Fragment).let { it!!.childFragmentManager.fragments.get(0) }
+        val fragment = currentFragment as? BaseFragment
+        if (fragment != null && fragment.onKeyDown(keyCode, event))
+            return true
+        else {
+            when (keyCode) {
+                KeyEvent.KEYCODE_BACK -> {
+                    if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                        drawer_layout.closeDrawer(GravityCompat.START)
+                    } else if (CURRENT_TAG == TAG_DUTCH_PAY){
+                        if (gFinishToast != null && gFinishToast.view.isShown) {
+                            setResult(RESULT_FINISH)
+                            finish()
+                        } else {
+                            gFinishToast.show()
+                        }
+                    } else {
+                        gotoHome()
+                    }
+                    return true
+                }
+            }
+        }
         return super.onKeyDown(keyCode, event)
     }
 }

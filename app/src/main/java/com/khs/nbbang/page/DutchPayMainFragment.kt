@@ -3,6 +3,7 @@ package com.khs.nbbang.page
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,5 +74,14 @@ class DutchPayMainFragment : BaseFragment(){
         mBinding.viewPager.offscreenPageLimit = mPageViewList.size - 2
         mBinding.viewPager.setPageTransformer(ZoomOutPageTransformer())
         mBinding.viewIndicator.setViewPager2(mBinding.viewPager)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                if(mPageViewList.get(mBinding.viewPager.currentItem).onKeyDown(keyCode, event)) return true
+            }
+        }
+        return false
     }
 }

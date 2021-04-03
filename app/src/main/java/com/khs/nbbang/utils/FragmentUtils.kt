@@ -33,4 +33,5 @@ open class FragmentUtils{
     open fun currentFragmentClassName(fragmentContainerView: FragmentContainerView) : String{
         return (fragmentContainerView.findNavController().currentDestination as FragmentNavigator.Destination).className
     }
+
 }

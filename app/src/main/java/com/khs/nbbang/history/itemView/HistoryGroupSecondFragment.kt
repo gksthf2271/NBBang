@@ -3,6 +3,7 @@ package com.khs.nbbang.history.itemView
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,5 +98,14 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         mBinding.groupInfo1.txt_description.text = StringUtils().listToString(allPlace.toMutableList())
         mBinding.groupInfo2.txt_description.text = StringUtils().dutchPayListToString(dutchPeopleList.toMutableList())
         mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, totalPrice)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                //todo 팝업 기능 추가 시 hide는 여기서 처리
+            }
+        }
+        return false
     }
 }

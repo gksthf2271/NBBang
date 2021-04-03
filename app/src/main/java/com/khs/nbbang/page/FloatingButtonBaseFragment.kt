@@ -3,6 +3,7 @@ package com.khs.nbbang.page
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -150,6 +151,10 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         mBinding.let {
             mBinding.memberView.setMember(member)
         }
+    }
+
+    fun isShownMemberView() : Boolean {
+        return (mBinding.motionLayout.transitionState as Bundle).getFloat("motion.progress") == 1.0f
     }
 
     override fun onClickedCancelBtn() {

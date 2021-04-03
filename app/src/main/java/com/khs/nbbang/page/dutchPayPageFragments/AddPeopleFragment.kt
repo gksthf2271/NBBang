@@ -3,6 +3,7 @@ package com.khs.nbbang.page.dutchPayPageFragments
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,18 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
     override fun makeCustomLoadingView(): Dialog? {
         Log.v(TAG,"makeCustomLoadingView(...)")
         return null
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                if (isShownMemberView()) {
+                    hideAnyView()
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     companion object class AddPeopleContentsFragment : BaseFragment() {
@@ -122,7 +135,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
             addObserver()
         }
 
-        fun addObserver() {
+        private fun addObserver() {
             Log.v(TAG,"addObserver(...)")
             mAddPeopleContentsBinding.viewModel.let {
                 it!!.mNBBLiveData.observe(requireActivity(), Observer {
@@ -172,6 +185,15 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     // 친구의 UUID 로 메시지 보내기 가능
                 }
             }
+        }
+
+        override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+            when(keyCode) {
+                KeyEvent.KEYCODE_BACK -> {
+                    //todo 팝업 기능 추가 시 hide는 여기서 처리
+                }
+            }
+            return false
         }
     }
 }
