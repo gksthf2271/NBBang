@@ -41,7 +41,9 @@ class MainActivity : BaseActivity() {
     private val TAG_HISTORY = "history"
     private val TAG_MEMBER_SETTINGS = "member_settings"
     private val TAG_MY_PAGE = "my_page"
-    var CURRENT_TAG = TAG_DUTCH_PAY
+    private val TAG_NONE = "none"
+    private var CURRENT_TAG = TAG_DUTCH_PAY
+    private var OLD_TAG = TAG_NONE
     var mNavItemIndex = 0
     private var mPopupWindow: PopupWindow? = null
 
@@ -80,27 +82,7 @@ class MainActivity : BaseActivity() {
         }
 
         mBinding.navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_dutch_pay -> {
-                    mNavItemIndex = 0
-                    CURRENT_TAG = TAG_DUTCH_PAY
-                }
-                R.id.nav_history -> {
-                    mNavItemIndex = 1
-                    CURRENT_TAG = TAG_HISTORY
-                }
-                R.id.nav_member_settings -> {
-                    mNavItemIndex = 2
-                    CURRENT_TAG = TAG_MEMBER_SETTINGS
-                }
-                R.id.nav_my_page -> {
-                    mNavItemIndex = 3
-                    CURRENT_TAG = TAG_MY_PAGE
-                }
-                else -> mNavItemIndex = 0
-            }
-            navigateDestination()
-            selectNavMenu()
+            navigateMenu(menuItem.itemId)
             true
         }
 
@@ -135,6 +117,30 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun navigateMenu(menuId : Int){
+        OLD_TAG = CURRENT_TAG
+        when (menuId) {
+            R.id.nav_dutch_pay -> {
+                mNavItemIndex = 0
+                CURRENT_TAG = TAG_DUTCH_PAY
+            }
+            R.id.nav_history -> {
+                mNavItemIndex = 1
+                CURRENT_TAG = TAG_HISTORY
+            }
+            R.id.nav_member_settings -> {
+                mNavItemIndex = 2
+                CURRENT_TAG = TAG_MEMBER_SETTINGS
+            }
+            R.id.nav_my_page -> {
+                mNavItemIndex = 3
+                CURRENT_TAG = TAG_MY_PAGE
+            }
+            else -> mNavItemIndex = 0
+        }
+        navigateDestination()
+    }
+
     private fun updateProfileInfo(thumbnail: String?, name: String?, id: String?) {
         var naviHeaderView = mBinding.navView.getHeaderView(0)
         GlideUtils().drawImageWithString(naviHeaderView.img_profile, thumbnail, null)
@@ -158,32 +164,32 @@ class MainActivity : BaseActivity() {
             } else {
                 gFinishToast.show()
             }
-
-            //추후 종료 안내 팝업으로 전환 시 아래 함수 사용
-//            showFinishPopup()
         } else {
             gotoHome()
         }
     }
 
-    private fun showFinishPopup() {
-        val popupView = layoutInflater.inflate(R.layout.activity_main_finish, null)
+    private fun showCheckPopup(callback : (Boolean) -> Unit) {
+        val popupView = layoutInflater.inflate(R.layout.cview_check, null)
         mPopupWindow = PopupWindow(
             popupView,
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         mPopupWindow!!.setFocusable(true)
-        mPopupWindow!!.showAtLocation(popupView, Gravity.CENTER, 0, 0)
+        mPopupWindow!!.showAtLocation(mBinding.layoutContent, Gravity.CENTER, 0, 0)
 
 
         val cancel = popupView.findViewById(R.id.btn_cancel) as Button
-        cancel.setOnClickListener { mPopupWindow!!.dismiss() }
+        cancel.setOnClickListener {
+            mPopupWindow!!.dismiss()
+            callback(false)
+        }
 
         val ok = popupView.findViewById(R.id.btn_ok) as Button
         ok.setOnClickListener {
             mPopupWindow!!.dismiss()
-            finish()
+            callback(true)
         }
     }
 
@@ -192,31 +198,44 @@ class MainActivity : BaseActivity() {
         mNavItemIndex = 0
         CURRENT_TAG = TAG_DUTCH_PAY
         navigateDestination()
-        selectNavMenu()
     }
 
     private fun gotoMyPage() {
         mNavItemIndex = 3
         CURRENT_TAG = TAG_MY_PAGE
         navigateDestination()
-        selectNavMenu()
-    }
-
-    private fun selectNavMenu() {
-        mBinding.navView.menu.getItem(mNavItemIndex).isChecked = true
     }
 
     private fun navigateDestination() {
-        when (CURRENT_TAG) {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        }
+
+//        if (OLD_TAG == TAG_DUTCH_PAY) {
+//            showCheckPopup { isOk ->
+//                if (isOk) {
+//                    navigation(CURRENT_TAG)
+//                } else {
+//                    mNavItemIndex = 0
+//                    OLD_TAG = TAG_NONE
+//                    CURRENT_TAG = TAG_DUTCH_PAY
+//                    Log.v(TAG, "Clicked Cancel!")
+//                }
+//            }
+//        } else {
+            navigation(CURRENT_TAG)
+//        }
+
+    }
+
+    fun navigation(tag : String) {
+        when (tag) {
             TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_dutch_pay)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
             TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_group_management)
             TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_my_page)
         }
-
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        }
+        mBinding.navView.menu.getItem(mNavItemIndex).isChecked = true
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
