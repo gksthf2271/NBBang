@@ -22,9 +22,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderMembers(
-                    presentMember(r)
-                )
+                renderMembers(r)
             }
         compositeDisposable.add(d)
     }
@@ -34,9 +32,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderMembers(
-                    presentMember(r)
-                )
+                renderMembers(r)
             }
         compositeDisposable.add(d)
     }
@@ -47,9 +43,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderMembers(
-                    presentMember(r)
-                )
+                renderMembers(r)
             }
         compositeDisposable.add(d)
     }

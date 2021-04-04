@@ -28,9 +28,7 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryControl
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderHistorys(
-                    presentHistory(r)
-                )
+                renderHistorys(r)
             }
         compositeDisposable.add(d)
     }
@@ -40,9 +38,7 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryControl
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderHistorys(
-                    presentHistory(r)
-                )
+                renderHistorys(r)
             }
         compositeDisposable.add(d)
     }
@@ -53,9 +49,7 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryControl
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderHistorys(
-                    presentHistory(r)
-                )
+                renderHistorys(r)
             }
         compositeDisposable.add(d)
     }
