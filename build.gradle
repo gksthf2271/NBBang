@@ -5,6 +5,7 @@ buildscript {
     ext.room_version = "2.3.0-alpha04"
     ext.rxjava_version = "3.0.10"
     ext.rxandroid_version = "3.0.0"
+    ext.lottieVersion = "3.7.0"
 
     repositories {
         google()
