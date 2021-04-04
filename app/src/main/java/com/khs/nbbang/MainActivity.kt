@@ -89,7 +89,7 @@ class MainActivity : BaseActivity() {
         }
 
         mLoginViewModel ?: return
-        mLoginViewModel!!.mMyData.observe(this, Observer {
+        mLoginViewModel!!.gMyData.observe(this, Observer {
             if (it != null) {
                 Log.v(TAG, "mMyDataFrom : ${it!!}")
                 if (it!! != null) {

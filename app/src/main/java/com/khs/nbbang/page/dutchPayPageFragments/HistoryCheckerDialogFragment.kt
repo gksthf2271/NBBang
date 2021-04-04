@@ -69,7 +69,7 @@ class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY
         }
     }
 
-    fun copy() {
+    private fun copy() {
         val clipboard =
             ContextCompat.getSystemService(requireContext(), ClipboardManager::class.java)
         val clip: ClipData = ClipData.newPlainText(

@@ -50,7 +50,7 @@ class MyPageFragment : BaseFragment() {
     private fun addObserver() {
         mBinding.viewModel ?: return
 
-        mBinding.viewModel!!.mMyData.observe(requireActivity(), Observer {
+        mBinding.viewModel!!.gMyData.observe(requireActivity(), Observer {
             if (it != null) {
                 Log.v(TAG, "mMyDataFrom : ${it!!}")
                 if (it!! != null) {
@@ -83,7 +83,7 @@ class MyPageFragment : BaseFragment() {
             mBinding.groupName.txt_title.text = "이름"
             mBinding.groupName.txt_description.text = name ?: "FREE USER"
 
-            if (name != null && it!!.mIsLogin.value == true) {
+            if (name != null && it!!.gIsLogin.value == true) {
                 mBinding.txtLogout.visibility = View.VISIBLE
                 mBinding.btnLoginLogout.visibility = View.INVISIBLE
             } else {
