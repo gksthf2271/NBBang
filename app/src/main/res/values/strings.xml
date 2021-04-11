@@ -17,6 +17,7 @@
     <string name="menu_dutch_pay">더치페이</string>
     <string name="menu_history">기록</string>
     <string name="menu_member_settings">멤버 관리</string>
+    <string name="menu_kakao_friends_settings">카카오 멤버 관리</string>
     <string name="menu_settings">마이페이지</string>
     <!--////////////-->
 </resources>

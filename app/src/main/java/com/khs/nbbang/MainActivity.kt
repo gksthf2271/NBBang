@@ -42,6 +42,7 @@ class MainActivity : BaseActivity() {
     private val TAG_DUTCH_PAY = "dutchPay"
     private val TAG_HISTORY = "history"
     private val TAG_MEMBER_SETTINGS = "member_settings"
+    private val TAG_KAKAO_FRIENDS_SETTINGS = "kakao_friends_settings"
     private val TAG_MY_PAGE = "my_page"
     private val TAG_NONE = "none"
     private var CURRENT_TAG = TAG_DUTCH_PAY
@@ -134,8 +135,12 @@ class MainActivity : BaseActivity() {
                 mNavItemIndex = 2
                 CURRENT_TAG = TAG_MEMBER_SETTINGS
             }
+            R.id.nav_kakao_friends_settings -> {
+                mNavItemIndex =3
+                CURRENT_TAG = TAG_KAKAO_FRIENDS_SETTINGS
+            }
             R.id.nav_my_page -> {
-                mNavItemIndex = 3
+                mNavItemIndex = 4
                 CURRENT_TAG = TAG_MY_PAGE
             }
             else -> mNavItemIndex = 0
@@ -203,7 +208,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun gotoMyPage() {
-        mNavItemIndex = 3
+        mNavItemIndex = 4
         CURRENT_TAG = TAG_MY_PAGE
         navigateDestination()
     }
@@ -235,6 +240,7 @@ class MainActivity : BaseActivity() {
             TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_dutch_pay)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
             TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_group_management)
+            TAG_KAKAO_FRIENDS_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_kakao_friends_settings)
             TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_my_page)
         }
         mBinding.navView.menu.getItem(mNavItemIndex).isChecked = true

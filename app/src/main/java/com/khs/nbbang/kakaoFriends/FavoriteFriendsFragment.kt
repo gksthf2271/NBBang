@@ -2,6 +2,7 @@ package com.khs.nbbang.kakaoFriends
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +21,12 @@ class FavoriteFriendsFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        TODO("Not yet implemented")
+        Log.v(TAG,"makeCustomLoadingView(...)")
         return null
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        TODO("Not yet implemented")
+        Log.v(TAG,"onKeyDown(...) : keyCode : $keyCode, KeyEvent : ${event}")
         return false
     }
 }

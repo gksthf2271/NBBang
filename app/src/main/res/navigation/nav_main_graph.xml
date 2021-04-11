@@ -25,12 +25,19 @@
         android:id="@+id/action_go_to_group_management"
         app:destination="@id/groupManagementFragment" />
 
+    <action
+        android:id="@+id/action_go_to_kakao_friends_settings"
+        app:destination="@id/kakaoFriendsActivity" />
+
+    <!-- Deprecated View -->
     <fragment
         android:id="@+id/homeMenuFragment"
         android:name="com.khs.nbbang.page.HomeMenuFragment"
         android:label="메뉴"
         tools:layout="@layout/fragment_home_menu">
     </fragment>
+
+    <!-- Deprecated View -->
 
     <fragment
         android:id="@+id/historyFragment"
@@ -60,5 +67,11 @@
         android:label="MyPage"
         tools:layout="@layout/fragment_group_management">
     </fragment>
+
+    <activity
+        android:id="@+id/kakaoFriendsActivity"
+        android:name="com.khs.nbbang.kakaoFriends.KakaoFriendsActivity"
+        android:label="KAKAO Friends"
+        tools:layout="@layout/activity_kakao_friends" />
 
 </navigation>
