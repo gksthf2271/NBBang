@@ -94,8 +94,8 @@ dependencies {
     //////////// koin ///////////////
 
     //카카오
-    implementation "com.kakao.sdk:v2-user:2.0.5" // 카카오 로그인
-    implementation "com.kakao.sdk:v2-talk:2.0.5" // 친구, 메시지(카카오톡)
+    implementation "com.kakao.sdk:v2-user-rx:2.0.5" // 카카오 로그인
+    implementation "com.kakao.sdk:v2-talk-rx:2.0.5" // 친구, 메시지(카카오톡)
 
     //ViewPager Indicator Lib
     implementation 'androidx.viewpager2:viewpager2:1.0.0'

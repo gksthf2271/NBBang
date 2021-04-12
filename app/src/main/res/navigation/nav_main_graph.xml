@@ -27,7 +27,7 @@
 
     <action
         android:id="@+id/action_go_to_kakao_friends_settings"
-        app:destination="@id/kakaoFriendsActivity" />
+        app:destination="@id/kakaoFriendsFragment" />
 
     <!-- Deprecated View -->
     <fragment
@@ -68,10 +68,10 @@
         tools:layout="@layout/fragment_group_management">
     </fragment>
 
-    <activity
-        android:id="@+id/kakaoFriendsActivity"
-        android:name="com.khs.nbbang.kakaoFriends.KakaoFriendsActivity"
+    <fragment
+        android:id="@+id/kakaoFriendsFragment"
+        android:name="com.khs.nbbang.kakaoFriends.KakaoFriendsFragment"
         android:label="KAKAO Friends"
-        tools:layout="@layout/activity_kakao_friends" />
+        tools:layout="@layout/fragment_kakao_friends" />
 
 </navigation>
