@@ -1,5 +1,7 @@
 package com.khs.nbbang.kakaoFriends.kakao_interface
 
+import android.content.Context
+import com.kakao.sdk.auth.model.OAuthToken
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
@@ -20,6 +22,7 @@ interface KakaoGateway {
     ): Single<NBBangHistory>
 
 
+    fun login(context: Context, callback: (token: OAuthToken?, error: Throwable?) -> Unit)
     fun getMembers() : Single<List<Member>>
     fun getMember(id: Long) : Maybe<Member>
     fun getMemberByGroupId(groupId: Long) : Single<List<Member>>

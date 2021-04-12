@@ -8,21 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddFriendsByKakaoBinding
-import com.khs.nbbang.history.HistoryRecyclerViewAdapter
-import com.khs.nbbang.history.data.GetNBBangHistoryResult
+import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
-import com.khs.nbbang.utils.ServiceUtils
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddFriendsFragment : BaseFragment() {
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
-//    val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
-    val gLoginViewModel : LoginViewModel by sharedViewModel()
+    private val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
+    private val gLoginViewModel : LoginViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,11 +51,21 @@ class AddFriendsFragment : BaseFragment() {
             addItemDecoration(HistoryItemDecoration(10))
             this.layoutManager = layoutManager
         }
+        mBinding.viewModel.let { it!!.loadFriendList() }
     }
 
     private fun addObserver() {
-        mBinding.viewModel ?: return
-
+        mBinding.viewModel.let { loginViewModel ->
+            loginViewModel!!.gIsLogin.observe(requireActivity(), Observer {
+                if (!it) {
+                    Log.e(TAG,"isLogin : ${it}")
+                    return@Observer
+                }
+            })
+            loginViewModel!!.gFriendList.observe(requireActivity(), Observer {
+                Log.v(TAG,"loadFriends result : ${it.joinToString("\n")}")
+            })
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

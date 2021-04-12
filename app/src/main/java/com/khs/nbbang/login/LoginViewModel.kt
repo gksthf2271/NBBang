@@ -11,20 +11,25 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.talk.TalkApiClient
 import com.kakao.sdk.user.UserApiClient
 import com.khs.nbbang.base.BaseViewModel
+import com.khs.nbbang.kakaoFriends.KakaoView
+import com.khs.nbbang.kakaoFriends.kakao_interface.ReturnType
 import com.khs.nbbang.user.KaKaoMember
 import com.khs.nbbang.user.KaKaoUser
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
-class LoginViewModel(val mContext: Context) : BaseViewModel() {
+class LoginViewModel(val mContext: Context) : BaseViewModel(), KakaoView{
 
     private val _myDataFromKakao: MutableLiveData<KaKaoUser> = MutableLiveData()
     private val _loginCookie: MutableLiveData<LoginCookie> = MutableLiveData()
     private val _isLogin: MutableLiveData<Boolean> = MutableLiveData()
-    private val _friendList : MutableLiveData<KaKaoMember> = MutableLiveData()
+    private val _friendList : MutableLiveData<ArrayList<KaKaoMember>> = MutableLiveData()
 
     val gIsLogin: LiveData<Boolean> get() = _isLogin
     val gLoginCookie: LiveData<LoginCookie> get() = _loginCookie
     val gMyData: LiveData<KaKaoUser> get() = _myDataFromKakao
-    val gFriendList: LiveData<KaKaoMember> get() = _friendList
+    val gFriendList: LiveData<ArrayList<KaKaoMember>> get() = _friendList
 
     fun resetMyData() {
         _myDataFromKakao.value = null
@@ -145,14 +150,29 @@ class LoginViewModel(val mContext: Context) : BaseViewModel() {
         }
     }
 
-    fun loadFirendList() {
-        // 카카오톡 친구 목록 가져오기 (기본)
-        TalkApiClient.instance.friends { friends, error ->
-            if (error != null) {
-                Log.e(TAG, "카카오톡 친구 목록 가져오기 실패", error)
-            } else if (friends != null) {
-                Log.i(TAG, "카카오톡 친구 목록 가져오기 성공 \n${friends.elements.joinToString("\n")}")
-                // 친구의 UUID 로 메시지 보내기 가능
+    fun loadFriendList() {
+        handleLoadKakaoFriendList(mContext, Schedulers.io(), AndroidSchedulers.mainThread())
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        handleDestroy()
+    }
+
+    override val compositeDisposable: CompositeDisposable
+        get() = CompositeDisposable()
+
+    override fun renderKakaoMembers(kakaoFirends: ArrayList<KaKaoMember>) {
+        _friendList.value = kakaoFirends
+    }
+
+    override fun requestResult(resultCode: Int, result: Any?) {
+        when(resultCode) {
+            ReturnType().RETURN_TYPE_SUCCESS -> {
+                Log.v(TAG,"RETURN_TYPE_SUCCESS, Result : $result")
+            }
+            ReturnType().RETURN_TYPE_FAILED -> {
+                Log.v(TAG,"RETURN_TYPE_FAILED, Result : $result")
             }
         }
     }
