@@ -32,10 +32,10 @@ interface KakaoView {
             .observeOn(ob)
             .subscribe({ token ->
                 Log.i("KakaoView", "로그인 성공 ${token.accessToken}")
-                requestResult(ReturnType().RETURN_TYPE_SUCCESS, token)
+                requestResult(ReturnType().RETURN_TYPE_LOGIN_SUCCESS, token)
             }, { error ->
                 Log.e("KakaoView", "로그인 실패", error)
-                requestResult(ReturnType().RETURN_TYPE_FAILED, error)
+                requestResult(ReturnType().RETURN_TYPE_LOGIN_FAILED, error)
             })
         // 카카오톡 로그인
         compositeDisposable.add(d)
@@ -47,10 +47,10 @@ interface KakaoView {
             .observeOn(ob)
             .subscribe({
                 Log.i("KakaoView", "로그아웃 성공. SDK에서 토큰 삭제 됨")
-                requestResult(resultCode = ReturnType().RETURN_TYPE_SUCCESS, result =  null)
+                requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_SUCCESS, result =  null)
             }, { error ->
                 Log.e("KakaoView", "로그아웃 실패. SDK에서 토큰 삭제 됨", error)
-                requestResult(ReturnType().RETURN_TYPE_FAILED, error)
+                requestResult(ReturnType().RETURN_TYPE_NONE_FAILED, error)
             })
         compositeDisposable.add(d)
     }
@@ -61,10 +61,10 @@ interface KakaoView {
             .observeOn(ob)
             .subscribe({
                 Log.i("KakaoView", "연결 끊기 성공. SDK에서 토큰 삭제 됨")
-                requestResult(resultCode = ReturnType().RETURN_TYPE_SUCCESS, result = null)
+                requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_SUCCESS, result = null)
             }, { error ->
                 Log.e("KakaoView", "연결 끊기 실패", error)
-                requestResult(ReturnType().RETURN_TYPE_FAILED, error)
+                requestResult(ReturnType().RETURN_TYPE_NONE_FAILED, error)
             })
         compositeDisposable.add(d)
     }
@@ -79,10 +79,10 @@ interface KakaoView {
                             "\n닉네임: ${profile.nickname}" +
                             "\n프로필사진: ${profile.thumbnailUrl}" +
                             "\n국가코드: ${profile.countryISO}")
-                    requestResult(resultCode = ReturnType().RETURN_TYPE_SUCCESS, result = profile)
+                    requestResult(resultCode = ReturnType().RETURN_TYPE_PROFILE_SUCCESS, result = profile)
                 }, { error ->
                     Log.e("KakaoView", "카카오톡 프로필 가져오기 실패", error)
-                    requestResult(resultCode = ReturnType().RETURN_TYPE_FAILED, result = error)
+                    requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_FAILED, result = error)
                 })
         compositeDisposable.add(d)
     }
@@ -117,7 +117,7 @@ interface KakaoView {
                     renderKakaoMembers(ArrayList(friends))
                 }, { error ->
                     Log.e("KakaoView", "카카오톡 친구 목록 가져오기 실패", error)
-                    requestResult(resultCode = ReturnType().RETURN_TYPE_FAILED, result = error)
+                    requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_FAILED, result = error)
                 })
         compositeDisposable.add(d)
     }
