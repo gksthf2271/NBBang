@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
+import com.khs.nbbang.group.GroupManagementFragment
 import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
@@ -25,8 +26,8 @@ class KakaoFriendsFragment : BaseFragment() {
 
 
     private val mPageViewList: MutableList<BaseFragment> = mutableListOf(
-        FavoriteFriendsFragment(),
-        AddFriendsFragment()
+        GroupManagementFragment(),
+        KakaoFavoriteFriendsFragment()
     )
 
     override fun onCreateView(
@@ -71,10 +72,10 @@ class KakaoFriendsFragment : BaseFragment() {
             TabLayoutMediator(mBinding.tabLayout, this) { tab, position ->
                 when(position) {
                     0 -> {
-                        tab.text = "즐겨찾기"
+                        tab.text = "로컬 멤버"
                     }
                     1 -> {
-                        tab.text = "카카오 친구 추가하기"
+                        tab.text = "카카오 멤버"
                     }
                 }
             }.attach()
