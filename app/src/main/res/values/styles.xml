@@ -8,12 +8,23 @@
     </style>
 
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="colorControlNormal">@color/app_point_color</item>
+        <item name="colorControlNormal">@color/text_color</item>
         <item name="colorControlActivated">@color/app_point_color</item>
-        <item name="android:textCursorDrawable">@color/app_point_color</item>
+        <item name="android:textCursorDrawable">@color/text_color</item>
         <item name="android:textColor">@color/search_text_color</item>
 <!--        <item name="android:textColorHint">@color/search_text_color</item>-->
 <!--        <item name="android:textColorHighlight">@color/app_point_color</item>-->
+    </style>
+
+    <style name="PhotoPickerStyle" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <item name="pickerBackgroundColor">@color/background_dark</item>
+        <item name="pickerPrimaryColor">@color/text_secondary_dark</item>
+        <item name="pickerSecondaryColor">@color/text_secondary_dark</item>
+        <item name="pickerControlColor">@color/app_point_color</item>
+        <item name="pickerCornerRadius">@dimen/background_corner_radius</item>
+        <item name="pickerCameraIcon">@drawable/ic_picker_camera</item>
+        <item name="pickerGalleryIcon">@drawable/ic_picker_gallery</item>
+        <item name="pickerDividerColor">@color/divider_dark</item>
     </style>
 
 </resources>

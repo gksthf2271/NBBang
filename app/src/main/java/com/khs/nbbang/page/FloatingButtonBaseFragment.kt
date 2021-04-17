@@ -189,7 +189,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
             multiple = true,
             allowCamera = false,
             maxSelection = 1,
-            theme = R.style.ChiliPhotoPicker_Dark
+            theme = R.style.PhotoPickerStyle
         ).show(childFragmentManager, null)
     }
 
