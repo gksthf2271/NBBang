@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.khs.nbbang.login.LoginViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.khs.nbbang.mypage.MyPageFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +63,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/group_user_info"
             app:layout_constraintWidth_percent="0.45"
-            android:onClick="@{() -> viewModel.login()}"
+            android:onClick="@{() -> viewModel.login(fragment.requireContext())}"
             android:background="@drawable/kakao_login_large_narrow"
             android:visibility="invisible"
             tools:visibility="visible"/>

@@ -7,6 +7,10 @@
         <variable
             name="viewModel"
             type="com.khs.nbbang.login.LoginViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.khs.nbbang.page.HomeMenuFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/kakao_login_large_narrow"
-                android:onClick="@{() -> viewModel.login()}"
+                android:onClick="@{() -> viewModel.login(fragment.requireContext())}"
                 app:layout_constraintHeight_percent="0.45"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

@@ -41,8 +41,8 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoView
         logoutAndResetData()
     }
 
-    fun login() {
-        handleLogin(mContext, Schedulers.io(), AndroidSchedulers.mainThread())
+    fun login(context: Context) {
+        handleLogin(context, Schedulers.io(), AndroidSchedulers.mainThread())
     }
 
     private fun updateMyDataFromKakao() {

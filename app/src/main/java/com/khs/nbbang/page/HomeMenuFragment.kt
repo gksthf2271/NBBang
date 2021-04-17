@@ -35,7 +35,7 @@ class HomeMenuFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mLoginViewModel
-
+        mBinding.fragment = this
         initView()
         addObserver()
     }

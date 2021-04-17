@@ -34,6 +34,7 @@ class MyPageFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
+        mBinding.fragment = this
         initView()
         addObserver()
     }
