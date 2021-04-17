@@ -59,7 +59,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/layout_rounded_not_circle"
                         android:gravity="center_vertical"
-                        android:textColor="@color/search_text_color_black"
+                        android:textColor="@color/text_color_black"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         tools:text="no 1. 미아사거리 주막 : 155,000원 \n 참석자 : 김한솔, 정용인, 조현우, 김진혁, 최종휘 \n 5명" />

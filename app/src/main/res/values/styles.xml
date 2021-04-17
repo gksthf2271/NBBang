@@ -7,4 +7,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/app_point_color</item>
+        <item name="colorControlActivated">@color/app_point_color</item>
+        <item name="android:textCursorDrawable">@color/app_point_color</item>
+        <item name="android:textColor">@color/search_text_color</item>
+<!--        <item name="android:textColorHint">@color/search_text_color</item>-->
+<!--        <item name="android:textColorHighlight">@color/app_point_color</item>-->
+    </style>
+
 </resources>

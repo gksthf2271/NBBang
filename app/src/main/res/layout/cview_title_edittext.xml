@@ -22,7 +22,7 @@
         tools:text="TITLE" />
 
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edit_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -31,6 +31,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:singleLine="true"
+        android:theme="@style/EditTextStyle"
         app:layout_constraintHeight_percent="0.9"
         app:layout_constraintLeft_toRightOf="@id/txt_title"
         app:layout_constraintWidth_percent="0.7"
