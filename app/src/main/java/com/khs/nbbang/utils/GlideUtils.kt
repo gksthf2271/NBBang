@@ -31,28 +31,28 @@ class GlideUtils(){
             .error(R.drawable.icon_user)
             .circleCrop()
             .skipMemoryCache(false)
-//            .listener(listener ?: object : RequestListener<Drawable> {
-//                override fun onLoadFailed(
-//                    e: GlideException?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    Log.v(TAG,"onLoadFailed, exception : $e")
-//                    return true
-//                }
-//
-//                override fun onResourceReady(
-//                    resource: Drawable?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    dataSource: DataSource?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    Log.v(TAG,"onResourceReady, resource : ${resource}")
-//                    return false
-//                }
-//            })
+            .listener(listener ?: object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Log.v(TAG,"onLoadFailed, exception : $e")
+                    return true
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Log.v(TAG,"onResourceReady, resource : ${resource}")
+                    return false
+                }
+            })
             .into(targetView)
     }
 
