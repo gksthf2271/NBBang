@@ -1,7 +1,5 @@
 package com.khs.nbbang.user
 
-import android.net.Uri
-
 data class Member(
     var id: Long = -1,
     var index: Int = -1,
@@ -11,5 +9,7 @@ data class Member(
     var kakaoId: Long = -1,
     var thumbnailImage : String? = null,
     var profileImage : String? = null,
-    var profileUri: String? = null
+    var profileUri: String? = null,
+    var isFavorite: Int? = null,
+    var isFavoriteByKakao: Int? = null
 )

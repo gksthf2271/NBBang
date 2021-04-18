@@ -42,6 +42,13 @@ class HistoryFragment : BaseFragment(){
         addObserver()
     }
 
+    override fun onPause() {
+        super.onPause()
+        mBinding.viewModel.let {
+            it!!.setCurrentMonthHistory()
+        }
+    }
+
     override fun makeCustomLoadingView(): Dialog? {
         Log.v(TAG,"makeCustomLoadingView(...)")
         return null
@@ -101,6 +108,7 @@ class HistoryFragment : BaseFragment(){
         })
 
         mBinding.viewModel!!.mSelectMonth.observe(requireActivity(), Observer {
+            Log.v(TAG,"selected month : $it")
             mBinding.cviewSelectMonth.txtMonth.text = "$it 월"
             mBinding.viewModel!!.showHistoryByMonth(it!!)
         })

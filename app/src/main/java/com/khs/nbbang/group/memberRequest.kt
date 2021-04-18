@@ -11,5 +11,7 @@ data class memberRequest(
     var kakaoId: Long = -1,
     var thumbnailImage : String? = null,
     var profileImage : String? = null,
-    var profileUri: String? = null
+    var profileUri: String? = null,
+    var isFavorite: Int? = null,
+    var isFavoriteByKakao: Int? = null
 )

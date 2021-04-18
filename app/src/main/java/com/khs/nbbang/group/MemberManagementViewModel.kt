@@ -26,6 +26,9 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     private val _memberList : MutableLiveData<List<Member>> = MutableLiveData()
     val mMemberList : LiveData<List<Member>> get() = _memberList
 
+    private val _kakaoFriendList : MutableLiveData<List<Member>> = MutableLiveData()
+    val gKakaoFriendList : LiveData<List<Member>> get() = _kakaoFriendList
+
     private val _selectMember : MutableLiveData<Member> = MutableLiveData()
     val mSelectMember : LiveData<Member> get() = _selectMember
 

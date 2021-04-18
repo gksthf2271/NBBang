@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "d44b1ab72e5aba7b25955ca9051feecb",
+    "identityHash": "781ee4b66feef49b2a1efdf3ebf57286",
     "entities": [
       {
         "tableName": "nbb_place",
@@ -50,7 +50,7 @@
       },
       {
         "tableName": "nbb_member",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `index` INTEGER NOT NULL, `groupId` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `kakao_id` INTEGER NOT NULL, `thumbnail_image` TEXT, `profile_image` TEXT, `profile_uri` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `index` INTEGER NOT NULL, `groupId` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `kakao_id` INTEGER NOT NULL, `thumbnail_image` TEXT, `profile_image` TEXT, `profile_uri` TEXT, `isFavorite` INTEGER, `isFavoriteByKakao` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -105,6 +105,18 @@
             "columnName": "profile_uri",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isFavoriteByKakao",
+            "columnName": "isFavoriteByKakao",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -120,7 +132,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd44b1ab72e5aba7b25955ca9051feecb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '781ee4b66feef49b2a1efdf3ebf57286')"
     ]
   }
 }

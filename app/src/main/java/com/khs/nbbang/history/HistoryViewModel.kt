@@ -51,6 +51,11 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     override val mNBBMemberDao: NBBMemberDao
         get() = _db.value.let { it!!.nbbMemberDao()}
 
+    fun setCurrentMonthHistory() {
+        Log.v(TAG,"setCurrentMonthHistory : ${DateUtils().currentMonth()}")
+        _selectMonth.postValue(DateUtils().currentMonth())
+    }
+
     fun showHistoryByMonth(month: Int) {
         updateLoadingFlag(true)
         handleShowHistoryByMonth(

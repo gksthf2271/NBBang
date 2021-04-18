@@ -105,7 +105,7 @@ interface KakaoView {
                             profileNickname = it.profileNickname,
                             uuId = it.uuid,
                             thumbnailImage = it.profileThumbnailImage,
-                            isFavoriteByKakao = it.favorite
+                            isFavoriteByKakao = if (it.favorite) 1 else 0
                         )
                     }
                 }

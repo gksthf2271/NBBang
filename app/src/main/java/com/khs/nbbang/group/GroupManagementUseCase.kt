@@ -24,7 +24,9 @@ interface AddNBBangMember : NBBangGateway {
         request.kakaoId,
         request.thumbnailImage ?: "",
         request.profileImage ?: "",
-        request.profileUri ?: ""
+        request.profileUri ?: "",
+        request.isFavorite ?: 0,
+        request.isFavoriteByKakao ?: 0
     )
 }
 

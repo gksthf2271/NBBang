@@ -63,7 +63,9 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
             d.kakaoId,
             d.thumbnailImage,
             d.profileImage,
-            d.profileUri
+            d.profileUri,
+            d.isFavorite,
+            d.isFavoriteByKakao
         )
 
     override fun addMember(name : String,
@@ -73,7 +75,9 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
                            kakaoId: Long,
                            thumbnailImage: String?,
                            profileImage: String?,
-                           profileUri: String?
+                           profileUri: String?,
+                           isFavorite: Int?,
+                           isFavoriteByKakao : Int?
     ): Single<Member> =
         mNBBMemberDao.insert(
             NBBMemberDataModel(
@@ -85,7 +89,9 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
                 kakaoId,
                 thumbnailImage,
                 profileImage,
-                profileUri
+                profileUri,
+                isFavorite,
+                isFavoriteByKakao
             )
         ).map { id ->
             Member(

@@ -55,5 +55,11 @@ data class NBBMemberDataModel(
     var profileImage : String?,
 
     @ColumnInfo(name = "profile_uri")
-    var profileUri: String?
+    var profileUri: String?,
+
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Int?,
+
+    @ColumnInfo(name = "isFavoriteByKakao")
+    var isFavoriteByKakao: Int?
 )

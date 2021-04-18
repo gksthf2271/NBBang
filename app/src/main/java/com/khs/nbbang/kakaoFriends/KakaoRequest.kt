@@ -8,6 +8,6 @@ data class KakaoRequest (
     var description: String = "",
     var uuId: Long = -1,
     var thumbnailImage : String? = null,
-    var isFavorite: Boolean? = null,
-    var isFavoriteByKakao: Boolean? = null
+    var isFavorite: Int? = null,
+    var isFavoriteByKakao: Int? = null
 )

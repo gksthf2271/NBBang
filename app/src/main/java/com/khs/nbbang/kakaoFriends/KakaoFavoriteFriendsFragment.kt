@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
@@ -17,6 +18,7 @@ import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
 import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.group.MemberRecyclerViewAdapter
 import com.khs.nbbang.login.LoginViewModel
+import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class KakaoFavoriteFriendsFragment : BaseFragment() {
@@ -61,6 +63,31 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
     }
 
     private fun addObserver() {
+        mBinding.viewModel ?: return
+
+        mBinding.viewModel!!.mShowLoadingView.observe(requireActivity(), Observer {
+            when (it) {
+                true -> showLoadingView()
+                false -> hideLoadingView()
+            }
+        })
+
+        mBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
+            val adapter = (mBinding.recyclerFriendList.adapter as? MemberRecyclerViewAdapter)
+                ?: return@Observer
+            adapter.setItem(it)
+
+            mBinding.groupTitle.txt_title.text =
+                "Kakao Favorite Member"
+            mBinding.groupTitle.txt_sub_title.text =
+                "${it.size}명 대기중..."
+            mBinding.viewModel!!.updateLoadingFlag(false)
+        })
+
+        mBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
+            Log.v(TAG, "Select Member : $it")
+            it ?: return@Observer
+        })
 
     }
 
