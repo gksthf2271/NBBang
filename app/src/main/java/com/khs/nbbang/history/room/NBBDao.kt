@@ -2,6 +2,7 @@ package com.khs.nbbang.history.room
 
 import android.net.Uri
 import androidx.room.*
+import com.khs.nbbang.common.MemberType
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
@@ -34,6 +35,12 @@ interface NBBMemberDao {
 
     @Query("SELECT * FROM nbb_member WHERE groupId = :groupId")
     fun getByGroupId(groupId: Long): Single<List<NBBMemberDataModel>>
+
+    @Query("SELECT * FROM nbb_member WHERE kakao_id != -1")
+    fun getKakaoFriends(): Single<List<NBBMemberDataModel>>
+
+    @Query("SELECT * FROM nbb_member WHERE kakao_id == -1")
+    fun getLocalFriends(): Single<List<NBBMemberDataModel>>
 
     @Insert
     fun insert(nbb: NBBMemberDataModel): Single<Long>

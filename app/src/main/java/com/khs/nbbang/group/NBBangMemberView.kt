@@ -1,11 +1,10 @@
 package com.khs.nbbang.group
 
 import android.util.Log
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.user.Member
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -15,14 +14,33 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
 
     val compositeDisposable: CompositeDisposable
 
-    fun renderMembers(nbbangHistory: GetNBBangMemberResult)
+    fun renderLocalMembers(nbbangHistory: GetNBBangMemberResult)
+
+    fun renderKakaoMembers(nbbangHistory: GetNBBangMemberResult)
 
     fun handleShowAllMember(sub: Scheduler, ob: Scheduler) {
         val d = getNBBangAllMember()
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderMembers(r)
+                renderLocalMembers(r)
+            }
+        compositeDisposable.add(d)
+    }
+
+    fun handleShowMembersByType(sub: Scheduler, ob: Scheduler, type: MemberType) {
+        val d = getNBBangAllMemberByType(type)
+            .subscribeOn(sub)
+            .observeOn(ob)
+            .subscribe { r ->
+                when (type) {
+                    MemberType.TYPE_KAKAO -> {
+                        renderKakaoMembers(r)
+                    }
+                    MemberType.TYPE_FREE_USER -> {
+                        renderLocalMembers(r)
+                    }
+                }
             }
         compositeDisposable.add(d)
     }
@@ -32,7 +50,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderMembers(r)
+                renderLocalMembers(r)
             }
         compositeDisposable.add(d)
     }
@@ -43,7 +61,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderMembers(r)
+                renderLocalMembers(r)
             }
         compositeDisposable.add(d)
     }

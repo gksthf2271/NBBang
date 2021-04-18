@@ -1,6 +1,7 @@
 package com.khs.nbbang.history.db_interface
 
 import android.net.Uri
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
@@ -115,6 +116,18 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
 
     override fun getMemberByGroupId(groupId: Long): Single<List<Member>> =
         mNBBMemberDao.getByGroupId(groupId).map { it.map(::convertMember) }
+
+    override fun getMemberByType(type: MemberType): Single<List<Member>> =
+        when (type) {
+            MemberType.TYPE_FREE_USER -> {
+                mNBBMemberDao.getLocalFriends().map { it.map(::convertMember) }
+            }
+            MemberType.TYPE_KAKAO -> {
+                mNBBMemberDao.getKakaoFriends().map { it.map(::convertMember) }
+            }
+        }
+
+
 
     override fun removeMember(id: Long) : Single<Int> = mNBBMemberDao.delete(id)
 

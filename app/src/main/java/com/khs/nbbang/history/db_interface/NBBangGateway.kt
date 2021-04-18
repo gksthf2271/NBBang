@@ -1,6 +1,7 @@
 package com.khs.nbbang.history.db_interface
 
 import android.net.Uri
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
@@ -32,6 +33,7 @@ interface NBBangGateway {
     fun getMembers() : Single<List<Member>>
     fun getMember(id: Long) : Maybe<Member>
     fun getMemberByGroupId(groupId: Long) : Single<List<Member>>
+    fun getMemberByType(type: MemberType) : Single<List<Member>>
     fun removeMember(id: Long) : Single<Int>
     fun updateMember(member: Member) : Single<Int>
     fun addMember(

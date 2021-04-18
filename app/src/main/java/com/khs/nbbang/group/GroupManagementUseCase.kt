@@ -1,5 +1,6 @@
 package com.khs.nbbang.group
 
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.db_interface.NBBangGateway
 import com.khs.nbbang.user.Member
 import io.reactivex.rxjava3.core.Single
@@ -11,6 +12,11 @@ interface GetNbbangMember : NBBangGateway {
 
     fun getNBBangAllMemberByGroupId(groupId: Long): Single<GetNBBangMemberResult> =
         getMemberByGroupId(groupId).map {
+            GetNBBangMemberResult(it)
+        }
+
+    fun getNBBangAllMemberByType(type: MemberType): Single<GetNBBangMemberResult> =
+        getMemberByType(type).map {
             GetNBBangMemberResult(it)
         }
 }

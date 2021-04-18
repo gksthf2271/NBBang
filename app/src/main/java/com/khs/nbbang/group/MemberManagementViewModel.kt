@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseViewModel
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
@@ -66,11 +67,19 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         Member(13, 13,"주경애", 0, "월곡회")
     )
 
-    override fun renderMembers(nbbangMemberresult: GetNBBangMemberResult) {
+    override fun renderLocalMembers(nbbangMemberresult: GetNBBangMemberResult) {
         var currentTime = System.currentTimeMillis()
         Log.v(TAG,"renderMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
         var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
         _memberList.postValue(list)
+    }
+
+
+    override fun renderKakaoMembers(nbbangMemberresult: GetNBBangMemberResult) {
+        var currentTime = System.currentTimeMillis()
+        Log.v(TAG,"renderKakaoMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
+        var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
+        _kakaoFriendList.postValue(list)
     }
 
     fun saveMember(
@@ -134,9 +143,20 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     fun showMemberList() {
         updateLoadingFlag(true)
-        handleShowAllMember(
+        handleShowMembersByType(
             Schedulers.io(),
-            AndroidSchedulers.mainThread())
+            AndroidSchedulers.mainThread(),
+            MemberType.TYPE_FREE_USER
+        )
+    }
+
+    fun showKakaoFriends() {
+        updateLoadingFlag(true)
+        handleShowMembersByType(
+            Schedulers.io(),
+            AndroidSchedulers.mainThread(),
+            MemberType.TYPE_KAKAO
+        )
     }
 
     fun selectMember(member : Member?) {

@@ -60,6 +60,11 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
             }
             addObserver()
         }
+        mBinding.viewModel.let {
+            mBinding.groupTitle.txt_title.text =
+                "Kakao Favorite Member"
+            it!!.showKakaoFriends()
+        }
     }
 
     private fun addObserver() {
@@ -72,13 +77,10 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
             }
         })
 
-        mBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
+        mBinding.viewModel!!.gKakaoFriendList.observe(requireActivity(), Observer {
             val adapter = (mBinding.recyclerFriendList.adapter as? MemberRecyclerViewAdapter)
                 ?: return@Observer
             adapter.setItem(it)
-
-            mBinding.groupTitle.txt_title.text =
-                "Kakao Favorite Member"
             mBinding.groupTitle.txt_sub_title.text =
                 "${it.size}명 대기중..."
             mBinding.viewModel!!.updateLoadingFlag(false)
