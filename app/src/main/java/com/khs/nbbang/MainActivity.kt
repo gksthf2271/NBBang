@@ -131,16 +131,16 @@ class MainActivity : BaseActivity() {
                 mNavItemIndex = 1
                 CURRENT_TAG = TAG_HISTORY
             }
-            R.id.nav_member_settings -> {
-                mNavItemIndex = 2
-                CURRENT_TAG = TAG_MEMBER_SETTINGS
-            }
+//            R.id.nav_member_settings -> {
+//                mNavItemIndex = 2
+//                CURRENT_TAG = TAG_MEMBER_SETTINGS
+//            }
             R.id.nav_kakao_friends_settings -> {
-                mNavItemIndex =3
+                mNavItemIndex = 2
                 CURRENT_TAG = TAG_KAKAO_FRIENDS_SETTINGS
             }
             R.id.nav_my_page -> {
-                mNavItemIndex = 4
+                mNavItemIndex = 3
                 CURRENT_TAG = TAG_MY_PAGE
             }
             else -> mNavItemIndex = 0
@@ -208,7 +208,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun gotoMyPage() {
-        mNavItemIndex = 4
+        mNavItemIndex = 3
         CURRENT_TAG = TAG_MY_PAGE
         navigateDestination()
     }
@@ -239,7 +239,7 @@ class MainActivity : BaseActivity() {
         when (tag) {
             TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_dutch_pay)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
-            TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_group_management)
+//            TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_group_management)
             TAG_KAKAO_FRIENDS_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_kakao_friends_settings)
             TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_my_page)
         }

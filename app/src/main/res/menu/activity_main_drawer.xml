@@ -14,10 +14,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_history" />
 
-        <item
-            android:id="@+id/nav_member_settings"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_member_settings" />
+<!--        <item-->
+<!--            android:id="@+id/nav_member_settings"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="@string/menu_member_settings" />-->
 
         <item
             android:id="@+id/nav_kakao_friends_settings"
