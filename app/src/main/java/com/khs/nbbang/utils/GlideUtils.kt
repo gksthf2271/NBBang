@@ -68,6 +68,11 @@ class GlideUtils(){
                 drawImageWithT(targetView, Uri.parse(member.profileUri), listener)
                 return
             }
+            !member.thumbnailImage.isNullOrEmpty() -> {
+                Log.v(TAG,"draw Member thumbnailImage")
+                drawImageWithT(targetView, Uri.parse(member.thumbnailImage), listener)
+                return
+            }
             else -> {
                 Log.e(TAG,"Profile draw issue!, 프로필 이미지 확인 필요! profileImage : ${member.profileImage}, profileUrl : ${member.profileUri}.")
                 drawImageWithT(targetView, null, listener)
