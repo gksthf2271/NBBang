@@ -67,7 +67,7 @@
     <color name="search_loading_color">#66000000</color>
 
     <color name="blank">#99000000</color>
-
+    <color name="blank_deep">#CC000000</color>
 
     <!-- Default UI Colors -->
     <color name="app_point_color">#695AF1</color>

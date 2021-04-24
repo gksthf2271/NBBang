@@ -2,28 +2,31 @@ package com.khs.nbbang.kakaoFriends
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseDialogFragment
+import com.khs.nbbang.common.FavoriteRecyclerAdapter
 import com.khs.nbbang.databinding.FragmentAddFriendsByKakaoBinding
 import com.khs.nbbang.group.MemberManagementViewModel
-import com.khs.nbbang.group.MemberRecyclerViewAdapter
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.user.KaKaoMember
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.DebugMemberList
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS) {
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
     private val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
     private val gLoginViewModel : LoginViewModel by sharedViewModel()
+    private val DEBUG = true
+
+    lateinit var mRecyclerViewAdapter : FavoriteRecyclerAdapter
 
     companion object {
         @Volatile
@@ -57,10 +60,18 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
 
     fun initView() {
         val layoutManager = LinearLayoutManager(context)
-        mBinding.recyclerView.apply {
+
+        mBinding.btnClose.setOnClickListener { if (this.isAdded) dismiss() }
+
+        mBinding.allFriendsRecyclerView.apply {
             setHasFixedSize(true)
-            addItemDecoration(HistoryItemDecoration(10))
+            addItemDecoration(HistoryItemDecoration(20))
             this.layoutManager = layoutManager
+        }
+
+        mRecyclerViewAdapter = FavoriteRecyclerAdapter(arrayListOf()) { member ->
+            Log.v(TAG,"ItemClicked, member : ${member.name}")
+
         }
         mBinding.viewModel.let { it!!.loadFriendList() }
     }
@@ -76,23 +87,27 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
             loginViewModel!!.gFriendList.observe(requireActivity(), Observer {
                 Log.v(TAG, "loadFriends result : ${it.joinToString("\n")}")
                 var memberArrayList = arrayListOf<Member>()
-                memberArrayList.addAll(it.map {
-                    Member(
-                        id = it.id,
-                        index = it.index,
-                        name = it.profileNickname,
-                        groupId = it.groupId,
-                        description = it.description,
-                        kakaoId = it.uuId,
-                        thumbnailImage = it.thumbnailImage,
-                        isFavorite = it.isFavorite,
-                        isFavoriteByKakao = it.isFavoriteByKakao
-                    )
-                })
+                if (DEBUG) {
+                    memberArrayList.addAll(DebugMemberList.mDummyMemberList)
+                } else {
+                    memberArrayList.addAll(it.map {
+                        Member(
+                            id = it.id,
+                            index = it.index,
+                            name = it.profileNickname,
+                            groupId = it.groupId,
+                            description = it.description,
+                            kakaoId = it.uuId,
+                            thumbnailImage = it.thumbnailImage,
+                            isFavorite = it.isFavorite,
+                            isFavoriteByKakao = it.isFavoriteByKakao
+                        )
+                    })
 
+                }
 
-                mBinding.recyclerView.adapter =
-                    MemberRecyclerViewAdapter(memberArrayList) {
+                mBinding.allFriendsRecyclerView.adapter =
+                    AddFriendsRecyclerViewAdapter(memberArrayList) {
                         Log.v(TAG, "ItemClicked : $it")
                         gMemberManagementViewModel.selectMember(it)
                     }

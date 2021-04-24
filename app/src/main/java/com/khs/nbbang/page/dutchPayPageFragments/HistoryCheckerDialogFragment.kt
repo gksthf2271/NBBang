@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY_CHECKER){
-    val TAG = this.javaClass.simpleName
     lateinit var mBinding: FragmentHistorySaveDialogBinding
     val mHistoryViewModel : HistoryViewModel by sharedViewModel()
     val mPageViewModel : PageViewModel by sharedViewModel()
@@ -80,5 +80,17 @@ class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY
             it!!.setPrimaryClip(clip)
             Toast.makeText(requireContext(),"클립보드에 영수증이 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                if (this.isAdded) {
+                    dismiss()
+                    return true
+                }
+            }
+        }
+        return false
     }
 }

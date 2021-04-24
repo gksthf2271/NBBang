@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.databinding.CviewFavoriteRowBinding
@@ -27,15 +28,19 @@ class FavoriteRowView @JvmOverloads constructor(
         mBinding = CviewFavoriteRowBinding.inflate(inflater, this,true)
     }
 
-    fun initView(vm : PageViewModel){
-        mPageViewModel = vm
-        mRecyclerViewAdapter = FavoriteRecyclerAdapter(arrayListOf()) { member ->
-            Log.v(TAG,"ItemClicked, member : ${member.name}")
-            mPageViewModel.let {
-                if (!mPageViewModel.mNBBLiveData.value!!.mMemberList.contains(member)){
-                    it!!.addJoinPeople(member)
-                } else {
-                    Toast.makeText(context, "${member.name}은 이미 추가된 멤버입니다.", Toast.LENGTH_SHORT).show()
+    fun initView(vm: ViewModel) {
+        when (vm) {
+            vm as PageViewModel -> {
+                mPageViewModel = vm
+                mRecyclerViewAdapter = FavoriteRecyclerAdapter(arrayListOf()) { member ->
+                    Log.v(TAG,"ItemClicked, member : ${member.name}")
+                    mPageViewModel.let {
+                        if (!mPageViewModel.mNBBLiveData.value!!.mMemberList.contains(member)){
+                            it!!.addJoinPeople(member)
+                        } else {
+                            Toast.makeText(context, "${member.name}은 이미 추가된 멤버입니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }

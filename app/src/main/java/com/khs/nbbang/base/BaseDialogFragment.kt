@@ -31,7 +31,14 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
     }
 
     private fun setBackgroundColorDialog() {
-        dialog?.window?.setBackgroundDrawableResource(R.color.blank)
+        when (gDialogType) {
+            DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS -> {
+                dialog?.window?.setBackgroundDrawableResource(R.color.blank_deep)
+            }
+            else -> {
+                dialog?.window?.setBackgroundDrawableResource(R.color.blank)
+            }
+        }
     }
 
     private fun resizeDialog(dialogType : DIALOG_TYPE){
@@ -50,11 +57,11 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
             }
             DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS -> {
                 params?.width = (deviceWidth * 0.95).toInt()
-                params?.height = (deviceeHeight * 0.75).toInt()
+                params?.height = (deviceeHeight * 0.90).toInt()
             }
             DIALOG_TYPE.NONE -> {
-                params?.width = (deviceWidth * 1).toInt()
-                params?.height = (deviceeHeight * 1).toInt()
+                params?.width = (deviceWidth * 1)
+                params?.height = (deviceeHeight * 1)
             }
         }
         dialog?.window?.attributes = params as WindowManager.LayoutParams

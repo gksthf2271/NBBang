@@ -14,7 +14,6 @@ import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFavoriteFriendsBinding
-import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
 import com.khs.nbbang.group.MemberManagementViewModel
 import com.khs.nbbang.group.MemberRecyclerViewAdapter
 import com.khs.nbbang.login.LoginViewModel
@@ -65,6 +64,10 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
                 "Kakao Favorite Member"
             it!!.showKakaoFriends()
         }
+
+        mBinding.btnAdd.setOnClickListener {
+            showAddKakaoFriendsDialog()
+        }
     }
 
     private fun addObserver() {
@@ -96,5 +99,18 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         Log.v(TAG,"onKeyDown(...) : keyCode : $keyCode, KeyEvent : ${event}")
         return false
+    }
+
+    private fun showAddKakaoFriendsDialog() {
+        Log.v(TAG, "showAddKakaoFriendsDialog(...)")
+        var addFriendsFragment = AddFriendsDialogFragment.getInstance()
+        when {
+            addFriendsFragment.isAdded -> {
+                return
+            }
+            else -> {
+                addFriendsFragment.show(requireActivity().supportFragmentManager, tag)
+            }
+        }
     }
 }

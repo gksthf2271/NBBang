@@ -2,6 +2,7 @@ package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,6 @@ import com.khs.nbbang.user.Member
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG){
-    val TAG = this.javaClass.simpleName
     lateinit var mBinding: FragmentSelectPeopleBinding
     lateinit var mRecyclerViewAdapter: SelectPeopleRecyclerViewAdapter
     private val mPageViewModel : PageViewModel by sharedViewModel()
@@ -112,5 +112,17 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
                 Log.v(TAG,"selectedList : ${it!!}")
             })
         }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when(keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                if (this.isAdded) {
+                    dismiss()
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
