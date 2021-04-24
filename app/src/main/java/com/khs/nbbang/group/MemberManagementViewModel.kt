@@ -13,6 +13,7 @@ import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DateUtils
+import com.khs.nbbang.utils.DebugMemberList
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -50,27 +51,10 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         _db.value = mDatabase
     }
 
-    var mDummyMemberList: ArrayList<Member> = arrayListOf(
-        Member(0, 0,"김한솔", 0, "월곡회"),
-        Member(1, 1,"신상은", 0, "월곡회"),
-        Member(2, 2,"정용인", 0, "월곡회"),
-        Member(3, 3,"김진혁", 0, "월곡회"),
-        Member(4, 4,"조현우", 0, "월곡회"),
-        Member(5, 5,"최종휘", 0, "월곡회"),
-        Member(6, 6,"김진근", 0, "월곡회"),
-        Member(7, 7,"이진형", 0, "월곡회"),
-        Member(8, 8,"배재룡", 0, "월곡회"),
-        Member(9, 9, "정준호", 0, "월곡회"),
-        Member(10, 10,"박소연", 0, "월곡회"),
-        Member(11, 11,"장선형", 0, "월곡회"),
-        Member(12, 12,"신주연", 0, "월곡회"),
-        Member(13, 13,"주경애", 0, "월곡회")
-    )
-
     override fun renderLocalMembers(nbbangMemberresult: GetNBBangMemberResult) {
         var currentTime = System.currentTimeMillis()
         Log.v(TAG,"renderMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
-        var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
+        var list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
         _memberList.postValue(list)
     }
 
@@ -78,7 +62,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     override fun renderKakaoMembers(nbbangMemberresult: GetNBBangMemberResult) {
         var currentTime = System.currentTimeMillis()
         Log.v(TAG,"renderKakaoMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
-        var list = if (DEBUG) mDummyMemberList else nbbangMemberresult.nbbangMemberList
+        var list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
         _kakaoFriendList.postValue(list)
     }
 
