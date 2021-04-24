@@ -83,7 +83,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     fun saveMember(
-        id: Long?, groupId: Long?, name: String, description: String, kakaoId: Long,
+        id: Long?, groupId: Long?, name: String, description: String, kakaoId: String,
         thumbnailImage: String?,
         profileImage: String?,
         profileUri: String?

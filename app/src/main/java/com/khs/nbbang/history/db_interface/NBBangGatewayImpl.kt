@@ -73,7 +73,7 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
                            index : Int,
                            groupId: Long,
                            description: String,
-                           kakaoId: Long,
+                           kakaoId: String,
                            thumbnailImage: String?,
                            profileImage: String?,
                            profileUri: String?,
@@ -120,10 +120,10 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
     override fun getMemberByType(type: MemberType): Single<List<Member>> =
         when (type) {
             MemberType.TYPE_FREE_USER -> {
-                mNBBMemberDao.getLocalFriends().map { it.map(::convertMember) }
+                mNBBMemberDao.getLocalFriends("").map { it.map(::convertMember) }
             }
             MemberType.TYPE_KAKAO -> {
-                mNBBMemberDao.getKakaoFriends().map { it.map(::convertMember) }
+                mNBBMemberDao.getKakaoFriends("").map { it.map(::convertMember) }
             }
         }
 

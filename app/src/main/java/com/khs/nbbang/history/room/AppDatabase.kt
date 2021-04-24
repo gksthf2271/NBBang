@@ -9,7 +9,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.khs.nbbang.utils.TypeConverter
 
-@Database(entities = [NBBPlaceDataModel::class, NBBMemberDataModel::class], version = 2)
+@Database(entities = [NBBPlaceDataModel::class, NBBMemberDataModel::class], version = 1)
 @TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun nbbangDao(): NBBPlaceDao
@@ -41,8 +41,8 @@ abstract class AppDatabase : RoomDatabase(){
 
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE 'nbb_member' ADD 'isFavorite' INTEGER DEFAULT 0 ")
-        database.execSQL("ALTER TABLE 'nbb_member' ADD 'isFavoriteByKakao' INTEGER DEFAULT 0 ")
+//        database.execSQL("ALTER TABLE 'nbb_member' ADD 'isFavorite' INTEGER DEFAULT 0 ")
+//        database.execSQL("ALTER TABLE 'nbb_member' ADD 'isFavoriteByKakao' INTEGER DEFAULT 0 ")
 
 //        ALTER TABLE BLG_PJT_R_RISK ADD DEL_YN CHAR(1) NOT NULL DEFAULT 'N'
 //

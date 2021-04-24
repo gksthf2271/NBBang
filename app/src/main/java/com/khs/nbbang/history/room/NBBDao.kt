@@ -36,11 +36,11 @@ interface NBBMemberDao {
     @Query("SELECT * FROM nbb_member WHERE groupId = :groupId")
     fun getByGroupId(groupId: Long): Single<List<NBBMemberDataModel>>
 
-    @Query("SELECT * FROM nbb_member WHERE kakao_id != -1")
-    fun getKakaoFriends(): Single<List<NBBMemberDataModel>>
+    @Query("SELECT * FROM nbb_member WHERE kakao_id != :empty ")
+    fun getKakaoFriends(empty : String): Single<List<NBBMemberDataModel>>
 
-    @Query("SELECT * FROM nbb_member WHERE kakao_id == -1")
-    fun getLocalFriends(): Single<List<NBBMemberDataModel>>
+    @Query("SELECT * FROM nbb_member WHERE kakao_id == :empty")
+    fun getLocalFriends(empty : String): Single<List<NBBMemberDataModel>>
 
     @Insert
     fun insert(nbb: NBBMemberDataModel): Single<Long>
@@ -55,5 +55,5 @@ interface NBBMemberDao {
 //    fun update(member: Member) : Maybe<NBBMemberDataModel>
 
     @Query("UPDATE nbb_member SET name = :updateName, description = :updateDescription, kakao_id = :updateKakaoId, thumbnail_image = :updateThumbnailImage, profile_image = :updateProfileImage, profile_uri = :updateProfileUri WHERE id == :targetId")
-    fun update(targetId : Long, updateName : String, updateDescription : String, updateKakaoId : Long, updateThumbnailImage: String?, updateProfileImage: String?, updateProfileUri: String?) : Single<Int>
+    fun update(targetId : Long, updateName : String, updateDescription : String, updateKakaoId : String, updateThumbnailImage: String?, updateProfileImage: String?, updateProfileUri: String?) : Single<Int>
 }

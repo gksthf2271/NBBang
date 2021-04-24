@@ -33,7 +33,7 @@ interface KakaoGateway {
         index : Int,
         groupId: Long,
         description: String,
-        kakaoId: Long,
+        kakaoId: String,
         thumbnailImage: String?,
         profileImage: String?,
         profileUri: String?

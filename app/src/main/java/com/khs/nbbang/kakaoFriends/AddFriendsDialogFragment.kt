@@ -1,6 +1,5 @@
 package com.khs.nbbang.kakaoFriends
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -12,16 +11,33 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
-import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentAddFriendsByKakaoBinding
 import com.khs.nbbang.group.MemberManagementViewModel
+import com.khs.nbbang.group.MemberRecyclerViewAdapter
 import com.khs.nbbang.login.LoginViewModel
+import com.khs.nbbang.user.KaKaoMember
+import com.khs.nbbang.user.Member
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class AddFriendsFragment : BaseFragment() {
+class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.NONE) {
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
     private val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
     private val gLoginViewModel : LoginViewModel by sharedViewModel()
+
+    companion object {
+        @Volatile
+        private var instance: AddFriendsDialogFragment? = null
+
+        @JvmStatic
+        fun getInstance(): AddFriendsDialogFragment =
+            instance ?: synchronized(this) {
+                instance
+                    ?: AddFriendsDialogFragment().also {
+                        instance = it
+                    }
+            }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,11 +53,6 @@ class AddFriendsFragment : BaseFragment() {
         mBinding.viewModel = gLoginViewModel
         initView()
         addObserver()
-    }
-
-    override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
-        return null
     }
 
     fun initView() {
@@ -63,7 +74,28 @@ class AddFriendsFragment : BaseFragment() {
                 }
             })
             loginViewModel!!.gFriendList.observe(requireActivity(), Observer {
-                Log.v(TAG,"loadFriends result : ${it.joinToString("\n")}")
+                Log.v(TAG, "loadFriends result : ${it.joinToString("\n")}")
+                var memberArrayList = arrayListOf<Member>()
+                memberArrayList.addAll(it.map {
+                    Member(
+                        id = it.id,
+                        index = it.index,
+                        name = it.profileNickname,
+                        groupId = it.groupId,
+                        description = it.description,
+                        kakaoId = it.uuId,
+                        thumbnailImage = it.thumbnailImage,
+                        isFavorite = it.isFavorite,
+                        isFavoriteByKakao = it.isFavoriteByKakao
+                    )
+                })
+
+
+                mBinding.recyclerView.adapter =
+                    MemberRecyclerViewAdapter(memberArrayList) {
+                        Log.v(TAG, "ItemClicked : $it")
+                        gMemberManagementViewModel.selectMember(it)
+                    }
             })
         }
     }
@@ -71,7 +103,10 @@ class AddFriendsFragment : BaseFragment() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when(keyCode) {
             KeyEvent.KEYCODE_BACK -> {
-                //todo 팝업 기능 추가 시 hide는 여기서 처리
+                if (this.isAdded) {
+                    dismiss()
+                    return true
+                }
             }
         }
         return false

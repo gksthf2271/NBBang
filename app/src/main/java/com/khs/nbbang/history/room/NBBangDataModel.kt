@@ -46,7 +46,7 @@ data class NBBMemberDataModel(
     var description: String,
 
     @ColumnInfo(name = "kakao_id")
-    var kakaoId: Long,
+    var kakaoId: String,
 
     @ColumnInfo(name = "thumbnail_image")
     var thumbnailImage : String?,
