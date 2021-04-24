@@ -20,7 +20,7 @@ import com.khs.nbbang.user.KaKaoMember
 import com.khs.nbbang.user.Member
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.NONE) {
+class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS) {
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
     private val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
     private val gLoginViewModel : LoginViewModel by sharedViewModel()

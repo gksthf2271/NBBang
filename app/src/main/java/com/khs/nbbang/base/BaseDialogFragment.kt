@@ -13,12 +13,15 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
         TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
         TYPE_HISTORY_CHECKER,
         TYPE_COMMON_LOADING,
+        TYPE_ADD_KAKAO_FIRENDS,
         NONE
     }
 
     override fun onResume() {
         super.onResume()
         when (gDialogType) {
+            DIALOG_TYPE.NONE,
+            DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS,
             DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
             DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
                 resizeDialog(gDialogType)
@@ -42,6 +45,10 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
                 params?.height = (deviceeHeight * 0.75).toInt()
             }
             DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
+                params?.width = (deviceWidth * 0.95).toInt()
+                params?.height = (deviceeHeight * 0.75).toInt()
+            }
+            DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS -> {
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.75).toInt()
             }
