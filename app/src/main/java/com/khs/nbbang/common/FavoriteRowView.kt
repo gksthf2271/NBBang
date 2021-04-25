@@ -44,7 +44,10 @@ class FavoriteRowView @JvmOverloads constructor(
                 }
             }
         }
+        initRecyclerView()
+    }
 
+    fun initRecyclerView() {
         mBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             isFocusable = true

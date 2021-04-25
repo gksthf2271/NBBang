@@ -1,14 +1,10 @@
 package com.khs.nbbang.kakaoFriends
 
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.khs.nbbang.R
+import com.khs.nbbang.page.itemView.SelectMemberView
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_memeber_item.view.*
 
 class AddFriendsRecyclerViewAdapter (
     private val mMemberList: ArrayList<Member>,
@@ -19,8 +15,7 @@ class AddFriendsRecyclerViewAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.cview_selectable_member_item, parent, false), itemClick
+            SelectMemberView(parent.context), itemClick
         )
     }
 
@@ -34,15 +29,14 @@ class AddFriendsRecyclerViewAdapter (
         holder.bind(mMemberList.get(position))
     }
 
-    class ViewHolder(itemView: View, itemClick: (Member) -> Unit) :
+    class ViewHolder(itemView: SelectMemberView, itemClick: (Member) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.simpleName
-        var mItemView: View = itemView
+        var mItemView: SelectMemberView = itemView
         var mItemClick = itemClick
 
         fun bind(member: Member) {
-            mItemView.txt_name.text = member.name
-            GlideUtils().drawMemberProfile(mItemView.img_profile, member, null)
+            mItemView.setMember(member, false)
             mItemView.setOnClickListener { mItemClick(member) }
         }
     }

@@ -8,6 +8,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
 import com.khs.nbbang.databinding.CviewTextPeopleBinding
+import com.khs.nbbang.kakaoFriends.AddFriendsDialogFragment
+import com.khs.nbbang.kakaoFriends.KakaoFavoriteFriendsFragment
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
@@ -35,6 +37,10 @@ class SelectMemberView @JvmOverloads constructor(
     }
 
     fun setMember(member: Member) {
+        setMember(member,true)
+    }
+
+    fun setMember(member: Member, isNotifyViewModel : Boolean) {
         tag = member
         mBinding.let {
             Log.v(TAG,"memberName : ${member.name}, isSelected : $gIsSelectedView")
@@ -43,14 +49,14 @@ class SelectMemberView @JvmOverloads constructor(
             mBinding.layoutRoot.setOnClickListener {
                 Log.v(TAG,"onClicked Member! before isSelected : $gIsSelectedView ----------------------------")
                 gIsSelectedView = !gIsSelectedView
-                selectCircleView(gIsSelectedView, member)
+                selectCircleView(gIsSelectedView, member, isNotifyViewModel)
                 Log.v(TAG,"------------------after isSelected : $gIsSelectedView ----------------------------")
             }
-            selectCircleView(gIsSelectedView, member)
+            selectCircleView(gIsSelectedView, member, isNotifyViewModel)
         }
     }
 
-    private fun selectCircleView(isSelected: Boolean, member: Member) {
+    private fun selectCircleView(isSelected: Boolean, member: Member, isNotifyViewmodel: Boolean) {
         synchronized(gClickLock) {
             Log.v(TAG, "selectCircleView(...) isSelected : $isSelected")
 
@@ -62,12 +68,12 @@ class SelectMemberView @JvmOverloads constructor(
                 true -> {
                     Log.v(TAG, "motion transition To End!")
                     mBinding.layoutRoot.transitionToEnd()
-                    gSelectMemberViewModel.addSelectedMember(member)
+                    if (isNotifyViewmodel) gSelectMemberViewModel.addSelectedMember(member)
                 }
                 false -> {
                     Log.v(TAG, "motion transition To Start!")
                     mBinding.layoutRoot.transitionToStart()
-                    gSelectMemberViewModel.removeSelectedMember(member)
+                    if (isNotifyViewmodel) gSelectMemberViewModel.removeSelectedMember(member)
                 }
             }
         }
