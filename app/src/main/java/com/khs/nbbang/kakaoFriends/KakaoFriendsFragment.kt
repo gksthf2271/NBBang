@@ -13,8 +13,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
-import com.khs.nbbang.group.GroupManagementFragment
-import com.khs.nbbang.group.MemberManagementViewModel
+import com.khs.nbbang.localMember.GroupManagementFragment
+import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import org.koin.android.viewmodel.ext.android.viewModel

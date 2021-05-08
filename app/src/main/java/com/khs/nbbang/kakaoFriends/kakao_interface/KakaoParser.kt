@@ -1,13 +1,5 @@
 package com.khs.nbbang.kakaoFriends.kakao_interface
 
-import com.kakao.sdk.talk.model.Friend
-import com.kakao.sdk.talk.model.Friends
-import com.khs.nbbang.group.memberRequest
-import com.khs.nbbang.kakaoFriends.KakaoRequest
-import com.khs.nbbang.user.KaKaoMember
-import com.khs.nbbang.user.Member
-import io.reactivex.Single
-
 abstract class KakaoParser {
 
 //    abstract fun parseKakaoFriendList(

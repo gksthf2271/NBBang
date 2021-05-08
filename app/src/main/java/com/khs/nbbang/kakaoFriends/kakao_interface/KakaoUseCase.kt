@@ -1,7 +1,7 @@
 package com.khs.nbbang.kakaoFriends.kakao_interface
 
 import android.content.Context
-import com.khs.nbbang.group.GetNBBangMemberResult
+import com.khs.nbbang.localMember.GetNBBangMemberResult
 import io.reactivex.rxjava3.core.Single
 
 interface Login : KakaoGateway {

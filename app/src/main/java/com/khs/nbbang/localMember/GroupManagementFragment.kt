@@ -1,4 +1,4 @@
-package com.khs.nbbang.group
+package com.khs.nbbang.localMember
 
 import android.app.Dialog
 import android.os.Bundle
@@ -17,7 +17,6 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.utils.DateUtils
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 

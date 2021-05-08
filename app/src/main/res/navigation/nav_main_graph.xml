@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/groupManagementFragment"
-        android:name="com.khs.nbbang.group.GroupManagementFragment"
+        android:name="com.khs.nbbang.localMember.GroupManagementFragment"
         android:label="MyPage"
         tools:layout="@layout/fragment_group_management">
     </fragment>

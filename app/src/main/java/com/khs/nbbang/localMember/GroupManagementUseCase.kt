@@ -1,4 +1,4 @@
-package com.khs.nbbang.group
+package com.khs.nbbang.localMember
 
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.db_interface.NBBangGateway

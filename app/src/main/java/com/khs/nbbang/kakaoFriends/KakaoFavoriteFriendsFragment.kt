@@ -14,8 +14,8 @@ import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFavoriteFriendsBinding
-import com.khs.nbbang.group.MemberManagementViewModel
-import com.khs.nbbang.group.MemberRecyclerViewAdapter
+import com.khs.nbbang.localMember.MemberManagementViewModel
+import com.khs.nbbang.localMember.MemberRecyclerViewAdapter
 import com.khs.nbbang.login.LoginViewModel
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel

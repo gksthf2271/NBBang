@@ -13,7 +13,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.animation.ZoomOutPageTransformer
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentDutchpayHomeBinding
-import com.khs.nbbang.group.MemberManagementViewModel
+import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.dutchPayPageFragments.AddPeopleFragment
 import com.khs.nbbang.page.dutchPayPageFragments.AddPlaceFragment
 import com.khs.nbbang.page.dutchPayPageFragments.PeopleCountFragment

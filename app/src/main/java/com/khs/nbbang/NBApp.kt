@@ -3,7 +3,7 @@ package com.khs.nbbang
 import android.app.Application
 import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
-import com.khs.nbbang.group.MemberManagementViewModel
+import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao

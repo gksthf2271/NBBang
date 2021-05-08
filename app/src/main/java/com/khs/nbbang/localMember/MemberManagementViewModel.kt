@@ -1,10 +1,8 @@
-package com.khs.nbbang.group
+package com.khs.nbbang.localMember
 
 import android.util.Log
-import android.util.TimeUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
@@ -20,7 +18,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewModel(), NBBangMemberView,
     NBBangGatewayImpl {
-    private val DEBUG = false
+    private val DEBUG = true
 
     private val _db : MutableLiveData<AppDatabase> = MutableLiveData()
     val mDB : LiveData<AppDatabase> get() = _db

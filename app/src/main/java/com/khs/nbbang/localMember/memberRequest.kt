@@ -1,6 +1,4 @@
-package com.khs.nbbang.group
-
-import android.net.Uri
+package com.khs.nbbang.localMember
 
 data class memberRequest(
     var id: Long = -1,

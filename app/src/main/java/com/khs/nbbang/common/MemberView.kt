@@ -8,23 +8,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.databinding.CviewMemberBinding
-import com.khs.nbbang.group.MemberManagementViewModel
+import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.ButtonCallBackListener
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
-import com.khs.nbbang.utils.StringUtils
-import kotlinx.android.synthetic.main.cview_title_description.view.*
-import kotlinx.android.synthetic.main.cview_title_description.view.txt_title
 import kotlinx.android.synthetic.main.cview_title_edittext.view.*
-import lv.chi.photopicker.PhotoPickerFragment
 import org.koin.core.component.KoinComponent
 
 class MemberView  @JvmOverloads constructor(

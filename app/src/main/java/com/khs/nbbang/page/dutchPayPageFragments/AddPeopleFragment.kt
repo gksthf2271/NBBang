@@ -18,7 +18,7 @@ import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
-import com.khs.nbbang.group.MemberManagementViewModel
+import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel

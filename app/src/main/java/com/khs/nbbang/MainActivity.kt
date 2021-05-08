@@ -18,7 +18,7 @@ import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivityMainBinding
-import com.khs.nbbang.group.MemberManagementViewModel
+import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.khs.nbbang.group.MemberManagementViewModel" />
+            type="com.khs.nbbang.localMember.MemberManagementViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
