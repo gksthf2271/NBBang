@@ -3,6 +3,7 @@ package com.khs.nbbang.kakaoFriends
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.khs.nbbang.page.adapter.SelectPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.itemView.SelectMemberView
 import com.khs.nbbang.user.Member
 
@@ -13,10 +14,11 @@ class AddFriendsRecyclerViewAdapter (
     private val TAG: String = javaClass.simpleName
     val DEBUG = true
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            SelectMemberView(parent.context), itemClick
-        )
+        val view = SelectMemberView(parent.context)
+        view.setViewSize(3)
+        return ViewHolder(view, itemClick)
     }
 
     override fun getItemCount(): Int {

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
@@ -56,7 +57,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
     }
 
     fun initView() {
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager = GridLayoutManager(context, 3)
 
         mBinding.btnClose.setOnClickListener { if (this.isAdded) dismiss() }
 
