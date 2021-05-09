@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.user.Member
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
 

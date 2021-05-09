@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentKakaoFavoriteFriendsBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.localMember.MemberRecyclerViewAdapter
@@ -62,7 +63,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
         mBinding.viewModel.let {
             mBinding.groupTitle.txt_title.text =
                 "Kakao Favorite Member"
-            it!!.showKakaoFriends()
+            it!!.showFavoriteMemberListByType(MemberType.TYPE_KAKAO)
         }
 
         mBinding.btnAdd.setOnClickListener {
@@ -93,7 +94,6 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
             Log.v(TAG, "Select Member : $it")
             it ?: return@Observer
         })
-
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

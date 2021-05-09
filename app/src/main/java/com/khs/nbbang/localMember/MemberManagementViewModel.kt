@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewModel(), NBBangMemberView,
     NBBangGatewayImpl {
-    private val DEBUG = true
+    private val DEBUG = false
 
     private val _db : MutableLiveData<AppDatabase> = MutableLiveData()
     val mDB : LiveData<AppDatabase> get() = _db
@@ -94,6 +94,12 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         )
     }
 
+    fun saveKakaoMember() {
+        gKakaoFriendList.value.let {
+            updateKakaoMember(Schedulers.io(), AndroidSchedulers.mainThread(), MemberType.TYPE_KAKAO, it!!)
+        }
+    }
+
     fun update(updateMember: Member) {
         Log.v(TAG,"updateJoinPeople(...) beforeMember : ${mSelectMember.value}, afterMember : ${updateMember}")
         updateLoadingFlag(true)
@@ -123,21 +129,12 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 //        }
     }
 
-    fun showMemberList() {
+    fun showFavoriteMemberListByType(type : MemberType) {
         updateLoadingFlag(true)
         handleShowMembersByType(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
-            MemberType.TYPE_FREE_USER
-        )
-    }
-
-    fun showKakaoFriends() {
-        updateLoadingFlag(true)
-        handleShowMembersByType(
-            Schedulers.io(),
-            AndroidSchedulers.mainThread(),
-            MemberType.TYPE_KAKAO
+            type
         )
     }
 

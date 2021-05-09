@@ -69,16 +69,17 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
             d.isFavoriteByKakao
         )
 
-    override fun addMember(name : String,
-                           index : Int,
-                           groupId: Long,
-                           description: String,
-                           kakaoId: String,
-                           thumbnailImage: String?,
-                           profileImage: String?,
-                           profileUri: String?,
-                           isFavorite: Int?,
-                           isFavoriteByKakao : Int?
+    override fun addMember(
+        name: String,
+        index: Int,
+        groupId: Long,
+        description: String,
+        kakaoId: String,
+        thumbnailImage: String?,
+        profileImage: String?,
+        profileUri: String?,
+        isFavorite: Int?,
+        isFavoriteByKakao: Int?
     ): Single<Member> =
         mNBBMemberDao.insert(
             NBBMemberDataModel(
@@ -128,8 +129,18 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
         }
 
 
+    override fun removeMember(id: Long): Single<Int> = mNBBMemberDao.delete(id)
 
-    override fun removeMember(id: Long) : Single<Int> = mNBBMemberDao.delete(id)
+    override fun removeMemberByType(memberType: MemberType): Single<Int> =
+        when (memberType) {
+            MemberType.TYPE_KAKAO -> {
+                mNBBMemberDao.deleteKakaoMembers("")
+            }
+            MemberType.TYPE_FREE_USER -> {
+                mNBBMemberDao.deleteLocalMembers("")
+            }
+        }
+
 
     override fun updateMember(member: Member): Single<Int> = mNBBMemberDao.update(
         member.id,
@@ -140,4 +151,5 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
         member.profileImage,
         member.profileUri
     )
+
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.user.Member
@@ -115,7 +116,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
             }
 
             mGroupManagementBinding.viewModel.let {
-                it!!.showMemberList()
+                it!!.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
                 mParentFragment.setViewModel(it!!)
             }
         }

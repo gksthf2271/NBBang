@@ -17,6 +17,7 @@ import com.kakao.sdk.talk.TalkApiClient
 import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.FloatingButtonBaseFragment
@@ -110,7 +111,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         }
 
         fun initView(parentFragment: AddPeopleFragment) {
-            mMemberViewModel.showMemberList()
+            mMemberViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
             mParentFragment = parentFragment
 
             if (mAddPeopleContentsBinding.recyclerView.adapter == null) {

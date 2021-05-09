@@ -42,11 +42,20 @@ interface NBBMemberDao {
     @Query("SELECT * FROM nbb_member WHERE kakao_id == :empty")
     fun getLocalFriends(empty : String): Single<List<NBBMemberDataModel>>
 
+    @Query("SELECT * FROM nbb_member")
+    fun getAllFriends(): Single<List<NBBMemberDataModel>>
+
     @Insert
     fun insert(nbb: NBBMemberDataModel): Single<Long>
 
     @Query("DELETE from nbb_member WHERE id = :id")
     fun delete(id: Long) : Single<Int>
+
+    @Query("DELETE from nbb_member WHERE kakao_id != :empty")
+    fun deleteKakaoMembers(empty: String) : Single<Int>
+
+    @Query("DELETE from nbb_member WHERE kakao_id == :empty")
+    fun deleteLocalMembers(empty: String) : Single<Int>
 
     @Delete
     fun delete(member:NBBMemberDataModel) : Completable

@@ -40,6 +40,10 @@ interface DeleteNBBangMember : NBBangGateway {
     fun deleteNBBangMember(request: memberRequest): Single<Int> = removeMember(
         request.id
     )
+
+    fun deleteNBBangMember(memberType: MemberType): Single<Int> = removeMemberByType(
+        memberType
+    )
 }
 
 interface UpdateNBBangMember : NBBangGateway {

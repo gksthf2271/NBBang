@@ -78,6 +78,19 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
         compositeDisposable.add(d)
     }
 
+    fun updateKakaoMember(sub: Scheduler, ob: Scheduler, memberType: MemberType, memberList: List<Member>) {
+        val d = deleteNBBangMember(memberType)
+            .subscribeOn(sub)
+            .observeOn(ob)
+            .subscribe { r ->
+                Log.v(this.javaClass.simpleName,"updateKakaoMember : $r")
+                for (member in memberList) {
+                    handleAddMember(sub, ob, member)
+                }
+            }
+        compositeDisposable.add(d)
+    }
+
     fun handleUpdateMember(sub: Scheduler, ob: Scheduler, targetMember : Member, updateMember : Member) {
         val d = updateNBBangMember(requestUpdateMember(targetMember, updateMember))
             .subscribeOn(sub)

@@ -49,4 +49,13 @@ class AddFriendsRecyclerViewAdapter (
         this.mMemberList.addAll(members)
         notifyDataSetChanged()
     }
+
+    fun findMemberByKakaoId(kakaoId: String) : Member? {
+        for (member in mMemberList) {
+            if (member.kakaoId == kakaoId) {
+                return member
+            }
+        }
+        return null
+    }
 }

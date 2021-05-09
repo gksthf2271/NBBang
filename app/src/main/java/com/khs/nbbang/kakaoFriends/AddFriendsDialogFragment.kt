@@ -14,15 +14,20 @@ import com.khs.nbbang.common.FavoriteRecyclerAdapter
 import com.khs.nbbang.databinding.FragmentAddFriendsByKakaoBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
+import com.khs.nbbang.page.itemView.SelectMemberView
+import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DebugMemberList
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS) {
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
     private val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
     private val gLoginViewModel : LoginViewModel by sharedViewModel()
-    private val DEBUG = true
+    val gSelectMemberViewModel by viewModel<SelectMemberViewModel>()
+    private val DEBUG = false
 
     lateinit var mRecyclerViewAdapter : FavoriteRecyclerAdapter
 
@@ -60,6 +65,10 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
         val layoutManager = GridLayoutManager(context, 3)
 
         mBinding.btnClose.setOnClickListener { if (this.isAdded) dismiss() }
+        mBinding.btnSave.setOnClickListener {
+            gMemberManagementViewModel.saveKakaoMember()
+            dismiss()
+        }
 
         mBinding.allFriendsRecyclerView.apply {
             setHasFixedSize(true)
@@ -78,7 +87,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
         mBinding.viewModel.let { loginViewModel ->
             loginViewModel!!.gIsLogin.observe(requireActivity(), Observer {
                 if (!it) {
-                    Log.e(TAG,"isLogin : ${it}")
+                    Log.e(TAG, "isLogin : ${it}")
                     return@Observer
                 }
             })
@@ -101,16 +110,30 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
                             isFavoriteByKakao = it.isFavoriteByKakao
                         )
                     })
-
                 }
 
                 mBinding.allFriendsRecyclerView.adapter =
                     AddFriendsRecyclerViewAdapter(memberArrayList) {
                         Log.v(TAG, "ItemClicked : $it")
-                        gMemberManagementViewModel.selectMember(it)
                     }
             })
         }
+        gMemberManagementViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
+            Log.v(TAG, "kakao Local list : ${it.joinToString("\n")}")
+            var memberArrayList = arrayListOf<Member>()
+            if (DEBUG) {
+                memberArrayList.addAll(DebugMemberList.mDummyMemberList)
+            } else {
+                memberArrayList.addAll(it)
+            }
+            gSelectMemberViewModel.setSelectedMemberList(ArrayList(it))
+        })
+
+        gSelectMemberViewModel.gSelectedMemberList.observe(requireActivity(), Observer {
+            mBinding.rowFavoriteMember.initView(mBinding.viewModel!!)
+            mBinding.rowFavoriteMember.setTitle("Favorite Member")
+            mBinding.rowFavoriteMember.setList(it!!)
+        })
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
