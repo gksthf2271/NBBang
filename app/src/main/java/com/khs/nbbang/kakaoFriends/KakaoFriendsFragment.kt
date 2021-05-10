@@ -15,20 +15,17 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
 import com.khs.nbbang.localMember.GroupManagementFragment
 import com.khs.nbbang.localMember.MemberManagementViewModel
+import com.khs.nbbang.login.LoginView
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class KakaoFriendsFragment : BaseFragment() {
     lateinit var mBinding : FragmentKakaoFriendsBinding
-    val gLoginViewModel by viewModel<LoginViewModel>()
+//    val gLoginViewModel by viewModel<LoginViewModel>()
+    val gLoginViewModel by sharedViewModel<LoginViewModel>()
     val gMemberManagementViewModel by viewModel<MemberManagementViewModel>()
-
-
-    private val mPageViewList: MutableList<BaseFragment> = mutableListOf(
-        GroupManagementFragment(),
-        KakaoFavoriteFriendsFragment()
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,11 +59,17 @@ class KakaoFriendsFragment : BaseFragment() {
     }
 
     private fun initView() {
+        var defaultPageViewList: MutableList<BaseFragment> = mutableListOf(GroupManagementFragment())
         mBinding.viewPager.apply {
+            defaultPageViewList.run{
+                if (gLoginViewModel.checkKakaoLogin()){
+                    this.add(KakaoFavoriteFriendsFragment())
+                }
+            }
             this.adapter = CustomViewPagerAdapter(
                 requireActivity().supportFragmentManager,
                 lifecycle,
-                mPageViewList
+                defaultPageViewList
             )
 
             TabLayoutMediator(mBinding.tabLayout, this) { tab, position ->

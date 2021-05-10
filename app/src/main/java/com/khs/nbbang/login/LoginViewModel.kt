@@ -1,6 +1,7 @@
 package com.khs.nbbang.login
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -107,6 +108,10 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoView
                 logoutAndResetData()
             }
         }
+    }
+
+    fun checkKakaoLogin() : Boolean{
+        return _isLogin.value == true && _loginCookie.value != null && !TextUtils.isEmpty(_loginCookie.value!!.accessToken)
     }
 
     override fun onCleared() {
