@@ -47,7 +47,7 @@ interface KakaoView {
             .observeOn(ob)
             .subscribe({
                 Log.i("KakaoView", "로그아웃 성공. SDK에서 토큰 삭제 됨")
-                requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_SUCCESS, result =  null)
+                requestResult(resultCode = ReturnType().RETURN_TYPE_LOGOUT_SUCCESS, result =  null)
             }, { error ->
                 Log.e("KakaoView", "로그아웃 실패. SDK에서 토큰 삭제 됨", error)
                 requestResult(ReturnType().RETURN_TYPE_NONE_FAILED, error)

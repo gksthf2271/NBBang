@@ -92,6 +92,10 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoView
                     _isLogin.postValue(true)
                 }
             }
+            ReturnType().RETURN_TYPE_LOGOUT_SUCCESS -> {
+                Log.v(TAG,"RETURN_TYPE_LOGOUT_SUCCESS, Result : $result")
+                logoutAndResetData()
+            }
             ReturnType().RETURN_TYPE_MY_INFO_SUCCESS -> {
                 Log.v(TAG,"RETURN_TYPE_MY_INFO_SUCCESS, Result : $result")
                 updateMyDataFromKakao(result as User)
