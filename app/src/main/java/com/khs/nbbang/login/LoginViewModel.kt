@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.talk.model.TalkProfile
 import com.kakao.sdk.user.UserApiClient
+import com.kakao.sdk.user.model.User
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.kakaoFriends.KakaoView
 import com.khs.nbbang.kakaoFriends.kakao_interface.ReturnType
@@ -45,26 +47,19 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoView
         handleLogin(context, Schedulers.io(), AndroidSchedulers.mainThread())
     }
 
-    private fun updateMyDataFromKakao() {
-        UserApiClient.instance.me { user, throwable ->
-            if (user == null) {
-                Log.e(TAG, "Failed loadMyData from KaKao : $throwable")
-                return@me
-            } else {
-                var name = user.properties.let { it!!.get("nickname") }
-                _myDataFromKakao.postValue(
-                    KaKaoUser(
-                        id = user.id,
-                        name = name ?: "",
-                        properties = user.properties,
-                        kakaoAccount = user.kakaoAccount,
-                        groupUserToken = user.groupUserToken,
-                        connectedAt = user.connectedAt,
-                        synchedAt = user.synchedAt
-                    )
-                )
-            }
-        }
+    private fun updateMyDataFromKakao(user : User) {
+        var name = user.properties.let { it!!.get("nickname") }
+        _myDataFromKakao.postValue(
+            KaKaoUser(
+                id = user.id,
+                name = name ?: "",
+                properties = user.properties,
+                kakaoAccount = user.kakaoAccount,
+                groupUserToken = user.groupUserToken,
+                connectedAt = user.connectedAt,
+                synchedAt = user.synchedAt
+            )
+        )
     }
 
     fun logout() {
@@ -91,10 +86,14 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoView
                 Log.v(TAG,"RETURN_TYPE_LOGIN_SUCCESS, Result : $result")
                if (result != null && result is OAuthToken) {
                     Log.i(TAG, "로그인 성공 ${result.accessToken}")
-                    updateMyDataFromKakao()
+                   handleMyInfoUpdate(Schedulers.io(), AndroidSchedulers.mainThread())
                     _loginCookie.postValue(LoginCookie(accessToken = result.accessToken))
                     _isLogin.postValue(true)
                 }
+            }
+            ReturnType().RETURN_TYPE_MY_INFO_SUCCESS -> {
+                Log.v(TAG,"RETURN_TYPE_MY_INFO_SUCCESS, Result : $result")
+                updateMyDataFromKakao(result as User)
             }
             ReturnType().RETURN_TYPE_PROFILE_SUCCESS -> {
                 Log.v(TAG,"RETURN_TYPE_PROFILE_SUCCESS, Result : $result")

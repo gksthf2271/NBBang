@@ -69,6 +69,19 @@ interface KakaoView {
         compositeDisposable.add(d)
     }
 
+    fun handleMyInfoUpdate(sub: Scheduler, ob: Scheduler) {
+        val d = UserApiClient.rx.me()
+            .subscribeOn(sub)
+            .observeOn(ob)
+            .subscribe({ myInfo ->
+                requestResult(resultCode = ReturnType().RETURN_TYPE_MY_INFO_SUCCESS, result = myInfo)
+            }, { error ->
+                Log.e("KakaoView", "내 프로필 가지고 오기 실패", error)
+                requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_FAILED, result = error)
+            })
+        compositeDisposable.add(d)
+    }
+
     fun handleLoadMyProfileInfo(sub: Scheduler, ob: Scheduler) {
         // 카카오톡 프로필 가져오기
         val d = TalkApiClient.rx.profile()
