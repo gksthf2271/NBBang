@@ -6,12 +6,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.talk.model.TalkProfile
-import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.kakaoFriends.KakaoView
-import com.khs.nbbang.kakaoFriends.kakao_interface.ReturnType
+import com.khs.nbbang.kakaoFriends.ReturnType
 import com.khs.nbbang.user.KaKaoMember
 import com.khs.nbbang.user.KaKaoUser
 import io.reactivex.android.schedulers.AndroidSchedulers

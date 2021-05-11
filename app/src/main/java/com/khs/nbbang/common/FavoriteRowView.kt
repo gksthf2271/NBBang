@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.databinding.CviewFavoriteRowBinding
-import com.khs.nbbang.login.LoginView
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member

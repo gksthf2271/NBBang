@@ -1,4 +1,4 @@
-package com.khs.nbbang.kakaoFriends.kakao_interface
+package com.khs.nbbang.kakaoFriends
 
 data class ReturnType (
     val RETURN_TYPE_NONE_SUCCESS : Int = 100,

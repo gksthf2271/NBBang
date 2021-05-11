@@ -15,7 +15,6 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
 import com.khs.nbbang.localMember.GroupManagementFragment
 import com.khs.nbbang.localMember.MemberManagementViewModel
-import com.khs.nbbang.login.LoginView
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import org.koin.android.viewmodel.ext.android.sharedViewModel

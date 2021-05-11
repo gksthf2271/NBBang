@@ -10,7 +10,6 @@ import com.kakao.sdk.talk.model.Friend
 import com.kakao.sdk.talk.rx
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.rx
-import com.khs.nbbang.kakaoFriends.kakao_interface.ReturnType
 import com.khs.nbbang.user.KaKaoMember
 import io.reactivex.Scheduler
 import io.reactivex.Single
