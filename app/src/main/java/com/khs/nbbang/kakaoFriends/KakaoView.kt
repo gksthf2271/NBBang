@@ -2,9 +2,9 @@ package com.khs.nbbang.kakaoFriends
 
 import android.content.Context
 import android.util.Log
-import com.kakao.sdk.auth.LoginClient
+import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.network.RxAuthOperations
-import com.kakao.sdk.auth.rx
+import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.talk.TalkApiClient
 import com.kakao.sdk.talk.model.Friend
 import com.kakao.sdk.talk.rx
@@ -14,6 +14,7 @@ import com.khs.nbbang.user.KaKaoMember
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 
 interface KakaoView {
     val compositeDisposable: CompositeDisposable
@@ -23,10 +24,10 @@ interface KakaoView {
 
     fun handleLogin(context : Context, sub: Scheduler, ob: Scheduler) {
         // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
-        val d = Single.just(LoginClient.instance.isKakaoTalkLoginAvailable(context))
+        val d = Single.just(UserApiClient.instance.isKakaoTalkLoginAvailable(context))
             .flatMap { available ->
-                if (available) LoginClient.rx.loginWithKakaoTalk(context)
-                else LoginClient.rx.loginWithKakaoAccount(context)
+                if (available) UserApiClient.rx.loginWithKakaoTalk(context)
+                else UserApiClient.rx.loginWithKakaoAccount(context)
             }
             .observeOn(ob)
             .subscribe({ token ->
@@ -108,16 +109,16 @@ interface KakaoView {
                 )
                 .map { it ->
                     var kakaoFriendList = arrayListOf<Friend>()
-                    for (friend in it.elements) {
+                    for (friend in it.elements!!) {
                         kakaoFriendList.add(friend)
                     }
                     kakaoFriendList.map {
                         KaKaoMember(
-                            id = it.id,
-                            profileNickname = it.profileNickname,
+                            id = it.id!!,
+                            profileNickname = it.profileNickname!!,
                             uuId = it.uuid,
                             thumbnailImage = it.profileThumbnailImage,
-                            isFavoriteByKakao = if (it.favorite) 1 else 0
+                            isFavoriteByKakao = if (it.favorite!!) 1 else 0
                         )
                     }
                 }
@@ -132,6 +133,34 @@ interface KakaoView {
                     requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_FAILED, result = error)
                 })
         compositeDisposable.add(d)
+    }
+
+    fun handleCheckHasToken(context: Context, sub: Scheduler, ob: Scheduler) {
+        var disposables = CompositeDisposable()
+        if (AuthApiClient.instance.hasToken()) {
+            UserApiClient.rx.accessTokenInfo()
+                .subscribe({ tokenInfo ->
+                    //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+
+                }, { error ->
+                    if (error != null) {
+                        if (error is KakaoSdkError && error.isInvalidTokenError() == true) {
+                            //로그인 필요
+                        }
+                        else {
+                            requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN, error)
+                        }
+                    }
+                    else {
+                        //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
+                    }
+
+                })
+                .addTo(disposables)
+        }
+        else {
+            handleLogin(context, sub, ob)
+        }
     }
 
     fun handleDestroy() {

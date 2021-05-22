@@ -181,7 +181,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 if (error != null) {
                     Log.e(TAG, "카카오톡 친구 목록 가져오기 실패", error)
                 } else if (friends != null) {
-                    Log.i(TAG, "카카오톡 친구 목록 가져오기 성공 \n${friends.elements.joinToString("\n")}")
+                    Log.i(TAG, "카카오톡 친구 목록 가져오기 성공 \n${friends.elements!!.joinToString("\n")}")
 
                     // 친구의 UUID 로 메시지 보내기 가능
                 }
