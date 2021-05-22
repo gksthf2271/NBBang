@@ -1,6 +1,7 @@
 package com.khs.nbbang.page.viewModel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
@@ -9,7 +10,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
-
     private val _selectedMemberList: MutableLiveData<ArrayList<Member>> = MutableLiveData()
     val gSelectedMemberList: LiveData<ArrayList<Member>> get() = _selectedMemberList
 
@@ -26,6 +26,7 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
         _selectedMemberList.value.let {
             _selectedMemberList.postValue(
                 it!!.apply {
+                    Log.v(TAG,"addSelectedMember : $member")
                     this.add(member)
                 }
             )
@@ -37,6 +38,7 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
             if (it!!.contains(member)) {
                 _selectedMemberList.postValue(
                     it!!.apply {
+                        Log.v(TAG,"removeSelectedMember : $member")
                         this.remove(member)
                     })
             }
@@ -44,6 +46,7 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
     }
 
     fun getSelectedMemberList(): ArrayList<Member> {
+        Log.v(TAG,"getSelectedMemberList : ${_selectedMemberList.value!!}")
         return _selectedMemberList.value!!
     }
 
@@ -54,5 +57,4 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
             })
         }
     }
-
 }

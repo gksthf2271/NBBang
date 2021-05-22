@@ -94,10 +94,13 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
         )
     }
 
-    fun saveKakaoMember() {
-        gKakaoFriendList.value.let {
-            updateKakaoMember(Schedulers.io(), AndroidSchedulers.mainThread(), MemberType.TYPE_KAKAO, it!!)
-        }
+    fun saveKakaoMember(memberList: List<Member>) {
+        updateKakaoMember(
+            Schedulers.io(),
+            AndroidSchedulers.mainThread(),
+            MemberType.TYPE_KAKAO,
+            memberList
+        )
     }
 
     fun update(updateMember: Member) {

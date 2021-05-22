@@ -11,7 +11,8 @@ import com.khs.nbbang.user.Member
 class SelectPeopleRecyclerViewAdapter (
     val mContext: Context,
     val mItemList: ArrayList<Pair<Member, Boolean>>,
-    val mItemClick: (Pair<Int, Member>) -> Unit
+    val mItemClick: (Pair<Int, Member>) -> Unit,
+    val viewUpdateCallback : (Boolean, Member) -> Unit
 ) : RecyclerView.Adapter<SelectPeopleRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
@@ -44,7 +45,9 @@ class SelectPeopleRecyclerViewAdapter (
 
         fun bind(pair: Pair<Member, Boolean>, position: Int) {
             mItemView.setCheckedMember(pair.second)
-            mItemView.setMember(pair.first)
+            mItemView.setMember(pair.first) { isSaveCallback, member ->
+                viewUpdateCallback(isSaveCallback, member)
+            }
         }
     }
 

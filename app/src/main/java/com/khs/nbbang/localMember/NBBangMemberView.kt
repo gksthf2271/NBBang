@@ -57,11 +57,25 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
 
     fun handleAddMember(sub: Scheduler, ob: Scheduler, member: Member) {
         val d = addNBBangMember(requestAddMember(member))
-            .flatMap { getNBBangAllMember() }
+            .flatMap {
+                var type = if (member.kakaoId.isEmpty()) {
+                    MemberType.TYPE_FREE_USER
+                } else {
+                    MemberType.TYPE_KAKAO
+                }
+                getNBBangAllMemberByType(type)
+            }
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                renderLocalMembers(r)
+                when {
+                    member.kakaoId.isEmpty() -> {
+                        renderLocalMembers(r)
+                    }
+                    else -> {
+                        renderKakaoMembers(r)
+                    }
+                }
             }
         compositeDisposable.add(d)
     }
@@ -72,8 +86,20 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .observeOn(ob)
             .subscribe { r ->
                 Log.v(this.javaClass.simpleName,"delete return value : $r")
-                handleShowAllMember(Schedulers.io(),
-                    AndroidSchedulers.mainThread())
+                when {
+                    member.kakaoId.isEmpty() -> {
+                        handleShowMembersByType(
+                            Schedulers.io(),
+                            AndroidSchedulers.mainThread(), MemberType.TYPE_FREE_USER
+                        )
+                    }
+                    else -> {
+                        handleShowMembersByType(
+                            Schedulers.io(),
+                            AndroidSchedulers.mainThread(), MemberType.TYPE_KAKAO
+                        )
+                    }
+                }
             }
         compositeDisposable.add(d)
     }
@@ -81,9 +107,8 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
     fun updateKakaoMember(sub: Scheduler, ob: Scheduler, memberType: MemberType, memberList: List<Member>) {
         val d = deleteNBBangMember(memberType)
             .subscribeOn(sub)
-            .observeOn(ob)
             .subscribe { r ->
-                Log.v(this.javaClass.simpleName,"updateKakaoMember : $r")
+                Log.v(this.javaClass.simpleName,"updateKakaoMember : $memberList")
                 for (member in memberList) {
                     handleAddMember(sub, ob, member)
                 }
@@ -96,9 +121,20 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                handleShowAllMember(
-                    Schedulers.io(),
-                    AndroidSchedulers.mainThread())
+                when {
+                    targetMember.kakaoId.isEmpty() -> {
+                        handleShowMembersByType(
+                            Schedulers.io(),
+                            AndroidSchedulers.mainThread(), MemberType.TYPE_FREE_USER
+                        )
+                    }
+                    else -> {
+                        handleShowMembersByType(
+                            Schedulers.io(),
+                            AndroidSchedulers.mainThread(), MemberType.TYPE_KAKAO
+                        )
+                    }
+                }
             }
         compositeDisposable.add(d)
     }

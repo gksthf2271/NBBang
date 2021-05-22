@@ -22,9 +22,9 @@ class SelectMemberView @JvmOverloads constructor(
     private val gClickLock : Any = Any()
     val TAG = this.javaClass.simpleName
     private var gIsSelectedView = false
-    private val gSelectMemberViewModel: SelectMemberViewModel by lazy {
-        (context as MainActivity).mSelectMemberViewModel
-    }
+//    private val gSelectMemberViewModel: SelectMemberViewModel by lazy {
+//        (context as MainActivity).mSelectMemberViewModel
+//    }
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -36,11 +36,7 @@ class SelectMemberView @JvmOverloads constructor(
         layoutParams = LayoutParams(viewSize, viewSize)
     }
 
-    fun setMember(member: Member) {
-        setMember(member,true)
-    }
-
-    fun setMember(member: Member, isNotifyViewModel : Boolean) {
+    fun setMember(member: Member, callback : (Boolean, Member) -> Unit) {
         tag = member
         mBinding.let {
             Log.v(TAG,"memberName : ${member.name}, isSelected : $gIsSelectedView")
@@ -49,14 +45,14 @@ class SelectMemberView @JvmOverloads constructor(
             mBinding.layoutRoot.setOnClickListener {
                 Log.v(TAG,"onClicked Member! before isSelected : $gIsSelectedView ----------------------------")
                 gIsSelectedView = !gIsSelectedView
-                selectCircleView(gIsSelectedView, member, isNotifyViewModel)
+                selectCircleView(gIsSelectedView, member, callback)
                 Log.v(TAG,"------------------after isSelected : $gIsSelectedView ----------------------------")
             }
-            selectCircleView(gIsSelectedView, member, isNotifyViewModel)
+            selectCircleView(gIsSelectedView, member, callback)
         }
     }
 
-    private fun selectCircleView(isSelected: Boolean, member: Member, isNotifyViewmodel: Boolean) {
+    private fun selectCircleView(isSelected: Boolean, member: Member, callback : (Boolean, Member) -> Unit) {
         synchronized(gClickLock) {
             Log.v(TAG, "selectCircleView(...) isSelected : $isSelected")
 
@@ -68,12 +64,12 @@ class SelectMemberView @JvmOverloads constructor(
                 true -> {
                     Log.v(TAG, "motion transition To End!")
                     mBinding.layoutRoot.transitionToEnd()
-                    if (isNotifyViewmodel) gSelectMemberViewModel.addSelectedMember(member)
+                    callback(true, member)
                 }
                 false -> {
                     Log.v(TAG, "motion transition To Start!")
                     mBinding.layoutRoot.transitionToStart()
-                    if (isNotifyViewmodel) gSelectMemberViewModel.removeSelectedMember(member)
+                    callback(false, member)
                 }
             }
         }

@@ -39,7 +39,7 @@ interface NBBMemberDao {
     @Query("SELECT * FROM nbb_member WHERE kakao_id != :empty ")
     fun getKakaoFriends(empty : String): Single<List<NBBMemberDataModel>>
 
-    @Query("SELECT * FROM nbb_member WHERE kakao_id == :empty")
+    @Query("SELECT * FROM nbb_member WHERE kakao_id == :empty | kakao_id == null")
     fun getLocalFriends(empty : String): Single<List<NBBMemberDataModel>>
 
     @Query("SELECT * FROM nbb_member")

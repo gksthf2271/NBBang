@@ -3,13 +3,13 @@ package com.khs.nbbang.kakaoFriends
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.khs.nbbang.page.adapter.SelectPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.itemView.SelectMemberView
 import com.khs.nbbang.user.Member
 
 class AddFriendsRecyclerViewAdapter (
     private val mMemberList: ArrayList<Member>,
-    private val itemClick: (Member) -> Unit
+    private val itemClick: (Member) -> Unit,
+    private val viewUpdateCallback : (Boolean, Member) -> Unit
 ) : RecyclerView.Adapter<AddFriendsRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.simpleName
     val DEBUG = true
@@ -31,14 +31,16 @@ class AddFriendsRecyclerViewAdapter (
         holder.bind(mMemberList.get(position))
     }
 
-    class ViewHolder(itemView: SelectMemberView, itemClick: (Member) -> Unit) :
+    inner class ViewHolder(itemView: SelectMemberView, itemClick: (Member) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.simpleName
         var mItemView: SelectMemberView = itemView
         var mItemClick = itemClick
 
         fun bind(member: Member) {
-            mItemView.setMember(member, false)
+            mItemView.setMember(member) { isSaveCallback, member ->
+                viewUpdateCallback(isSaveCallback, member)
+            }
             mItemView.setOnClickListener { mItemClick(member) }
         }
     }

@@ -26,7 +26,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
     private val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
     private val gLoginViewModel : LoginViewModel by sharedViewModel()
-    val gSelectMemberViewModel by viewModel<SelectMemberViewModel>()
+    private val gSelectMemberViewModel by viewModel<SelectMemberViewModel>()
     private val DEBUG = false
 
     lateinit var mRecyclerViewAdapter : FavoriteRecyclerAdapter
@@ -64,9 +64,12 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
     fun initView() {
         val layoutManager = GridLayoutManager(context, 3)
 
+        mBinding.rowFavoriteMember.initView(mBinding.viewModel!!)
+        mBinding.rowFavoriteMember.setTitle("Favorite Member")
+
         mBinding.btnClose.setOnClickListener { if (this.isAdded) dismiss() }
         mBinding.btnSave.setOnClickListener {
-            gMemberManagementViewModel.saveKakaoMember()
+            gMemberManagementViewModel.saveKakaoMember(gSelectMemberViewModel.getSelectedMemberList())
             dismiss()
         }
 
@@ -113,9 +116,18 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
                 }
 
                 mBinding.allFriendsRecyclerView.adapter =
-                    AddFriendsRecyclerViewAdapter(memberArrayList) {
+                    AddFriendsRecyclerViewAdapter(memberArrayList, {
                         Log.v(TAG, "ItemClicked : $it")
-                    }
+                    }, { isSaveCallback, member ->
+                        when {
+                            isSaveCallback -> {
+                                gSelectMemberViewModel.addSelectedMember(member)
+                            }
+                            else -> {
+                                gSelectMemberViewModel.removeSelectedMember(member)
+                            }
+                        }
+                    })
             })
         }
         gMemberManagementViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
@@ -126,12 +138,11 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
             } else {
                 memberArrayList.addAll(it)
             }
-            gSelectMemberViewModel.setSelectedMemberList(ArrayList(it))
+            gSelectMemberViewModel.setSelectedMemberList(memberArrayList)
         })
 
         gSelectMemberViewModel.gSelectedMemberList.observe(requireActivity(), Observer {
-            mBinding.rowFavoriteMember.initView(mBinding.viewModel!!)
-            mBinding.rowFavoriteMember.setTitle("Favorite Member")
+            Log.v(TAG,"update SelectedMember list! : $it")
             mBinding.rowFavoriteMember.setList(it!!)
         })
     }
