@@ -61,7 +61,7 @@ class KakaoFriendsFragment : BaseFragment() {
         var defaultPageViewList: MutableList<BaseFragment> = mutableListOf(GroupManagementFragment())
         mBinding.viewPager.apply {
             defaultPageViewList.run{
-                if (gLoginViewModel.checkKakaoLogin()){
+                if (gLoginViewModel.checkKakaoLoginByLocalValue()){
                     this.add(KakaoFavoriteFriendsFragment())
                 }
             }

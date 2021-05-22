@@ -136,30 +136,29 @@ interface KakaoView {
     }
 
     fun handleCheckHasToken(context: Context, sub: Scheduler, ob: Scheduler) {
-        var disposables = CompositeDisposable()
         if (AuthApiClient.instance.hasToken()) {
-            UserApiClient.rx.accessTokenInfo()
+            val d = UserApiClient.rx.accessTokenInfo()
+                .subscribeOn(sub)
+                .observeOn(ob)
                 .subscribe({ tokenInfo ->
-                    //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
-
+                    Log.v("KakaoView","handleCheckHasToken, onSuccess :: tokenInfo : $tokenInfo ")
+                    requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN_SUCCESS, tokenInfo)
                 }, { error ->
                     if (error != null) {
-                        if (error is KakaoSdkError && error.isInvalidTokenError() == true) {
-                            //로그인 필요
+                        if (error is KakaoSdkError && error.isInvalidTokenError()) {
+                            Log.v("KakaoView","handleCheckHasToken error is SdkError")
+                            requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN_FAILED, error)
                         }
                         else {
-                            requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN, error)
+                            Log.v("KakaoView","handleCheckHasToken error is not SdkError")
+                            requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN_FAILED, error)
                         }
                     }
-                    else {
-                        //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
-                    }
-
                 })
-                .addTo(disposables)
+            compositeDisposable.add(d)
         }
         else {
-            handleLogin(context, sub, ob)
+            requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN_FAILED, null)
         }
     }
 

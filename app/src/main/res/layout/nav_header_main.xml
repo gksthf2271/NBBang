@@ -38,7 +38,7 @@
             app:layout_constraintHeight_percent="0.2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_profile"
-            app:layout_constraintWidth_percent="0.8"/>
+            app:layout_constraintWidth_percent="0.9"/>
 
         <include
             android:id="@+id/group_id"
@@ -49,6 +49,6 @@
             app:layout_constraintHeight_percent="0.2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/group_name"
-            app:layout_constraintWidth_percent="0.8"/>
+            app:layout_constraintWidth_percent="0.9"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

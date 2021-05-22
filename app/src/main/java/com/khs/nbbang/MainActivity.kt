@@ -3,6 +3,7 @@ package com.khs.nbbang
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
 import android.widget.Button
@@ -22,12 +23,14 @@ import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
+import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.cview_title_description.view.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class MainActivity : BaseActivity() {
@@ -62,6 +65,10 @@ class MainActivity : BaseActivity() {
         if (savedInstanceState == null) {
             gotoHome()
         }
+
+        mLoginViewModel.let {loginViewModel ->
+            loginViewModel.checkKakaoLoginBySdk(this)
+        }
     }
 
     fun initNaviView() {
@@ -76,10 +83,10 @@ class MainActivity : BaseActivity() {
                 mBinding.navView
             )
         )
-        addNaviListener()
+        addListenerAndObserver()
     }
 
-    private fun addNaviListener() {
+    private fun addListenerAndObserver() {
         group_indicator.setOnClickListener {
             drawer_layout.openDrawer(GravityCompat.START)
         }
@@ -103,8 +110,9 @@ class MainActivity : BaseActivity() {
                                 + "\n name : ${name}"
                                 + "\n profile_image : ${image}"
                                 + "\n thumbnail_image : ${thumbnail}"
+                                + "\n connectedAt : ${it!!.connectedAt}"
                     )
-                    updateProfileInfo(thumbnail, name, id.toString())
+                    updateProfileInfo(thumbnail, name, it!!.kakaoAccount!!.email)
                 } else {
                     updateProfileInfo(null, null, null)
                 }
@@ -148,13 +156,14 @@ class MainActivity : BaseActivity() {
         navigateDestination()
     }
 
-    private fun updateProfileInfo(thumbnail: String?, name: String?, id: String?) {
+    private fun updateProfileInfo(thumbnail: String?, name: String?, email: String?) {
         var naviHeaderView = mBinding.navView.getHeaderView(0)
         GlideUtils().drawImageWithString(naviHeaderView.img_profile, thumbnail, null)
         naviHeaderView.group_name.txt_title.text = "이름"
         naviHeaderView.group_id.txt_title.text = "계정"
         naviHeaderView.group_name.txt_description.text = name ?: "FREE USER"
-        naviHeaderView.group_id.txt_description.text = id ?: "-"
+        naviHeaderView.group_id.txt_description.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10.0f)
+        naviHeaderView.group_id.txt_description.text = email ?: "-"
     }
 
     private val gFinishToast by lazy {
