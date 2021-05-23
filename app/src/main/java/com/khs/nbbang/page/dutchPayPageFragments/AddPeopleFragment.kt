@@ -112,6 +112,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
         fun initView(parentFragment: AddPeopleFragment) {
             mMemberViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
+            mMemberViewModel.showFavoriteMemberListByType(MemberType.TYPE_KAKAO)
             mParentFragment = parentFragment
 
             if (mAddPeopleContentsBinding.recyclerView.adapter == null) {
@@ -165,12 +166,18 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     return@Observer
                 }
                 mAddPeopleContentsBinding.rowFavoriteMember.initView(mPageViewModel)
-                mAddPeopleContentsBinding.rowFavoriteMember.setTitle("MEMBER")
+                mAddPeopleContentsBinding.rowFavoriteMember.setTitle("LOCAL MEMBER")
                 mAddPeopleContentsBinding.rowFavoriteMember.setList(it)
+            })
 
+            mMemberViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
+                if (it.isEmpty()) {
+                    mAddPeopleContentsBinding.rowFavoriteMember.visibility = View.GONE
+                    return@Observer
+                }
                 //TEST Group
                 mAddPeopleContentsBinding.rowFavoriteGroup.initView(mPageViewModel)
-                mAddPeopleContentsBinding.rowFavoriteGroup.setTitle("GROUP")
+                mAddPeopleContentsBinding.rowFavoriteGroup.setTitle("KAKAO MEMBER")
                 mAddPeopleContentsBinding.rowFavoriteGroup.setList(it)
             })
         }
