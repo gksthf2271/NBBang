@@ -92,7 +92,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
                 }
             })
             loginViewModel!!.gFriendList.observe(requireActivity(), Observer {
-                Log.v(TAG, "loadFriends result : ${it.joinToString("\n")}")
+                Log.v(TAG, "KakaoFriends remote list : ${it.joinToString("\n")}")
                 var memberArrayList = arrayListOf<Member>()
                 if (DEBUG) {
                     memberArrayList.addAll(DebugMemberList.mDummyMemberList)
@@ -112,37 +112,50 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
                     })
                 }
 
-                mBinding.allFriendsRecyclerView.adapter =
-                    AddFriendsRecyclerViewAdapter(memberArrayList, {
-                        Log.v(TAG, "ItemClicked : $it")
-                    }, { isSaveCallback, member ->
-                        when {
-                            isSaveCallback -> {
-                                gSelectMemberViewModel.addSelectedMember(member)
+                var remoteMemberHashMap = hashMapOf<String, Member>()
+                for (member in memberArrayList) {
+                    remoteMemberHashMap.put(member.kakaoId, member)
+                }
+
+
+                gMemberManagementViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
+                    Log.v(TAG, "KakaoFriends Local list : ${it.joinToString("\n")}")
+                    var localMemberArrayList = arrayListOf<Member>()
+                    if (DEBUG) {
+                        localMemberArrayList.addAll(DebugMemberList.mDummyMemberList)
+                    } else {
+                        localMemberArrayList.addAll(it)
+                    }
+                    var memberHashMap = hashMapOf<String, Member>()
+                    for (member in localMemberArrayList) {
+                        memberHashMap.put(member.kakaoId, member)
+                    }
+
+                    gSelectMemberViewModel.setSelectedMemberList(memberHashMap)
+
+                    mBinding.allFriendsRecyclerView.adapter =
+                        AddFriendsRecyclerViewAdapter(remoteMemberHashMap, memberHashMap, {
+                            Log.v(TAG, "ItemClicked : $it")
+                        }, { isSaveCallback, member ->
+                            when {
+                                isSaveCallback -> {
+                                    gSelectMemberViewModel.addSelectedMember(member)
+                                }
+                                else -> {
+                                    gSelectMemberViewModel.removeSelectedMember(member)
+                                }
                             }
-                            else -> {
-                                gSelectMemberViewModel.removeSelectedMember(member)
-                            }
-                        }
-                    })
+                        })
+                })
             })
         }
-        gMemberManagementViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
-            Log.v(TAG, "kakao Local list : ${it.joinToString("\n")}")
-            var memberArrayList = arrayListOf<Member>()
-            if (DEBUG) {
-                memberArrayList.addAll(DebugMemberList.mDummyMemberList)
-            } else {
-                memberArrayList.addAll(it)
-            }
-            gSelectMemberViewModel.setSelectedMemberList(memberArrayList)
-        })
 
         gSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer {
             Log.v(TAG,"update SelectedMember list! : $it")
             mBinding.rowFavoriteMember.setList(it!!.values.toList())
         })
     }
+
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when(keyCode) {

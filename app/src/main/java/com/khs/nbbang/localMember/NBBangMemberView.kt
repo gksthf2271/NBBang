@@ -109,8 +109,19 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .subscribe { r ->
                 Log.v(this.javaClass.simpleName,"updateKakaoMember : $memberList")
-                for (member in memberList) {
-                    handleAddMember(sub, ob, member)
+                if (memberList.isEmpty()) {
+                    when (memberType) {
+                        MemberType.TYPE_KAKAO -> {
+                            renderKakaoMembers(GetNBBangMemberResult(emptyList()))
+                        }
+                        MemberType.TYPE_FREE_USER -> {
+                            renderLocalMembers(GetNBBangMemberResult(emptyList()))
+                        }
+                    }
+                } else {
+                    for (member in memberList) {
+                        handleAddMember(sub, ob, member)
+                    }
                 }
             }
         compositeDisposable.add(d)

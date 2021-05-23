@@ -15,11 +15,7 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
         _selectedMemberHashMap.value = hashMapOf()
     }
 
-    fun setSelectedMemberList(memberList: ArrayList<Member>) {
-        var memberHashMap = hashMapOf<String, Member>()
-        for (member in memberList) {
-            memberHashMap.put(member.kakaoId, member)
-        }
+    fun setSelectedMemberList(memberHashMap: HashMap<String,Member>) {
         _selectedMemberHashMap.postValue(memberHashMap)
     }
 

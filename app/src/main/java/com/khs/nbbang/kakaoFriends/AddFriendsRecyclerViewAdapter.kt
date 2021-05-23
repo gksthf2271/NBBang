@@ -7,7 +7,8 @@ import com.khs.nbbang.page.itemView.SelectMemberView
 import com.khs.nbbang.user.Member
 
 class AddFriendsRecyclerViewAdapter (
-    private val mMemberList: ArrayList<Member>,
+    private var mRemoteMemberHashMap: HashMap<String, Member>,
+    private var mLocalMemberHashMap: HashMap<String, Member>,
     private val itemClick: (Member) -> Unit,
     private val viewUpdateCallback : (Boolean, Member) -> Unit
 ) : RecyclerView.Adapter<AddFriendsRecyclerViewAdapter.ViewHolder>() {
@@ -22,13 +23,13 @@ class AddFriendsRecyclerViewAdapter (
     }
 
     override fun getItemCount(): Int {
-        if(DEBUG) Log.v(TAG,"getItemCount : ${mMemberList.size}")
-        return mMemberList.let { mMemberList.size }
+        if(DEBUG) Log.v(TAG,"getItemCount : ${mRemoteMemberHashMap.values.size}")
+        return mRemoteMemberHashMap.let { mRemoteMemberHashMap.values.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
-        holder.bind(mMemberList.get(position))
+        holder.bind(mRemoteMemberHashMap.values.toList().get(position))
     }
 
     inner class ViewHolder(itemView: SelectMemberView, itemClick: (Member) -> Unit) :
@@ -38,6 +39,7 @@ class AddFriendsRecyclerViewAdapter (
         var mItemClick = itemClick
 
         fun bind(member: Member) {
+            mItemView.setCheckedMember(mLocalMemberHashMap.containsKey(member.kakaoId))
             mItemView.setMember(member) { isSaveCallback, member ->
                 viewUpdateCallback(isSaveCallback, member)
             }
@@ -45,19 +47,14 @@ class AddFriendsRecyclerViewAdapter (
         }
     }
 
-    fun setItem(members: List<Member>) {
-        Log.v(TAG,"setItem(...) inputMembers size : ${members.size}")
-        this.mMemberList.clear()
-        this.mMemberList.addAll(members)
+    fun setItem(memberHashMap: HashMap<String, Member>) {
+        Log.v(TAG,"setItem(...) memberHashMap size : ${memberHashMap.values.size}")
+        this.mRemoteMemberHashMap.clear()
+        this.mRemoteMemberHashMap = memberHashMap
         notifyDataSetChanged()
     }
 
     fun findMemberByKakaoId(kakaoId: String) : Member? {
-        for (member in mMemberList) {
-            if (member.kakaoId == kakaoId) {
-                return member
-            }
-        }
-        return null
+        return mRemoteMemberHashMap.get(kakaoId)
     }
 }
