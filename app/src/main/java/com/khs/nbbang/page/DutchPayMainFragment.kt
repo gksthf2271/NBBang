@@ -60,6 +60,13 @@ class DutchPayMainFragment : BaseFragment(){
         return null
     }
 
+    override fun onResume() {
+        super.onResume()
+        mBinding.viewModel.let{
+            it!!.clearPageViewModel()
+        }
+    }
+
     private fun initView() {
         mBinding.viewPager.adapter = CustomViewPagerAdapter(
             requireActivity().supportFragmentManager,
