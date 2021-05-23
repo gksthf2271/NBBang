@@ -6,53 +6,63 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.user.Member
-import java.util.*
-import kotlin.collections.ArrayList
 
 class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
-    private val _selectedMemberList: MutableLiveData<ArrayList<Member>> = MutableLiveData()
-    val gSelectedMemberList: LiveData<ArrayList<Member>> get() = _selectedMemberList
+    private val _selectedMemberHashMap: MutableLiveData<HashMap<String, Member>> = MutableLiveData()
+    val gSelectedMemberHashMap: LiveData<HashMap<String, Member>> get() = _selectedMemberHashMap
 
     init {
-        _selectedMemberList.value = arrayListOf()
+        _selectedMemberHashMap.value = hashMapOf()
     }
 
     fun setSelectedMemberList(memberList: ArrayList<Member>) {
-        _selectedMemberList.postValue(memberList)
+        var memberHashMap = hashMapOf<String, Member>()
+        for (member in memberList) {
+            memberHashMap.put(member.kakaoId, member)
+        }
+        _selectedMemberHashMap.postValue(memberHashMap)
     }
 
 
     fun addSelectedMember(member : Member) {
-        _selectedMemberList.value.let {
-            _selectedMemberList.postValue(
+        _selectedMemberHashMap.value.let {
+            _selectedMemberHashMap.postValue(
                 it!!.apply {
-                    Log.v(TAG,"addSelectedMember : $member")
-                    this.add(member)
+                    Log.v(TAG, "addSelectedMember : $member")
+                    if (member.kakaoId.isNullOrEmpty()) {
+                        this.put(member.name, member)
+                    } else {
+                        this.put(member.kakaoId, member)
+                    }
                 }
             )
         }
     }
 
     fun removeSelectedMember(member: Member) {
-        _selectedMemberList.value.let {
-            if (it!!.contains(member)) {
-                _selectedMemberList.postValue(
+        _selectedMemberHashMap.value.let {
+            if (it!!.containsKey(member.kakaoId)) {
+                _selectedMemberHashMap.postValue(
                     it!!.apply {
                         Log.v(TAG,"removeSelectedMember : $member")
-                        this.remove(member)
+                        if (member.kakaoId.isNullOrEmpty()) {
+                            this.remove(member.name)
+                        } else {
+                            this.remove(member.kakaoId)
+                        }
                     })
             }
         }
     }
 
-    fun getSelectedMemberList(): ArrayList<Member> {
-        Log.v(TAG,"getSelectedMemberList : ${_selectedMemberList.value!!}")
-        return _selectedMemberList.value!!
+    fun getSelectedMemberHashMap(): HashMap<String, Member> {
+        Log.v(TAG,"getSelectedMemberHashMap : ${_selectedMemberHashMap.value!!}")
+        return _selectedMemberHashMap.value!!
     }
 
-    fun clearSelectedMemberList() {
-        _selectedMemberList.value.let {
-            _selectedMemberList.postValue(it!!.apply {
+    fun clearSelectedMemberHashMap() {
+        _selectedMemberHashMap.value.let {
+            _selectedMemberHashMap.postValue(it!!.apply {
                 this.clear()
             })
         }

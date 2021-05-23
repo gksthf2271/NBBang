@@ -6,7 +6,6 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseDialogFragment
@@ -14,13 +13,11 @@ import com.khs.nbbang.common.FavoriteRecyclerAdapter
 import com.khs.nbbang.databinding.FragmentAddFriendsByKakaoBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
-import com.khs.nbbang.page.itemView.SelectMemberView
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DebugMemberList
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.*
 
 class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS) {
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
@@ -69,7 +66,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
 
         mBinding.btnClose.setOnClickListener { if (this.isAdded) dismiss() }
         mBinding.btnSave.setOnClickListener {
-            gMemberManagementViewModel.saveKakaoMember(gSelectMemberViewModel.getSelectedMemberList())
+            gMemberManagementViewModel.saveKakaoMember(gSelectMemberViewModel.getSelectedMemberHashMap().values.toList())
             dismiss()
         }
 
@@ -141,9 +138,9 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
             gSelectMemberViewModel.setSelectedMemberList(memberArrayList)
         })
 
-        gSelectMemberViewModel.gSelectedMemberList.observe(requireActivity(), Observer {
+        gSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer {
             Log.v(TAG,"update SelectedMember list! : $it")
-            mBinding.rowFavoriteMember.setList(it!!)
+            mBinding.rowFavoriteMember.setList(it!!.values.toList())
         })
     }
 

@@ -84,8 +84,8 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
 
         mBinding.btnSave.setOnClickListener {
             mBinding.viewModel.let {pageViewModel ->
-                mBinding.viewModel!!.saveSelectedPeople(tag!!.toInt(), mSelectMemberViewModel.getSelectedMemberList())
-                mSelectMemberViewModel.clearSelectedMemberList()
+                mBinding.viewModel!!.saveSelectedPeople(tag!!.toInt(), mSelectMemberViewModel.getSelectedMemberHashMap().values.toMutableList())
+                mSelectMemberViewModel.clearSelectedMemberHashMap()
             }
             dismiss()
         }
@@ -117,7 +117,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
                 }
             })
 
-            mSelectMemberViewModel.gSelectedMemberList.observe(requireActivity(), Observer {
+            mSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer {
                 Log.v(TAG,"selectedList : ${it!!}")
             })
         }
