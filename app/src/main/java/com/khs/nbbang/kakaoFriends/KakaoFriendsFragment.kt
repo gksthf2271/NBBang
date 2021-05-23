@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.tabs.TabLayoutMediator
 import com.khs.nbbang.R
+import com.khs.nbbang.animation.ZoomOutPageTransformer
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
 import com.khs.nbbang.localMember.GroupManagementFragment
@@ -43,7 +44,6 @@ class KakaoFriendsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = gMemberManagementViewModel
-        initData()
         initView()
         addObserver()
     }
@@ -52,9 +52,6 @@ class KakaoFriendsFragment : BaseFragment() {
         gLoginViewModel.gIsLogin.observe(requireActivity(), Observer {
             Log.v(TAG,"isLogin : $it")
         })
-    }
-
-    private fun initData() {
     }
 
     private fun initView() {
@@ -71,16 +68,24 @@ class KakaoFriendsFragment : BaseFragment() {
                 defaultPageViewList
             )
 
-            TabLayoutMediator(mBinding.tabLayout, this) { tab, position ->
-                when(position) {
-                    0 -> {
-                        tab.text = "로컬 멤버"
-                    }
-                    1 -> {
-                        tab.text = "카카오 멤버"
-                    }
-                }
-            }.attach()
+            if (defaultPageViewList.size > 1) {
+                mBinding.viewPager.setPageTransformer(ZoomOutPageTransformer())
+                mBinding.viewIndicator.setViewPager2(mBinding.viewPager)
+                mBinding.viewIndicator.visibility = View.VISIBLE
+            } else {
+                mBinding.viewIndicator.visibility = View.INVISIBLE
+            }
+
+//            TabLayoutMediator(mBinding.tabLayout, this) { tab, position ->
+//                when(position) {
+//                    0 -> {
+//                        tab.text = "로컬 멤버"
+//                    }
+//                    1 -> {
+//                        tab.text = "카카오 멤버"
+//                    }
+//                }
+//            }.attach()
         }
     }
 
