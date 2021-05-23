@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -47,6 +48,11 @@ class AddMemberView @JvmOverloads constructor(
     fun setCallBackListener(callback: ButtonCallBackListener) {
         mBinding.let {
             it.btnSave.setOnClickListener {
+                var inputName = mBinding.groupName.edit_description.text.toString()
+                if (inputName.replace(" ", "").isNullOrEmpty()) {
+                    Toast.makeText(context, "이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 gCurrentMember.name = mBinding.groupName.edit_description.text.toString()
                 gCurrentMember.description = mBinding.groupDescription.edit_description.text.toString()
                 gCurrentMember.profileUri = gCurrentMemberProfileUri

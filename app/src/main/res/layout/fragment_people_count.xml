@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="참여 인원을 지정해주세요."
+            android:text="참여 인원을 설정해주세요."
             android:textColor="@color/search_text_color"
             android:textSize="25sp"
             android:textStyle="bold"

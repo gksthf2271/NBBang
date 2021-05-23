@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
@@ -66,6 +67,7 @@ class DutchPayMainFragment : BaseFragment(){
             KeyboardUtils().hideKeyboard(requireView(), requireContext())
             mBinding.viewModel.let {
                 if ( it!!.mNBBLiveData.value!!.mMemberCount <= 0) {
+                    Toast.makeText(context, "참여 인원을 설정해주세요.", Toast.LENGTH_SHORT).show()
                     return@setOnTouchListener true
                 }
             }
