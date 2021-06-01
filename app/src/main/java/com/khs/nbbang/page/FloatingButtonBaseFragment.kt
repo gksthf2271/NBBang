@@ -88,7 +88,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         }, { start, end ->
             Log.v(TAG, "motionLayout State start: $start , end: $end")
             mItemTouchInterceptor.let { mItemTouchInterceptor!!.enable() }
-            KeyboardUtils().hideKeyboard(requireView(), requireContext())
+            KeyboardUtils.hideKeyboard(requireView(), requireContext())
         }, { completion ->
             mItemTouchInterceptor.let { mItemTouchInterceptor!!.disable() }
             Log.v(TAG, "motionLayout State completion: $completion")

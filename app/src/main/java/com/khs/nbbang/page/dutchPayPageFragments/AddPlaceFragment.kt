@@ -21,9 +21,11 @@ import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.utils.KeyboardVisibilityUtils
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
+import kotlinx.android.synthetic.main.fragment_add_place.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
@@ -48,6 +50,7 @@ class AddPlaceFragment : BaseFragment() {
     val TYPE_EDIT_PLACE_NAME: String = "TYPE_EDIT_PLACE_NAME"
     val TYPE_EDIT_PRICE: String = "TYPE_EDIT_PRICE"
 
+    private lateinit var gKeyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,7 +84,12 @@ class AddPlaceFragment : BaseFragment() {
         val inflater =
             requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-
+        gKeyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
+            onShowKeyboard = { keyboardHeight ->
+                mBinding.layoutScroll.run {
+                    smoothScrollTo(scrollX, scrollY + keyboardHeight)
+                }
+            })
 //        mViewModel.saveSelectedPeople(mViewModel.mSelectedPeopleMap.value!!.size + 1, mutableListOf())
 //        mRecyclerViewAdapter = AddPlaceRecyclerViewAdapter(requireActivity(), mViewModel, arrayListOf(),{
 //            Log.v(TAG,"ItemClicked, index : $it")
@@ -230,5 +238,10 @@ class AddPlaceFragment : BaseFragment() {
             }
         }
         return false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        gKeyboardVisibilityUtils.detachKeyboardListeners()
     }
 }

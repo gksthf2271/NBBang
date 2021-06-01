@@ -16,19 +16,20 @@
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:windowSoftInputMode="stateHidden"
         android:requestLegacyExternalStorage="true">
         <!-- TODO External Storage 권한 이슈 있음 -->
 
         <activity
-            android:name=".LoadingActivity">
+            android:name=".LoadingActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <nav-graph android:value="@navigation/nav_main_graph" />
         </activity>
 

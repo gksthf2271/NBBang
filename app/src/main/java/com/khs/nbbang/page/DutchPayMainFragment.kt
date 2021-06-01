@@ -67,7 +67,7 @@ class DutchPayMainFragment : BaseFragment(){
         var checkMemberCountToast = Toast.makeText(context, "참여 인원을 설정해주세요.", Toast.LENGTH_SHORT)
 
         mBinding.viewPager.get(0).setOnTouchListener{ _, _ ->
-            KeyboardUtils().hideKeyboard(requireView(), requireContext())
+            KeyboardUtils.hideKeyboard(requireView(), requireContext())
             mBinding.viewModel.let {
                 if ( it!!.mNBBLiveData.value!!.mMemberCount <= 0) {
                     checkMemberCountToast.show()
