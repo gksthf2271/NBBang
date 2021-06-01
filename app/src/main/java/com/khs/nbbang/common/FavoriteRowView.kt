@@ -11,10 +11,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.khs.nbbang.R
 import com.khs.nbbang.databinding.CviewFavoriteRowBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.ScrollUtils
+import kotlinx.android.synthetic.main.fragment_dutchpay_home.view.*
 
 class FavoriteRowView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -56,31 +59,13 @@ class FavoriteRowView @JvmOverloads constructor(
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             isFocusable = true
             descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-            addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    val action = e.action
-                    if (canScrollHorizontally(RecyclerView.FOCUS_FORWARD)) {
-                        when (action) {
-                            MotionEvent.ACTION_MOVE -> rv.parent
-                                .requestDisallowInterceptTouchEvent(true)
-                        }
-                        return false
-                    }
-                    else {
-                        when (action) {
-                            MotionEvent.ACTION_MOVE -> rv.parent
-                                .requestDisallowInterceptTouchEvent(false)
-                        }
-                        removeOnItemTouchListener(this)
-                        return true
-                    }
-                }
-
-                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
-                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-            })
             adapter = mRecyclerViewAdapter
         }
+        ScrollUtils.controlHorizontalScrollingInViewPager2(
+            mBinding.recyclerView, rootView.findViewById(
+                R.id.view_pager
+            )
+        )
     }
 
     fun setTitle(title: String) {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/group_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_height="120dp">
@@ -22,21 +23,13 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="FAVORITE MEMBER" />
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scroll_view"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.65"
-            app:layout_constraintTop_toBottomOf="@id/txt_title">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never" />
-
-        </androidx.core.widget.NestedScrollView>
-
+            app:layout_constraintTop_toBottomOf="@id/txt_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
