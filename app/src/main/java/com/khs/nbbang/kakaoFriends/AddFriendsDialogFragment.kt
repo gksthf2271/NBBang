@@ -2,14 +2,16 @@ package com.khs.nbbang.kakaoFriends
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseDialogFragment
-import com.khs.nbbang.common.FavoriteRecyclerAdapter
 import com.khs.nbbang.databinding.FragmentAddFriendsByKakaoBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
@@ -25,8 +27,6 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
     private val gLoginViewModel : LoginViewModel by sharedViewModel()
     private val gSelectMemberViewModel by viewModel<SelectMemberViewModel>()
     private val DEBUG = false
-
-    lateinit var mRecyclerViewAdapter : FavoriteRecyclerAdapter
 
     companion object {
         @Volatile
@@ -76,10 +76,6 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
             this.layoutManager = layoutManager
         }
 
-        mRecyclerViewAdapter = FavoriteRecyclerAdapter(arrayListOf()) { member ->
-            Log.v(TAG,"ItemClicked, member : ${member.name}")
-
-        }
         mBinding.viewModel.let { it!!.loadFriendList() }
     }
 

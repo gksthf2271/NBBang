@@ -21,6 +21,10 @@ import com.khs.nbbang.utils.StringUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     NBBangGatewayImpl, HistoryController {
@@ -51,10 +55,12 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     }
 
     fun clearPageViewModel() {
-        Log.v(TAG,"clearPageViewModel(...)")
-        _NBBLiveData.postValue(NBB())
-        _selectedPeopleMap.value = HashMap()
-        _placeCount.postValue(0)
+        Log.v(TAG, "clearPageViewModel(...)")
+        CoroutineScope(Dispatchers.Default).launch {
+            _NBBLiveData.postValue(NBB())
+            _selectedPeopleMap.postValue(HashMap())
+            _placeCount.postValue(0)
+        }
     }
 
     fun updatePeopleList(joinPeopleList: MutableList<Member>) {
@@ -221,12 +227,14 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun clearSelectedPeople() {
         Log.v(TAG,"clearSelectedPeople(...)")
-        _selectedPeopleMap.value!!.let {
-            _selectedPeopleMap.postValue(it.apply {
-                for(key in it.keys) {
-                    this.get(key)!!.mMemberList.clear()
-                }
-            })
+        _selectedPeopleMap.let { selectedPeopleMap ->
+            selectedPeopleMap.value?.let {
+                selectedPeopleMap.postValue(it.apply {
+                    for(key in it.keys) {
+                        this.get(key)!!.mMemberList.clear()
+                    }
+                })
+            }
         }
     }
 

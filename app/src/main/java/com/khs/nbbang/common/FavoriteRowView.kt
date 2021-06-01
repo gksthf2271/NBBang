@@ -56,7 +56,7 @@ class FavoriteRowView @JvmOverloads constructor(
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             isFocusable = true
             descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-            val listener = object : RecyclerView.OnItemTouchListener {
+            addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                     val action = e.action
                     if (canScrollHorizontally(RecyclerView.FOCUS_FORWARD)) {
@@ -78,9 +78,7 @@ class FavoriteRowView @JvmOverloads constructor(
 
                 override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
                 override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-            }
-
-            addOnItemTouchListener(listener)
+            })
             adapter = mRecyclerViewAdapter
         }
     }
