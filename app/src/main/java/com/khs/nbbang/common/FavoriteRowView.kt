@@ -61,11 +61,10 @@ class FavoriteRowView @JvmOverloads constructor(
             descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
             adapter = mRecyclerViewAdapter
         }
-        ScrollUtils.controlHorizontalScrollingInViewPager2(
-            mBinding.recyclerView, rootView.findViewById(
-                R.id.view_pager
-            )
-        )
+    }
+
+    fun setControlScrolling() {
+        ScrollUtils.controlHorizontalScrollingInViewPager2(mBinding.recyclerView, rootView.findViewById(R.id.view_pager))
     }
 
     fun setTitle(title: String) {

@@ -166,6 +166,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     return@Observer
                 }
                 mAddPeopleContentsBinding.rowFavoriteMember.initView(mPageViewModel)
+                mAddPeopleContentsBinding.rowFavoriteMember.setControlScrolling()
                 mAddPeopleContentsBinding.rowFavoriteMember.setTitle("LOCAL MEMBER")
                 mAddPeopleContentsBinding.rowFavoriteMember.setList(it)
             })
@@ -177,6 +178,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 }
                 //TEST Group
                 mAddPeopleContentsBinding.rowFavoriteGroup.initView(mPageViewModel)
+                mAddPeopleContentsBinding.rowFavoriteMember.setControlScrolling()
                 mAddPeopleContentsBinding.rowFavoriteGroup.setTitle("KAKAO MEMBER")
                 mAddPeopleContentsBinding.rowFavoriteGroup.setList(it)
             })
