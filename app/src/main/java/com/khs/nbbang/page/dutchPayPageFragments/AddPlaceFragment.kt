@@ -28,20 +28,6 @@ import kotlinx.android.synthetic.main.cview_edit_place.view.*
 import kotlinx.android.synthetic.main.fragment_add_place.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-
-/**
- * TODO : 출시 전 해야될 것들
- *  1. 갤러리 연동하여, 프로필 설정 할 수 있는 기능 추가                                                    ---> 작업중
- *  2. 카카오 친구목록 UI 구현                                                                        ---> 5순위
- *  3. AddPeopleFragment AddMemberView 출력 시 하단 FavoriteMember 보이고, 선택하여 추가 할 수 있는 기능 구현 ---> 완료
- *  4. UI 정리(테마 변경)                                                                            ---> 3순위
- *  5. AddPlaceFragment UI 일관성 유지되도록 수정 FloatingButton에 MotionView                           ---> 완료, 중복소스 존재
- *  6. AddPlaceRecyclerViewAdapter 에서 motionLayout 처리 간 이슈 발생                                 ---> 보류(후순위)
- *  -------------------------------------------- 목표일 !!!!!3월 28일 출시!!!!!!
- *  Group관리 기능은 2.0에 구현
- * **/
-
-
 class AddPlaceFragment : BaseFragment() {
     lateinit var mBinding: FragmentAddPlaceBinding
 
@@ -49,7 +35,6 @@ class AddPlaceFragment : BaseFragment() {
 //    lateinit var mRecyclerViewAdapter : AddPlaceRecyclerViewAdapter
     val TYPE_EDIT_PLACE_NAME: String = "TYPE_EDIT_PLACE_NAME"
     val TYPE_EDIT_PRICE: String = "TYPE_EDIT_PRICE"
-
     private lateinit var gKeyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onCreateView(
