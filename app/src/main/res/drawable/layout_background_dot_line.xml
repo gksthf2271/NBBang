@@ -4,7 +4,7 @@
     <solid
         android:color="@color/empty_background"/>
     <stroke
-        android:color="@color/yellow_color"
+        android:color="@color/app_point_color"
         android:width="3dp"
         android:dashGap="3dp"
         android:dashWidth="10dp"
