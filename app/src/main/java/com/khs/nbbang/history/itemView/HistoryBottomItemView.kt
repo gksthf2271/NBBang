@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.CviewHistoryBottomDialogBinding
+import com.khs.nbbang.history.HistoryBottomRecyclerViewAdapter
 import com.khs.nbbang.history.data.Place
+import com.khs.nbbang.utils.NumberUtils
 
 class HistoryBottomItemView(val gPlace: Place) :
     BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW) {
@@ -37,9 +39,10 @@ class HistoryBottomItemView(val gPlace: Place) :
                 dismiss()
             }
             it!!.txtTitle.text = gPlace.placeName
-            it!!.txtPrice.text = gPlace.price.toString()
+            it!!.txtPrice.text = NumberUtils().makeCommaNumber(true, gPlace.price)
             it!!.recyclerNameList.apply {
-                this.layoutManager = GridLayoutManager(requireContext(), 3)
+                layoutManager = GridLayoutManager(requireContext(), 3)
+                adapter = HistoryBottomRecyclerViewAdapter(gPlace.joinPeopleList)
             }
         }
     }

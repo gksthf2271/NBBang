@@ -1,7 +1,9 @@
 package com.khs.nbbang.base
 
+import android.view.Gravity
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.DialogFragment
 import com.khs.nbbang.R
 import com.khs.nbbang.common.IKeyEvent
@@ -24,6 +26,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
             DIALOG_TYPE.NONE,
             DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS,
             DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
+            DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW,
             DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
                 resizeDialog(gDialogType)
                 setBackgroundColorDialog()
@@ -33,6 +36,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
 
     private fun setBackgroundColorDialog() {
         when (gDialogType) {
+            DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW,
             DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS -> {
                 dialog?.window?.setBackgroundDrawableResource(R.color.blank_deep)
             }
@@ -63,6 +67,8 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
             DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW -> {
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.4).toInt()
+                dialog?.window?.setGravity(Gravity.BOTTOM)
+                dialog?.window?.setWindowAnimations(R.style.AnimationPopupStyle)
             }
             DIALOG_TYPE.NONE -> {
                 params?.width = (deviceWidth * 1)

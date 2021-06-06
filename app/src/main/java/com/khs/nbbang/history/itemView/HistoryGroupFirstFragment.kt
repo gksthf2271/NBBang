@@ -73,8 +73,10 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
         Log.v(TAG,"loadPage(...) page : $page, pageSize : ${pageMap.keys.size}")
         mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
             pageMap.get(page-1) ?: arrayListOf()
-        ) {
-            Log.v(TAG, "Clicked Item : ${it.placeName}")
+        ) { place ->
+            Log.v(TAG, "Clicked Item : ${place.placeName}")
+            var dialog = HistoryBottomItemView(place)
+            dialog.show(requireActivity().supportFragmentManager, null)
         }
         updateIndicator(page, pageMap.size)
     }
