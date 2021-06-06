@@ -74,7 +74,7 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
         mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
             pageMap.get(page-1) ?: arrayListOf()
         ) {
-            Log.v(TAG, "Clicked Item : ${it.id}")
+            Log.v(TAG, "Clicked Item : ${it.placeName}")
         }
         updateIndicator(page, pageMap.size)
     }

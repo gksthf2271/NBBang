@@ -14,7 +14,7 @@ import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_history_list_place_item.view.*
 
 
-class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: ArrayList<Place>, val itemClick: (NBBangHistory) -> Unit) :
+class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: ArrayList<Place>, val gItemClick: (Place) -> Unit) :
     RecyclerView.Adapter<HistoryItemRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
@@ -24,7 +24,7 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
         val view: View =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.cview_history_list_place_item, parent, false)
-        viewHolder = ViewHolder(view, itemClick)
+        viewHolder = ViewHolder(view)
         return viewHolder
     }
 
@@ -38,7 +38,7 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
         holder.bind(mHistoryResultPlaceList.get(position))
     }
 
-    inner class ViewHolder(itemView: View, itemClick: (NBBangHistory) -> Unit) :
+    inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.simpleName
         var mItemView: View = itemView
@@ -48,6 +48,9 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
             mItemView.txt_title.text = item.placeName
             mItemView.txt_join_people.text = StringUtils().getPeopleList(item.joinPeopleList)
             mItemView.txt_price.text = NumberUtils().makeCommaNumber(true, item.price)
+            mItemView.setOnClickListener {
+                gItemClick(item)
+            }
         }
     }
 }
