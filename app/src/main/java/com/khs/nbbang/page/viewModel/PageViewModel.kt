@@ -47,6 +47,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
+    private val _NBBResultItem: MutableLiveData<NBBResultItem> = MutableLiveData()
+    val gNBBResultItem : LiveData<NBBResultItem> get() = _NBBResultItem
+
     private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
 
     init {
@@ -332,6 +335,10 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun clearNBBResultItem() {
         mNBBResultItem.place.clear()
         mNBBResultItem.dutchPay.clear()
+    }
+
+    fun loadNBBResult() : NBBResultItem {
+        return mNBBResultItem
     }
 
     private fun dutchPayBill(joinPeopleList: MutableList<Member>, payment:Int) {

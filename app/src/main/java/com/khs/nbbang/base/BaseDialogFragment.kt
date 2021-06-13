@@ -16,6 +16,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
         TYPE_HISTORY_CHECKER,
         TYPE_COMMON_LOADING,
         TYPE_ADD_KAKAO_FIRENDS,
+        TYPE_SHARE_RESULT,
         TYPE_HISTORY_BOTTOM_VIEW,
         NONE
     }
@@ -26,6 +27,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
             DIALOG_TYPE.NONE,
             DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS,
             DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
+            DIALOG_TYPE.TYPE_SHARE_RESULT,
             DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW,
             DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
                 resizeDialog(gDialogType)
@@ -36,6 +38,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
 
     private fun setBackgroundColorDialog() {
         when (gDialogType) {
+            DIALOG_TYPE.TYPE_SHARE_RESULT,
             DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW,
             DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS -> {
                 dialog?.window?.setBackgroundDrawableResource(R.color.blank_deep)
@@ -64,6 +67,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.90).toInt()
             }
+            DIALOG_TYPE.TYPE_SHARE_RESULT,
             DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW -> {
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.4).toInt()

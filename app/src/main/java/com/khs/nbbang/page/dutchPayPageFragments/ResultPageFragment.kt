@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
+import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentResultPageBinding
 import com.khs.nbbang.page.viewModel.PageViewModel
@@ -43,8 +44,26 @@ class ResultPageFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        updateList()
+    }
+
+    fun initView() {
+        mBinding.recyclerViewResult.apply {
+            setHasFixedSize(true)
+            addItemDecoration(HistoryItemDecoration(10))
+            this.layoutManager = layoutManager
+        }
+        updateList()
+    }
+
+    fun updateList() {
+        mBinding.viewModel.mNBBLiveData
         mBinding.viewModel.let {
             it!!.clearDutchPayMap()
+            it!!.resultNBB()
+            mBinding.recyclerViewResult.adapter.apply {
+
+            }
             mBinding.txtResult.text = it!!.resultNBB()
         }
     }
@@ -59,7 +78,7 @@ class ResultPageFragment : BaseFragment() {
         HistoryCheckerDialogFragment.getInstance().apply {
             this.arguments = Bundle().apply {
                 this.putCharSequence(KEY_TITLE, this@ResultPageFragment.mBinding.txtTitle.text)
-                this.putCharSequence(KEY_DESCRIPTION, this@ResultPageFragment.mBinding.txtResult.text)
+                this.putCharSequence(KEY_DESCRIPTION, this@ResultPageFragment.mBinding.viewModel.resultNBB())
             }
         }.show(requireActivity().supportFragmentManager, tag)
     }
