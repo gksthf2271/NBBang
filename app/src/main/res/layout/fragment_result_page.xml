@@ -48,7 +48,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.9">
+                app:layout_constraintWidth_percent="0.95">
 
                 <ScrollView
                     android:id="@+id/scrollView"
@@ -91,7 +91,8 @@
                     android:id="@+id/txt_price"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/search_text_color"
                     android:textScaleX="1.2"
                     android:textSize="24sp"

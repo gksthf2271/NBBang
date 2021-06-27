@@ -3,29 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="100dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_group_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent="0.9"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/divider"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.20">
+        app:layout_constraintWidth_percent="0.15">
 
-        <ImageView
-            android:id="@+id/img_profile"
+<!--        <ImageView-->
+<!--            android:id="@+id/img_profile"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintHeight_percent="0.8"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <TextView
+            android:id="@+id/txt_place_index"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.8"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="100차"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -55,7 +69,7 @@
         app:layout_constraintWidth_percent="0.75">
 
         <TextView
-            android:id="@+id/txt_name"
+            android:id="@+id/txt_place_name"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center_vertical"
@@ -68,7 +82,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.6"
             android:textColor="@color/common_title_color"
-            tools:text="김한솔"/>
+            tools:text="주막"/>
 
         <TextView
             android:id="@+id/txt_join_people"
@@ -82,9 +96,9 @@
             app:layout_constraintHeight_percent="0.4"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintWidth_percent="0.6"
-            app:layout_constraintTop_toBottomOf="@id/txt_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_place_name"
             android:textColor="@color/common_title_color"
-            tools:text="주막, 어디, 어디, 어디"/>
+            tools:text="김한솔, 홍길동, 등등..."/>
 
         <TextView
             android:id="@+id/txt_price"
@@ -98,8 +112,8 @@
             android:paddingLeft="15dp"
             app:layout_constraintBottom_toBottomOf="@id/txt_join_people"
             app:layout_constraintHeight_percent="0.9"
-            app:layout_constraintLeft_toRightOf="@id/txt_name"
-            app:layout_constraintTop_toTopOf="@id/txt_name"
+            app:layout_constraintLeft_toRightOf="@id/txt_place_name"
+            app:layout_constraintTop_toTopOf="@id/txt_place_name"
             app:layout_constraintWidth_percent="0.4"
             tools:text="78,900원"/>
 

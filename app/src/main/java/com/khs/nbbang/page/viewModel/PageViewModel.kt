@@ -21,7 +21,6 @@ import com.khs.nbbang.utils.StringUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,7 +49,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     private val _NBBResultItem: MutableLiveData<NBBResultItem> = MutableLiveData()
     val gNBBResultItem : LiveData<NBBResultItem> get() = _NBBResultItem
 
-    private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
+//    private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
 
     init {
         Log.v(TAG,"createPageViewModel : ${this}")
@@ -60,6 +59,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun clearPageViewModel() {
         Log.v(TAG, "clearPageViewModel(...)")
         CoroutineScope(Dispatchers.Default).launch {
+            _NBBResultItem.postValue(NBBResultItem())
             _NBBLiveData.postValue(NBB())
             _selectedPeopleMap.postValue(HashMap())
             _placeCount.postValue(0)
@@ -271,7 +271,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             result += "\n\t\t\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
             result += "\n\t\t\t 사용 금액 : ${_selectedPeopleMap.value!!.get(key)!!.mPrice} 원"
             result += "\n\t\t\t 더치페이 : ${NumberUtils().makeCommaNumber(true,priceInt / peoplelist.size)}"
-            dutchPayBill(peoplelist, priceInt / peoplelist.size)
+            createDutchPayBill(peoplelist, priceInt / peoplelist.size)
 
             createNBBResult(
                 Place(
@@ -302,6 +302,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             result += "\n\t\t\t $people : ${NumberUtils().makeCommaNumber(true, price)}"
         }
 
+        Log.v(TAG,"$result")
         return result
     }
 
@@ -310,7 +311,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
                 "\n index  : ${dutchPayPeople.dutchPayPeopleIndex}" +
                 "\n 이   름 : ${dutchPayPeople.dutchPayPeopleName}" +
                 "\n 더치페이 : ${dutchPayPeople.dutchPay}" )
-        mNBBResultItem.dutchPay.add(dutchPayPeople)
+        _NBBResultItem.value!!.dutchPay.add(dutchPayPeople)
     }
 
     private fun createNBBResult(place: Place) {
@@ -322,26 +323,26 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
                 "\n 비   용 : ${place.price}" +
                 "\n 더치페이 : ${place.dutchPay}" )
 
-        mNBBResultItem.place.add(place)
+        _NBBResultItem.value!!.place.add(place)
     }
 
     fun clearDutchPayMap() {
         mDutchPayMap.clear()
-        mNBBResultItem.apply {
+        _NBBResultItem.value!!.apply {
             NBBResultItem(arrayListOf(), arrayListOf())
         }
     }
 
     fun clearNBBResultItem() {
-        mNBBResultItem.place.clear()
-        mNBBResultItem.dutchPay.clear()
+        _NBBResultItem.value!!.place.clear()
+        _NBBResultItem.value!!.dutchPay.clear()
     }
 
     fun loadNBBResult() : NBBResultItem {
-        return mNBBResultItem
+        return _NBBResultItem.value!!
     }
 
-    private fun dutchPayBill(joinPeopleList: MutableList<Member>, payment:Int) {
+    private fun createDutchPayBill(joinPeopleList: MutableList<Member>, payment:Int) {
         for (people in joinPeopleList) {
             if (mDutchPayMap.get(people.name) == null) {
                 mDutchPayMap.put(people.name, 0)
@@ -358,7 +359,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
                 AndroidSchedulers.mainThread(),
                 requestAddHistory(
                     System.currentTimeMillis(),
-                    mNBBResultItem,
+                    _NBBResultItem.value!!,
                     ""
                 )
             )

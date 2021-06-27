@@ -75,7 +75,7 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
             pageMap.get(page-1) ?: arrayListOf()
         ) { place ->
             Log.v(TAG, "Clicked Item : ${place.placeName}")
-            var dialog = HistoryBottomItemView(place)
+            var dialog = PlaceBottomItemView(place)
             dialog.show(requireActivity().supportFragmentManager, null)
         }
         updateIndicator(page, pageMap.size)

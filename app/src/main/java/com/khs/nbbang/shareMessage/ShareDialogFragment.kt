@@ -8,10 +8,25 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseDialogFragment
-import com.khs.nbbang.databinding.FragmentHistoryBinding
+import com.khs.nbbang.databinding.FragmentShareDialogBinding
+import kotlinx.android.synthetic.main.fragment_share_dialog.view.*
 
 class ShareDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SHARE_RESULT) {
-    lateinit var mBinding: FragmentHistoryBinding
+    lateinit var mBinding: FragmentShareDialogBinding
+
+    companion object {
+        @Volatile
+        private var instance: ShareDialogFragment? = null
+
+        @JvmStatic
+        fun getInstance(): ShareDialogFragment =
+            instance ?: synchronized(this) {
+                instance
+                    ?: ShareDialogFragment().also {
+                        instance = it
+                    }
+            }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +43,12 @@ class ShareDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SHARE_RESULT) {
     }
 
     fun initView() {
-
+        mBinding.btnClose.setOnClickListener{
+            dismiss()
+        }
+        mBinding.btnShare.setOnClickListener{
+            dismiss()
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

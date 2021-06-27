@@ -4,8 +4,8 @@ import com.khs.nbbang.user.Member
 import java.io.Serializable
 
 data class NBBResultItem(
-    val place: ArrayList<Place>,
-    val dutchPay: ArrayList<DutchPayPeople>
+    val place: ArrayList<Place> = arrayListOf(),
+    val dutchPay: ArrayList<DutchPayPeople> = arrayListOf()
 ) : Serializable
 
 data class Place(

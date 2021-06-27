@@ -1,6 +1,5 @@
 package com.khs.nbbang.page.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.R
-import com.khs.nbbang.user.Member
-import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_edit_people.view.*
+import com.khs.nbbang.history.data.Place
+import com.khs.nbbang.utils.NumberUtils
+import com.khs.nbbang.utils.StringUtils
+import kotlinx.android.synthetic.main.cview_share_result_item.view.*
 
 class ResultRecyclerViewAdapter(
-    val mContext: Context,
-    val mItemList: ArrayList<Member>,
-    val mItemClick: (Pair<Int, Member>) -> Unit
+    val mItemList: ArrayList<Place>,
+    val mItemClick: (Place) -> Unit
 ) : RecyclerView.Adapter<ResultRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
@@ -36,31 +35,35 @@ class ResultRecyclerViewAdapter(
         holder.bind(mItemList.get(position), position)
     }
 
-    inner class ViewHolder(itemView: View, itemClick: (Pair<Int, Member>) -> Unit) :
+    inner class ViewHolder(itemView: View, itemClick: (Place) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.simpleName
         var mItemView: View = itemView
         var mItemClick = itemClick
 
-        fun bind(member: Member, position: Int) {
-            mItemView.txt_name.text = member.name
-            GlideUtils().drawMemberProfile(mItemView.img_profile, member, null)
+        fun bind(place: Place, position: Int) {
+            mItemView.run {
+                txt_place_name.text = place.placeName
+                txt_place_index.text = "${place.placeIndex} 차"
+                txt_price.text = NumberUtils().makeCommaNumber(true, place.price)
+                txt_join_people.text = StringUtils().getPeopleList(place.joinPeopleList)
+            }
             mItemView.setOnClickListener {
-                mItemClick(Pair(position, member))
+                mItemClick(place)
             }
         }
     }
 
-    fun setItem(member: Member) {
-        Log.v(TAG,"setItem(...) member : ${member}")
-        this.mItemList.add(mItemList.size, member)
+    fun setItem(place: Place) {
+        Log.v(TAG,"setItem(...) place : ${place}")
+        this.mItemList.add(mItemList.size, place)
         notifyDataSetChanged()
     }
 
-    fun setItemList(memberList: ArrayList<Member>) {
-        Log.v(TAG,"setItem(...) memberList count : ${memberList.size}")
+    fun setItemList(plcaeList: ArrayList<Place>) {
+        Log.v(TAG,"setItem(...) plcaeList count : ${plcaeList.size}")
         mItemList.clear()
-        mItemList.addAll(memberList)
+        mItemList.addAll(plcaeList)
         notifyDataSetChanged()
     }
 }
