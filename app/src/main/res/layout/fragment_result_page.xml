@@ -51,6 +51,7 @@
                 app:layout_constraintWidth_percent="0.9">
 
                 <ScrollView
+                    android:id="@+id/scrollView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -65,10 +66,10 @@
                 android:id="@+id/group_total_price"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/txt_notify_copy"
                 app:layout_constraintHeight_percent="0.1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_group"
                 app:layout_constraintWidth_percent="0.9">
 
