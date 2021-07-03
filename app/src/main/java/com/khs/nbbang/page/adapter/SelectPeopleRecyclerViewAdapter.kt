@@ -11,20 +11,18 @@ import com.khs.nbbang.user.Member
 class SelectPeopleRecyclerViewAdapter (
     val mContext: Context,
     val mItemList: ArrayList<Pair<Member, Boolean>>,
-    val mItemClick: (Pair<Int, Member>) -> Unit,
-    val viewUpdateCallback : (Boolean, Member) -> Unit
+    val gViewUpdateCallback : (Boolean, Member) -> Unit
 ) : RecyclerView.Adapter<SelectPeopleRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
 
     var mAllItemList: ArrayList<Pair<Member, Boolean>> = arrayListOf()
-    var mSelectedItemList: ArrayList<Member> = arrayListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = SelectMemberView(mContext)
         view.setViewSize(3)
-        return ViewHolder(view, mItemClick)
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -37,16 +35,15 @@ class SelectPeopleRecyclerViewAdapter (
         holder.bind(mItemList.get(position), position)
     }
 
-    inner class ViewHolder(itemView: SelectMemberView, itemClick: (Pair<Int, Member>) -> Unit) :
+    inner class ViewHolder(itemView: SelectMemberView) :
         RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.simpleName
         var mItemView: SelectMemberView = itemView
-        var mItemClick = itemClick
 
         fun bind(pair: Pair<Member, Boolean>, position: Int) {
             mItemView.setCheckedMember(pair.second)
             mItemView.setMember(pair.first) { isSaveCallback, member ->
-                viewUpdateCallback(isSaveCallback, member)
+                gViewUpdateCallback(isSaveCallback, member)
             }
         }
     }

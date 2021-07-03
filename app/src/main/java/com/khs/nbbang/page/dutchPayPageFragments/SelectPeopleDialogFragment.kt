@@ -57,18 +57,17 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
 
     fun initView() {
         Log.v(TAG,"initView(...), TAG : $tag")
-        mRecyclerViewAdapter = SelectPeopleRecyclerViewAdapter(requireContext(), arrayListOf(), {
-            Log.v(TAG, "ItemClicked, member : ${it.second}")
-        }, { isSaveCallback, member ->
-            when {
-                isSaveCallback -> {
+        mRecyclerViewAdapter = SelectPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) { isSelected, member ->
+            Log.v(TAG,"update circleView! $isSelected")
+            when(isSelected) {
+                true -> {
                     mSelectMemberViewModel.addSelectedMember(member)
                 }
-                else -> {
+                false -> {
                     mSelectMemberViewModel.removeSelectedMember(member)
                 }
             }
-        })
+        }
 
         mBinding.recyclerView.apply {
             layoutManager =
