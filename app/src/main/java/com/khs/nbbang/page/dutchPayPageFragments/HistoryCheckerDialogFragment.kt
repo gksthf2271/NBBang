@@ -58,7 +58,11 @@ class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY
 
     fun initView() {
         mBinding.btnSave.setOnClickListener {
-            mPageViewModel.saveHistory()
+            if (!mPageViewModel.gIsSavedResult) {
+                mPageViewModel.saveHistory()
+            } else {
+                Toast.makeText(requireContext(),"이미 저장된 영수증입니다.", Toast.LENGTH_SHORT).show()
+            }
             copy()
             dismiss()
         }

@@ -62,6 +62,7 @@ class ResultPageFragment : BaseFragment() {
                     updateList()
                 }
                 pageViewModel!!.resultNBB()
+                if (pageViewModel!!.gIsSavedResult) pageViewModel!!.gIsSavedResult = false
             }
         }
     }

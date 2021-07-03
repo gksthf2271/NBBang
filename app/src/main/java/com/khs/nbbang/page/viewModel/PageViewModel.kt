@@ -49,6 +49,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     private val _NBBResultItem: MutableLiveData<NBBResultItem> = MutableLiveData()
     val gNBBResultItem : LiveData<NBBResultItem> get() = _NBBResultItem
 
+    var gIsSavedResult : Boolean = false
+
 //    private var mNBBResultItem : NBBResultItem = NBBResultItem(arrayListOf(), arrayListOf())
 
     init {
@@ -362,7 +364,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
                     _NBBResultItem.value!!,
                     ""
                 )
-            )
+            ) {
+                gIsSavedResult = it
+            }
         }
     }
 

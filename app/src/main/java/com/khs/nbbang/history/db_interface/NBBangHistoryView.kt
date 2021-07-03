@@ -33,7 +33,7 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryControl
         compositeDisposable.add(d)
     }
 
-    fun handleShowHistoryByMonth(sub: Scheduler, ob: Scheduler, minTimeMs:Long, maxTimeMs:Long) {
+    fun handleShowHistoryByMonth(sub: Scheduler, ob: Scheduler, minTimeMs: Long, maxTimeMs: Long) {
         val d = getNBBangHistoryByMonth(minTimeMs, maxTimeMs)
             .subscribeOn(sub)
             .observeOn(ob)
@@ -43,13 +43,19 @@ interface NBBangHistoryView : AddNBBangHistory, GetNbbangHistory, HistoryControl
         compositeDisposable.add(d)
     }
 
-    fun handleAddNBBangHistory(sub: Scheduler, ob: Scheduler, addHistoryRequest: AddHistoryRequest) {
+    fun handleAddNBBangHistory(
+        sub: Scheduler,
+        ob: Scheduler,
+        addHistoryRequest: AddHistoryRequest,
+        callback: (Boolean) -> Unit
+    ) {
         val d = addNBBangHistory(addHistoryRequest)
             .flatMap { getNBBangAllHistory() }
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
                 renderHistorys(r)
+                callback(true)
             }
         compositeDisposable.add(d)
     }
