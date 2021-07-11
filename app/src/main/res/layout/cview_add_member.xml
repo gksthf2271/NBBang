@@ -84,54 +84,20 @@
             app:layout_constraintWidth_percent="0.7"
             android:duplicateParentState="true">
 
-            <Button
+            <TextView
                 android:id="@+id/btn_save"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="50dp"
-                android:background="@drawable/layout_rounded_black"
-                android:gravity="center"
                 android:text="SAVE"
-                android:textColor="@color/common_title_light_color"
-                android:textSize="15sp"
+                android:textColor="@color/app_point_color"
+                android:textSize="20sp"
                 android:textStyle="bold"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <Button-->
-<!--                android:id="@+id/btn_save"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="0dp"-->
-<!--                app:layout_constraintWidth_percent="0.25"-->
-<!--                app:layout_constraintHeight_percent="0.8"-->
-<!--                android:background="@drawable/layout_rounded_black"-->
-<!--                android:gravity="center"-->
-<!--                android:text="SAVE"-->
-<!--                android:textColor="@color/common_title_light_color"-->
-<!--                android:textSize="15sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                app:layout_constraintRight_toLeftOf="@id/btn_cancel"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_cancel"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="0dp"-->
-<!--                app:layout_constraintWidth_percent="0.25"-->
-<!--                app:layout_constraintHeight_percent="0.8"-->
-<!--                android:background="@drawable/layout_rounded_black"-->
-<!--                android:gravity="center"-->
-<!--                android:text="CANCEL"-->
-<!--                android:textColor="@color/common_title_light_color"-->
-<!--                android:textSize="15sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintLeft_toRightOf="@id/btn_save"-->
-<!--                app:layout_constraintRight_toRightOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

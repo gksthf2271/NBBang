@@ -27,27 +27,29 @@
         app:layout_constraintTop_toBottomOf="@id/txt_title"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
+        <TextView
             android:id="@+id/btn_ok"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="50dp"
-            android:background="@drawable/layout_rounded_black"
             android:text="OK"
-            android:textColor="@color/text_color"
-            android:textSize="15sp"
+            android:textColor="@color/app_point_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btn_cancel"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_cancel"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="50dp"
-            android:background="@drawable/layout_rounded_black"
             android:text="CANCEL"
-            android:textColor="@color/text_color"
-            android:textSize="15sp"
+            android:textColor="@color/app_point_color"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/btn_ok"
             app:layout_constraintRight_toRightOf="parent"

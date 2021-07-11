@@ -75,25 +75,6 @@ class AddPlaceFragment : BaseFragment() {
                     smoothScrollTo(scrollX, scrollY + keyboardHeight)
                 }
             })
-//        mViewModel.saveSelectedPeople(mViewModel.mSelectedPeopleMap.value!!.size + 1, mutableListOf())
-//        mRecyclerViewAdapter = AddPlaceRecyclerViewAdapter(requireActivity(), mViewModel, arrayListOf(),{
-//            Log.v(TAG,"ItemClicked, index : $it")
-//            //TODO item remove
-//        },{ nbb ->
-//            Log.v(TAG,"JoinBtnClicked, index : ${nbb.mPlaceIndex}")
-//            mViewModel!!.selectPlace(nbb.mPlaceIndex)
-//            showSelectPeopleDialog(nbb.mPlaceIndex.toString())
-//        })
-//
-//        mBinding.recyclerView.apply {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            addItemDecoration(HistoryItemDecoration(10))
-//            adapter = mRecyclerViewAdapter
-//        }
-
-//        mBinding.btnAdd.setOnClickListener {
-//            mViewModel.saveSelectedPeople(mViewModel.mSelectedPeopleMap.value!!.size + 1, mutableListOf())
-//        }
         rootView.addView(createPlaceInfoView(rootView, inflater), rootView.childCount)
         mBinding.btnAdd.setOnClickListener {
             rootView.addView(createPlaceInfoView(rootView, inflater), rootView.childCount)
@@ -101,12 +82,6 @@ class AddPlaceFragment : BaseFragment() {
     }
 
     private fun addObserver() {
-//        mViewModel.mSelectedPeopleMap.observe(requireActivity(), Observer {selectedPeopleMap ->
-//            var list = arrayListOf<NBB>()
-//            list.addAll(selectedPeopleMap.values.toList())
-//            mRecyclerViewAdapter.setItemList(list)
-//        })
-
         mViewModel.mNBBLiveData.observe(requireActivity(), Observer {
             Log.v(TAG, "mNBBLiveData, Observer(...) : $it")
             mViewModel.clearSelectedPeople()
