@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,9 +24,6 @@ import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.utils.KeyboardUtils
-import com.khs.nbbang.utils.setTransitionListener
-import kotlinx.android.synthetic.main.fragment_add_people.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPeopleFragment : FloatingButtonBaseFragment() {
@@ -149,12 +145,6 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     var newMemberArrayList = arrayListOf<Member>()
                     newMemberArrayList.addAll(it!!.mMemberList)
                     mRecyclerViewAdapter.setItemList(newMemberArrayList)
-                    if (isResumed) {
-                        if (mAddPeopleContentsBinding.motionLayout.progress == 1f) mAddPeopleContentsBinding.motionLayout.transitionToEnd()
-                        (mAddPeopleContentsBinding.recyclerView.layoutManager as GridLayoutManager).scrollToPositionWithOffset(
-                            mRecyclerViewAdapter.itemCount - 1, mRecyclerViewAdapter.itemCount - 1
-                        )
-                    }
                 })
 
                 it!!.mSelectJoinPeople.observe(requireActivity(), Observer {

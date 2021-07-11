@@ -88,7 +88,7 @@
     <color name="common_title_light_color">#FFFFFF</color>
     <color name="common_description_color">#FFFFFF</color>
     <color name="common_background">#99000000</color>
-    <color name="history_item_background">#99000000</color>
+    <color name="history_item_background">#80000000</color>
 
     <!-- History Pie Chart Colors -->
     <color name="history_pie_chart_color_1">#BF2196F3</color>

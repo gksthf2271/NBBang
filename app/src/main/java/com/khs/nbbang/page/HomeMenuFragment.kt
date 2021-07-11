@@ -14,6 +14,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.utils.FragmentUtils
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -22,6 +23,7 @@ class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
     val mLoginViewModel: LoginViewModel by sharedViewModel()
     val mPageViewModel : PageViewModel by sharedViewModel()
+    val mSelectMemberViewModel : SelectMemberViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +46,9 @@ class HomeMenuFragment : BaseFragment() {
         super.onResume()
         mPageViewModel.let {
             it!!.clearPageViewModel()
+        }
+        mSelectMemberViewModel.let {
+            it!!.clearSelectedMemberHashMap()
         }
     }
 
