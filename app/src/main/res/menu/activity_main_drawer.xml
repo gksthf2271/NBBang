@@ -6,27 +6,22 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_dutch_pay"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/twotone_payments_24"
             android:title="@string/menu_dutch_pay" />
 
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/twotone_history_24"
             android:title="@string/menu_history" />
-
-<!--        <item-->
-<!--            android:id="@+id/nav_member_settings"-->
-<!--            android:icon="@drawable/ic_menu_slideshow"-->
-<!--            android:title="@string/menu_member_settings" />-->
 
         <item
             android:id="@+id/nav_kakao_friends_settings"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/twotone_groups_24"
             android:title="@string/menu_kakao_friends_settings" />
 
         <item
             android:id="@+id/nav_my_page"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/twotone_account_circle_24"
             android:title="@string/menu_settings" />
     </group>
 </menu>

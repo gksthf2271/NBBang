@@ -66,14 +66,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
+        <ImageView
             android:id="@+id/btn_join"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="참석자 \n추가"
-            android:textColor="@color/search_text_color"
-            android:textSize="15sp"
+            android:src="@drawable/twotone_person_add_white_36"
             app:layout_constraintBottom_toBottomOf="@id/layout_group"
             app:layout_constraintLeft_toRightOf="@id/layout_group"
             app:layout_constraintRight_toRightOf="parent"
