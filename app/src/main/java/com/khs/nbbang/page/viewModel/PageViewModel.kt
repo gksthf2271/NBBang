@@ -59,11 +59,13 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun clearPageViewModel() {
         Log.v(TAG, "clearPageViewModel(...)")
         CoroutineScope(Dispatchers.IO).launch {
-            _NBBResultItem.postValue(NBBResultItem())
             _NBBLiveData.postValue(NBB())
             _selectedPeopleMap.postValue(HashMap())
             _placeCount.postValue(0)
+            _selectJoinPeople.postValue(Member())
+            _selectPlace.postValue(0)
             mDutchPayMap = mutableMapOf()
+            _NBBResultItem.postValue(NBBResultItem())
         }
     }
 
