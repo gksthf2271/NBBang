@@ -23,7 +23,6 @@ class AddFriendsRecyclerViewAdapter (
     }
 
     override fun getItemCount(): Int {
-        if(DEBUG) Log.v(TAG,"getItemCount : ${mRemoteMemberHashMap.values.size}")
         return mRemoteMemberHashMap.let { mRemoteMemberHashMap.values.size }
     }
 

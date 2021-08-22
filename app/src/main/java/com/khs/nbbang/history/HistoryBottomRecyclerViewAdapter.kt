@@ -25,7 +25,6 @@ class HistoryBottomRecyclerViewAdapter(private val gNameList: ArrayList<Member>)
     }
 
     override fun getItemCount(): Int {
-        Log.v(TAG,"getItemCount : ${gNameList.size}")
         return gNameList.let { gNameList.size }
     }
 

@@ -26,7 +26,6 @@ class ResultRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.v(TAG, "getItemCount : ${mItemList.size}")
         return mItemList.let { mItemList.size }
     }
 

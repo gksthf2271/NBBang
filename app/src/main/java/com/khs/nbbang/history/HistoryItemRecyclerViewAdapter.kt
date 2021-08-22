@@ -29,7 +29,6 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
     }
 
     override fun getItemCount(): Int {
-        Log.v(TAG,"getItemCount : ${mHistoryResultPlaceList.size}")
         return mHistoryResultPlaceList.let { mHistoryResultPlaceList.size }
     }
 

@@ -39,7 +39,6 @@ class AddPlaceRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (DEBUG) Log.v(TAG, "getItemCount : ${mItemList.size}")
         return mItemList.let { mItemList.size }
     }
 

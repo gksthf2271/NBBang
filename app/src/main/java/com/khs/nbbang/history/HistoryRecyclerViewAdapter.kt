@@ -32,7 +32,6 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
     }
 
     override fun getItemCount(): Int {
-        if (DEBUG) Log.v(TAG,"getItemCount : ${mHistoryList!!.size}")
         return mHistoryList.let { mHistoryList!!.size }
     }
 

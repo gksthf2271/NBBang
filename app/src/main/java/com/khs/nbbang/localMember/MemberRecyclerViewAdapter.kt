@@ -27,7 +27,6 @@ class MemberRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        if(DEBUG) Log.v(TAG,"getItemCount : ${mMemberList.size}")
         return mMemberList.let { mMemberList.size }
     }
 
