@@ -23,6 +23,7 @@ import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
+import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -97,28 +98,37 @@ class MainActivity : BaseActivity() {
         }
 
         mLoginViewModel ?: return
-        mLoginViewModel!!.gMyData.observe(this, Observer {
-            if (it != null) {
-                Log.v(TAG, "mMyDataFrom : ${it!!}")
-                if (it!! != null) {
-                    var id = it!!.id
-                    var name = it!!.properties?.get("nickname")
-                    var image = it!!.properties?.get("profile_image")
-                    var thumbnail = it!!.properties?.get("thumbnail_image")
+        mLoginViewModel!!.gMyData.observe(this, Observer {kakaoUser ->
+            if (kakaoUser != null) {
+                Log.v(TAG, "mMyDataFrom : ${kakaoUser!!}")
+                if (kakaoUser!! != null) {
+                    var id = kakaoUser!!.id
+                    var name = kakaoUser!!.properties?.get("nickname")
+                    var image = kakaoUser!!.properties?.get("profile_image")
+                    var thumbnail = kakaoUser!!.properties?.get("thumbnail_image")
                     Log.v(
                         TAG, "MyData id : ${id}"
                                 + "\n name : ${name}"
                                 + "\n profile_image : ${image}"
                                 + "\n thumbnail_image : ${thumbnail}"
-                                + "\n connectedAt : ${it!!.connectedAt}"
+                                + "\n connectedAt : ${kakaoUser!!.connectedAt}"
                     )
-                    updateProfileInfo(thumbnail, name, it!!.kakaoAccount!!.email)
+                    updateProfileInfo(thumbnail, name, kakaoUser!!.kakaoAccount!!.email)
+                    mMemberManagementViewModel.let {memberManagementViewModel ->
+                        var myData = Member(
+                            id = id,
+                            profileImage = image,
+                            thumbnailImage = thumbnail,
+                            name = name ?: ""
+                        )
+                        memberManagementViewModel.saveKakaoMember(listOf(myData))
+                    }
                 } else {
                     updateProfileInfo(null, null, null)
                 }
 
             } else {
-                Log.v(TAG, "isLogin : $it")
+                Log.v(TAG, "isLogin : $kakaoUser")
                 updateProfileInfo(null, null, null)
             }
         })
