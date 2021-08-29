@@ -117,6 +117,7 @@ class MainActivity : BaseActivity() {
                     mMemberManagementViewModel.let {memberManagementViewModel ->
                         var myData = Member(
                             id = id,
+                            kakaoId = id.toString(),
                             profileImage = image,
                             thumbnailImage = thumbnail,
                             name = name ?: ""

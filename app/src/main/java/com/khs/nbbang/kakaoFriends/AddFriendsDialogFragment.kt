@@ -146,9 +146,18 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
             })
         }
 
-        gSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer {
-            Log.v(TAG,"update SelectedMember list! : $it")
-            mBinding.rowFavoriteMember.setList(it!!.values.toList())
+        gSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer { memberMap ->
+            Log.v(TAG,"update SelectedMember list! : $memberMap")
+            var result : ArrayList<Member> = arrayListOf()
+            var myData = gLoginViewModel.gMyData.value
+            myData?.id.let {
+                for (member in memberMap!!.values) {
+                    if (it!!.toString() != member.kakaoId) {
+                        result.add(member)
+                    }
+                }
+            }
+            mBinding.rowFavoriteMember.setList(result)
         })
     }
 

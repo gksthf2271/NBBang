@@ -24,6 +24,7 @@ import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
+import kotlinx.android.synthetic.main.fragment_add_people.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPeopleFragment : FloatingButtonBaseFragment() {
@@ -159,6 +160,8 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     mAddPeopleContentsBinding.rowFavoriteMember.visibility = View.GONE
                     return@Observer
                 }
+
+                mAddPeopleContentsBinding.groupFavorite.visibility = View.VISIBLE
                 mAddPeopleContentsBinding.rowFavoriteMember.initView(mPageViewModel)
                 mAddPeopleContentsBinding.rowFavoriteMember.setControlScrolling()
                 mAddPeopleContentsBinding.rowFavoriteMember.setTitle("LOCAL MEMBER")
@@ -170,7 +173,8 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                     mAddPeopleContentsBinding.rowFavoriteMember.visibility = View.GONE
                     return@Observer
                 }
-                //TEST Group
+
+                mAddPeopleContentsBinding.groupFavorite.visibility = View.VISIBLE
                 mAddPeopleContentsBinding.rowFavoriteGroup.initView(mPageViewModel)
                 mAddPeopleContentsBinding.rowFavoriteMember.setControlScrolling()
                 mAddPeopleContentsBinding.rowFavoriteGroup.setTitle("KAKAO MEMBER")

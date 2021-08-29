@@ -35,7 +35,7 @@ get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
  */
 
 open class NBApp : Application(){
-    val TAG = this.javaClass.simpleName
+    private val TAG = this.javaClass.simpleName
 
     override fun onCreate() {
         super.onCreate()
@@ -56,7 +56,7 @@ open class NBApp : Application(){
         )
     }
 
-    val databaseModule = module {
+    private val databaseModule = module {
         fun provideDatabase(application: Application): AppDatabase {
             return AppDatabase.getInstance(application)
         }
@@ -74,13 +74,13 @@ open class NBApp : Application(){
         single { provideNBBMemberDao(get()) }
     }
 
-    val dataModule = module {
+    private val dataModule = module {
         single {
             PackageRepository(applicationContext)
         }
     }
 
-    val viewModelModule = module {
+    private val viewModelModule = module {
         viewModel {
             LoginViewModel(get())
         }
