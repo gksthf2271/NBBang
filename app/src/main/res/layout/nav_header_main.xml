@@ -13,9 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/nav_header"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="200dp"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp">
+        android:paddingTop="60dp">
 
         <ImageView
             android:id="@+id/img_profile"

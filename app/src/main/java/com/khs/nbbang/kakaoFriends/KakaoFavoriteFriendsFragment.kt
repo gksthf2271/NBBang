@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
@@ -18,6 +19,7 @@ import com.khs.nbbang.databinding.FragmentKakaoFavoriteFriendsBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.localMember.MemberRecyclerViewAdapter
 import com.khs.nbbang.login.LoginViewModel
+import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -50,10 +52,9 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
     private fun initView() {
         if (mBinding.recyclerFriendList.adapter == null) {
             mBinding.recyclerFriendList.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                addItemDecoration(HistoryItemDecoration(30))
+                layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
                 adapter =
-                    MemberRecyclerViewAdapter(arrayListOf()) {
+                    AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
                         Log.v(TAG, "ItemClicked : $it")
 //                        mBinding.viewModel!!.selectMember(it)
                     }
@@ -82,9 +83,9 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
         })
 
         mBinding.viewModel!!.gKakaoFriendList.observe(requireActivity(), Observer {
-            val adapter = (mBinding.recyclerFriendList.adapter as? MemberRecyclerViewAdapter)
+            val adapter = (mBinding.recyclerFriendList.adapter as? AddPeopleRecyclerViewAdapter)
                 ?: return@Observer
-            adapter.setItem(it)
+            adapter.setItemList(ArrayList(it))
             mBinding.groupTitle.txt_sub_title.text =
                 "${it.size}명 대기중..."
             mBinding.viewModel!!.updateLoadingFlag(false)

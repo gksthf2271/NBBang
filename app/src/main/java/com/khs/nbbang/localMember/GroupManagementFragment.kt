@@ -7,19 +7,25 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.common.FavoriteRecyclerAdapter
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
+import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.user.Member
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import java.lang.reflect.Array
+import java.util.ArrayList
 
 class GroupManagementFragment : FloatingButtonBaseFragment() {
     val mViewModel: MemberManagementViewModel by sharedViewModel()
@@ -102,13 +108,12 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
             // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
             if (mGroupManagementBinding.recyclerMemberList.adapter == null) {
                 mGroupManagementBinding.recyclerMemberList.apply {
-                    layoutManager = LinearLayoutManager(requireContext())
-                    addItemDecoration(HistoryItemDecoration(30))
+                    layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
                     addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
                     adapter =
-                        MemberRecyclerViewAdapter(arrayListOf()) {
+                        AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
                             Log.v(TAG, "ItemClicked : $it")
-                            mGroupManagementBinding.viewModel!!.selectMember(it)
+                            mGroupManagementBinding.viewModel!!.selectMember(it.second)
                             mParentFragment.showMemberView()
                         }
                 }
@@ -132,9 +137,9 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
             })
 
             mGroupManagementBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
-                val adapter = (mGroupManagementBinding.recyclerMemberList.adapter as? MemberRecyclerViewAdapter)
+                val adapter = (mGroupManagementBinding.recyclerMemberList.adapter as? AddPeopleRecyclerViewAdapter)
                     ?: return@Observer
-                adapter.setItem(it)
+                adapter.setItemList(ArrayList(it))
 
                 mGroupManagementBinding.groupTitle.txt_title.text =
                     "Favorite Member"
