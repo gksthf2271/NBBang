@@ -101,9 +101,13 @@ class HistoryFragment : BaseFragment(){
                 mBinding.historyRecyclerView.visibility = View.VISIBLE
                 mBinding.emptyView.visibility = View.GONE
             }
-
+            var myData = mLoginViewModel.gMyData.value
+            var name = ""
+            myData.let {kakaoUser ->
+                name = kakaoUser!!.name
+            }
             mBinding.cviewSelectMonth.cview1.txt_description.text = it.nbbangHistoryList.size.toString()
-            mBinding.cviewSelectMonth.cview2.txt_description.text = ServiceUtils().getTotalAmountOfPayment("김한솔", it)
+            mBinding.cviewSelectMonth.cview2.txt_description.text = ServiceUtils().getTotalAmountOfPayment(name, it)
             mBinding.viewModel!!.updateLoadingFlag(false)
         })
 
