@@ -94,12 +94,12 @@ class HistoryFragment : BaseFragment(){
 
             if (it.nbbangHistoryList.isNullOrEmpty()) {
                 Log.v(TAG,"empty List!, show emptyView")
-                mBinding.historyRecyclerView.setCustomVisibility(View.GONE)
-                mBinding.emptyView.setCustomVisibility(View.VISIBLE)
+                mBinding.historyRecyclerView.visibility = View.GONE
+                mBinding.emptyView.visibility = View.VISIBLE
             } else {
                 Log.v(TAG,"show Item View")
-                mBinding.historyRecyclerView.setCustomVisibility(View.VISIBLE)
-                mBinding.emptyView.setCustomVisibility(View.GONE)
+                mBinding.historyRecyclerView.visibility = View.VISIBLE
+                mBinding.emptyView.visibility = View.GONE
             }
 
             mBinding.cviewSelectMonth.cview1.txt_description.text = it.nbbangHistoryList.size.toString()
