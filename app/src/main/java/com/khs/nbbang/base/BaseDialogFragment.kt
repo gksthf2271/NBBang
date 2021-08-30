@@ -37,16 +37,17 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
     }
 
     private fun setBackgroundColorDialog() {
-        when (gDialogType) {
-            DIALOG_TYPE.TYPE_SHARE_RESULT,
-            DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW,
-            DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS -> {
-                dialog?.window?.setBackgroundDrawableResource(R.color.blank_deep)
-            }
-            else -> {
-                dialog?.window?.setBackgroundDrawableResource(R.color.blank)
-            }
-        }
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.layout_common_rounded_deep_black)
+//        when (gDialogType) {
+//            DIALOG_TYPE.TYPE_SHARE_RESULT,
+//            DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW,
+//            DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS -> {
+//                dialog?.window?.setBackgroundDrawableResource(R.drawable.layout_common_rounded_deep_black)
+//            }
+//            else -> {
+//                dialog?.window?.setBackgroundDrawableResource(R.color.blank_deep)
+//            }
+//        }
     }
 
     private fun resizeDialog(dialogType : DIALOG_TYPE){

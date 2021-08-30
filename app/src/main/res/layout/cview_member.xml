@@ -18,7 +18,7 @@
             android:id="@+id/group_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/member_add_item_background"
+            android:background="@drawable/layout_common_rounded_deep_black"
             android:duplicateParentState="true"
             android:focusable="true"
             android:paddingLeft="20dp"
@@ -121,6 +121,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_close"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintHeight_percent="0.8"
             app:layout_constraintRight_toRightOf="@id/group_layout"
             app:layout_constraintTop_toTopOf="parent" />
