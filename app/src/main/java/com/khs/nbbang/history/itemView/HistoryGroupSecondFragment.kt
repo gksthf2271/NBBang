@@ -76,8 +76,8 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
                 mBinding.groupInfo1.txt_description.text = (e as PieEntry).label
                 mBinding.groupInfo2.txt_description.isSingleLine = false
                 mBinding.groupInfo2.txt_description.text =
-                    StringUtils().getPeopleList((e as PieEntry).data as ArrayList<Member>)
-                mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, (e as PieEntry).value.toInt())
+                    StringUtils().getPeopleList(e.data as ArrayList<Member>)
+                mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, e.value.toInt())
             }
         })
     }

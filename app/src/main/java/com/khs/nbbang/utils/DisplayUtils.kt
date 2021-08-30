@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
 
-class DisplayUtils() {
+class DisplayUtils {
 
     fun getItemViewSize(context: Context): Int {
         return getItemViewSize(context, 1)

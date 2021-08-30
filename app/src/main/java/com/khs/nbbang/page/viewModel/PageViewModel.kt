@@ -72,7 +72,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun updatePeopleList(joinPeopleList: MutableList<Member>) {
         _NBBLiveData.postValue(_NBBLiveData.value.apply {
             this!!.mMemberList = joinPeopleList
-            this!!.mMemberCount = joinPeopleList.size
+            this.mMemberCount = joinPeopleList.size
         })
         Log.v(TAG, "updatePeopleList(...), ${_NBBLiveData.value!!.mMemberList}")
     }
@@ -99,7 +99,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         Log.v(TAG,"addJoinPeople(...) people : ${member}")
         _NBBLiveData.value.let { nbb ->
             if (nbb!!.mMemberList.contains(member)){
-                for (member in nbb!!.mMemberList) {
+                for (member in nbb.mMemberList) {
                     Log.v(TAG, "member : $member")
                 }
                 return false
@@ -107,15 +107,15 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
                 val emptyIndex = getEmptyPeopleCircleView(this!!.mMemberList)
-                if (emptyIndex == this!!.mMemberList.size) {
+                if (emptyIndex == this.mMemberList.size) {
                     Log.v(TAG, "emptyPeopleCircle is null")
-                    this!!.mMemberList.add(member)
+                    this.mMemberList.add(member)
                 } else {
                     Log.v(TAG, "emptyPeopleCircle is not null")
-                    this!!.mMemberList[emptyIndex] = member
+                    this.mMemberList[emptyIndex] = member
                 }
-                this!!.mMemberCount = this!!.mMemberList.size
-                updateJoinPlaceCount(this!!.mMemberCount)
+                this.mMemberCount = this.mMemberList.size
+                updateJoinPlaceCount(this.mMemberCount)
             })
             return true
         }
@@ -141,8 +141,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _NBBLiveData.value.let {
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
                 it!!.mMemberList.remove(member)
-                it!!.mMemberCount = it!!.mMemberList.size
-                updateJoinPlaceCount(it!!.mMemberCount)
+                it.mMemberCount = it.mMemberList.size
+                updateJoinPlaceCount(it.mMemberCount)
             })
         }
     }
@@ -153,7 +153,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         _NBBLiveData.value.let {
             val index = it!!.mMemberList.indexOf(selectJoinPeople)
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                it!!.mMemberList.get(index).run {
+                it.mMemberList.get(index).run {
                     name = member.name
                     thumbnailImage = member.thumbnailImage
                     profileImage = member.profileImage
@@ -167,10 +167,10 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun increaseJoinPeopleCount() {
         _NBBLiveData.value.let {
-            _NBBLiveData!!.postValue(it.apply {
+            _NBBLiveData.postValue(it.apply {
                 it!!.mMemberCount += 1
-                it!!.mMemberList.add(Member(index = it!!.mMemberList.size))
-                Log.v(TAG, "increaseJoinPeopleCount(...) ${it!!.mMemberCount}")
+                it!!.mMemberList.add(Member(index = it.mMemberList.size))
+                Log.v(TAG, "increaseJoinPeopleCount(...) ${it.mMemberCount}")
             })
         }
     }
@@ -182,10 +182,10 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun decreaseJoinPeopleCount() {
         Log.v(TAG, "decreaseJoinPeopleCount(...)")
         _NBBLiveData.value.let {
-            if (it!!.mMemberCount!! <= 0) return
+            if (it!!.mMemberCount <= 0) return
             _NBBLiveData.postValue(it.apply {
-                it!!.mMemberCount -= 1
-                it!!.mMemberList.removeAt(it!!.mMemberList.lastIndex)
+                it.mMemberCount -= 1
+                it.mMemberList.removeAt(it.mMemberList.lastIndex)
             })
         }
     }
@@ -200,9 +200,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         Log.v(TAG, "TAG : $placeId , savePrice : ${price}")
 
         _selectedPeopleMap.value.let {
-            if (it!![placeId] == null) it!![placeId] = NBB()
-            _selectedPeopleMap.postValue(it!!.apply {
-                it!![placeId]!!.mPrice = price
+            if (it!![placeId] == null) it[placeId] = NBB()
+            _selectedPeopleMap.postValue(it.apply {
+                it[placeId]!!.mPrice = price
             })
         }
     }
@@ -210,9 +210,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun savePlaceName(placeId: Int, placeName: String) {
         Log.v(TAG, "TAG : $placeId , savePlaceName : ${placeName}")
         _selectedPeopleMap.value.let {
-            if (it!![placeId] == null) it!![placeId] = NBB()
-            _selectedPeopleMap.postValue(it!!.apply {
-                it!![placeId]!!.mPlaceName = placeName
+            if (it!![placeId] == null) it[placeId] = NBB()
+            _selectedPeopleMap.postValue(it.apply {
+                it[placeId]!!.mPlaceName = placeName
             })
         }
     }
@@ -220,9 +220,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun saveSelectedPeople(placeId: Int, selectedJoinPeopleList: MutableList<Member>) {
         Log.v(TAG,"saveSelectedPeople(...) : ${selectedJoinPeopleList.count()}")
         _selectedPeopleMap.value!!.let {
-            if (it!![placeId] == null) it!![placeId] = NBB()
-            _selectedPeopleMap.postValue(it!!.apply {
-                this!![placeId]!!.run {
+            if (it[placeId] == null) it[placeId] = NBB()
+            _selectedPeopleMap.postValue(it.apply {
+                this[placeId]!!.run {
                     mMemberList.clear()
                     mMemberList.addAll(selectedJoinPeopleList)
                     mPlaceIndex = placeId
@@ -300,7 +300,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             createNBBResultDutchPayPeople(DutchPayPeople(
                 -1,
                 people,
-                price!!.toLong()
+                price.toLong()
             ))
             result += "\n\t\t\t $people : ${NumberUtils().makeCommaNumber(true, price)}"
         }

@@ -72,7 +72,7 @@ class MainActivity : BaseActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         updateProfileInfo(null, null, null)
 
-        mBinding.drawerLayout.setScrimColor(Color.TRANSPARENT);
+        mBinding.drawerLayout.setScrimColor(Color.TRANSPARENT)
         mBinding.drawerLayout.addDrawerListener(
             NavigationDrawerEvent(
                 mBinding.layoutContent,
@@ -92,23 +92,23 @@ class MainActivity : BaseActivity() {
             true
         }
 
-        mLoginViewModel ?: return
-        mLoginViewModel!!.gMyData.observe(this, Observer { kakaoUser ->
+        mLoginViewModel
+        mLoginViewModel.gMyData.observe(this, Observer { kakaoUser ->
             if (kakaoUser != null) {
-                Log.v(TAG, "mMyDataFrom : ${kakaoUser!!}")
-                if (kakaoUser!! != null) {
-                    val id = kakaoUser!!.id
-                    val name = kakaoUser!!.properties?.get("nickname")
-                    val image = kakaoUser!!.properties?.get("profile_image")
-                    val thumbnail = kakaoUser!!.properties?.get("thumbnail_image")
+                Log.v(TAG, "mMyDataFrom : ${kakaoUser}")
+                if (kakaoUser != null) {
+                    val id = kakaoUser.id
+                    val name = kakaoUser.properties?.get("nickname")
+                    val image = kakaoUser.properties?.get("profile_image")
+                    val thumbnail = kakaoUser.properties?.get("thumbnail_image")
                     Log.v(
                         TAG, "MyData id : ${id}"
                                 + "\n name : ${name}"
                                 + "\n profile_image : ${image}"
                                 + "\n thumbnail_image : ${thumbnail}"
-                                + "\n connectedAt : ${kakaoUser!!.connectedAt}"
+                                + "\n connectedAt : ${kakaoUser.connectedAt}"
                     )
-                    updateProfileInfo(thumbnail, name, kakaoUser!!.kakaoAccount!!.email)
+                    updateProfileInfo(thumbnail, name, kakaoUser.kakaoAccount!!.email)
                     mMemberManagementViewModel.let { memberManagementViewModel ->
                         val myData = Member(
                             id = id,
@@ -211,7 +211,7 @@ class MainActivity : BaseActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         Log.v(TAG, "keyCode: $keyCode , event : ${event}")
-        val currentFragment = (supportFragmentManager.fragments.get(0) as? Fragment).let {
+        val currentFragment = supportFragmentManager.fragments.get(0).let {
             it!!.childFragmentManager.fragments.get(0)
         }
         val fragment = currentFragment as? BaseFragment

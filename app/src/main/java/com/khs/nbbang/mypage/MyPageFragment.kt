@@ -53,12 +53,12 @@ class MyPageFragment : BaseFragment() {
 
         mBinding.viewModel!!.gMyData.observe(requireActivity(), Observer {
             if (it != null) {
-                Log.v(TAG, "mMyDataFrom : ${it!!}")
-                if (it!! != null) {
-                    val id = it!!.id
-                    val name = it!!.properties?.get("nickname")
-                    val image = it!!.properties?.get("profile_image")
-                    val thumbnail = it!!.properties?.get("thumbnail_image")
+                Log.v(TAG, "mMyDataFrom : ${it}")
+                if (it != null) {
+                    val id = it.id
+                    val name = it.properties?.get("nickname")
+                    val image = it.properties?.get("profile_image")
+                    val thumbnail = it.properties?.get("thumbnail_image")
                     Log.v(
                         TAG, "MyData id : ${id}"
                                 + "\n name : ${name}"

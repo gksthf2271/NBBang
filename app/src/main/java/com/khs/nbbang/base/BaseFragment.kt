@@ -22,7 +22,7 @@ open abstract class BaseFragment :Fragment(), IKeyEvent{
         super.onViewCreated(view, savedInstanceState)
         Log.v(TAG,"onViewCreated(...)")
         makeCustomLoadingView()?.let {
-            gLoadingView = it!!
+            gLoadingView = it
             return
         }
         gLoadingView = makeCommonLoadingView()
@@ -70,7 +70,7 @@ open abstract class BaseFragment :Fragment(), IKeyEvent{
         Log.v(TAG,"showLoadingView(...)")
         (gLoadingView as? LoadingDialog).let {
             if (!it!!.isShowing)
-                it!!.show()
+                it.show()
         }
     }
 
@@ -78,7 +78,7 @@ open abstract class BaseFragment :Fragment(), IKeyEvent{
         Log.v(TAG,"hideLoadingView(...)")
         (gLoadingView as? LoadingDialog).let {
             if (it!!.isShowing)
-                it!!.hide()
+                it.hide()
         }
     }
 }

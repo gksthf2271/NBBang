@@ -16,7 +16,7 @@ open class FragmentUtils{
 
     open fun loadFragment(fragment: Fragment, container_id:Int, fragmentManager: FragmentManager, isAdded: Boolean) {
         val className: String = fragment.javaClass.simpleName
-        val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         if (isAdded) {
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.add(container_id, fragment, className)

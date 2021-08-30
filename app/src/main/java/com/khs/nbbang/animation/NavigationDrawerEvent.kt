@@ -20,7 +20,4 @@ class NavigationDrawerEvent(private val contentView : RelativeLayout, private va
         contentView.translationX = xTranslation
     }
 
-    override fun onDrawerClosed(drawerView: View) {
-        super.onDrawerClosed(drawerView)
-    }
 }

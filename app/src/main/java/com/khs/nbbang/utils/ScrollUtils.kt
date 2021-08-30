@@ -23,7 +23,7 @@ object ScrollUtils {
                     MotionEvent.ACTION_MOVE -> {
                         val isScrollingRight = e.x < lastX
                         viewPager2.isUserInputEnabled =
-                            isScrollingRight && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == recyclerView.adapter!!.getItemCount() - 1 || !isScrollingRight && (recyclerView.layoutManager as LinearLayoutManager?)!!.findFirstCompletelyVisibleItemPosition() == 0
+                            isScrollingRight && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == recyclerView.adapter!!.itemCount - 1 || !isScrollingRight && (recyclerView.layoutManager as LinearLayoutManager?)!!.findFirstCompletelyVisibleItemPosition() == 0
                     }
                     MotionEvent.ACTION_UP -> {
                         lastX = 0

@@ -61,8 +61,8 @@ class ResultPageFragment : BaseFragment() {
                 CoroutineScope(Dispatchers.Main).launch {
                     updateList()
                 }
-                pageViewModel!!.resultNBB()
-                if (pageViewModel!!.gIsSavedResult) pageViewModel!!.gIsSavedResult = false
+                pageViewModel.resultNBB()
+                if (pageViewModel.gIsSavedResult) pageViewModel.gIsSavedResult = false
             }
         }
     }

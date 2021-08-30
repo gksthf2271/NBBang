@@ -100,15 +100,15 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
                 }
             })
 
-            it.mSelectedPeopleMap?.observe(requireActivity(), Observer {
+            it.mSelectedPeopleMap.observe(requireActivity(), Observer {
                 Log.v(TAG,"observer(...)")
                 if (isAdded) {
-                it ?: return@Observer
-                tag ?: return@Observer
-                    it!!.get(tag!!.toInt()).let { nbb ->
+                    it ?: return@Observer
+                    tag ?: return@Observer
+                    it.get(tag!!.toInt()).let { nbb ->
                         nbb ?: return@Observer
                         val selectedPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
-                        for (member in nbb!!.mMemberList) {
+                        for (member in nbb.mMemberList) {
                             selectedPairList.add(Pair(member,true))
                         }
                         mRecyclerViewAdapter.setSelectedMemberList(selectedPairList)

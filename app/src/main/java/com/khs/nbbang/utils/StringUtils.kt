@@ -4,7 +4,7 @@ import android.util.Log
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.user.Member
 
-class StringUtils() {
+class StringUtils {
     val TAG = this.javaClass.simpleName
 
     fun getPeopleList(list : MutableList<Member>) : String{

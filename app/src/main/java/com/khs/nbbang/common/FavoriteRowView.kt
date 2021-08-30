@@ -39,7 +39,7 @@ class FavoriteRowView @JvmOverloads constructor(
                 Log.v(TAG,"ItemClicked, member : ${member.name}")
                 mPageViewModel.let {
                     if (!mPageViewModel.mNBBLiveData.value!!.mMemberList.contains(member)){
-                        it!!.addJoinPeople(member)
+                        it.addJoinPeople(member)
                     } else {
                         Toast.makeText(context, "${member.name}은 이미 추가된 멤버입니다.", Toast.LENGTH_SHORT).show()
                     }

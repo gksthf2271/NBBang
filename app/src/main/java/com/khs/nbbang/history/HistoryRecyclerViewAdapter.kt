@@ -32,12 +32,12 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
     }
 
     override fun getItemCount(): Int {
-        return mHistoryList.let { mHistoryList!!.size }
+        return mHistoryList.let { mHistoryList.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
-        holder.bind(mHistoryList!!.get(position))
+        holder.bind(mHistoryList.get(position))
     }
 
     inner class ViewHolder(itemView: View, itemClick: (NBBangHistory) -> Unit) :

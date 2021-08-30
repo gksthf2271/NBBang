@@ -11,7 +11,7 @@ fun RecyclerView.setOnItemTouchListener(
         }
 
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-            onTouch?.invoke(e)
+            onTouch.invoke(e)
             return false
         }
 

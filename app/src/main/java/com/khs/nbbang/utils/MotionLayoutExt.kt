@@ -13,15 +13,15 @@ fun MotionLayout.setTransitionListener(
         }
 
         override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
-            started?.invoke(p1, p2)
+            started.invoke(p1, p2)
         }
 
         override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
-            change?.invoke(p0?.transitionName)
+            change.invoke(p0?.transitionName)
         }
 
         override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-            completion?.invoke(p1)
+            completion.invoke(p1)
         }
     })
 }

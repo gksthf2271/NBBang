@@ -37,9 +37,9 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
 
     fun removeSelectedMember(member: Member) {
         _selectedMemberHashMap.value.let {
-            if (it!!.containsKey(member.kakaoId) || it!!.containsKey(member.name)) {
+            if (it!!.containsKey(member.kakaoId) || it.containsKey(member.name)) {
                 _selectedMemberHashMap.postValue(
-                    it!!.apply {
+                    it.apply {
                         Log.v(TAG,"removeSelectedMember : $member")
                         if (member.kakaoId.isNullOrEmpty()) {
                             this.remove(member.name)

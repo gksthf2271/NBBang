@@ -84,13 +84,13 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
         mBinding.motionLayout.setTransitionListener({ transitionName ->
             Log.v(TAG, "motionLayout Transition Changed: $transitionName")
-            mItemTouchInterceptor.let { mItemTouchInterceptor!!.enable() }
+            mItemTouchInterceptor.let { mItemTouchInterceptor.enable() }
         }, { start, end ->
             Log.v(TAG, "motionLayout State start: $start , end: $end")
-            mItemTouchInterceptor.let { mItemTouchInterceptor!!.enable() }
+            mItemTouchInterceptor.let { mItemTouchInterceptor.enable() }
             KeyboardUtils.hideKeyboard(requireView(), requireContext())
         }, { completion ->
-            mItemTouchInterceptor.let { mItemTouchInterceptor!!.disable() }
+            mItemTouchInterceptor.let { mItemTouchInterceptor.disable() }
             Log.v(TAG, "motionLayout State completion: $completion")
         })
     }

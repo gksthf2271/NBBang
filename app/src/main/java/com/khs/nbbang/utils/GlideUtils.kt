@@ -14,7 +14,7 @@ import com.khs.nbbang.R
 import com.khs.nbbang.user.Member
 import lv.chi.photopicker.loader.ImageLoader
 
-class GlideUtils(){
+class GlideUtils {
     val TAG = this.javaClass.simpleName
     fun drawImageWithString(targetView : ImageView?, strRes: String?, listener : RequestListener<Drawable>?) {
         targetView ?: return

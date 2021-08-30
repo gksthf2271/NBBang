@@ -35,12 +35,12 @@ class PlaceBottomItemView(val gPlace: Place) :
 
     fun initView() {
         mBinding.let {
-            it!!.btnClose.setOnClickListener {
+            it.btnClose.setOnClickListener {
                 dismiss()
             }
-            it!!.txtTitle.text = gPlace.placeName
-            it!!.txtPrice.text = NumberUtils().makeCommaNumber(true, gPlace.price)
-            it!!.recyclerNameList.apply {
+            it.txtTitle.text = gPlace.placeName
+            it.txtPrice.text = NumberUtils().makeCommaNumber(true, gPlace.price)
+            it.recyclerNameList.apply {
                 layoutManager = GridLayoutManager(requireContext(), 3)
                 adapter = HistoryBottomRecyclerViewAdapter(gPlace.joinPeopleList)
             }

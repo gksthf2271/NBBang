@@ -87,7 +87,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
                     return@Observer
                 }
             })
-            loginViewModel!!.gFriendList.observe(requireActivity(), Observer { it ->
+            loginViewModel.gFriendList.observe(requireActivity(), Observer { it ->
                 Log.v(TAG, "KakaoFriends remote list : ${it.joinToString("\n")}")
                 val memberArrayList = arrayListOf<Member>()
                 if (DEBUG) {

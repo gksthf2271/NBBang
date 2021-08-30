@@ -43,7 +43,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
     override fun add(member: Member?) {
         mPageViewModel.let {
-            if (!it!!.addJoinPeople(member ?: return))
+            if (!it.addJoinPeople(member ?: return))
                 Toast.makeText(context, "${member.name}은 이미 추가된 멤버입니다.", Toast.LENGTH_SHORT).show()
             else
                 Toast.makeText(context, "멤버가 추가 되었습니다.", Toast.LENGTH_SHORT).show()
@@ -53,7 +53,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
     override fun delete() {
         mPageViewModel.let{
-            it!!.deleteJoinPeople(mPageViewModel.mSelectJoinPeople.value ?: return)
+            it.deleteJoinPeople(mPageViewModel.mSelectJoinPeople.value ?: return)
         }
     }
 
@@ -144,11 +144,11 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 it!!.mNBBLiveData.observe(requireActivity(), Observer {
                     Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mMemberCount}")
                     val newMemberArrayList = arrayListOf<Member>()
-                    newMemberArrayList.addAll(it!!.mMemberList)
+                    newMemberArrayList.addAll(it.mMemberList)
                     mRecyclerViewAdapter.setItemList(newMemberArrayList)
                 })
 
-                it!!.mSelectJoinPeople.observe(requireActivity(), Observer {
+                it.mSelectJoinPeople.observe(requireActivity(), Observer {
                     Log.v(TAG, "Select JoinPeople : $it")
                     it ?: return@Observer
                     mParentFragment.selectMember(it)

@@ -43,7 +43,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         obj.let {
             if (obj !is Member) return
             mViewModel.let {
-                it!!.saveMember(obj.id, obj.groupId, obj.name, obj.description, obj.kakaoId, obj.thumbnailImage, obj.profileImage, obj.profileUri) }
+                it.saveMember(obj.id, obj.groupId, obj.name, obj.description, obj.kakaoId, obj.thumbnailImage, obj.profileImage, obj.profileUri) }
         }
     }
 
@@ -54,14 +54,14 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                 Log.e(TAG,"Delete Member Error!, selectMember is null!")
                 return
             }
-            it!!.deleteMember(selectMember)
+            it.deleteMember(selectMember)
         }
     }
 
     override fun update(member: Member) {
         Log.v(TAG,"update(...) member : $member")
         mViewModel.let {
-            it!!.update(member)
+            it.update(member)
         }
     }
 
@@ -122,7 +122,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
 
             mGroupManagementBinding.viewModel.let {
                 it!!.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
-                mParentFragment.setViewModel(it!!)
+                mParentFragment.setViewModel(it)
             }
         }
 

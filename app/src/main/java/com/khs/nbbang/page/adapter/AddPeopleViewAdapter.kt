@@ -44,7 +44,7 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, call
             inflater.inflate(R.layout.cview_edit_people_plus, parent, false) as ConstraintLayout
         val viewSize = DisplayUtils().getItemViewSize(mContext, 3)
 
-        itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
+        itemView.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
 
         return itemView
     }
@@ -55,7 +55,7 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, call
             inflater.inflate(R.layout.cview_edit_people, parent, false) as ConstraintLayout
         val viewSize = DisplayUtils().getItemViewSize(mContext, 3)
 
-        itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
+        itemView.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
         itemView.txt_name.text = mItemList.get(position).name
 
         GlideUtils().drawMemberProfile(itemView.img_profile, mItemList.get(position), null)

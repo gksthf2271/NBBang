@@ -2,7 +2,7 @@ package com.khs.nbbang.utils
 
 import java.text.DecimalFormat
 
-class NumberUtils() {
+class NumberUtils {
     fun makeCommaNumber(input:Int): String{
         return makeCommaNumber(false, input)
     }

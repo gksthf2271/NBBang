@@ -66,7 +66,7 @@ class AddPlaceRecyclerViewAdapter(
             }
 
             mViewModel.let {
-                it!!.updateJoinPlaceCount(nbb.mPlaceIndex)
+                it.updateJoinPlaceCount(nbb.mPlaceIndex)
             }
 
             if (mItemView !is MotionLayout) return

@@ -45,10 +45,10 @@ class HomeMenuFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         mPageViewModel.let {
-            it!!.clearPageViewModel()
+            it.clearPageViewModel()
         }
         mSelectMemberViewModel.let {
-            it!!.clearSelectedMemberHashMap()
+            it.clearSelectedMemberHashMap()
         }
     }
 
@@ -75,7 +75,7 @@ class HomeMenuFragment : BaseFragment() {
                 )
             })
 
-            it!!.gIsLogin.observe(requireActivity(), Observer {
+            it.gIsLogin.observe(requireActivity(), Observer {
                 Log.d(TAG, "isLogin >>> $it")
                 if (it && FragmentUtils().currentFragmentClassName(requireActivity().nav_host_fragment).equals(TAG)) {
                     loadDutchPayFragment()

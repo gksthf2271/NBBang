@@ -13,7 +13,7 @@ class CustomMotionLayout @JvmOverloads constructor(
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         parent.let {
             Log.v(TAG,"action : ${ev!!.action}")
-            when (ev!!.action) {
+            when (ev.action) {
                 MotionEvent.ACTION_MOVE -> {
                     it!!.requestDisallowInterceptTouchEvent(true)
                 }
