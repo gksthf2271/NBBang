@@ -40,9 +40,9 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, call
 
     private fun addPlusView(parent: ViewGroup?) : View {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var itemView: ConstraintLayout =
+        val itemView: ConstraintLayout =
             inflater.inflate(R.layout.cview_edit_people_plus, parent, false) as ConstraintLayout
-        var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
+        val viewSize = DisplayUtils().getItemViewSize(mContext, 3)
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
 
@@ -51,9 +51,9 @@ class AddPeopleViewAdapter(context: Context, itemList: MutableList<Member>, call
 
     private fun addPeopleView(parent: ViewGroup?, position: Int) : View {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var itemView: ConstraintLayout =
+        val itemView: ConstraintLayout =
             inflater.inflate(R.layout.cview_edit_people, parent, false) as ConstraintLayout
-        var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
+        val viewSize = DisplayUtils().getItemViewSize(mContext, 3)
 
         itemView!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
         itemView.txt_name.text = mItemList.get(position).name

@@ -90,7 +90,7 @@ class AddPlaceFragment : BaseFragment() {
 
     private fun showSelectPeopleDialog(tag: String) {
         Log.v(TAG, "showSelectPeopleDialog(...)")
-        var selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
+        val selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
         when {
             selectPeopleDialog.isAdded -> {
                 return
@@ -108,7 +108,7 @@ class AddPlaceFragment : BaseFragment() {
         val infoView: ConstraintLayout =
             inflater.inflate(R.layout.cview_edit_place, rootView, false) as ConstraintLayout
 
-        var placeIndex = rootView.childCount + 1
+        val placeIndex = rootView.childCount + 1
 
         infoView.apply {
             this.btn_join.setOnClickListener {

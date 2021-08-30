@@ -9,16 +9,16 @@ open class DateUtils {
     constructor()
 
     private object TIME_MAXIMUM {
-        val ONE_MIN = 60 * 1000
-        val ONE_HOUR = 60 * ONE_MIN
-        val ONE_DAY = 24 * ONE_HOUR
-        val ONE_MONTH = 30 * ONE_DAY
-        val ONE_YEARS = 12 * ONE_MONTH
+        const val ONE_MIN = 60 * 1000
+        const val ONE_HOUR = 60 * ONE_MIN
+        const val ONE_DAY = 24 * ONE_HOUR
+        const val ONE_MONTH = 30 * ONE_DAY
+        const val ONE_YEARS = 12 * ONE_MONTH
     }
 
     open fun formatTimeString(regTime: Long): String {
         val curTime = System.currentTimeMillis()
-        var diffTime = (curTime - regTime)
+        val diffTime = (curTime - regTime)
 
         if (diffTime < TIME_MAXIMUM.ONE_MIN) {
             return "방금 전"
@@ -47,8 +47,8 @@ open class DateUtils {
     }
 
     fun getDateforImg(date: Long): String {
-        var simpleDateFormat: SimpleDateFormat
-        var result: String
+        val simpleDateFormat: SimpleDateFormat
+        val result: String
         try {
             simpleDateFormat = SimpleDateFormat("yyyy-MM-dd/HH:mm")
             result = simpleDateFormat.format(date)

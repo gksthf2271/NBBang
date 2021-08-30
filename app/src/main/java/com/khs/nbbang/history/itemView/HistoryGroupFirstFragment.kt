@@ -52,7 +52,7 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
         mBinding.recyclerView.layoutManager = layoutManager
 
         var currentPage = 1
-        var pageMap = getPageMap()
+        val pageMap = getPageMap()
 
         loadPage(currentPage, pageMap)
 
@@ -75,7 +75,7 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
             pageMap.get(page-1) ?: arrayListOf()
         ) { place ->
             Log.v(TAG, "Clicked Item : ${place.placeName}")
-            var dialog = PlaceBottomItemView(place)
+            val dialog = PlaceBottomItemView(place)
             dialog.show(requireActivity().supportFragmentManager, null)
         }
         updateIndicator(page, pageMap.size)
@@ -98,7 +98,7 @@ class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment()
     }
 
     private fun getPageMap() : HashMap<Int, ArrayList<Place>>{
-        var pageHashMap : HashMap<Int, ArrayList<Place>> = hashMapOf()
+        val pageHashMap : HashMap<Int, ArrayList<Place>> = hashMapOf()
         var pageIndex = 0
         for (place in mHistoryItem.place) {
             pageHashMap.get(pageIndex) ?: pageHashMap.put(pageIndex, arrayListOf())

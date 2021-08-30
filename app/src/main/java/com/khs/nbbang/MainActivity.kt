@@ -4,10 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.KeyEvent
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -24,14 +21,12 @@ import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.cview_title_description.view.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.util.*
 
 
 class MainActivity : BaseActivity() {
@@ -67,7 +62,7 @@ class MainActivity : BaseActivity() {
             gotoHome()
         }
 
-        mLoginViewModel.let {loginViewModel ->
+        mLoginViewModel.let { loginViewModel ->
             loginViewModel.checkKakaoLoginBySdk(this)
         }
     }
@@ -98,14 +93,14 @@ class MainActivity : BaseActivity() {
         }
 
         mLoginViewModel ?: return
-        mLoginViewModel!!.gMyData.observe(this, Observer {kakaoUser ->
+        mLoginViewModel!!.gMyData.observe(this, Observer { kakaoUser ->
             if (kakaoUser != null) {
                 Log.v(TAG, "mMyDataFrom : ${kakaoUser!!}")
                 if (kakaoUser!! != null) {
-                    var id = kakaoUser!!.id
-                    var name = kakaoUser!!.properties?.get("nickname")
-                    var image = kakaoUser!!.properties?.get("profile_image")
-                    var thumbnail = kakaoUser!!.properties?.get("thumbnail_image")
+                    val id = kakaoUser!!.id
+                    val name = kakaoUser!!.properties?.get("nickname")
+                    val image = kakaoUser!!.properties?.get("profile_image")
+                    val thumbnail = kakaoUser!!.properties?.get("thumbnail_image")
                     Log.v(
                         TAG, "MyData id : ${id}"
                                 + "\n name : ${name}"
@@ -114,8 +109,8 @@ class MainActivity : BaseActivity() {
                                 + "\n connectedAt : ${kakaoUser!!.connectedAt}"
                     )
                     updateProfileInfo(thumbnail, name, kakaoUser!!.kakaoAccount!!.email)
-                    mMemberManagementViewModel.let {memberManagementViewModel ->
-                        var myData = Member(
+                    mMemberManagementViewModel.let { memberManagementViewModel ->
+                        val myData = Member(
                             id = id,
                             kakaoId = id.toString(),
                             profileImage = image,
@@ -139,7 +134,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun navigateMenu(menuId : Int){
+    private fun navigateMenu(menuId: Int) {
         OLD_TAG = CURRENT_TAG
         when (menuId) {
             R.id.nav_dutch_pay -> {
@@ -168,7 +163,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun updateProfileInfo(thumbnail: String?, name: String?, email: String?) {
-        var naviHeaderView = mBinding.navView.getHeaderView(0)
+        val naviHeaderView = mBinding.navView.getHeaderView(0)
         GlideUtils().drawImageWithString(naviHeaderView.img_profile, thumbnail, null)
         naviHeaderView.group_name.txt_title.text = "이름"
         naviHeaderView.group_id.txt_title.text = "계정"
@@ -182,42 +177,6 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-//        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-//            drawer_layout.closeDrawer(GravityCompat.START)
-//        } else if (CURRENT_TAG == TAG_DUTCH_PAY){
-//            if (gFinishToast != null && gFinishToast.view.isShown) {
-//                setResult(RESULT_FINISH)
-//                finish()
-//            } else {
-//                gFinishToast.show()
-//            }
-//        } else {
-//            gotoHome()
-//        }
-    }
-
-    private fun showCheckPopup(callback : (Boolean) -> Unit) {
-        val popupView = layoutInflater.inflate(R.layout.cview_check, null)
-        mPopupWindow = PopupWindow(
-            popupView,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        mPopupWindow!!.setFocusable(true)
-        mPopupWindow!!.showAtLocation(mBinding.layoutContent, Gravity.CENTER, 0, 0)
-
-
-        val cancel = popupView.findViewById(R.id.btn_cancel) as Button
-        cancel.setOnClickListener {
-            mPopupWindow!!.dismiss()
-            callback(false)
-        }
-
-        val ok = popupView.findViewById(R.id.btn_ok) as Button
-        ok.setOnClickListener {
-            mPopupWindow!!.dismiss()
-            callback(true)
-        }
     }
 
     private fun gotoHome() {
@@ -237,29 +196,13 @@ class MainActivity : BaseActivity() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         }
-
-//        if (OLD_TAG == TAG_DUTCH_PAY) {
-//            showCheckPopup { isOk ->
-//                if (isOk) {
-//                    navigation(CURRENT_TAG)
-//                } else {
-//                    mNavItemIndex = 0
-//                    OLD_TAG = TAG_NONE
-//                    CURRENT_TAG = TAG_DUTCH_PAY
-//                    Log.v(TAG, "Clicked Cancel!")
-//                }
-//            }
-//        } else {
-            navigation(CURRENT_TAG)
-//        }
-
+        navigation(CURRENT_TAG)
     }
 
-    fun navigation(tag : String) {
+    fun navigation(tag: String) {
         when (tag) {
             TAG_DUTCH_PAY -> mNavHostFragment.navController.navigate(R.id.action_go_to_dutch_pay)
             TAG_HISTORY -> mNavHostFragment.navController.navigate(R.id.action_go_to_history)
-//            TAG_MEMBER_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_group_management)
             TAG_KAKAO_FRIENDS_SETTINGS -> mNavHostFragment.navController.navigate(R.id.action_go_to_kakao_friends_settings)
             TAG_MY_PAGE -> mNavHostFragment.navController.navigate(R.id.action_go_to_my_page)
         }
@@ -267,8 +210,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.v(TAG,"keyCode: $keyCode , event : ${event}")
-        val currentFragment = (supportFragmentManager.fragments.get(0) as? Fragment).let { it!!.childFragmentManager.fragments.get(0) }
+        Log.v(TAG, "keyCode: $keyCode , event : ${event}")
+        val currentFragment = (supportFragmentManager.fragments.get(0) as? Fragment).let {
+            it!!.childFragmentManager.fragments.get(0)
+        }
         val fragment = currentFragment as? BaseFragment
         if (fragment != null && fragment.onKeyDown(keyCode, event))
             return true
@@ -277,7 +222,7 @@ class MainActivity : BaseActivity() {
                 KeyEvent.KEYCODE_BACK -> {
                     if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
                         drawer_layout.closeDrawer(GravityCompat.START)
-                    } else if (CURRENT_TAG == TAG_DUTCH_PAY){
+                    } else if (CURRENT_TAG == TAG_DUTCH_PAY) {
                         if (gFinishToast != null && gFinishToast.view.isShown) {
                             setResult(RESULT_FINISH)
                             finish()

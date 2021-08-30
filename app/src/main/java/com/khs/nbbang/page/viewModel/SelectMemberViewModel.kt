@@ -26,9 +26,9 @@ class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
                 it!!.apply {
                     Log.v(TAG, "addSelectedMember : $member")
                     if (member.kakaoId.isNullOrEmpty()) {
-                        this.put(member.name, member)
+                        this[member.name] = member
                     } else {
-                        this.put(member.kakaoId, member)
+                        this[member.kakaoId] = member
                     }
                 }
             )

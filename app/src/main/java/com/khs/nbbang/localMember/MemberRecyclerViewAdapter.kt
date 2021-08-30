@@ -17,7 +17,7 @@ class MemberRecyclerViewAdapter(
 ) :
     RecyclerView.Adapter<MemberRecyclerViewAdapter.ViewHolder>() {
     private val TAG: String = javaClass.simpleName
-    val DEBUG = true
+    val DEBUG = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

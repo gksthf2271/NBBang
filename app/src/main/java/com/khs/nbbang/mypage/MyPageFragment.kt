@@ -55,10 +55,10 @@ class MyPageFragment : BaseFragment() {
             if (it != null) {
                 Log.v(TAG, "mMyDataFrom : ${it!!}")
                 if (it!! != null) {
-                    var id = it!!.id
-                    var name = it!!.properties?.get("nickname")
-                    var image = it!!.properties?.get("profile_image")
-                    var thumbnail = it!!.properties?.get("thumbnail_image")
+                    val id = it!!.id
+                    val name = it!!.properties?.get("nickname")
+                    val image = it!!.properties?.get("profile_image")
+                    val thumbnail = it!!.properties?.get("thumbnail_image")
                     Log.v(
                         TAG, "MyData id : ${id}"
                                 + "\n name : ${name}"

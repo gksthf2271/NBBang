@@ -1,5 +1,6 @@
 package com.khs.nbbang.page
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
@@ -56,6 +57,7 @@ class DutchPayMainFragment : BaseFragment(){
         return null
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
         mBinding.viewPager.adapter = CustomViewPagerAdapter(
             requireActivity().supportFragmentManager,
@@ -64,9 +66,9 @@ class DutchPayMainFragment : BaseFragment(){
         )
         mBinding.viewPager.currentItem = 0
 
-        var checkMemberCountToast = Toast.makeText(context, "참여 인원을 설정해주세요.", Toast.LENGTH_SHORT)
+        val checkMemberCountToast = Toast.makeText(context, "참여 인원을 설정해주세요.", Toast.LENGTH_SHORT)
 
-        mBinding.viewPager.get(0).setOnTouchListener{ _, _ ->
+        mBinding.viewPager[0].setOnTouchListener{ _, _ ->
             KeyboardUtils.hideKeyboard(requireView(), requireContext())
             mBinding.viewModel.let {
                 if ( it!!.mNBBLiveData.value!!.mMemberCount <= 0) {

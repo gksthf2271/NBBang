@@ -87,9 +87,9 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
                     return@Observer
                 }
             })
-            loginViewModel!!.gFriendList.observe(requireActivity(), Observer {
+            loginViewModel!!.gFriendList.observe(requireActivity(), Observer { it ->
                 Log.v(TAG, "KakaoFriends remote list : ${it.joinToString("\n")}")
-                var memberArrayList = arrayListOf<Member>()
+                val memberArrayList = arrayListOf<Member>()
                 if (DEBUG) {
                     memberArrayList.addAll(DebugMemberList.mDummyMemberList)
                 } else {
@@ -108,23 +108,23 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
                     })
                 }
 
-                var remoteMemberHashMap = hashMapOf<String, Member>()
+                val remoteMemberHashMap = hashMapOf<String, Member>()
                 for (member in memberArrayList) {
-                    remoteMemberHashMap.put(member.kakaoId, member)
+                    remoteMemberHashMap[member.kakaoId] = member
                 }
 
 
                 gMemberManagementViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
                     Log.v(TAG, "KakaoFriends Local list : ${it.joinToString("\n")}")
-                    var localMemberArrayList = arrayListOf<Member>()
+                    val localMemberArrayList = arrayListOf<Member>()
                     if (DEBUG) {
                         localMemberArrayList.addAll(DebugMemberList.mDummyMemberList)
                     } else {
                         localMemberArrayList.addAll(it)
                     }
-                    var memberHashMap = hashMapOf<String, Member>()
+                    val memberHashMap = hashMapOf<String, Member>()
                     for (member in localMemberArrayList) {
-                        memberHashMap.put(member.kakaoId, member)
+                        memberHashMap[member.kakaoId] = member
                     }
 
                     gSelectMemberViewModel.setSelectedMemberList(memberHashMap)
@@ -148,8 +148,8 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
 
         gSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer { memberMap ->
             Log.v(TAG,"update SelectedMember list! : $memberMap")
-            var result : ArrayList<Member> = arrayListOf()
-            var myData = gLoginViewModel.gMyData.value
+            val result : ArrayList<Member> = arrayListOf()
+            val myData = gLoginViewModel.gMyData.value
             myData?.id.let {
                 for (member in memberMap!!.values) {
                     if (it!!.toString() != member.kakaoId) {

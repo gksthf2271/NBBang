@@ -48,7 +48,7 @@ class AddMemberView @JvmOverloads constructor(
     fun setCallBackListener(callback: ButtonCallBackListener) {
         mBinding.let {
             it.btnSave.setOnClickListener {
-                var inputName = mBinding.groupName.edit_description.text.toString()
+                val inputName = mBinding.groupName.edit_description.text.toString()
                 if (inputName.replace(" ", "").isNullOrEmpty()) {
                     Toast.makeText(context, "이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener

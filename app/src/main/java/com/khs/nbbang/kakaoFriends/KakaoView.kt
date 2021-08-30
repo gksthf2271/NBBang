@@ -108,7 +108,7 @@ interface KakaoView {
                     RxAuthOperations.instance.incrementalAuthorizationRequired(context)
                 )
                 .map { it ->
-                    var kakaoFriendList = arrayListOf<Friend>()
+                    val kakaoFriendList = arrayListOf<Friend>()
                     for (friend in it.elements!!) {
                         kakaoFriendList.add(friend)
                     }

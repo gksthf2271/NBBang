@@ -51,7 +51,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
     fun initView() {
         val pieEntryList = arrayListOf<PieEntry>()
         var totalPrice = 0
-        var allPlaceSet = hashSetOf<String>()
+        val allPlaceSet = hashSetOf<String>()
 
         for (item in mHistoryItem.place) {
             totalPrice += item.price

@@ -18,7 +18,7 @@ open class BaseActivity : AppCompatActivity() {
     var gIsRunningActivity : Boolean = false
 
     inline fun <reified I : Activity> launch(resultLauncher: ActivityResultLauncher<Intent>) {
-        var intent = Intent(applicationContext, I::class.java)
+        val intent = Intent(applicationContext, I::class.java)
         if(this is LoadingActivity){
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }

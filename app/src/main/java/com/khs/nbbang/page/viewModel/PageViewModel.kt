@@ -106,7 +106,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             }
 
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                var emptyIndex = getEmptyPeopleCircleView(this!!.mMemberList)
+                val emptyIndex = getEmptyPeopleCircleView(this!!.mMemberList)
                 if (emptyIndex == this!!.mMemberList.size) {
                     Log.v(TAG, "emptyPeopleCircle is null")
                     this!!.mMemberList.add(member)
@@ -149,9 +149,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun updateJoinPeople(member: Member) {
         Log.v(TAG,"updateJoinPeople(...) newMember : $member")
-        var selectJoinPeople = mSelectJoinPeople.value
+        val selectJoinPeople = mSelectJoinPeople.value
         _NBBLiveData.value.let {
-            var index = it!!.mMemberList.indexOf(selectJoinPeople)
+            val index = it!!.mMemberList.indexOf(selectJoinPeople)
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
                 it!!.mMemberList.get(index).run {
                     name = member.name
@@ -200,9 +200,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         Log.v(TAG, "TAG : $placeId , savePrice : ${price}")
 
         _selectedPeopleMap.value.let {
-            if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
+            if (it!![placeId] == null) it!![placeId] = NBB()
             _selectedPeopleMap.postValue(it!!.apply {
-                it!!.get(placeId)!!.mPrice = price
+                it!![placeId]!!.mPrice = price
             })
         }
     }
@@ -210,9 +210,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun savePlaceName(placeId: Int, placeName: String) {
         Log.v(TAG, "TAG : $placeId , savePlaceName : ${placeName}")
         _selectedPeopleMap.value.let {
-            if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
+            if (it!![placeId] == null) it!![placeId] = NBB()
             _selectedPeopleMap.postValue(it!!.apply {
-                it!!.get(placeId)!!.mPlaceName = placeName
+                it!![placeId]!!.mPlaceName = placeName
             })
         }
     }
@@ -220,9 +220,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun saveSelectedPeople(placeId: Int, selectedJoinPeopleList: MutableList<Member>) {
         Log.v(TAG,"saveSelectedPeople(...) : ${selectedJoinPeopleList.count()}")
         _selectedPeopleMap.value!!.let {
-            if (it!!.get(placeId) == null) it!!.put(placeId, NBB())
+            if (it!![placeId] == null) it!![placeId] = NBB()
             _selectedPeopleMap.postValue(it!!.apply {
-                this!!.get(placeId)!!.run {
+                this!![placeId]!!.run {
                     mMemberList.clear()
                     mMemberList.addAll(selectedJoinPeopleList)
                     mPlaceIndex = placeId
@@ -255,7 +255,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
              * TODO
              * 결과 페이지 예외처리 필요
              */
-            var peoplelist = _selectedPeopleMap.value!!.get(key)!!.mMemberList
+            val peoplelist = _selectedPeopleMap.value!!.get(key)!!.mMemberList
             var priceInt = 0
             try {
                 priceInt = Integer.parseInt(_selectedPeopleMap.value!!.get(key)!!.mPrice.replace(",",""))
@@ -290,7 +290,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
         result += "\n\n\t\t 더치페이 정리 계산서\n"
         for (people in mDutchPayMap.keys) {
-            var price = mDutchPayMap.get(people)
+            val price = mDutchPayMap.get(people)
 
             if (price == null) {
                 Log.e(TAG, "더치페이 중 Price NULL 발생!!")
@@ -347,11 +347,11 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     private fun createDutchPayBill(joinPeopleList: MutableList<Member>, payment:Int) {
         for (people in joinPeopleList) {
-            if (mDutchPayMap.get(people.name) == null) {
-                mDutchPayMap.put(people.name, 0)
+            if (mDutchPayMap[people.name] == null) {
+                mDutchPayMap[people.name] = 0
             }
             val totalPayment = mDutchPayMap.get(people.name) as Int + payment
-            mDutchPayMap.put(people.name, totalPayment)
+            mDutchPayMap[people.name] = totalPayment
         }
     }
 

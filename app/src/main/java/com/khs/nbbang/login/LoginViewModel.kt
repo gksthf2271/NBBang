@@ -46,7 +46,7 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoView
     }
 
     private fun updateMyDataFromKakao(user : User) {
-        var name = user.properties.let { it!!.get("nickname") }
+        val name = user.properties.let { it!!.get("nickname") }
         _myDataFromKakao.postValue(
             KaKaoUser(
                 id = user.id,

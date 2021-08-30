@@ -77,7 +77,7 @@ class ResultPageFragment : BaseFragment() {
                     layoutManager = LinearLayoutManager(context)
                     adapter = ResultRecyclerViewAdapter(it.place) {
                         Log.v(TAG, "onClicked(...), item : ${it}")
-                        var dialog = PlaceBottomItemView(it)
+                        val dialog = PlaceBottomItemView(it)
                         dialog.show(requireActivity().supportFragmentManager, null)
                     }
 

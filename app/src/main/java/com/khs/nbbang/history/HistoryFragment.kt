@@ -101,7 +101,7 @@ class HistoryFragment : BaseFragment(){
                 mBinding.historyRecyclerView.visibility = View.VISIBLE
                 mBinding.emptyView.visibility = View.GONE
             }
-            var myData = mLoginViewModel.gMyData.value
+            val myData = mLoginViewModel.gMyData.value
             var name = ""
             myData.let {kakaoUser ->
                 name = kakaoUser!!.name

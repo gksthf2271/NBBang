@@ -50,17 +50,17 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     override fun renderLocalMembers(nbbangMemberresult: GetNBBangMemberResult) {
-        var currentTime = System.currentTimeMillis()
+        val currentTime = System.currentTimeMillis()
         Log.v(TAG,"renderMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
-        var list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
+        val list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
         _memberList.postValue(list)
     }
 
 
     override fun renderKakaoMembers(nbbangMemberresult: GetNBBangMemberResult) {
-        var currentTime = System.currentTimeMillis()
+        val currentTime = System.currentTimeMillis()
         Log.v(TAG,"renderKakaoMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
-        var list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
+        val list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
         _kakaoFriendList.postValue(list)
     }
 

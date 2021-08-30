@@ -92,7 +92,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
         mBinding.viewModel.let {
             it!!.mNBBLiveData.observe(requireActivity(), Observer {
                 if (isAdded) {
-                    var allPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
+                    val allPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
                     for (member in it!!.mMemberList) {
                         allPairList.add(Pair(member,false))
                     }
@@ -107,7 +107,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
                 tag ?: return@Observer
                     it!!.get(tag!!.toInt()).let { nbb ->
                         nbb ?: return@Observer
-                        var selectedPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
+                        val selectedPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
                         for (member in nbb!!.mMemberList) {
                             selectedPairList.add(Pair(member,true))
                         }

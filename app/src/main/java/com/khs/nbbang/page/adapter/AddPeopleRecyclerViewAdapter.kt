@@ -24,8 +24,9 @@ class AddPeopleRecyclerViewAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeopleViewHolder {
-        val view: View? = LayoutInflater.from(parent.context).inflate(R.layout.cview_edit_people, parent, false)
-        var viewSize = DisplayUtils().getItemViewSize(mContext, 3)
+        val view: View? =
+            LayoutInflater.from(parent.context).inflate(R.layout.cview_edit_people, parent, false)
+        val viewSize = DisplayUtils().getItemViewSize(mContext, 3)
         view!!.layoutParams = ConstraintLayout.LayoutParams(viewSize, viewSize)
         return PeopleViewHolder(view, mItemClick)
     }
@@ -55,13 +56,13 @@ class AddPeopleRecyclerViewAdapter(
     }
 
     fun setItem(member: Member) {
-        Log.v(TAG,"setItem(...) member : ${member}")
+        Log.v(TAG, "setItem(...) member : ${member}")
         this.mItemList.add(mItemList.size, member)
         notifyDataSetChanged()
     }
 
     fun setItemList(memberList: ArrayList<Member>) {
-        Log.v(TAG,"setItem(...) memberList count : ${memberList.size}")
+        Log.v(TAG, "setItem(...) memberList count : ${memberList.size}")
         mItemList.clear()
         mItemList.addAll(memberList)
         notifyDataSetChanged()

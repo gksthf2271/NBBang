@@ -58,7 +58,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
     fun handleAddMember(sub: Scheduler, ob: Scheduler, member: Member) {
         val d = addNBBangMember(requestAddMember(member))
             .flatMap {
-                var type = if (member.kakaoId.isEmpty()) {
+                val type = if (member.kakaoId.isEmpty()) {
                     MemberType.TYPE_FREE_USER
                 } else {
                     MemberType.TYPE_KAKAO

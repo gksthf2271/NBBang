@@ -83,7 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center_vertical"
-                android:textAlignment="textEnd"
+                android:textAlignment="3"
                 android:paddingRight="20dp"
                 android:textColor="@color/search_text_color"
                 android:textSize="24sp"

@@ -104,7 +104,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
 
     private fun showAddKakaoFriendsDialog() {
         Log.v(TAG, "showAddKakaoFriendsDialog(...)")
-        var addFriendsFragment = AddFriendsDialogFragment.getInstance()
+        val addFriendsFragment = AddFriendsDialogFragment.getInstance()
         when {
             addFriendsFragment.isAdded -> {
                 return
