@@ -25,8 +25,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class KakaoFavoriteFriendsFragment : BaseFragment() {
     lateinit var mBinding : FragmentKakaoFavoriteFriendsBinding
-    val gLoginViewModel: LoginViewModel by sharedViewModel()
-    val gMemberViewModel: MemberManagementViewModel by sharedViewModel()
+    private val gMemberViewModel: MemberManagementViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

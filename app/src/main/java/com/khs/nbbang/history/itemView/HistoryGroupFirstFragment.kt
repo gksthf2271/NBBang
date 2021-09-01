@@ -19,10 +19,10 @@ import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class HistoryGroupFirstFragment(val mHistoryItem: NBBangHistory): BaseFragment() {
+class HistoryGroupFirstFragment(private val mHistoryItem: NBBangHistory): BaseFragment() {
     lateinit var mBinding : FragmentHistoryFirstGroupBinding
-    val mViewModel: HistoryViewModel by sharedViewModel()
-    val PAGE_SIZE = 3
+    private val mViewModel: HistoryViewModel by sharedViewModel()
+    private val PAGE_SIZE = 3
 
     override fun onCreateView(
         inflater: LayoutInflater,

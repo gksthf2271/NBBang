@@ -23,8 +23,8 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryFragment : BaseFragment(){
     lateinit var mBinding : FragmentHistoryBinding
-    val mViewModel: HistoryViewModel by sharedViewModel()
-    val mLoginViewModel : LoginViewModel by sharedViewModel()
+    private val mViewModel: HistoryViewModel by sharedViewModel()
+    private val mLoginViewModel : LoginViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

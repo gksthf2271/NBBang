@@ -32,9 +32,8 @@ class AddPlaceFragment : BaseFragment() {
     lateinit var mBinding: FragmentAddPlaceBinding
 
     val mViewModel: PageViewModel by sharedViewModel()
-//    lateinit var mRecyclerViewAdapter : AddPlaceRecyclerViewAdapter
-    val TYPE_EDIT_PLACE_NAME: String = "TYPE_EDIT_PLACE_NAME"
-    val TYPE_EDIT_PRICE: String = "TYPE_EDIT_PRICE"
+    private val TYPE_EDIT_PLACE_NAME: String = "TYPE_EDIT_PLACE_NAME"
+    private val TYPE_EDIT_PRICE: String = "TYPE_EDIT_PRICE"
     private lateinit var gKeyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onCreateView(

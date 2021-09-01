@@ -28,9 +28,8 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class DutchPayMainFragment : BaseFragment(){
     lateinit var mBinding : FragmentDutchpayHomeBinding
     val mViewModel: PageViewModel by sharedViewModel()
-    val mMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
 
-    val mPageViewList: MutableList<BaseFragment> = mutableListOf(
+    private val mPageViewList: MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),
         AddPeopleFragment(),
         AddPlaceFragment(),

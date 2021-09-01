@@ -21,9 +21,9 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
-    val mLoginViewModel: LoginViewModel by sharedViewModel()
-    val mPageViewModel : PageViewModel by sharedViewModel()
-    val mSelectMemberViewModel : SelectMemberViewModel by sharedViewModel()
+    private val mLoginViewModel: LoginViewModel by sharedViewModel()
+    private val mPageViewModel : PageViewModel by sharedViewModel()
+    private val mSelectMemberViewModel : SelectMemberViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

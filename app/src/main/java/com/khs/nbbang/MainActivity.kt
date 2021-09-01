@@ -31,12 +31,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
     lateinit var mBinding: ActivityMainBinding
-    val mPageViewModel by viewModel<PageViewModel>()
-    val mLoginViewModel by viewModel<LoginViewModel>()
-    val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
-    val mSelectMemberViewModel by viewModel<SelectMemberViewModel>()
+    private val mPageViewModel by viewModel<PageViewModel>()
+    private val mLoginViewModel by viewModel<LoginViewModel>()
+    private val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
 
-    // tags used to attach the fragments
     private val TAG_LOGIN = "login"
     private val TAG_DUTCH_PAY = "dutchPay"
     private val TAG_HISTORY = "history"
@@ -47,7 +45,6 @@ class MainActivity : BaseActivity() {
     private var CURRENT_TAG = TAG_DUTCH_PAY
     private var OLD_TAG = TAG_NONE
     var mNavItemIndex = 0
-    private var mPopupWindow: PopupWindow? = null
 
     private lateinit var mNavHostFragment: NavHostFragment
 
@@ -145,10 +142,6 @@ class MainActivity : BaseActivity() {
                 mNavItemIndex = 1
                 CURRENT_TAG = TAG_HISTORY
             }
-//            R.id.nav_member_settings -> {
-//                mNavItemIndex = 2
-//                CURRENT_TAG = TAG_MEMBER_SETTINGS
-//            }
             R.id.nav_kakao_friends_settings -> {
                 mNavItemIndex = 2
                 CURRENT_TAG = TAG_KAKAO_FRIENDS_SETTINGS

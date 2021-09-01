@@ -14,7 +14,7 @@ import com.khs.nbbang.history.HistoryBottomRecyclerViewAdapter
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.utils.NumberUtils
 
-class PlaceBottomItemView(val gPlace: Place) :
+class PlaceBottomItemView(private val gPlace: Place) :
     BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW) {
     lateinit var mBinding: CviewHistoryBottomDialogBinding
     private val DEBUG = false

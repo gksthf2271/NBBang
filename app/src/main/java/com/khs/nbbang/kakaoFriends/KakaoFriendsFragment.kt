@@ -24,8 +24,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class KakaoFriendsFragment : BaseFragment() {
     lateinit var mBinding : FragmentKakaoFriendsBinding
 //    val gLoginViewModel by viewModel<LoginViewModel>()
-    val gLoginViewModel by sharedViewModel<LoginViewModel>()
-    val gMemberManagementViewModel by viewModel<MemberManagementViewModel>()
+    private val gLoginViewModel by sharedViewModel<LoginViewModel>()
+    private val gMemberManagementViewModel by viewModel<MemberManagementViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

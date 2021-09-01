@@ -15,16 +15,12 @@ class CustomViewPagerAdapter(
     val TAG = this.javaClass.simpleName
     private val mFragmentList: MutableList<BaseFragment> = fragments
 
-    fun getViewPageList(): MutableList<BaseFragment> {
-        return mFragmentList
-    }
-
     override fun getItemCount(): Int {
         return mFragmentList.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        Log.v(TAG, "createFragment(...) fragment : ${mFragmentList.get(position)}")
-        return mFragmentList.get(position)
+        Log.v(TAG, "createFragment(...) fragment : ${mFragmentList[position]}")
+        return mFragmentList[position]
     }
 }
