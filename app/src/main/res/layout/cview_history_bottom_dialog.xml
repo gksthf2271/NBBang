@@ -6,7 +6,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="250dp">
-<!--        app:layoutDescription="@xml/cview_history_bottom_dialog_scene"-->
 
         <TextView
             android:id="@+id/txt_title"

@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    >
-<!--    app:layoutDescription="@xml/cview_selectable_member_item_scene"-->
-
+    android:layout_height="50dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_profile_image"
