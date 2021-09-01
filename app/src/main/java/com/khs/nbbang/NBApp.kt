@@ -111,7 +111,7 @@ open class NBApp : Application(){
         }
 
         viewModel {
-            SelectMemberViewModel(get())
+            SelectMemberViewModel()
         }
     }
 }

@@ -1,13 +1,12 @@
 package com.khs.nbbang.page.viewModel
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.user.Member
 
-class SelectMemberViewModel(val mContext: Context) : BaseViewModel() {
+class SelectMemberViewModel() : BaseViewModel() {
     private val _selectedMemberHashMap: MutableLiveData<HashMap<String, Member>> = MutableLiveData()
     val gSelectedMemberHashMap: LiveData<HashMap<String, Member>> get() = _selectedMemberHashMap
 
