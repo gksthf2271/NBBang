@@ -3,12 +3,6 @@
 
 
     <!--TEST String -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
     <!--////////////-->
 
 
@@ -16,7 +10,6 @@
     <!-- NBB -->
     <string name="menu_dutch_pay">더치페이</string>
     <string name="menu_history">기록</string>
-    <string name="menu_member_settings">멤버 관리</string>
     <string name="menu_kakao_friends_settings">멤버 관리</string>
     <string name="menu_settings">마이페이지</string>
     <!--////////////-->
