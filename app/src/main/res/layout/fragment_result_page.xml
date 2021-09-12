@@ -50,16 +50,10 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.95">
 
-                <ScrollView
-                    android:id="@+id/scrollView"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_result"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_view_result"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </ScrollView>
+                    android:layout_height="match_parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_constraintBottom_toTopOf="@id/scroll_view"
+                app:layout_constraintBottom_toTopOf="@id/recycler_friend_list"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -46,20 +46,14 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/scroll_view"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_friend_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:fillViewport="true"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_friend_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="10dp" />
-            </androidx.core.widget.NestedScrollView>
+                android:paddingTop="10dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
