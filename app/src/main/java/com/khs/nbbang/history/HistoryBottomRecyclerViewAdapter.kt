@@ -16,6 +16,7 @@ class HistoryBottomRecyclerViewAdapter(private val gNameList: ArrayList<Member>)
     val DEBUG = BuildConfig.DEBUG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
         var viewHolder: RecyclerView.ViewHolder? = null
         val view: View =
             LayoutInflater.from(parent.context)

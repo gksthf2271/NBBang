@@ -69,8 +69,8 @@ class HistoryFragment : BaseFragment(){
             mBinding.viewModel.let { it!!.increaseMonth() }
         }
 
-        mBinding.cviewSelectMonth.cview1.txt_title.text = "모임 횟수"
-        mBinding.cviewSelectMonth.cview2.txt_title.text = "총 지출 금액"
+        mBinding.cviewSelectMonth.cview1.txtTitle.text = "모임 횟수"
+        mBinding.cviewSelectMonth.cview2.txtTitle.text = "총 지출 금액"
     }
 
     private fun addObserver() {
@@ -106,8 +106,8 @@ class HistoryFragment : BaseFragment(){
             myData.let {kakaoUser ->
                 name = kakaoUser!!.name
             }
-            mBinding.cviewSelectMonth.cview1.txt_description.text = it.nbbangHistoryList.size.toString()
-            mBinding.cviewSelectMonth.cview2.txt_description.text = ServiceUtils().getTotalAmountOfPayment(name, it)
+            mBinding.cviewSelectMonth.cview1.txtDescription.text = it.nbbangHistoryList.size.toString()
+            mBinding.cviewSelectMonth.cview2.txtDescription.text = ServiceUtils().getTotalAmountOfPayment(name, it)
             mBinding.viewModel!!.updateLoadingFlag(false)
         })
 

@@ -2,16 +2,13 @@ package com.khs.nbbang.history
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.BuildConfig
-import com.khs.nbbang.R
-import com.khs.nbbang.history.data.NBBangHistory
+import com.khs.nbbang.databinding.CviewHistoryListPlaceItemBinding
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
-import kotlinx.android.synthetic.main.cview_history_list_place_item.view.*
 
 
 class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: ArrayList<Place>, val gItemClick: (Place) -> Unit) :
@@ -20,12 +17,9 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
     val DEBUG = BuildConfig.DEBUG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var viewHolder: RecyclerView.ViewHolder? = null
-        val view: View =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.cview_history_list_place_item, parent, false)
-        viewHolder = ViewHolder(view)
-        return viewHolder
+        val binding =
+            CviewHistoryListPlaceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding, gItemClick)
     }
 
     override fun getItemCount(): Int {
@@ -37,18 +31,22 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
         holder.bind(mHistoryResultPlaceList.get(position))
     }
 
-    inner class ViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(
+        val binding: CviewHistoryListPlaceItemBinding,
+        val itemClick: (Place) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
         val TAG: String = javaClass.simpleName
-        var mItemView: View = itemView
 
         fun bind(item: Place) {
-            mItemView.txt_group_name.text = item.placeIndex.toString() +" 차"
-            mItemView.txt_title.text = item.placeName
-            mItemView.txt_join_people.text = StringUtils().getPeopleList(item.joinPeopleList)
-            mItemView.txt_price.text = NumberUtils().makeCommaNumber(true, item.price)
-            mItemView.setOnClickListener {
-                gItemClick(item)
+            with(binding) {
+                txtGroupName.text = item.placeIndex.toString() +" 차"
+                txtTitle.text = item.placeName
+                txtJoinPeople.text = StringUtils().getPeopleList(item.joinPeopleList)
+                txtPrice.text = NumberUtils().makeCommaNumber(true, item.price)
+                root.setOnClickListener {
+                    itemClick(item)
+                }
             }
         }
     }

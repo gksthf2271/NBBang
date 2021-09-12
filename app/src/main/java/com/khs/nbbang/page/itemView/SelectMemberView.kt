@@ -22,9 +22,6 @@ class SelectMemberView @JvmOverloads constructor(
     private val gClickLock : Any = Any()
     val TAG = this.javaClass.simpleName
     private var gIsSelectedView = false
-//    private val gSelectMemberViewModel: SelectMemberViewModel by lazy {
-//        (context as MainActivity).mSelectMemberViewModel
-//    }
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

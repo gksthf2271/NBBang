@@ -40,8 +40,8 @@ class MemberView  @JvmOverloads constructor(
         mBinding.groupLayout.setOnClickListener { false }
         mBinding.let {
             GlideUtils().drawImageWithString(it.imgProfile, null, null)
-            it.groupName.txt_title.text = "이름"
-            it.groupDescription.txt_title.text = "분류"
+            it.groupName.txtTitle.text = "이름"
+            it.groupDescription.txtTitle.text = "분류"
         }
     }
 
@@ -75,11 +75,11 @@ class MemberView  @JvmOverloads constructor(
 
     fun setMember(member: Member) {
         gCurrentMember = member
-        mBinding.let {
-            GlideUtils().drawMemberProfile(it.imgProfile, member, null)
-            it.groupName.edit_description.setText(gCurrentMember.name)
-            it.groupDescription.edit_description.setText(gCurrentMember.description)
-            it.groupDescription.visibility = View.VISIBLE
+        mBinding.apply {
+            GlideUtils().drawMemberProfile(imgProfile, member, null)
+            groupName.editDescription.setText(gCurrentMember.name)
+            groupDescription.editDescription.setText(gCurrentMember.description)
+            groupDescription.root.visibility = View.VISIBLE
         }
     }
 
@@ -99,20 +99,20 @@ class MemberView  @JvmOverloads constructor(
     }
 
     fun setCallBackListener(callback: ButtonCallBackListener) {
-        mBinding.let {
-            it.btnDelete.setOnClickListener {
+        mBinding.apply {
+            btnDelete.setOnClickListener {
                 gCurrentImageUri = ""
                 callback.onClickedDeleteBtn()
             }
 
-            it.btnCancel.setOnClickListener {
+            btnCancel.setOnClickListener {
                 gCurrentImageUri = ""
                 callback.onClickedCancelBtn()
             }
 
-            it.btnUpdate.setOnClickListener {
-                gCurrentMember.name = mBinding.groupName.edit_description.text.toString()
-                gCurrentMember.description = mBinding.groupDescription.edit_description.text.toString()
+            btnUpdate.setOnClickListener {
+                gCurrentMember.name = mBinding.groupName.editDescription.text.toString()
+                gCurrentMember.description = mBinding.groupDescription.editDescription.text.toString()
                 callback.onClickedUpdateBtn(gCurrentMember.apply {
                     if (!gCurrentImageUri.isNullOrEmpty()) {
                         profileUri = gCurrentImageUri
@@ -120,9 +120,9 @@ class MemberView  @JvmOverloads constructor(
                 })
             }
 
-            it.imgProfile.setOnClickListener {
+            imgProfile.setOnClickListener {
                 Log.v(TAG,"Clicked ImgProfile!")
-                callback.onClickedProfile(this)
+                callback.onClickedProfile(root)
             }
         }
     }

@@ -69,15 +69,15 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
             }
 
             override fun onValueSelected(e: Entry?, h: Highlight?) {
-                mBinding.groupInfo1.txt_title.text = "장소"
-                mBinding.groupInfo2.txt_title.text = "참석자"
-                mBinding.groupInfo3.txt_title.text = "지출"
+                mBinding.groupInfo1.txtTitle.text = "장소"
+                mBinding.groupInfo2.txtTitle.text = "참석자"
+                mBinding.groupInfo3.txtTitle.text = "지출"
 
-                mBinding.groupInfo1.txt_description.text = (e as PieEntry).label
-                mBinding.groupInfo2.txt_description.isSingleLine = false
-                mBinding.groupInfo2.txt_description.text =
+                mBinding.groupInfo1.txtDescription.text = (e as PieEntry).label
+                mBinding.groupInfo2.txtDescription.isSingleLine = false
+                mBinding.groupInfo2.txtDescription.text =
                     StringUtils().getPeopleList(e.data as ArrayList<Member>)
-                mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, e.value.toInt())
+                mBinding.groupInfo3.txtDescription.text = NumberUtils().makeCommaNumber(true, e.value.toInt())
             }
         })
     }
@@ -87,17 +87,17 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         allPlace: HashSet<String>,
         dutchPeopleList: List<DutchPayPeople>
     ) {
-        mBinding.groupInfo2.txt_description.isSingleLine = false
-        mBinding.groupInfo1.txt_title.isSingleLine = false
-        mBinding.groupInfo2.txt_title.isSingleLine = false
+        mBinding.groupInfo2.txtDescription.isSingleLine = false
+        mBinding.groupInfo1.txtTitle.isSingleLine = false
+        mBinding.groupInfo2.txtTitle.isSingleLine = false
 
-        mBinding.groupInfo1.txt_title.text = "모든\n장소"
-        mBinding.groupInfo2.txt_title.text = "모든\n참석자"
-        mBinding.groupInfo3.txt_title.text = "총 지출"
+        mBinding.groupInfo1.txtTitle.text = "모든\n장소"
+        mBinding.groupInfo2.txtTitle.text = "모든\n참석자"
+        mBinding.groupInfo3.txtTitle.text = "총 지출"
 
-        mBinding.groupInfo1.txt_description.text = StringUtils().listToString(allPlace.toMutableList())
-        mBinding.groupInfo2.txt_description.text = StringUtils().dutchPayListToString(dutchPeopleList.toMutableList())
-        mBinding.groupInfo3.txt_description.text = NumberUtils().makeCommaNumber(true, totalPrice)
+        mBinding.groupInfo1.txtDescription.text = StringUtils().listToString(allPlace.toMutableList())
+        mBinding.groupInfo2.txtDescription.text = StringUtils().dutchPayListToString(dutchPeopleList.toMutableList())
+        mBinding.groupInfo3.txtDescription.text = NumberUtils().makeCommaNumber(true, totalPrice)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

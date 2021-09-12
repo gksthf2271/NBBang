@@ -40,21 +40,21 @@ class AddMemberView @JvmOverloads constructor(
         mBinding.groupLayout.setOnClickListener { false }
         mBinding.let {
             GlideUtils().drawImageWithString(it.imgProfile, null, null)
-            it.groupName.txt_title.text = "이름"
-            it.groupDescription.txt_title.text = "분류"
+            it.groupName.txtTitle.text = "이름"
+            it.groupDescription.txtTitle.text = "분류"
         }
     }
 
     fun setCallBackListener(callback: ButtonCallBackListener) {
         mBinding.let {
             it.btnSave.setOnClickListener {
-                val inputName = mBinding.groupName.edit_description.text.toString()
+                val inputName = mBinding.groupName.editDescription.text.toString()
                 if (inputName.replace(" ", "").isNullOrEmpty()) {
                     Toast.makeText(context, "이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                gCurrentMember.name = mBinding.groupName.edit_description.text.toString()
-                gCurrentMember.description = mBinding.groupDescription.edit_description.text.toString()
+                gCurrentMember.name = mBinding.groupName.editDescription.text.toString()
+                gCurrentMember.description = mBinding.groupDescription.editDescription.text.toString()
                 gCurrentMember.profileUri = gCurrentMemberProfileUri
                 Log.v(TAG,"save, profileUri : ${gCurrentMember.profileUri}")
                 callback.onClickedSaveBtn(gCurrentMember)
@@ -76,8 +76,8 @@ class AddMemberView @JvmOverloads constructor(
 
     fun clearView() {
         gCurrentMember = Member()
-        mBinding.groupName.edit_description.setText("")
-        mBinding.groupDescription.edit_description.setText("")
+        mBinding.groupName.editDescription.setText("")
+        mBinding.groupDescription.editDescription.setText("")
 
         GlideUtils().drawImageWithT(mBinding.imgProfile, null, null)
     }

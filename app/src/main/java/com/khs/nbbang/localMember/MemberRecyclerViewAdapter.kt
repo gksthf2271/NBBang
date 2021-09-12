@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.R
+import com.khs.nbbang.databinding.CviewMemeberItemBinding
+import com.khs.nbbang.databinding.CviewShareResultItemBinding
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.cview_memeber_item.view.*
@@ -20,10 +22,9 @@ class MemberRecyclerViewAdapter(
     val DEBUG = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.cview_memeber_item, parent, false), itemClick
-        )
+        val binding =
+            CviewMemeberItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -35,17 +36,15 @@ class MemberRecyclerViewAdapter(
         holder.bind(mMemberList.get(position))
     }
 
-    class ViewHolder(itemView: View, itemClick: (Member) -> Unit) :
-        RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(val binding: CviewMemeberItemBinding, val itemClick: (Member) -> Unit) :
+        RecyclerView.ViewHolder(binding.root) {
         val TAG: String = javaClass.simpleName
-        var mItemView: View = itemView
-        var mItemClick = itemClick
 
         fun bind(member: Member) {
-            mItemView.txt_name.text = member.name
-            mItemView.txt_description.text = member.description
-            GlideUtils().drawMemberProfile(mItemView.img_profile, member, null)
-            mItemView.setOnClickListener { mItemClick(member) }
+            binding.txtName.text = member.name
+            binding.txtDescription.text = member.description
+            GlideUtils().drawMemberProfile(binding.imgProfile, member, null)
+            binding.root.setOnClickListener { itemClick(member) }
         }
     }
 

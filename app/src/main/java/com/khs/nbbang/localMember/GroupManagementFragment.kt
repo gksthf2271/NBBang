@@ -141,9 +141,9 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                     ?: return@Observer
                 adapter.setItemList(ArrayList(it))
 
-                mGroupManagementBinding.groupTitle.txt_title.text =
+                mGroupManagementBinding.groupTitle.txtTitle.text =
                     "Favorite Member"
-                mGroupManagementBinding.groupTitle.txt_sub_title.text =
+                mGroupManagementBinding.groupTitle.txtSubTitle.text =
                     "${it.size}명 대기중..."
                 mGroupManagementBinding.viewModel!!.updateLoadingFlag(false)
             })
