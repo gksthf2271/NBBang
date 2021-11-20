@@ -63,7 +63,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
         mBinding.viewModel?.let {
             mBinding.groupTitle.txtTitle.text =
                 "Kakao Favorite Member"
-            it!!.showFavoriteMemberListByType(MemberType.TYPE_KAKAO)
+            it.showFavoriteMemberListByType(MemberType.TYPE_KAKAO)
         }
 
         mBinding.btnAdd.setOnClickListener {
@@ -72,28 +72,28 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
     }
 
     private fun addObserver() {
-        mBinding.viewModel ?: return
+        mBinding.viewModel?.let { memberManagementViewModel ->
+            memberManagementViewModel.mShowLoadingView.observe(requireActivity(), Observer {
+                when (it) {
+                    true -> showLoadingView()
+                    false -> hideLoadingView()
+                }
+            })
 
-        mBinding.viewModel!!.mShowLoadingView.observe(requireActivity(), Observer {
-            when (it) {
-                true -> showLoadingView()
-                false -> hideLoadingView()
-            }
-        })
+            memberManagementViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
+                val adapter = (mBinding.recyclerFriendList.adapter as? AddPeopleRecyclerViewAdapter)
+                    ?: return@Observer
+                adapter.setItemList(ArrayList(it))
+                mBinding.groupTitle.txtSubTitle.text =
+                    "${it.size}명 대기중..."
+                memberManagementViewModel.updateLoadingFlag(false)
+            })
 
-        mBinding.viewModel!!.gKakaoFriendList.observe(requireActivity(), Observer {
-            val adapter = (mBinding.recyclerFriendList.adapter as? AddPeopleRecyclerViewAdapter)
-                ?: return@Observer
-            adapter.setItemList(ArrayList(it))
-            mBinding.groupTitle.txtSubTitle.text =
-                "${it.size}명 대기중..."
-            mBinding.viewModel!!.updateLoadingFlag(false)
-        })
-
-        mBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
-            Log.v(TAG, "Select Member : $it")
-            it ?: return@Observer
-        })
+            memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
+                Log.v(TAG, "Select Member : $it")
+                it ?: return@Observer
+            })
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

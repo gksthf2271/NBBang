@@ -138,13 +138,13 @@ class AddPlaceFragment : BaseFragment() {
         mBinding.viewModel?.let {
             it.updateJoinPlaceCount(placeIndex)
 
-            it.mSelectedPeopleMap.observe(requireActivity(), Observer {
-                it[infoView.tag as Int] ?: return@Observer
-                Log.v(TAG, "_selectedPeopleMap, Observer(...) : ${it.count()}")
-                if (it[infoView.tag as Int]!!.mMemberList.isEmpty()) {
+            it.mSelectedPeopleMap.observe(requireActivity(), Observer { nbbHashMap ->
+                nbbHashMap[infoView.tag as Int] ?: return@Observer
+                Log.v(TAG, "_selectedPeopleMap, Observer(...) : ${nbbHashMap.count()}")
+                if (nbbHashMap[infoView.tag as Int]!!.mMemberList.isEmpty()) {
                     hideAddedPeopleView(infoView)
                 } else {
-                    showAddedPeopleView(infoView, it[infoView.tag as Int]!!)
+                    showAddedPeopleView(infoView, nbbHashMap[infoView.tag as Int]!!)
                 }
             })
         }
@@ -168,22 +168,24 @@ class AddPlaceFragment : BaseFragment() {
             var pointNumStr = ""
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)
-                if (TYPE_EDIT_PLACE_NAME.equals(viewType)) {
-                    mBinding.viewModel!!.savePlaceName(placeId, s.toString())
-                } else if (TYPE_EDIT_PRICE.equals(viewType)) {
-                    mBinding.viewModel!!.savePrice(placeId, s.toString())
-                    if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(pointNumStr)) {
-                        try {
-                            pointNumStr = NumberUtils().makeCommaNumber(
-                                Integer.parseInt(
-                                    s.toString().replace(",", "")
+                mBinding.viewModel?.let { pageViewModel ->
+                    if (TYPE_EDIT_PLACE_NAME.equals(viewType)) {
+                        pageViewModel.savePlaceName(placeId, s.toString())
+                    } else if (TYPE_EDIT_PRICE.equals(viewType)) {
+                        pageViewModel.savePrice(placeId, s.toString())
+                        if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(pointNumStr)) {
+                            try {
+                                pointNumStr = NumberUtils().makeCommaNumber(
+                                    Integer.parseInt(
+                                        s.toString().replace(",", "")
+                                    )
                                 )
-                            )
-                        } catch (numberFormat: NumberFormatException) {
-                            Log.e(TAG,"numberFormat : $numberFormat")
+                            } catch (numberFormat: NumberFormatException) {
+                                Log.e(TAG,"numberFormat : $numberFormat")
+                            }
+                            view.setText(pointNumStr)
+                            view.setSelection(pointNumStr.length)  //커서를 오른쪽 끝으로 보냄
                         }
-                        view.setText(pointNumStr)
-                        view.setSelection(pointNumStr.length)  //커서를 오른쪽 끝으로 보냄
                     }
                 }
             }

@@ -72,48 +72,49 @@ class HistoryFragment : BaseFragment(){
     }
 
     private fun addObserver() {
-        mBinding.viewModel ?: return
-        mBinding.viewModel!!.mShowLoadingView.observe(requireActivity(), Observer {
-            when (it) {
-                true -> showLoadingView()
-                false -> hideLoadingView()
-            }
-        })
-        mBinding.viewModel!!.mHistory.observe(requireActivity(), Observer {
-            Log.v(TAG, "updated mHistory : $it")
+        mBinding.viewModel?.let { historyViewModel ->
+            historyViewModel.mShowLoadingView.observe(requireActivity(), Observer {
+                when (it) {
+                    true -> showLoadingView()
+                    false -> hideLoadingView()
+                }
+            })
+            historyViewModel.mHistory.observe(requireActivity(), Observer {
+                Log.v(TAG, "updated mHistory : $it")
 
-            mBinding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
-                requireActivity().supportFragmentManager,
-                lifecycle,
-                (it as GetNBBangHistoryResult).nbbangHistoryList
-            ) { nbbHisory ->
-                Log.v(TAG, "Clicked Item : ${nbbHisory.id}")
-            }
+                mBinding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
+                    requireActivity().supportFragmentManager,
+                    lifecycle,
+                    (it as GetNBBangHistoryResult).nbbangHistoryList
+                ) { nbbHisory ->
+                    Log.v(TAG, "Clicked Item : ${nbbHisory.id}")
+                }
 
-            if (it.nbbangHistoryList.isNullOrEmpty()) {
-                Log.v(TAG,"empty List!, show emptyView")
-                mBinding.historyRecyclerView.visibility = View.GONE
-                mBinding.emptyView.visibility = View.VISIBLE
-            } else {
-                Log.v(TAG,"show Item View")
-                mBinding.historyRecyclerView.visibility = View.VISIBLE
-                mBinding.emptyView.visibility = View.GONE
-            }
-            val myData = mLoginViewModel.gMyData.value
-            var name = ""
-            myData?.let { kakaoUser ->
-                name = kakaoUser.name
-            }
-            mBinding.cviewSelectMonth.cview1.txtDescription.text = it.nbbangHistoryList.size.toString()
-            mBinding.cviewSelectMonth.cview2.txtDescription.text = ServiceUtils().getTotalAmountOfPayment(name, it)
-            mBinding.viewModel!!.updateLoadingFlag(false)
-        })
+                if (it.nbbangHistoryList.isNullOrEmpty()) {
+                    Log.v(TAG,"empty List!, show emptyView")
+                    mBinding.historyRecyclerView.visibility = View.GONE
+                    mBinding.emptyView.visibility = View.VISIBLE
+                } else {
+                    Log.v(TAG,"show Item View")
+                    mBinding.historyRecyclerView.visibility = View.VISIBLE
+                    mBinding.emptyView.visibility = View.GONE
+                }
+                val myData = mLoginViewModel.gMyData.value
+                var name = ""
+                myData?.let { kakaoUser ->
+                    name = kakaoUser.name
+                }
+                mBinding.cviewSelectMonth.cview1.txtDescription.text = it.nbbangHistoryList.size.toString()
+                mBinding.cviewSelectMonth.cview2.txtDescription.text = ServiceUtils().getTotalAmountOfPayment(name, it)
+                historyViewModel.updateLoadingFlag(false)
+            })
 
-        mBinding.viewModel!!.mSelectMonth.observe(requireActivity(), Observer {
-            Log.v(TAG,"selected month : $it")
-            mBinding.cviewSelectMonth.txtMonth.text = "$it 월"
-            mBinding.viewModel!!.showHistoryByMonth(it!!)
-        })
+            historyViewModel.mSelectMonth.observe(requireActivity(), Observer {
+                Log.v(TAG,"selected month : $it")
+                mBinding.cviewSelectMonth.txtMonth.text = "$it 월"
+                historyViewModel.showHistoryByMonth(it)
+            })
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

@@ -50,31 +50,32 @@ class MyPageFragment : BaseFragment() {
 
     private fun addObserver() {
         mBinding.viewModel ?: return
-
-        mBinding.viewModel!!.gMyData.observe(requireActivity(), Observer {
-            if (it != null) {
-                Log.v(TAG, "mMyDataFrom : ${it}")
+        mBinding.viewModel?.let { loginViewModel ->
+            loginViewModel.gMyData.observe(requireActivity(), Observer {
                 if (it != null) {
-                    val id = it.id
-                    val name = it.properties?.get("nickname")
-                    val image = it.properties?.get("profile_image")
-                    val thumbnail = it.properties?.get("thumbnail_image")
-                    Log.v(
-                        TAG, "MyData id : ${id}"
-                                + "\n name : ${name}"
-                                + "\n profile_image : ${image}"
-                                + "\n thumbnail_image : ${thumbnail}"
-                    )
-                    updateProfileInfo(thumbnail, name)
+                    Log.v(TAG, "mMyDataFrom : ${it}")
+                    if (it != null) {
+                        val id = it.id
+                        val name = it.properties?.get("nickname")
+                        val image = it.properties?.get("profile_image")
+                        val thumbnail = it.properties?.get("thumbnail_image")
+                        Log.v(
+                            TAG, "MyData id : ${id}"
+                                    + "\n name : ${name}"
+                                    + "\n profile_image : ${image}"
+                                    + "\n thumbnail_image : ${thumbnail}"
+                        )
+                        updateProfileInfo(thumbnail, name)
+                    } else {
+                        updateProfileInfo(null, null)
+                    }
+
                 } else {
+                    Log.v(TAG, "isLogin : $it")
                     updateProfileInfo(null, null)
                 }
-
-            } else {
-                Log.v(TAG, "isLogin : $it")
-                updateProfileInfo(null, null)
-            }
-        })
+            })
+        }
     }
 
 

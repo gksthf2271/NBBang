@@ -104,55 +104,55 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         fun initView(parentFragment: FloatingButtonBaseFragment) {
             mParentFragment = parentFragment
 //            mGroupManagementBinding.toolbarTitle.title = "멤버 관리"
-
-            // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
-            if (mGroupManagementBinding.recyclerMemberList.adapter == null) {
-                mGroupManagementBinding.recyclerMemberList.apply {
-                    layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-                    addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
-                    adapter =
-                        AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                            Log.v(TAG, "ItemClicked : $it")
-                            mGroupManagementBinding.viewModel!!.selectMember(it.second)
-                            mParentFragment.showMemberView()
-                        }
+            mGroupManagementBinding.viewModel?.let { memberManagementViewModel ->
+                // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
+                if (mGroupManagementBinding.recyclerMemberList.adapter == null) {
+                    mGroupManagementBinding.recyclerMemberList.apply {
+                        layoutManager =
+                            GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+                        addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
+                        adapter =
+                            AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
+                                Log.v(TAG, "ItemClicked : $it")
+                                memberManagementViewModel.selectMember(it.second)
+                                mParentFragment.showMemberView()
+                            }
+                    }
+                    addObserver()
                 }
-                addObserver()
-            }
 
-            mGroupManagementBinding.viewModel?.let {
-                it.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
-                mParentFragment.setViewModel(it)
+                memberManagementViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
+                mParentFragment.setViewModel(memberManagementViewModel)
             }
         }
 
         private fun addObserver() {
-            mGroupManagementBinding.viewModel ?: return
+            mGroupManagementBinding.viewModel?.let { memberManagementViewModel ->
+                memberManagementViewModel.mShowLoadingView.observe(requireActivity(), Observer {
+                    when (it) {
+                        true -> showLoadingView()
+                        false -> hideLoadingView()
+                    }
+                })
 
-            mGroupManagementBinding.viewModel!!.mShowLoadingView.observe(requireActivity(), Observer {
-                when (it) {
-                    true -> showLoadingView()
-                    false -> hideLoadingView()
-                }
-            })
+                memberManagementViewModel.mMemberList.observe(requireActivity(), Observer {
+                    val adapter = (mGroupManagementBinding.recyclerMemberList.adapter as? AddPeopleRecyclerViewAdapter)
+                        ?: return@Observer
+                    adapter.setItemList(ArrayList(it))
 
-            mGroupManagementBinding.viewModel!!.mMemberList.observe(requireActivity(), Observer {
-                val adapter = (mGroupManagementBinding.recyclerMemberList.adapter as? AddPeopleRecyclerViewAdapter)
-                    ?: return@Observer
-                adapter.setItemList(ArrayList(it))
+                    mGroupManagementBinding.groupTitle.txtTitle.text =
+                        "Favorite Member"
+                    mGroupManagementBinding.groupTitle.txtSubTitle.text =
+                        "${it.size}명 대기중..."
+                    memberManagementViewModel.updateLoadingFlag(false)
+                })
 
-                mGroupManagementBinding.groupTitle.txtTitle.text =
-                    "Favorite Member"
-                mGroupManagementBinding.groupTitle.txtSubTitle.text =
-                    "${it.size}명 대기중..."
-                mGroupManagementBinding.viewModel!!.updateLoadingFlag(false)
-            })
-
-            mGroupManagementBinding.viewModel!!.mSelectMember.observe(requireActivity(), Observer {
-                Log.v(TAG, "Select Member : $it")
-                it ?: return@Observer
-                mParentFragment.selectMember(it)
-            })
+                memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
+                    Log.v(TAG, "Select Member : $it")
+                    it ?: return@Observer
+                    mParentFragment.selectMember(it)
+                })
+            }
         }
 
         override fun onDestroyView() {

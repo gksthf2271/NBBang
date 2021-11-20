@@ -46,10 +46,10 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     }
 
     override val mNBBPlaceDao: NBBPlaceDao
-        get() = _db.value.let { it!!.nbbangDao() }
+        get() = _db.value!!.nbbangDao()
 
     override val mNBBMemberDao: NBBMemberDao
-        get() = _db.value.let { it!!.nbbMemberDao()}
+        get() = _db.value!!.nbbMemberDao()
 
     fun setCurrentMonthHistory() {
         Log.v(TAG,"setCurrentMonthHistory : ${DateUtils().currentMonth()}")
@@ -75,14 +75,14 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     }
 
     fun increaseMonth() {
-        val month = _selectMonth.value!!.plus(1)
+        val month = _selectMonth.value?.plus(1) ?: return
         if (month > 12) return
         _selectMonth.postValue(month)
         Log.v(TAG,"increaseMonth(...) : ${_selectMonth.value}")
     }
 
     fun decreaseMonth() {
-        val month = _selectMonth.value!!.minus(1)
+        val month = _selectMonth.value?.minus(1) ?: return
         if (month< 1) return
         _selectMonth.postValue(month)
         Log.v(TAG,"decreaseMonth(...) : ${_selectMonth.value}")

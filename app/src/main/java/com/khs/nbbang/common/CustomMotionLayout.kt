@@ -12,13 +12,15 @@ class CustomMotionLayout @JvmOverloads constructor(
     val TAG = this.javaClass.simpleName
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         parent?.let {
-            Log.v(TAG,"action : ${ev!!.action}")
-            when (ev.action) {
-                MotionEvent.ACTION_MOVE -> {
-                    it.requestDisallowInterceptTouchEvent(true)
-                }
-                else -> {
+            ev?.let { ev ->
+                Log.v(TAG, "action : ${ev.action}")
+                when (ev.action) {
+                    MotionEvent.ACTION_MOVE -> {
+                        it.requestDisallowInterceptTouchEvent(true)
+                    }
+                    else -> {
 
+                    }
                 }
             }
         }

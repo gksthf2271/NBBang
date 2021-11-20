@@ -83,29 +83,31 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
 
         mBinding.btnSave.setOnClickListener {
             mBinding.viewModel?.let {pageViewModel ->
-                pageViewModel.saveSelectedPeople(tag!!.toInt(), mSelectMemberViewModel.getSelectedMemberHashMap().values.toMutableList())
-                mSelectMemberViewModel.clearSelectedMemberHashMap()
+                mSelectMemberViewModel.apply {
+                    pageViewModel.saveSelectedPeople(tag!!.toInt(), getSelectedMemberHashMap().values.toMutableList())
+                    clearSelectedMemberHashMap()
+                }
             }
             dismiss()
         }
 
-        mBinding.viewModel?.let {
-            it.mNBBLiveData.observe(requireActivity(), Observer {
+        mBinding.viewModel?.let { it ->
+            it.mNBBLiveData.observe(requireActivity(), Observer { nbb ->
                 if (isAdded) {
                     val allPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
-                    for (member in it!!.mMemberList) {
+                    for (member in nbb.mMemberList) {
                         allPairList.add(Pair(member,false))
                     }
                     mRecyclerViewAdapter.setItemList(allPairList)
                 }
             })
 
-            it.mSelectedPeopleMap.observe(requireActivity(), Observer {
+            it.mSelectedPeopleMap.observe(requireActivity(), Observer { nbbHashMap ->
                 Log.v(TAG,"observer(...)")
                 if (isAdded) {
-                    it ?: return@Observer
+                    nbbHashMap ?: return@Observer
                     tag ?: return@Observer
-                    it.get(tag!!.toInt()).let { nbb ->
+                    nbbHashMap[tag!!.toInt()].let { nbb ->
                         nbb ?: return@Observer
                         val selectedPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
                         for (member in nbb.mMemberList) {
@@ -116,8 +118,8 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
                 }
             })
 
-            mSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer {
-                Log.v(TAG,"selectedList : ${it!!}")
+            mSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer { memberHashMap ->
+                Log.v(TAG,"selectedList : $memberHashMap")
             })
         }
     }

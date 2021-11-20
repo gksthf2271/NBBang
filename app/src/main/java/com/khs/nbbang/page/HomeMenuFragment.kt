@@ -60,8 +60,8 @@ class HomeMenuFragment : BaseFragment() {
     }
 
     private fun addObserver() {
-        mBinding.viewModel.let {
-            it!!.gMyData.observe(requireActivity(), Observer {
+        mBinding.viewModel?.let { it ->
+            it.gMyData.observe(requireActivity(), Observer {
                 it ?: return@Observer
                 Log.v(
                     TAG, "MyData id : ${it.id}"

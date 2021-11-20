@@ -101,15 +101,17 @@ class ResultPageFragment : BaseFragment() {
 
     private fun showHistoryCheckerDialog() {
         Log.v(TAG, "showSelectPeopleDialog(...)")
-        HistoryCheckerDialogFragment.getInstance().apply {
-            this.arguments = Bundle().apply {
-                this.putCharSequence(KEY_TITLE, this@ResultPageFragment.mBinding.txtTitle.text)
-                this.putCharSequence(
-                    KEY_DESCRIPTION,
-                    this@ResultPageFragment.mBinding.viewModel!!.resultNBB()
-                )
-            }
-        }.show(requireActivity().supportFragmentManager, tag)
+        mBinding.viewModel?.let { pageViewModel ->
+            HistoryCheckerDialogFragment.getInstance().apply {
+                this.arguments = Bundle().apply {
+                    this.putCharSequence(KEY_TITLE, this@ResultPageFragment.mBinding.txtTitle.text)
+                    this.putCharSequence(
+                        KEY_DESCRIPTION,
+                        pageViewModel.resultNBB()
+                    )
+                }
+            }.show(requireActivity().supportFragmentManager, tag)
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

@@ -41,8 +41,8 @@ class PeopleCountFragment : BaseFragment() {
     }
 
     fun initView() {
-        mBinding.viewModel.let {
-            it!!.mNBBLiveData.observe(requireActivity(), Observer {
+        mBinding.viewModel?.let { pageViewModel ->
+            pageViewModel.mNBBLiveData.observe(requireActivity(), Observer {
                 mBinding.txtCount.text = it.mMemberCount.toString()
             })
         }

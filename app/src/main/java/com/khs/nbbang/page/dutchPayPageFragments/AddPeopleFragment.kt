@@ -120,8 +120,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 mRecyclerViewAdapter =
                     AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
                         Log.v(TAG, "ItemClicked, member : ${it.second}")
-                        mAddPeopleContentsBinding.viewModel ?: return@AddPeopleRecyclerViewAdapter
-                        mAddPeopleContentsBinding.viewModel!!.selectPeople(it.second)
+                        mAddPeopleContentsBinding.viewModel?.selectPeople(it.second)
                         mParentFragment.showMemberView()
                     }
 

@@ -332,14 +332,14 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun clearDutchPayMap() {
         mDutchPayMap.clear()
-        _NBBResultItem.value!!.apply {
+        _NBBResultItem.value?.let {
             NBBResultItem(arrayListOf(), arrayListOf())
         }
     }
 
     fun clearNBBResultItem() {
-        _NBBResultItem.value!!.place.clear()
-        _NBBResultItem.value!!.dutchPay.clear()
+        _NBBResultItem.value?.place?.clear()
+        _NBBResultItem.value?.dutchPay?.clear()
     }
 
     fun loadNBBResult() : NBBResultItem {
