@@ -103,8 +103,8 @@ class HistoryFragment : BaseFragment(){
             }
             val myData = mLoginViewModel.gMyData.value
             var name = ""
-            myData.let {kakaoUser ->
-                name = kakaoUser!!.name
+            myData?.let { kakaoUser ->
+                name = kakaoUser.name
             }
             mBinding.cviewSelectMonth.cview1.txtDescription.text = it.nbbangHistoryList.size.toString()
             mBinding.cviewSelectMonth.cview2.txtDescription.text = ServiceUtils().getTotalAmountOfPayment(name, it)
