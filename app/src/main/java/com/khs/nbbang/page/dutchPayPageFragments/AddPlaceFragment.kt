@@ -135,16 +135,16 @@ class AddPlaceFragment : BaseFragment() {
             }
         }
 
-        mBinding.viewModel.let {
-            it!!.updateJoinPlaceCount(placeIndex)
+        mBinding.viewModel?.let {
+            it.updateJoinPlaceCount(placeIndex)
 
             it.mSelectedPeopleMap.observe(requireActivity(), Observer {
-                it.get(infoView.tag as Int) ?: return@Observer
+                it[infoView.tag as Int] ?: return@Observer
                 Log.v(TAG, "_selectedPeopleMap, Observer(...) : ${it.count()}")
-                if (it!!.get(infoView.tag as Int)!!.mMemberList.isEmpty()) {
+                if (it[infoView.tag as Int]!!.mMemberList.isEmpty()) {
                     hideAddedPeopleView(infoView)
                 } else {
-                    showAddedPeopleView(infoView, it.get(infoView.tag as Int)!!)
+                    showAddedPeopleView(infoView, it[infoView.tag as Int]!!)
                 }
             })
         }

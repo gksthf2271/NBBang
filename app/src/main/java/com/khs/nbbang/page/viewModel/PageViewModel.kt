@@ -97,16 +97,16 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun addJoinPeople(member: Member) : Boolean{
         Log.v(TAG,"addJoinPeople(...) people : ${member}")
-        _NBBLiveData.value.let { nbb ->
-            if (nbb!!.mMemberList.contains(member)){
+        _NBBLiveData.value?.let { nbb ->
+            if (nbb.mMemberList.contains(member)){
                 for (member in nbb.mMemberList) {
                     Log.v(TAG, "member : $member")
                 }
                 return false
             }
 
-            _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                val emptyIndex = getEmptyPeopleCircleView(this!!.mMemberList)
+            _NBBLiveData.postValue(_NBBLiveData.value?.apply {
+                val emptyIndex = getEmptyPeopleCircleView(this.mMemberList)
                 if (emptyIndex == this.mMemberList.size) {
                     Log.v(TAG, "emptyPeopleCircle is null")
                     this.mMemberList.add(member)
@@ -119,6 +119,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             })
             return true
         }
+        return false
     }
 
     private fun getEmptyPeopleCircleView(memberList : List<Member>) : Int {
@@ -138,9 +139,9 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun deleteJoinPeople(member: Member) {
         Log.v(TAG,"deleteJoinPeople(...) people : ${member.name}")
-        _NBBLiveData.value.let {
+        _NBBLiveData.value?.let {
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
-                it!!.mMemberList.remove(member)
+                it.mMemberList.remove(member)
                 it.mMemberCount = it.mMemberList.size
                 updateJoinPlaceCount(it.mMemberCount)
             })
@@ -150,8 +151,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     fun updateJoinPeople(member: Member) {
         Log.v(TAG,"updateJoinPeople(...) newMember : $member")
         val selectJoinPeople = mSelectJoinPeople.value
-        _NBBLiveData.value.let {
-            val index = it!!.mMemberList.indexOf(selectJoinPeople)
+        _NBBLiveData.value?.let {
+            val index = it.mMemberList.indexOf(selectJoinPeople)
             _NBBLiveData.postValue(_NBBLiveData.value.apply {
                 it.mMemberList.get(index).run {
                     name = member.name
@@ -166,10 +167,10 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
     }
 
     fun increaseJoinPeopleCount() {
-        _NBBLiveData.value.let {
+        _NBBLiveData.value?.let {
             _NBBLiveData.postValue(it.apply {
-                it!!.mMemberCount += 1
-                it!!.mMemberList.add(Member(index = it.mMemberList.size))
+                it.mMemberCount += 1
+                it.mMemberList.add(Member(index = it.mMemberList.size))
                 Log.v(TAG, "increaseJoinPeopleCount(...) ${it.mMemberCount}")
             })
         }
@@ -181,8 +182,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun decreaseJoinPeopleCount() {
         Log.v(TAG, "decreaseJoinPeopleCount(...)")
-        _NBBLiveData.value.let {
-            if (it!!.mMemberCount <= 0) return
+        _NBBLiveData.value?.let {
+            if (it.mMemberCount <= 0) return
             _NBBLiveData.postValue(it.apply {
                 it.mMemberCount -= 1
                 it.mMemberList.removeAt(it.mMemberList.lastIndex)
@@ -199,8 +200,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
         }
         Log.v(TAG, "TAG : $placeId , savePrice : ${price}")
 
-        _selectedPeopleMap.value.let {
-            if (it!![placeId] == null) it[placeId] = NBB()
+        _selectedPeopleMap.value?.let {
+            if (it[placeId] == null) it[placeId] = NBB()
             _selectedPeopleMap.postValue(it.apply {
                 it[placeId]!!.mPrice = price
             })
@@ -209,8 +210,8 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun savePlaceName(placeId: Int, placeName: String) {
         Log.v(TAG, "TAG : $placeId , savePlaceName : ${placeName}")
-        _selectedPeopleMap.value.let {
-            if (it!![placeId] == null) it[placeId] = NBB()
+        _selectedPeopleMap.value?.let {
+            if (it[placeId] == null) it[placeId] = NBB()
             _selectedPeopleMap.postValue(it.apply {
                 it[placeId]!!.mPlaceName = placeName
             })
@@ -219,7 +220,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     fun saveSelectedPeople(placeId: Int, selectedJoinPeopleList: MutableList<Member>) {
         Log.v(TAG,"saveSelectedPeople(...) : ${selectedJoinPeopleList.count()}")
-        _selectedPeopleMap.value!!.let {
+        _selectedPeopleMap.value?.let {
             if (it[placeId] == null) it[placeId] = NBB()
             _selectedPeopleMap.postValue(it.apply {
                 this[placeId]!!.run {
@@ -237,7 +238,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
             selectedPeopleMap.value?.let {
                 selectedPeopleMap.postValue(it.apply {
                     for(key in it.keys) {
-                        this.get(key)!!.mMemberList.clear()
+                        this[key]!!.mMemberList.clear()
                     }
                 })
             }

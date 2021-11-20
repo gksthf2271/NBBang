@@ -82,15 +82,15 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
         }
 
         mBinding.btnSave.setOnClickListener {
-            mBinding.viewModel.let {pageViewModel ->
-                mBinding.viewModel!!.saveSelectedPeople(tag!!.toInt(), mSelectMemberViewModel.getSelectedMemberHashMap().values.toMutableList())
+            mBinding.viewModel?.let {pageViewModel ->
+                pageViewModel.saveSelectedPeople(tag!!.toInt(), mSelectMemberViewModel.getSelectedMemberHashMap().values.toMutableList())
                 mSelectMemberViewModel.clearSelectedMemberHashMap()
             }
             dismiss()
         }
 
-        mBinding.viewModel.let {
-            it!!.mNBBLiveData.observe(requireActivity(), Observer {
+        mBinding.viewModel?.let {
+            it.mNBBLiveData.observe(requireActivity(), Observer {
                 if (isAdded) {
                     val allPairList : ArrayList<Pair<Member, Boolean>> = arrayListOf()
                     for (member in it!!.mMemberList) {

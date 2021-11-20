@@ -40,7 +40,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
     }
 
     override fun add(obj: Member?) {
-        obj.let {
+        obj?.let {
             if (obj !is Member) return
             mViewModel.let {
                 it.saveMember(obj.id, obj.groupId, obj.name, obj.description, obj.kakaoId, obj.thumbnailImage, obj.profileImage, obj.profileUri) }
@@ -120,8 +120,8 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                 addObserver()
             }
 
-            mGroupManagementBinding.viewModel.let {
-                it!!.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
+            mGroupManagementBinding.viewModel?.let {
+                it.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
                 mParentFragment.setViewModel(it)
             }
         }

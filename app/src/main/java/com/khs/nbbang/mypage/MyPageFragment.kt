@@ -79,12 +79,12 @@ class MyPageFragment : BaseFragment() {
 
 
     private fun updateProfileInfo(thumbnail: String?, name: String?) {
-        mBinding.viewModel.let {
+        mBinding.viewModel?.let {
             GlideUtils().drawImageWithString(mBinding.imgProfile, thumbnail, null)
             mBinding.groupName.txtTitle.text = "이름"
             mBinding.groupName.txtDescription.text = name ?: "FREE USER"
 
-            if (name != null && it!!.gIsLogin.value == true) {
+            if (name != null && it.gIsLogin.value == true) {
                 mBinding.txtLogout.visibility = View.VISIBLE
                 mBinding.btnLoginLogout.visibility = View.INVISIBLE
             } else {

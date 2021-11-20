@@ -37,7 +37,7 @@ class FavoriteRowView @JvmOverloads constructor(
             mPageViewModel = vm
             mRecyclerViewAdapter = FavoriteRecyclerAdapter(arrayListOf()) { member ->
                 Log.v(TAG,"ItemClicked, member : ${member.name}")
-                mPageViewModel.let {
+                mPageViewModel?.let {
                     if (!mPageViewModel.mNBBLiveData.value!!.mMemberList.contains(member)){
                         it.addJoinPeople(member)
                     } else {

@@ -44,12 +44,8 @@ class HomeMenuFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        mPageViewModel.let {
-            it.clearPageViewModel()
-        }
-        mSelectMemberViewModel.let {
-            it.clearSelectedMemberHashMap()
-        }
+        mPageViewModel.clearPageViewModel()
+        mSelectMemberViewModel.clearSelectedMemberHashMap()
     }
 
     override fun makeCustomLoadingView(): Dialog? {

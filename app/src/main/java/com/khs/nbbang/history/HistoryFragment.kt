@@ -44,9 +44,7 @@ class HistoryFragment : BaseFragment(){
 
     override fun onPause() {
         super.onPause()
-        mBinding.viewModel.let {
-            it!!.setCurrentMonthHistory()
-        }
+        mBinding.viewModel?.setCurrentMonthHistory()
     }
 
     override fun makeCustomLoadingView(): Dialog? {
@@ -63,10 +61,10 @@ class HistoryFragment : BaseFragment(){
         }
 
         mBinding.cviewSelectMonth.imgLeftIndicator.setOnClickListener {
-            mBinding.viewModel.let { it!!.decreaseMonth() }
+            mBinding.viewModel?.decreaseMonth()
         }
         mBinding.cviewSelectMonth.imgRightIndicator.setOnClickListener {
-            mBinding.viewModel.let { it!!.increaseMonth() }
+            mBinding.viewModel?.increaseMonth()
         }
 
         mBinding.cviewSelectMonth.cview1.txtTitle.text = "모임 횟수"

@@ -203,9 +203,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.v(TAG, "keyCode: $keyCode , event : ${event}")
-        val currentFragment = supportFragmentManager.fragments.get(0).let {
-            it!!.childFragmentManager.fragments.get(0)
+        Log.v(TAG, "keyCode: $keyCode , event : $event")
+        val currentFragment = supportFragmentManager.fragments[0]?.let {
+            it.childFragmentManager.fragments[0]
         }
         val fragment = currentFragment as? BaseFragment
         if (fragment != null && fragment.onKeyDown(keyCode, event))

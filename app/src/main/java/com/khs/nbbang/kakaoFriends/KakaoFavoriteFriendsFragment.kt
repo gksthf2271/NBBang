@@ -60,7 +60,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
             }
             addObserver()
         }
-        mBinding.viewModel.let {
+        mBinding.viewModel?.let {
             mBinding.groupTitle.txtTitle.text =
                 "Kakao Favorite Member"
             it!!.showFavoriteMemberListByType(MemberType.TYPE_KAKAO)

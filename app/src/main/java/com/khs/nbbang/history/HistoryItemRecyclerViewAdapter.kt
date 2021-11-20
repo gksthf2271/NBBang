@@ -23,7 +23,7 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
     }
 
     override fun getItemCount(): Int {
-        return mHistoryResultPlaceList.let { mHistoryResultPlaceList.size }
+        return mHistoryResultPlaceList.run { mHistoryResultPlaceList.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

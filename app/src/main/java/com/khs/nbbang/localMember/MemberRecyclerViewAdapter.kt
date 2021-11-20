@@ -28,7 +28,7 @@ class MemberRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mMemberList.let { mMemberList.size }
+        return mMemberList.run { mMemberList.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

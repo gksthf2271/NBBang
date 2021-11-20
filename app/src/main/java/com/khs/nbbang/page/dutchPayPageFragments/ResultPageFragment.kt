@@ -47,7 +47,7 @@ class ResultPageFragment : BaseFragment() {
     fun initView() {
         mBinding.txtNotifyCopy.setOnClickListener {
             Log.v(TAG, "Notify Btn Clicked!")
-            mBinding.viewModel.let {
+            mBinding.viewModel?.let {
                 showHistoryCheckerDialog()
             }
         }
@@ -55,9 +55,9 @@ class ResultPageFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        mBinding.viewModel.let { pageViewModel ->
+        mBinding.viewModel?.let { pageViewModel ->
             CoroutineScope(Dispatchers.Default).launch {
-                pageViewModel!!.clearDutchPayMap()
+                pageViewModel.clearDutchPayMap()
                 CoroutineScope(Dispatchers.Main).launch {
                     updateList()
                 }
@@ -68,15 +68,15 @@ class ResultPageFragment : BaseFragment() {
     }
 
     private fun updateList() {
-        mBinding.viewModel.let { pageViewModel ->
-            pageViewModel!!.gNBBResultItem.observe(requireActivity(), Observer {
+        mBinding.viewModel?.let { pageViewModel ->
+            pageViewModel.gNBBResultItem.observe(requireActivity(), Observer {
                 Log.v(TAG, "khs, observer(...)")
                 mBinding.recyclerViewResult.apply {
                     setHasFixedSize(true)
                     addItemDecoration(HistoryItemDecoration(2))
                     layoutManager = LinearLayoutManager(context)
                     adapter = ResultRecyclerViewAdapter(it.place) {
-                        Log.v(TAG, "onClicked(...), item : ${it}")
+                        Log.v(TAG, "onClicked(...), item : $it")
                         val dialog = PlaceBottomItemView(it)
                         dialog.show(requireActivity().supportFragmentManager, null)
                     }
@@ -87,7 +87,7 @@ class ResultPageFragment : BaseFragment() {
                         totalPrice += item.price
                     }
 
-                    Log.v(TAG, "khs, totalPrice : ${totalPrice}")
+                    Log.v(TAG, "khs, totalPrice : $totalPrice")
                     mBinding.txtPrice.text = NumberUtils().makeCommaNumber(true, totalPrice)
                 }
             })

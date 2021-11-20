@@ -84,13 +84,13 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
         mBinding.motionLayout.setTransitionListener({ transitionName ->
             Log.v(TAG, "motionLayout Transition Changed: $transitionName")
-            mItemTouchInterceptor.let { mItemTouchInterceptor.enable() }
+            mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
         }, { start, end ->
             Log.v(TAG, "motionLayout State start: $start , end: $end")
-            mItemTouchInterceptor.let { mItemTouchInterceptor.enable() }
+            mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
             KeyboardUtils.hideKeyboard(requireView(), requireContext())
         }, { completion ->
-            mItemTouchInterceptor.let { mItemTouchInterceptor.disable() }
+            mItemTouchInterceptor.run { mItemTouchInterceptor.disable() }
             Log.v(TAG, "motionLayout State completion: $completion")
         })
     }
@@ -134,22 +134,22 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     }
 
     fun showAddMemberView() {
-        mBinding.let {
+        mBinding.run {
             updateTransition(R.id.add_motion_transition)
             mBinding.motionLayout.transitionToEnd()
         }
     }
 
     fun hideAddMemberView() {
-        mBinding.let {
+        mBinding.run {
             updateTransition(R.id.add_motion_transition)
-            mBinding.motionLayout.transitionToStart()
+            motionLayout.transitionToStart()
         }
     }
 
     fun selectMember(member: Member) {
-        mBinding.let {
-            mBinding.memberView.setMember(member)
+        mBinding.run {
+            memberView.setMember(member)
         }
     }
 

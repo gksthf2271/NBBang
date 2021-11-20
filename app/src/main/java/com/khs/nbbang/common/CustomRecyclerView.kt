@@ -10,8 +10,8 @@ class CustomRecyclerView @JvmOverloads constructor(
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        parent.let {
-            it!!.requestDisallowInterceptTouchEvent(true)
+        parent?.let {
+            it.requestDisallowInterceptTouchEvent(true)
         }
         return super.dispatchTouchEvent(ev)
     }

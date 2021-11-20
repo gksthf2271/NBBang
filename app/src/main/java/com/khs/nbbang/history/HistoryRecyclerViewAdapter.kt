@@ -27,7 +27,7 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
     }
 
     override fun getItemCount(): Int {
-        return mHistoryList.let { mHistoryList.size }
+        return mHistoryList.run { mHistoryList.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

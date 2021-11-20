@@ -140,9 +140,9 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
         private fun addObserver() {
             Log.v(TAG,"addObserver(...)")
-            mAddPeopleContentsBinding.viewModel.let {
-                it!!.mNBBLiveData.observe(requireActivity(), Observer {
-                    Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it!!.mMemberCount}")
+            mAddPeopleContentsBinding.viewModel?.let {
+                it.mNBBLiveData.observe(requireActivity(), Observer {
+                    Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it.mMemberCount}")
                     val newMemberArrayList = arrayListOf<Member>()
                     newMemberArrayList.addAll(it.mMemberList)
                     mRecyclerViewAdapter.setItemList(newMemberArrayList)

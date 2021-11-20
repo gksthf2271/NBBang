@@ -76,14 +76,14 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
             this.layoutManager = layoutManager
         }
 
-        mBinding.viewModel.let { it!!.loadFriendList() }
+        mBinding.viewModel?.loadFriendList()
     }
 
     private fun addObserver() {
         mBinding.viewModel.let { loginViewModel ->
             loginViewModel!!.gIsLogin.observe(requireActivity(), Observer {
                 if (!it) {
-                    Log.e(TAG, "isLogin : ${it}")
+                    Log.e(TAG, "isLogin : $it")
                     return@Observer
                 }
             })
@@ -150,9 +150,9 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
             Log.v(TAG,"update SelectedMember list! : $memberMap")
             val result : ArrayList<Member> = arrayListOf()
             val myData = gLoginViewModel.gMyData.value
-            myData?.id.let {
+            myData?.id?.let {
                 for (member in memberMap!!.values) {
-                    if (it!!.toString() != member.kakaoId) {
+                    if (it.toString() != member.kakaoId) {
                         result.add(member)
                     }
                 }

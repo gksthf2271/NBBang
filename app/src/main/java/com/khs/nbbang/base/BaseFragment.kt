@@ -54,9 +54,9 @@ open abstract class BaseFragment :Fragment(), IKeyEvent{
     }
 
     fun isShownLoadingView() : Boolean {
-        return (gLoadingView as? LoadingDialog).let {
-            return@let it!!.isShowing
-        }
+        return (gLoadingView as? LoadingDialog)?.let {
+            return@let it.isShowing
+        } ?: false
     }
 
     private fun makeCommonLoadingView() : LoadingDialog {
@@ -68,16 +68,16 @@ open abstract class BaseFragment :Fragment(), IKeyEvent{
 
     protected fun showLoadingView() {
         Log.v(TAG,"showLoadingView(...)")
-        (gLoadingView as? LoadingDialog).let {
-            if (!it!!.isShowing)
+        (gLoadingView as? LoadingDialog)?.let {
+            if (!it.isShowing)
                 it.show()
         }
     }
 
     protected fun hideLoadingView() {
         Log.v(TAG,"hideLoadingView(...)")
-        (gLoadingView as? LoadingDialog).let {
-            if (it!!.isShowing)
+        (gLoadingView as? LoadingDialog)?.let {
+            if (it.isShowing)
                 it.hide()
         }
     }

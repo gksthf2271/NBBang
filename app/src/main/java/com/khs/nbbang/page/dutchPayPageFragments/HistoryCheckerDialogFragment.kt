@@ -80,8 +80,8 @@ class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY
             requireArguments().getCharSequence(ResultPageFragment().KEY_TITLE),
             requireArguments().getCharSequence(ResultPageFragment().KEY_DESCRIPTION)
         )
-        clipboard.let {
-            it!!.setPrimaryClip(clip)
+        clipboard?.let {
+            it.setPrimaryClip(clip)
             Toast.makeText(requireContext(),"클립보드에 영수증이 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }

@@ -25,7 +25,7 @@ class ResultRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mItemList.let { mItemList.size }
+        return mItemList.run { this.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

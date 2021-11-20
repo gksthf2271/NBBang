@@ -20,9 +20,9 @@ class SelectMemberViewModel() : BaseViewModel() {
 
 
     fun addSelectedMember(member : Member) {
-        _selectedMemberHashMap.value.let {
+        _selectedMemberHashMap.value?.let {
             _selectedMemberHashMap.postValue(
-                it!!.apply {
+                it.apply {
                     Log.v(TAG, "addSelectedMember : $member")
                     if (member.kakaoId.isNullOrEmpty()) {
                         this[member.name] = member
@@ -35,8 +35,8 @@ class SelectMemberViewModel() : BaseViewModel() {
     }
 
     fun removeSelectedMember(member: Member) {
-        _selectedMemberHashMap.value.let {
-            if (it!!.containsKey(member.kakaoId) || it.containsKey(member.name)) {
+        _selectedMemberHashMap.value?.let {
+            if (it.containsKey(member.kakaoId) || it.containsKey(member.name)) {
                 _selectedMemberHashMap.postValue(
                     it.apply {
                         Log.v(TAG,"removeSelectedMember : $member")
@@ -56,8 +56,8 @@ class SelectMemberViewModel() : BaseViewModel() {
     }
 
     fun clearSelectedMemberHashMap() {
-        _selectedMemberHashMap.value.let {
-            _selectedMemberHashMap.postValue(it!!.apply {
+        _selectedMemberHashMap.value?.let {
+            _selectedMemberHashMap.postValue(it.apply {
                 this.clear()
             })
         }

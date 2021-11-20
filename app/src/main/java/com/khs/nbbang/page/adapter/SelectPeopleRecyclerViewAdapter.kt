@@ -26,7 +26,7 @@ class SelectPeopleRecyclerViewAdapter (
     }
 
     override fun getItemCount(): Int {
-        return mItemList.let { mItemList.size }
+        return mItemList.run { mItemList.size }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
