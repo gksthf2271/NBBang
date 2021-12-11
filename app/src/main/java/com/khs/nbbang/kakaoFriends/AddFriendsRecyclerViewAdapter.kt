@@ -20,7 +20,7 @@ class AddFriendsRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = SelectMemberView(parent.context).mBinding
-        (binding.root as SelectMemberView).setViewSize(3)
+        (binding.root as? SelectMemberView)?.setViewSize(3)
         return ViewHolder(binding, mItemClick)
     }
 
