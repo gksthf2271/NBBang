@@ -47,24 +47,26 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     protected abstract fun update(member: Member)
 
     private fun initView() {
-        mBinding.memberView.setCallBackListener(this)
-        mBinding.addMemberView.setCallBackListener(this)
+        mBinding.apply {
+            memberView.setCallBackListener(this@FloatingButtonBaseFragment)
+            addMemberView.setCallBackListener(this@FloatingButtonBaseFragment)
 
-        mBinding.btnAdd.setOnClickListener {
-            showAddMemberView()
+            btnAdd.setOnClickListener {
+                showAddMemberView()
+            }
+
+            motionLayout.setTransitionListener({ transitionName ->
+                Log.v(TAG, "motionLayout Transition Changed: $transitionName")
+                mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
+            }, { start, end ->
+                Log.v(TAG, "motionLayout State start: $start , end: $end")
+                mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
+                KeyboardUtils.hideKeyboard(requireView(), requireContext())
+            }, { completion ->
+                mItemTouchInterceptor.run { mItemTouchInterceptor.disable() }
+                Log.v(TAG, "motionLayout State completion: $completion")
+            })
         }
-
-        mBinding.motionLayout.setTransitionListener({ transitionName ->
-            Log.v(TAG, "motionLayout Transition Changed: $transitionName")
-            mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
-        }, { start, end ->
-            Log.v(TAG, "motionLayout State start: $start , end: $end")
-            mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
-            KeyboardUtils.hideKeyboard(requireView(), requireContext())
-        }, { completion ->
-            mItemTouchInterceptor.run { mItemTouchInterceptor.disable() }
-            Log.v(TAG, "motionLayout State completion: $completion")
-        })
     }
 
     private fun updateTransition(transitionId: Int) {

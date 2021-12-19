@@ -7,7 +7,7 @@
         android:id="@+id/add_motion_transition"
         motion:constraintSetEnd="@id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="500">
+        motion:duration="300">
         <KeyFrameSet>
             <KeyAttribute
                 android:alpha="1"
@@ -47,7 +47,7 @@
         android:id="@+id/update_motion_transition"
         motion:constraintSetEnd="@id/clicked_member_end"
         motion:constraintSetStart="@id/clicked_member_start"
-        motion:duration="500">
+        motion:duration="300">
         <KeyFrameSet>
             <KeyAttribute
                 android:alpha="1"

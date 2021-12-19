@@ -25,12 +25,12 @@ class PeopleCountFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_people_count, container, false)
+        mBinding = FragmentPeopleCountBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
         initView()
     }

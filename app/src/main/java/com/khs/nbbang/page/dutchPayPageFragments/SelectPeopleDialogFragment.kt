@@ -44,13 +44,13 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_select_people, container, false)
+        mBinding = FragmentSelectPeopleBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.v(TAG,"onViewCreated(...)")
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mPageViewModel
         initView()
     }
