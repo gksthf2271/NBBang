@@ -216,7 +216,7 @@ class MainActivity : BaseActivity() {
                     if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
                         drawer_layout.closeDrawer(GravityCompat.START)
                     } else if (CURRENT_TAG == TAG_DUTCH_PAY) {
-                        if (gFinishToast != null && gFinishToast.view.isShown) {
+                        if (gFinishToast != null) {
                             setResult(RESULT_FINISH)
                             finish()
                         } else {
