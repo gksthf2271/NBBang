@@ -3,13 +3,9 @@ package com.khs.nbbang.page
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.khs.nbbang.R
 import com.khs.nbbang.animation.RecyclerViewTouchEvent
 import com.khs.nbbang.base.BaseFragment
@@ -18,7 +14,6 @@ import com.khs.nbbang.common.AddMemberView
 import com.khs.nbbang.common.MemberView
 import com.khs.nbbang.databinding.FragmentFloatingBtnBaseBinding
 import com.khs.nbbang.user.Member
-import com.khs.nbbang.utils.GlideUtils
 import com.khs.nbbang.utils.KeyboardUtils
 import com.khs.nbbang.utils.StringUtils
 import com.khs.nbbang.utils.setTransitionListener
@@ -35,38 +30,15 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v: View =
-            inflater.inflate(R.layout.fragment_floating_btn_base, container, false)
-        fillFragmentContainer(makeContentsFragment())
-        return v
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
-        initView()
+        super.onCreateView(inflater, container, savedInstanceState)
+        mBinding = FragmentFloatingBtnBaseBinding.inflate(inflater, container, true)
+        return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
-        init()
+        initView()
     }
-
-    protected open fun fillFragmentContainer(fragment: Fragment?) {
-        Log.d(TAG, "fill Fragment Container with fragment:$fragment")
-        if (fragment != null && isAdded) {
-            val ft =
-                childFragmentManager.beginTransaction()
-            ft.replace(R.id.contents_container, fragment)
-            ft.commitNowAllowingStateLoss()
-        } else {
-            Log.d(TAG, "contentsFragment is null!!!")
-        }
-    }
-
-    protected abstract fun makeContentsFragment(): Fragment?
-
-    protected abstract fun init()
 
     protected abstract fun add(obj: Member?)
 

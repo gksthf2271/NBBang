@@ -7,16 +7,9 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.khs.nbbang.R
-import com.khs.nbbang.animation.HistoryItemDecoration
-import com.khs.nbbang.base.BaseFragment
-import com.khs.nbbang.common.FavoriteRecyclerAdapter
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
@@ -24,19 +17,94 @@ import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.user.Member
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import java.lang.reflect.Array
-import java.util.ArrayList
+import java.util.*
 
 class GroupManagementFragment : FloatingButtonBaseFragment() {
+    lateinit var mFragmentGroupManagementBinding: FragmentGroupManagementBinding
     val mViewModel: MemberManagementViewModel by sharedViewModel()
-    private val mGroupManagementContentsFragment by lazy { GroupManagementContentsFragment()
-    }
-    override fun makeContentsFragment(): Fragment? {
-        return mGroupManagementContentsFragment
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        mFragmentGroupManagementBinding = FragmentGroupManagementBinding.inflate(inflater, container, false)
+        super.onCreateView(inflater, mFragmentGroupManagementBinding.root as ViewGroup, savedInstanceState)
+        return mFragmentGroupManagementBinding.root
     }
 
-    override fun init() {
-        mGroupManagementContentsFragment.initView(this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mFragmentGroupManagementBinding.viewModel = mViewModel
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initView()
+        addObserver()
+    }
+
+    private fun initView() {
+//            mGroupManagementBinding.toolbarTitle.title = "멤버 관리"
+        mFragmentGroupManagementBinding.viewModel?.let { memberManagementViewModel ->
+            // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
+            if (mFragmentGroupManagementBinding.recyclerMemberList.adapter == null) {
+                mFragmentGroupManagementBinding.recyclerMemberList.apply {
+                    layoutManager =
+                        GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+                    addOnItemTouchListener(mItemTouchInterceptor)
+                    adapter =
+                        AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
+                            Log.v(TAG, "ItemClicked : $it")
+                            memberManagementViewModel.selectMember(it.second)
+                            showMemberView()
+                        }
+                }
+                addObserver()
+            }
+
+            memberManagementViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
+            setViewModel(memberManagementViewModel)
+        }
+    }
+
+    private fun addObserver() {
+        mFragmentGroupManagementBinding.viewModel?.let { memberManagementViewModel ->
+            memberManagementViewModel.mShowLoadingView.observe(requireActivity(), Observer {
+                when (it) {
+                    true -> showLoadingView()
+                    false -> hideLoadingView()
+                }
+            })
+
+            memberManagementViewModel.mMemberList.observe(requireActivity(), Observer {
+                val adapter = (mFragmentGroupManagementBinding.recyclerMemberList.adapter as? AddPeopleRecyclerViewAdapter)
+                    ?: return@Observer
+                adapter.setItemList(ArrayList(it))
+
+                mFragmentGroupManagementBinding.groupTitle.txtTitle.text =
+                    "Favorite Member"
+                mFragmentGroupManagementBinding.groupTitle.txtSubTitle.text =
+                    "${it.size}명 대기중..."
+                memberManagementViewModel.updateLoadingFlag(false)
+            })
+
+            memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
+                Log.v(TAG, "Select Member : $it")
+                it ?: return@Observer
+                selectMember(it)
+            })
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mFragmentGroupManagementBinding.recyclerMemberList.removeOnItemTouchListener(mItemTouchInterceptor)
+    }
+
+    override fun makeCustomLoadingView(): Dialog? {
+        Log.v(TAG,"makeCustomLoadingView(...)")
+        return null
     }
 
     override fun add(obj: Member?) {
@@ -65,11 +133,6 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         }
     }
 
-    override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
-        return null
-    }
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when(keyCode) {
             KeyEvent.KEYCODE_BACK -> {
@@ -80,98 +143,5 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
             }
         }
         return false
-    }
-
-    companion object class GroupManagementContentsFragment : BaseFragment() {
-        lateinit var mGroupManagementBinding: FragmentGroupManagementBinding
-        val mViewModel: MemberManagementViewModel by sharedViewModel()
-        private lateinit var mParentFragment: FloatingButtonBaseFragment
-
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            return inflater.inflate(R.layout.fragment_group_management, container, false)
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            mGroupManagementBinding = DataBindingUtil.bind(view)!!
-            mGroupManagementBinding.viewModel = mViewModel
-        }
-
-        fun initView(parentFragment: FloatingButtonBaseFragment) {
-            mParentFragment = parentFragment
-//            mGroupManagementBinding.toolbarTitle.title = "멤버 관리"
-            mGroupManagementBinding.viewModel?.let { memberManagementViewModel ->
-                // 갤러리 갔다가 다시 진입할 때 다시 그려지는 문제 발생 회피
-                if (mGroupManagementBinding.recyclerMemberList.adapter == null) {
-                    mGroupManagementBinding.recyclerMemberList.apply {
-                        layoutManager =
-                            GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-                        addOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
-                        adapter =
-                            AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                                Log.v(TAG, "ItemClicked : $it")
-                                memberManagementViewModel.selectMember(it.second)
-                                mParentFragment.showMemberView()
-                            }
-                    }
-                    addObserver()
-                }
-
-                memberManagementViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
-                mParentFragment.setViewModel(memberManagementViewModel)
-            }
-        }
-
-        private fun addObserver() {
-            mGroupManagementBinding.viewModel?.let { memberManagementViewModel ->
-                memberManagementViewModel.mShowLoadingView.observe(requireActivity(), Observer {
-                    when (it) {
-                        true -> showLoadingView()
-                        false -> hideLoadingView()
-                    }
-                })
-
-                memberManagementViewModel.mMemberList.observe(requireActivity(), Observer {
-                    val adapter = (mGroupManagementBinding.recyclerMemberList.adapter as? AddPeopleRecyclerViewAdapter)
-                        ?: return@Observer
-                    adapter.setItemList(ArrayList(it))
-
-                    mGroupManagementBinding.groupTitle.txtTitle.text =
-                        "Favorite Member"
-                    mGroupManagementBinding.groupTitle.txtSubTitle.text =
-                        "${it.size}명 대기중..."
-                    memberManagementViewModel.updateLoadingFlag(false)
-                })
-
-                memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
-                    Log.v(TAG, "Select Member : $it")
-                    it ?: return@Observer
-                    mParentFragment.selectMember(it)
-                })
-            }
-        }
-
-        override fun onDestroyView() {
-            super.onDestroyView()
-            mGroupManagementBinding.recyclerMemberList.removeOnItemTouchListener(mParentFragment.mItemTouchInterceptor)
-        }
-
-        override fun makeCustomLoadingView(): Dialog? {
-            Log.v(TAG,"makeCustomLoadingView(...)")
-            return null
-        }
-
-        override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-            when(keyCode) {
-                KeyEvent.KEYCODE_BACK -> {
-                    //todo 팝업 기능 추가 시 hide는 여기서 처리
-                }
-            }
-            return false
-        }
     }
 }

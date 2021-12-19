@@ -8,15 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kakao.sdk.talk.TalkApiClient
-import com.khs.nbbang.MainActivity
-import com.khs.nbbang.R
-import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentAddPeopleBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
@@ -28,17 +22,30 @@ import kotlinx.android.synthetic.main.fragment_add_people.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPeopleFragment : FloatingButtonBaseFragment() {
+    lateinit var mAddPeopleContentsBinding: FragmentAddPeopleBinding
+    lateinit var mRecyclerViewAdapter: AddPeopleRecyclerViewAdapter
     private val mPageViewModel: PageViewModel by sharedViewModel()
-    private val mAddPeopleContentsFragment by lazy {
-        AddPeopleContentsFragment()
+    private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        mAddPeopleContentsBinding = FragmentAddPeopleBinding.inflate(inflater, container, false)
+        super.onCreateView(inflater, mAddPeopleContentsBinding.root as ViewGroup, savedInstanceState)
+        return mAddPeopleContentsBinding.root
     }
 
-    override fun makeContentsFragment(): Fragment? {
-        return mAddPeopleContentsFragment
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mAddPeopleContentsBinding.viewModel = mPageViewModel
     }
 
-    override fun init() {
-        mAddPeopleContentsFragment.initView(this)
+    override fun onStart() {
+        super.onStart()
+        initView()
+        addObserver()
     }
 
     override fun add(member: Member?) {
@@ -78,116 +85,76 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         return false
     }
 
-    companion object class AddPeopleContentsFragment : BaseFragment() {
-        lateinit var mAddPeopleContentsBinding: FragmentAddPeopleBinding
-        lateinit var mRecyclerViewAdapter: AddPeopleRecyclerViewAdapter
-        private val mPageViewModel: PageViewModel by sharedViewModel()
-        private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
-        private lateinit var mParentFragment: AddPeopleFragment
+    private fun initView() {
+        mMemberViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
+        mMemberViewModel.showFavoriteMemberListByType(MemberType.TYPE_KAKAO)
 
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-            return inflater.inflate(R.layout.fragment_add_people, container, false)
-        }
-
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            mAddPeopleContentsBinding = DataBindingUtil.bind(view)!!
-            mAddPeopleContentsBinding.viewModel = mPageViewModel
-        }
-
-        override fun onPause() {
-            super.onPause()
-            if ((requireActivity() as MainActivity).isRunningActivity()) {
-                mParentFragment.hideAnyView()
-            }
-        }
-
-        override fun makeCustomLoadingView(): Dialog? {
-            Log.v(TAG,"makeCustomLoadingView(...)")
-            return null
-        }
-
-        fun initView(parentFragment: AddPeopleFragment) {
-            mMemberViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)
-            mMemberViewModel.showFavoriteMemberListByType(MemberType.TYPE_KAKAO)
-            mParentFragment = parentFragment
-
-            if (mAddPeopleContentsBinding.recyclerView.adapter == null) {
-                mRecyclerViewAdapter =
-                    AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                        Log.v(TAG, "ItemClicked, member : ${it.second}")
-                        mAddPeopleContentsBinding.viewModel?.selectPeople(it.second)
-                        mParentFragment.showMemberView()
-                    }
-
-                mAddPeopleContentsBinding.recyclerView.apply {
-                    layoutManager =
-                        GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
-                    isFocusable = true
-                    descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-                    adapter = mRecyclerViewAdapter
+        if (mAddPeopleContentsBinding.recyclerView.adapter == null) {
+            mRecyclerViewAdapter =
+                AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
+                    Log.v(TAG, "ItemClicked, member : ${it.second}")
+                    mAddPeopleContentsBinding.viewModel?.selectPeople(it.second)
+                    showMemberView()
                 }
 
-                mParentFragment.setViewModel(mMemberViewModel)
+            mAddPeopleContentsBinding.recyclerView.apply {
+                layoutManager =
+                    GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+                isFocusable = true
+                descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+                adapter = mRecyclerViewAdapter
             }
-            addObserver()
+
+            setViewModel(mMemberViewModel)
         }
+        addObserver()
+    }
 
-        private fun addObserver() {
-            Log.v(TAG,"addObserver(...)")
-            mAddPeopleContentsBinding.viewModel?.let {
-                it.mNBBLiveData.observe(requireActivity(), Observer {
-                    Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it.mMemberCount}")
-                    val newMemberArrayList = arrayListOf<Member>()
-                    newMemberArrayList.addAll(it.mMemberList)
-                    mRecyclerViewAdapter.setItemList(newMemberArrayList)
-                })
-
-                it.mSelectJoinPeople.observe(requireActivity(), Observer {
-                    Log.v(TAG, "Select JoinPeople : $it")
-                    it ?: return@Observer
-                    mParentFragment.selectMember(it)
-                })
-            }
-
-            mMemberViewModel.mMemberList.observe(requireActivity(), Observer {
-                if (it.isEmpty()) {
-                    mAddPeopleContentsBinding.rowFavoriteMember.visibility = View.GONE
-                    return@Observer
-                }
-
-                mAddPeopleContentsBinding.groupFavorite.visibility = View.VISIBLE
-                mAddPeopleContentsBinding.rowFavoriteMember.initView(mPageViewModel)
-                mAddPeopleContentsBinding.rowFavoriteMember.setControlScrolling()
-                mAddPeopleContentsBinding.rowFavoriteMember.setTitle("LOCAL MEMBER")
-                mAddPeopleContentsBinding.rowFavoriteMember.setList(it)
+    private fun addObserver() {
+        Log.v(TAG,"addObserver(...)")
+        mAddPeopleContentsBinding.viewModel?.let {
+            it.mNBBLiveData.observe(requireActivity(), Observer {
+                Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it.mMemberCount}")
+                val newMemberArrayList = arrayListOf<Member>()
+                newMemberArrayList.addAll(it.mMemberList)
+                mRecyclerViewAdapter.setItemList(newMemberArrayList)
             })
 
-            mMemberViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
-                if (it.isEmpty()) {
-                    mAddPeopleContentsBinding.rowFavoriteMember.visibility = View.GONE
-                    return@Observer
-                }
-
-                mAddPeopleContentsBinding.groupFavorite.visibility = View.VISIBLE
-                mAddPeopleContentsBinding.rowFavoriteGroup.initView(mPageViewModel)
-                mAddPeopleContentsBinding.rowFavoriteMember.setControlScrolling()
-                mAddPeopleContentsBinding.rowFavoriteGroup.setTitle("KAKAO MEMBER")
-                mAddPeopleContentsBinding.rowFavoriteGroup.setList(it)
+            it.mSelectJoinPeople.observe(requireActivity(), Observer {
+                Log.v(TAG, "Select JoinPeople : $it")
+                it ?: return@Observer
+                selectMember(it)
             })
         }
 
-        override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-            when(keyCode) {
-                KeyEvent.KEYCODE_BACK -> {
-                    //todo 팝업 기능 추가 시 hide는 여기서 처리
+        mMemberViewModel.mMemberList.observe(requireActivity(), Observer {
+            mAddPeopleContentsBinding.apply {
+                if (it.isEmpty()) {
+                    rowFavoriteMember.visibility = View.GONE
+                    return@Observer
                 }
+
+                groupFavorite.visibility = View.VISIBLE
+                rowFavoriteMember.initView(mPageViewModel)
+                rowFavoriteMember.setControlScrolling()
+                rowFavoriteMember.setTitle("LOCAL MEMBER")
+                rowFavoriteMember.setList(it)
             }
-            return false
-        }
+        })
+
+        mMemberViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
+            mAddPeopleContentsBinding.apply {
+                if (it.isEmpty()) {
+                    rowFavoriteMember.visibility = View.GONE
+                    return@Observer
+                }
+
+                groupFavorite.visibility = View.VISIBLE
+                rowFavoriteGroup.initView(mPageViewModel)
+                rowFavoriteMember.setControlScrolling()
+                rowFavoriteGroup.setTitle("KAKAO MEMBER")
+                rowFavoriteGroup.setList(it)
+            }
+        })
     }
 }
