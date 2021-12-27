@@ -4,40 +4,44 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.R
 import com.khs.nbbang.databinding.CviewFavoriteRowBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.ScrollUtils
-import kotlinx.android.synthetic.main.fragment_dutchpay_home.view.*
+import java.util.*
 
 class FavoriteRowView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     val TAG = this.javaClass.simpleName
     var mBinding: CviewFavoriteRowBinding
-    lateinit var mRecyclerViewAdapter : FavoriteRecyclerAdapter
-    lateinit var mPageViewModel : PageViewModel
+    var mRecyclerViewAdapter : FavoriteRecyclerAdapter? = null
+    var mPageViewModel : PageViewModel? = null
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mBinding = CviewFavoriteRowBinding.inflate(inflater, this,true)
+        mBinding = CviewFavoriteRowBinding.inflate(inflater, this, true).apply {
+            recyclerView.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                isFocusable = true
+                descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
+            }
+        }
     }
 
-    fun initView(vm: ViewModel) {
+    fun initView(vm: ViewModel, itemList: List<Member>) {
         if (vm is PageViewModel) {
             mPageViewModel = vm
-            mRecyclerViewAdapter = FavoriteRecyclerAdapter(arrayListOf()) { member ->
+            mRecyclerViewAdapter = FavoriteRecyclerAdapter(ArrayList(itemList)) { member ->
                 Log.v(TAG,"ItemClicked, member : ${member.name}")
-                mPageViewModel.let { pageViewModel ->
+                mPageViewModel?.let { pageViewModel ->
                     if (!pageViewModel.mNBBLiveData.value!!.mMemberList.contains(member)){
                         pageViewModel.addJoinPeople(member)
                     } else {
@@ -46,21 +50,13 @@ class FavoriteRowView @JvmOverloads constructor(
                 }
             }
         } else if (vm is LoginViewModel) {
-            mRecyclerViewAdapter = FavoriteRecyclerAdapter(arrayListOf()) { member ->
+            mRecyclerViewAdapter = FavoriteRecyclerAdapter(ArrayList(itemList)) { member ->
                 Log.v(TAG,"ItemClicked, member : ${member.name}")
             }
             Log.v(TAG,"FavoriteRowView Viewmodel is LoginViewModel")
         }
-        initRecyclerView()
-    }
 
-    private fun initRecyclerView() {
-        mBinding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            isFocusable = true
-            descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-            adapter = mRecyclerViewAdapter
-        }
+        mBinding.recyclerView.adapter= mRecyclerViewAdapter
     }
 
     fun setControlScrolling() {
@@ -68,12 +64,10 @@ class FavoriteRowView @JvmOverloads constructor(
     }
 
     fun setTitle(title: String) {
-        mBinding.let {
-            mBinding.txtTitle.text = title
-        }
+        mBinding.txtTitle.text = title
     }
 
     fun setList(itemList : List<Member>){
-        mRecyclerViewAdapter.setItemList(itemList)
+        mRecyclerViewAdapter?.setItemList(itemList)
     }
 }

@@ -1,61 +1,62 @@
 package com.khs.nbbang.common
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.BuildConfig
-import com.khs.nbbang.R
-import com.khs.nbbang.databinding.CviewFavoriteRowBinding
 import com.khs.nbbang.databinding.CviewFavoriteRowItemBinding
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_favorite_row_item.view.*
 
 class FavoriteRecyclerAdapter(
-    val mItemList: ArrayList<Member>,
-    val mItemClick: (Member) -> Unit
-) : RecyclerView.Adapter<FavoriteRecyclerAdapter.ViewHolder>() {
+    private val mItemList: ArrayList<Member>,
+    private val mItemClick: (Member) -> Unit
+) : RecyclerView.Adapter<FavoriteRecyclerAdapter.FavoriteViewHolder>() {
     private val TAG: String = javaClass.simpleName
-    val DEBUG = BuildConfig.DEBUG
+    private val DEBUG = BuildConfig.DEBUG
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val binding = CviewFavoriteRowItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, mItemClick)
+        return FavoriteViewHolder(binding, mItemClick)
     }
 
     override fun getItemCount(): Int {
-        return mItemList.let { mItemList.size }
+        return mItemList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
-        holder.bind(mItemList.get(position))
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+        holder.bind(mItemList[position])
     }
 
-    inner class ViewHolder(val binding: CviewFavoriteRowItemBinding, itemClick: (Member) -> Unit) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class FavoriteViewHolder(
+        val binding: CviewFavoriteRowItemBinding,
+        val itemClick: (Member) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         val TAG: String = javaClass.simpleName
-        var mItemClick = itemClick
 
         fun bind(member: Member) {
-            GlideUtils().drawMemberProfile(binding.imgProfile, member, null)
+            if (DEBUG) Log.v(TAG, "FavoriteViewHolder, bind(...) : $member")
+            binding.apply {
+                GlideUtils().drawMemberProfile(imgProfile, member, null)
 
-            binding.txtName.text = member.name
-            binding.groupUserInfo.setOnClickListener {
-                mItemClick(member)
+                txtName.text = member.name
+                groupUserInfo.setOnClickListener {
+                    itemClick(member)
+                }
             }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItem(item: Member) {
         Log.v(TAG,"setItem(...) item : ${item}")
         this.mItemList.add(mItemList.size, item)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItemList(itemList: List<Member>) {
         Log.v(TAG,"setItem(...) itemList count : ${itemList.size}")
         mItemList.clear()

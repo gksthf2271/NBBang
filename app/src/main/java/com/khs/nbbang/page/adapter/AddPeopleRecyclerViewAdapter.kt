@@ -13,9 +13,9 @@ import com.khs.nbbang.utils.DisplayUtils
 import com.khs.nbbang.utils.GlideUtils
 
 class AddPeopleRecyclerViewAdapter(
-    val mContext: Context,
-    val mItemList: ArrayList<Member>,
-    val mItemClick: (Pair<Int, Member>) -> Unit
+    private val mContext: Context,
+    private val mItemList: ArrayList<Member>,
+    private val mItemClick: (Pair<Int, Member>) -> Unit
 ) : RecyclerView.Adapter<AddPeopleRecyclerViewAdapter.PeopleViewHolder>() {
     private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
@@ -29,16 +29,18 @@ class AddPeopleRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return mItemList.let { mItemList.size }
+        return mItemList.size
     }
 
     override fun onBindViewHolder(holder: PeopleViewHolder, position: Int) {
         if (DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
-        holder.bind(mItemList.get(position), position)
+        holder.bind(mItemList[position], position)
     }
 
-    inner class PeopleViewHolder(val binding: CviewEditPeopleBinding, val itemClick: (Pair<Int, Member>) -> Unit) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class PeopleViewHolder(
+        val binding: CviewEditPeopleBinding,
+        val itemClick: (Pair<Int, Member>) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
         val TAG: String = javaClass.simpleName
 
         fun bind(member: Member, position: Int) {

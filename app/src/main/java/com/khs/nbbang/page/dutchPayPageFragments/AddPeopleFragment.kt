@@ -1,6 +1,7 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -40,11 +41,11 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mAddPeopleContentsBinding.viewModel = mPageViewModel
+        initView()
     }
 
-    override fun onStart() {
-        super.onStart()
-        initView()
+    override fun onResume() {
+        super.onResume()
         addObserver()
     }
 
@@ -107,7 +108,6 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
 
             setViewModel(mMemberViewModel)
         }
-        addObserver()
     }
 
     private fun addObserver() {
@@ -132,28 +132,32 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 if (it.isEmpty()) {
                     rowFavoriteMember.visibility = View.GONE
                     return@Observer
+                } else {
+                    rowFavoriteMember.visibility = View.VISIBLE
                 }
-
-                groupFavorite.visibility = View.VISIBLE
-                rowFavoriteMember.initView(mPageViewModel)
-                rowFavoriteMember.setControlScrolling()
+                Log.i(TAG,"KHS, update MemberList! $it")
                 rowFavoriteMember.setTitle("LOCAL MEMBER")
-                rowFavoriteMember.setList(it)
+                groupFavorite.visibility = View.VISIBLE
+                rowFavoriteMember.initView(mPageViewModel, it)
+                rowFavoriteMember.setControlScrolling()
+//                rowFavoriteMember.setList(it)
             }
         })
 
         mMemberViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
             mAddPeopleContentsBinding.apply {
                 if (it.isEmpty()) {
-                    rowFavoriteMember.visibility = View.GONE
+                    rowFavoriteGroup.visibility = View.GONE
                     return@Observer
+                } else {
+                    rowFavoriteGroup.visibility = View.VISIBLE
                 }
 
-                groupFavorite.visibility = View.VISIBLE
-                rowFavoriteGroup.initView(mPageViewModel)
-                rowFavoriteMember.setControlScrolling()
                 rowFavoriteGroup.setTitle("KAKAO MEMBER")
-                rowFavoriteGroup.setList(it)
+                groupFavorite.visibility = View.VISIBLE
+                rowFavoriteGroup.initView(mPageViewModel, it)
+                rowFavoriteGroup.setControlScrolling()
+//                rowFavoriteGroup.setList(it)
             }
         })
     }

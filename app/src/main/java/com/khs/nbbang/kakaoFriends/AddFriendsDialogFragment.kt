@@ -61,7 +61,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
     fun initView() {
         val layoutManager = GridLayoutManager(context, 3)
 
-        mBinding.rowFavoriteMember.initView(mBinding.viewModel!!)
+        mBinding.rowFavoriteMember.initView(mBinding.viewModel!!, arrayListOf())
         mBinding.rowFavoriteMember.setTitle("Favorite Member")
 
         mBinding.btnClose.setOnClickListener { if (this.isAdded) dismiss() }
