@@ -3,8 +3,6 @@ package com.khs.nbbang.kakaoFriends
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.khs.nbbang.databinding.CviewMemeberItemBinding
-import com.khs.nbbang.databinding.CviewTextPeopleBinding
 import com.khs.nbbang.page.itemView.SelectMemberView
 import com.khs.nbbang.user.Member
 
@@ -19,9 +17,9 @@ class AddFriendsRecyclerViewAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = SelectMemberView(parent.context).mBinding
-        (binding.root as? SelectMemberView)?.setViewSize(3)
-        return ViewHolder(binding, mItemClick)
+        val memberView = SelectMemberView(parent.context)
+        memberView?.setViewSize(3)
+        return ViewHolder(memberView, mItemClick)
     }
 
     override fun getItemCount(): Int {
@@ -30,21 +28,20 @@ class AddFriendsRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
-        holder.bind(mRemoteMemberHashMap.values.toList().get(position))
+        holder.bind(mRemoteMemberHashMap.values.toList()[position])
     }
 
-    inner class ViewHolder(val binding: CviewTextPeopleBinding, val itemClick: (Member) -> Unit) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(itemView: SelectMemberView, val itemClick: (Member) -> Unit) :
+        RecyclerView.ViewHolder(itemView) {
         val TAG: String = javaClass.simpleName
-
+        private val mItemView: SelectMemberView = itemView
         fun bind(member: Member) {
-            var itemView = binding.root as SelectMemberView
-            with(itemView) {
+            mItemView.apply {
                 setCheckedMember(mLocalMemberHashMap.containsKey(member.kakaoId))
                 setMember(member) { isSaveCallback, member ->
                     viewUpdateCallback(isSaveCallback, member)
                 }
-                setOnClickListener { mItemClick(member) }
+                setOnClickListener { itemClick(member) }
             }
         }
     }

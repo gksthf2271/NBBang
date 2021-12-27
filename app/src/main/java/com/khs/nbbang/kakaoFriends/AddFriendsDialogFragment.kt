@@ -47,7 +47,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_friends_by_kakao, container, false)
+        return inflater.inflate(R.layout.fragment_add_friends_by_kakao, container, true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
