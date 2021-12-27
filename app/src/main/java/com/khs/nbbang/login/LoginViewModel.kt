@@ -1,15 +1,13 @@
 package com.khs.nbbang.login
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.user.model.AccessTokenInfo
 import com.kakao.sdk.user.model.User
 import com.khs.nbbang.base.BaseViewModel
-import com.khs.nbbang.kakaoFriends.KakaoView
+import com.khs.nbbang.kakaoFriends.KakaoUserView
 import com.khs.nbbang.kakaoFriends.ReturnType
 import com.khs.nbbang.user.KaKaoMember
 import com.khs.nbbang.user.KaKaoUser
@@ -17,7 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoView{
+class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoUserView{
 
     private val _myDataFromKakao: MutableLiveData<KaKaoUser> = MutableLiveData()
     private val _isLogin: MutableLiveData<Boolean> = MutableLiveData()

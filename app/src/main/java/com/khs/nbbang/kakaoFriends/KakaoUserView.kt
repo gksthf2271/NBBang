@@ -16,7 +16,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
-interface KakaoView {
+interface KakaoUserView {
     val compositeDisposable: CompositeDisposable
 
     fun renderKakaoMembers(kakaoFirends: ArrayList<KaKaoMember>)
