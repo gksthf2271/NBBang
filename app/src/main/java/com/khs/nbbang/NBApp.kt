@@ -2,6 +2,8 @@ package com.khs.nbbang
 
 import android.app.Application
 import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.history.HistoryViewModel
@@ -11,14 +13,24 @@ import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
+import com.khs.nbbang.search.KakaoLocalAPI
+import com.khs.nbbang.search.KakaoLocalViewModel
 import com.khs.nbbang.utils.GlideUtils
 import lv.chi.photopicker.ChiliPhotoPicker
+import okhttp3.Cache
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  *  inject() 의존성 주입 - Lazy 방식
@@ -60,13 +72,51 @@ open class NBApp : Application(){
         startKoin {
             androidLogger()
             androidContext(this@NBApp)
-            modules(listOf(databaseModule, dataModule, viewModelModule))
+            modules(listOf(databaseModule, dataModule, viewModelModule, networkModule))
         }
 
         ChiliPhotoPicker.init(
             loader = GlideUtils.GideImageLoader(),
             authority = "com.khs.nbbang"
         )
+    }
+
+    private val networkModule = module {
+        single { Cache(androidApplication().cacheDir, 10L * 1024 * 1024) }
+        single<Gson> { GsonBuilder().create() }
+
+        single<OkHttpClient> {
+            OkHttpClient.Builder().apply {
+                cache(get())
+                retryOnConnectionFailure(true)
+                addInterceptor(get())
+                addInterceptor(HttpLoggingInterceptor().apply {
+                    if (BuildConfig.DEBUG) {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    }
+                })
+            }.build()
+        }
+
+        single<Retrofit> {
+            Retrofit.Builder()
+                .baseUrl("http://dapi.kakao.com/")
+                .addConverterFactory(GsonConverterFactory.create(get()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(get())
+                .build()
+        }
+
+        single {
+            Interceptor { chain ->
+                chain.proceed(
+                    chain.request()
+                        .newBuilder()
+                        .addHeader("Authorization", "KakaoAK e7def8ad592939fda6b271918916a9ec")
+                        .build()
+                )
+            }
+        }
     }
 
     private val databaseModule = module {
@@ -112,6 +162,9 @@ open class NBApp : Application(){
 
         viewModel {
             SelectMemberViewModel()
+        }
+        viewModel {
+            KakaoLocalViewModel(get())
         }
     }
 }
