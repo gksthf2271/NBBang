@@ -9,6 +9,7 @@ import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.DebugMemberList
@@ -40,6 +41,9 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     override val mNBBMemberDao: NBBMemberDao
         get() = _db.value.let { it!!.nbbMemberDao()}
+
+    override val mNBBKeywordsDao: NBBSearchKeywordsDao
+        get() = _db.value.let { it!!.nbbSearchKeywordDao() }
 
     override val compositeDisposable: CompositeDisposable
         get() = CompositeDisposable()

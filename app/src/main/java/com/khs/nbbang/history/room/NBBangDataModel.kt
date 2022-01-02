@@ -1,12 +1,10 @@
 package com.khs.nbbang.history.room
 
-import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.Place
-import com.khs.nbbang.page.ItemObj.NBB
 
 @Entity(tableName = "nbb_place")
 data class NBBPlaceDataModel(
@@ -62,4 +60,17 @@ data class NBBMemberDataModel(
 
     @ColumnInfo(name = "isFavoriteByKakao")
     var isFavoriteByKakao: Int?
+)
+
+@Entity(tableName = "nbb_keywords")
+data class NBBSearchKeywordDataModel(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long?,
+
+    @ColumnInfo(name = "keyword")
+    var keyword: String,
+
+    @ColumnInfo(name = "search_count")
+    var searchCount: Int?
 )

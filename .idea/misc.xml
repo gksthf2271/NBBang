@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/cview_edit_people.xml" value="0.19224924012158054" />
+        <entry key="app/src/main/res/layout/cview_favorite_row.xml" value="0.19224924012158054" />
+        <entry key="app/src/main/res/layout/cview_favorite_row_item.xml" value="0.11820652173913043" />
+        <entry key="app/src/main/res/layout/cview_text_people.xml" value="0.10030395136778116" />
+        <entry key="app/src/main/res/layout/fragment_add_friends_by_kakao.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_people.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_group_management.xml" value="0.19224924012158054" />
       </map>

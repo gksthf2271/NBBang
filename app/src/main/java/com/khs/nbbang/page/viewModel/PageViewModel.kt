@@ -14,6 +14,7 @@ import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.NumberUtils
@@ -389,4 +390,7 @@ class PageViewModel(val mDB :AppDatabase) : ViewModel(), NBBangHistoryView,
 
     override val mNBBMemberDao: NBBMemberDao
         get() = mDB.nbbMemberDao()
+
+    override val mNBBKeywordsDao: NBBSearchKeywordsDao
+        get() = mDB.nbbSearchKeywordDao()
 }

@@ -9,11 +9,12 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.khs.nbbang.utils.TypeConverter
 
-@Database(entities = [NBBPlaceDataModel::class, NBBMemberDataModel::class], version = 1)
+@Database(entities = [NBBPlaceDataModel::class, NBBMemberDataModel::class, NBBSearchKeywordDataModel::class], version = 1)
 @TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun nbbangDao(): NBBPlaceDao
     abstract fun nbbMemberDao(): NBBMemberDao
+    abstract fun nbbSearchKeywordDao() : NBBSearchKeywordsDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null
@@ -46,6 +47,5 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
 
 //        ALTER TABLE BLG_PJT_R_RISK ADD DEL_YN CHAR(1) NOT NULL DEFAULT 'N'
 //
-
     }
 }

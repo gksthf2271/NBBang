@@ -20,6 +20,7 @@ import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
+import com.khs.nbbang.search.KakaoLocalViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,6 +35,7 @@ class MainActivity : BaseActivity() {
     private val mPageViewModel by viewModel<PageViewModel>()
     private val mLoginViewModel by viewModel<LoginViewModel>()
     private val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
+    private val mKakaoLocalViewModel by viewModel<KakaoLocalViewModel>()
 
     private val TAG_LOGIN = "login"
     private val TAG_DUTCH_PAY = "dutchPay"
@@ -77,6 +79,7 @@ class MainActivity : BaseActivity() {
             )
         )
         addListenerAndObserver()
+        mKakaoLocalViewModel.searchKeyword(this, "미아사거리 양꼬치")
     }
 
     private fun addListenerAndObserver() {

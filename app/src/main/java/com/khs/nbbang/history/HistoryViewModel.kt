@@ -10,6 +10,7 @@ import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -50,6 +51,9 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
 
     override val mNBBMemberDao: NBBMemberDao
         get() = _db.value!!.nbbMemberDao()
+
+    override val mNBBKeywordsDao: NBBSearchKeywordsDao
+        get() = _db.value!!.nbbSearchKeywordDao()
 
     fun setCurrentMonthHistory() {
         Log.v(TAG,"setCurrentMonthHistory : ${DateUtils().currentMonth()}")

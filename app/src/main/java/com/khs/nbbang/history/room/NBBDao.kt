@@ -1,8 +1,9 @@
 package com.khs.nbbang.history.room
 
-import android.net.Uri
-import androidx.room.*
-import com.khs.nbbang.common.MemberType
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
@@ -65,4 +66,25 @@ interface NBBMemberDao {
 
     @Query("UPDATE nbb_member SET name = :updateName, description = :updateDescription, kakao_id = :updateKakaoId, thumbnail_image = :updateThumbnailImage, profile_image = :updateProfileImage, profile_uri = :updateProfileUri WHERE id == :targetId")
     fun update(targetId : Long, updateName : String, updateDescription : String, updateKakaoId : String, updateThumbnailImage: String?, updateProfileImage: String?, updateProfileUri: String?) : Single<Int>
+}
+
+@Dao
+interface NBBSearchKeywordsDao {
+    @Query("SELECT * From nbb_keywords")
+    fun getKeywords() : Single<List<NBBSearchKeywordDataModel>>
+
+    @Query("SELECT * From nbb_keywords WHERE keyword == :keyword")
+    fun getKeywordCount(keyword: String) : Single<NBBSearchKeywordDataModel>
+
+    @Insert
+    fun insert(nbb: NBBSearchKeywordDataModel): Single<Long>
+
+    @Query("DELETE from nbb_keywords WHERE keyword = :keyword")
+    fun delete(keyword: String) : Completable
+
+    @Query("DELETE from nbb_keywords")
+    fun deleteAll() : Completable
+
+    @Query("UPDATE nbb_keywords SET search_count = :searchCount WHERE keyword == :keyword")
+    fun update(keyword: String, searchCount: Int) : Single<Int>
 }

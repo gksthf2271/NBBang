@@ -5,13 +5,14 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
-import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
-import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.history.room.NBBSearchKeywordsDao
+import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
+import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.search.KakaoLocalAPI
 import com.khs.nbbang.search.KakaoLocalViewModel
@@ -21,7 +22,6 @@ import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -83,6 +83,7 @@ open class NBApp : Application(){
 
     private val networkModule = module {
         single { Cache(androidApplication().cacheDir, 10L * 1024 * 1024) }
+
         single<Gson> { GsonBuilder().create() }
 
         single<OkHttpClient> {
@@ -117,6 +118,12 @@ open class NBApp : Application(){
                 )
             }
         }
+
+        single<KakaoLocalAPI> {
+            with(get() as Retrofit) {
+                create(KakaoLocalAPI::class.java)
+            }
+        }
     }
 
     private val databaseModule = module {
@@ -132,9 +139,14 @@ open class NBApp : Application(){
             return database.nbbMemberDao()
         }
 
+        fun provideNBBSearchKeywordDao(database: AppDatabase): NBBSearchKeywordsDao {
+            return database.nbbSearchKeywordDao()
+        }
+
         single { provideDatabase(androidApplication())}
         single { provideNBBPlaceDao(get()) }
         single { provideNBBMemberDao(get()) }
+        single { provideNBBSearchKeywordDao(get())}
     }
 
     private val dataModule = module {
@@ -164,7 +176,7 @@ open class NBApp : Application(){
             SelectMemberViewModel()
         }
         viewModel {
-            KakaoLocalViewModel(get())
+            KakaoLocalViewModel(get(), get())
         }
     }
 }
