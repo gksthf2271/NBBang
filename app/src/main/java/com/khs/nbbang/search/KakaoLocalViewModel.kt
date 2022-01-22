@@ -15,7 +15,7 @@ import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class KakaoLocalViewModel(
-    private val mKakaoLocalApi: KakaoLocalAPI,
+    private val mInternalKakaoLocalApi: KakaoLocalAPI,
     private val mDatabase: AppDatabase
 ) : BaseViewModel(),
     KakaoLocalView,
@@ -43,14 +43,14 @@ class KakaoLocalViewModel(
         get() = _db.value.let { it!!.nbbSearchKeywordDao() }
 
     override val mKakaoLocalAPI: KakaoLocalAPI
-        get() = _searchApi.let { it!! }
+        get() = _searchApi.value.let { it!! }
 
     override val compositeDisposable: CompositeDisposable
         get() = CompositeDisposable()
 
     init {
         _db.value = mDatabase
-        _searchApi.value = mKakaoLocalApi
+        _searchApi.value = mInternalKakaoLocalApi
     }
 
     override fun renderSearchKeywords(searchResult: LocalSearchModel) {
