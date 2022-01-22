@@ -15,8 +15,8 @@ import com.khs.nbbang.utils.DateUtils
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class KakaoLocalViewModel(
-    private val mInternalKakaoLocalApi: KakaoLocalAPI,
-    private val mDatabase: AppDatabase
+    mInternalKakaoLocalApi: KakaoLocalAPI,
+    mDatabase: AppDatabase
 ) : BaseViewModel(),
     KakaoLocalView,
     LocalGatewayImpl,
@@ -65,7 +65,8 @@ class KakaoLocalViewModel(
         _searchHistory.postValue(searchResult)
     }
 
-    fun searchKeyword(context: Context, keyword: String) {
+    fun searchKeyword(context: Context, keyword: String?) {
+        if (keyword.isNullOrEmpty()) return
         handleSearchKeyword(context, keyword)
     }
 }

@@ -16,6 +16,7 @@ import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivityMainBinding
+import com.khs.nbbang.local.search.SearchLocalActivity
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
@@ -62,6 +63,10 @@ class MainActivity : BaseActivity() {
 
         mLoginViewModel.let { loginViewModel ->
             loginViewModel.checkKakaoLoginBySdk(this)
+        }
+
+        mBinding.contentView.imgSearch.setOnClickListener {
+            launch<SearchLocalActivity>(startForResult)
         }
     }
 
