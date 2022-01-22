@@ -35,7 +35,6 @@ class MainActivity : BaseActivity() {
     private val mPageViewModel by viewModel<PageViewModel>()
     private val mLoginViewModel by viewModel<LoginViewModel>()
     private val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
-    private val mKakaoLocalViewModel by viewModel<KakaoLocalViewModel>()
 
     private val TAG_LOGIN = "login"
     private val TAG_DUTCH_PAY = "dutchPay"
@@ -79,7 +78,6 @@ class MainActivity : BaseActivity() {
             )
         )
         addListenerAndObserver()
-        mKakaoLocalViewModel.searchKeyword(this, "미아사거리 양꼬치")
     }
 
     private fun addListenerAndObserver() {

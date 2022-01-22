@@ -17,6 +17,7 @@ import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.search.KakaoLocalAPI
 import com.khs.nbbang.search.KakaoLocalViewModel
 import com.khs.nbbang.utils.GlideUtils
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import lv.chi.photopicker.ChiliPhotoPicker
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -29,7 +30,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
@@ -101,9 +101,9 @@ open class NBApp : Application(){
 
         single<Retrofit> {
             Retrofit.Builder()
-                .baseUrl("http://dapi.kakao.com/")
+                .baseUrl("https://dapi.kakao.com/")
                 .addConverterFactory(GsonConverterFactory.create(get()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .client(get())
                 .build()
         }

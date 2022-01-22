@@ -1,6 +1,7 @@
 package com.khs.nbbang.search
 
 import android.content.Context
+import android.util.Log
 import com.khs.nbbang.search.response.LocalSearchModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -16,6 +17,10 @@ interface KakaoLocalView : SearchKeyword, GetKeywords, UpdateKeyword, DeleteKeyw
     fun handleSearchKeyword(context: Context, keyword: String) {
         val d = searchKeyword(keyword)
             .subscribeOn(Schedulers.io())
+            .onErrorComplete{
+                Log.e("TEST", it.message.toString())
+                return@onErrorComplete true
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { r ->
                 renderSearchKeywords(r)
