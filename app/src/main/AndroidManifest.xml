@@ -33,6 +33,9 @@
             <nav-graph android:value="@navigation/nav_main_graph" />
         </activity>
 
+        <activity android:name=".local.search.SearchLocalActivity"
+            android:windowSoftInputMode="adjustPan"/>
+
         <!--Redirection for KAKAO -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

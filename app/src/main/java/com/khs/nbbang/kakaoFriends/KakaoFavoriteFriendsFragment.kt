@@ -7,18 +7,13 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.khs.nbbang.R
-import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentKakaoFavoriteFriendsBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
-import com.khs.nbbang.localMember.MemberRecyclerViewAdapter
-import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -32,12 +27,12 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kakao_favorite_friends, container, false)
+        mBinding = FragmentKakaoFavoriteFriendsBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = gMemberViewModel
         initView()
         addObserver()

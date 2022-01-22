@@ -7,10 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.google.android.material.tabs.TabLayoutMediator
-import com.khs.nbbang.R
 import com.khs.nbbang.animation.ZoomOutPageTransformer
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
@@ -32,7 +29,8 @@ class KakaoFriendsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kakao_friends, container, false)
+        mBinding = FragmentKakaoFriendsBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -42,7 +40,6 @@ class KakaoFriendsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = gMemberManagementViewModel
         initView()
         addObserver()

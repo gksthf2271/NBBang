@@ -6,10 +6,8 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentAddFriendsByKakaoBinding
@@ -47,12 +45,12 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_friends_by_kakao, container, true)
+        mBinding = FragmentAddFriendsByKakaoBinding.inflate(inflater, container, true)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = gLoginViewModel
         initView()
         addObserver()

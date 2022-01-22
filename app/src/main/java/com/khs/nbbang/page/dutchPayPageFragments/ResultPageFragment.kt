@@ -7,10 +7,8 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentResultPageBinding
@@ -21,6 +19,7 @@ import com.khs.nbbang.utils.NumberUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class ResultPageFragment : BaseFragment() {
@@ -56,9 +55,9 @@ class ResultPageFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         mBinding.viewModel?.let { pageViewModel ->
-            CoroutineScope(Dispatchers.Default).launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 pageViewModel.clearDutchPayMap()
-                CoroutineScope(Dispatchers.Main).launch {
+                withContext(Dispatchers.Main) {
                     updateList()
                 }
                 pageViewModel.resultNBB()

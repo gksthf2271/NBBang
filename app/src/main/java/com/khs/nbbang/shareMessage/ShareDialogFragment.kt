@@ -5,11 +5,8 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentShareDialogBinding
-import kotlinx.android.synthetic.main.fragment_share_dialog.view.*
 
 class ShareDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SHARE_RESULT) {
     lateinit var mBinding: FragmentShareDialogBinding
@@ -33,12 +30,12 @@ class ShareDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SHARE_RESULT) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_share_dialog, container, false)
+        mBinding = FragmentShareDialogBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         initView()
     }
 

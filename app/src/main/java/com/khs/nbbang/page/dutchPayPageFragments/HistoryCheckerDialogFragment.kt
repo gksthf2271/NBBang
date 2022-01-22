@@ -10,14 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentHistorySaveDialogBinding
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY_CHECKER){
@@ -44,13 +40,13 @@ class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_history_save_dialog, container, false)
+        mBinding = FragmentHistorySaveDialogBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.v(TAG,"onViewCreated(...)")
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mHistoryViewModel
 
         initView()

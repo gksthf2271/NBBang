@@ -7,11 +7,11 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
+import com.khs.nbbang.databinding.FragmentHomeMenuBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HomeMenuFragment : BaseFragment() {
-    lateinit var mBinding : com.khs.nbbang.databinding.FragmentHomeMenuBinding
+    lateinit var mBinding : FragmentHomeMenuBinding
     private val mLoginViewModel: LoginViewModel by sharedViewModel()
     private val mPageViewModel : PageViewModel by sharedViewModel()
     private val mSelectMemberViewModel : SelectMemberViewModel by sharedViewModel()
@@ -30,12 +30,12 @@ class HomeMenuFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home_menu, container, false)
+        mBinding = FragmentHomeMenuBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mLoginViewModel
         mBinding.fragment = this
         initView()

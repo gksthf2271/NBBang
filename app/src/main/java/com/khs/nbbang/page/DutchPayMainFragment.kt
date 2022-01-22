@@ -10,12 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.get
-import androidx.databinding.DataBindingUtil
-import com.khs.nbbang.R
 import com.khs.nbbang.animation.ZoomOutPageTransformer
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentDutchpayHomeBinding
-import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.dutchPayPageFragments.AddPeopleFragment
 import com.khs.nbbang.page.dutchPayPageFragments.AddPlaceFragment
 import com.khs.nbbang.page.dutchPayPageFragments.PeopleCountFragment
@@ -41,12 +38,12 @@ class DutchPayMainFragment : BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_dutchpay_home, container, false)
+        mBinding = FragmentDutchpayHomeBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
         initView()
     }

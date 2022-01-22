@@ -7,12 +7,10 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentHistorySecondGroupBinding
 import com.khs.nbbang.history.HistoryViewModel
@@ -21,7 +19,6 @@ import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
-import kotlinx.android.synthetic.main.cview_title_description.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseFragment() {
@@ -33,12 +30,12 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_history_second_group, container, false)
+        mBinding = FragmentHistorySecondGroupBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
         initView()
     }

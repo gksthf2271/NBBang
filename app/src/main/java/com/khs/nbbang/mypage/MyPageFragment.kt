@@ -7,15 +7,11 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentMyPageBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_title_description.view.*
-import kotlinx.android.synthetic.main.cview_title_description.view.txt_title
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class MyPageFragment : BaseFragment() {
@@ -27,12 +23,12 @@ class MyPageFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_page, container, false)
+        mBinding = FragmentMyPageBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding = DataBindingUtil.bind(view)!!
         mBinding.viewModel = mViewModel
         mBinding.fragment = this
         initView()
