@@ -17,6 +17,9 @@ interface KakaoLocalView : SearchKeyword, GetKeywords, UpdateKeyword, DeleteKeyw
     fun handleSearchKeyword(context: Context, keyword: String) {
         val d = searchKeyword(keyword)
             .subscribeOn(Schedulers.io())
+            .doOnComplete {
+                handleInsertKeywordHistory(context, keyword)
+            }
             .onErrorComplete{
                 Log.e("TEST", it.message.toString())
                 return@onErrorComplete true
@@ -45,6 +48,18 @@ interface KakaoLocalView : SearchKeyword, GetKeywords, UpdateKeyword, DeleteKeyw
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { r ->
                 handleGetKeywordHistory(context)
+            }
+        compositeDisposable.add(d)
+    }
+
+    fun handleInsertKeywordHistory(context: Context, keyword: String, isRefreshUI: Boolean = true) {
+        val d = insert(keyword)
+            .subscribeOn((Schedulers.io()))
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { r ->
+                if (isRefreshUI) {
+                    handleGetKeywordHistory(context)
+                }
             }
         compositeDisposable.add(d)
     }

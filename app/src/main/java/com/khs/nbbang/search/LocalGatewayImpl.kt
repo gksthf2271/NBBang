@@ -36,7 +36,7 @@ interface LocalGatewayImpl : LocalGateway, NBBKakaoAPIProvider, NBBangDaoProvide
         NBBSearchKeywordDataModel(
             id = null,
             keyword = keyword,
-            searchCount = 0
+            searchCount = 1
         )
     )
 

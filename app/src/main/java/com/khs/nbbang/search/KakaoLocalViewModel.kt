@@ -69,4 +69,9 @@ class KakaoLocalViewModel(
         if (keyword.isNullOrEmpty()) return
         handleSearchKeyword(context, keyword)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        handleDestroy()
+    }
 }
