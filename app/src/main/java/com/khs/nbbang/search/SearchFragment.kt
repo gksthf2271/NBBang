@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentSearchHomeBinding
+import com.khs.nbbang.search.response.DocumnetModel
 import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -35,17 +38,26 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun initView() {
-        mBinding.cvSearch.editSearch.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                val searchText = (v as EditText).text.toString()
-                if (searchText.isNullOrEmpty()) {
-                    Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
+        mBinding.apply {
+            cvSearch.editSearch.setOnKeyListener { v, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    val searchText = (v as EditText).text.toString()
+                    if (searchText.isNullOrEmpty()) {
+                        Toast.makeText(requireContext(), "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
+                        return@setOnKeyListener false
+                    }
+                    mKakaoViewModel.searchKeyword(requireContext(), searchText)
+                    return@setOnKeyListener true
+                } else {
                     return@setOnKeyListener false
                 }
-                mKakaoViewModel.searchKeyword(requireContext(), searchText)
-                return@setOnKeyListener true
-            } else {
-                return@setOnKeyListener false
+            }
+
+            recyclerSearchResult.apply {
+                setHasFixedSize(true)
+                addItemDecoration(HistoryItemDecoration(20))
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = SearchResultRecyclerViewAdapter(arrayListOf<DocumnetModel>()){}
             }
         }
     }
@@ -53,6 +65,10 @@ class SearchFragment : BaseFragment() {
     private fun addObserver() {
         mKakaoViewModel.mSearchResult.observe(requireActivity(), Observer { searchResult ->
             LogUtil.vLog(LOG_TAG, TAG_CLASS, "search result -> $searchResult")
+            mBinding.recyclerSearchResult.adapter =
+                SearchResultRecyclerViewAdapter(ArrayList(searchResult.documents)) { nbbHisory ->
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "Clicked Item : ${nbbHisory.id}")
+            }
         })
     }
 

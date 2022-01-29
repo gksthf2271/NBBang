@@ -124,7 +124,7 @@ interface KakaoUserView {
                 .subscribeOn(sub)
                 .observeOn(ob)
                 .subscribe({ friends ->
-                    LogUtil.iLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"카카오톡 친구 목록 가져오기 성공 \n${friends.joinToString("\n")}")
+                    LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"카카오톡 친구 목록 가져오기 성공 \n${friends.joinToString("\n")}")
                     // 친구의 UUID 로 메시지 보내기 가능
                     renderKakaoMembers(ArrayList(friends))
                 }, { error ->

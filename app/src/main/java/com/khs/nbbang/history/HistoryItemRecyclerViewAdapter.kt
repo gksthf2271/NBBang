@@ -11,7 +11,7 @@ import com.khs.nbbang.utils.StringUtils
 
 class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: ArrayList<Place>, val gItemClick: (Place) -> Unit) :
     RecyclerView.Adapter<HistoryItemRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.simpleName
+    private val TAG_CLASS: String = javaClass.simpleName
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =

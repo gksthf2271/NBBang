@@ -25,6 +25,10 @@
     <color name="common_background">#99000000</color>
     <color name="history_item_background">#80000000</color>
 
+    <!-- Search -->
+    <color name="search_description_color">#9E9E9E</color>
+    <color name="search_title_color">#FFFFFF</color>
+
     <!-- History Pie Chart Colors -->
     <color name="history_pie_chart_color_1">#BF2196F3</color>
     <color name="history_pie_chart_color_2">#BFF3214B</color>
