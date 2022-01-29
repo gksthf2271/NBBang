@@ -58,7 +58,7 @@ class AddPlaceFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -81,13 +81,13 @@ class AddPlaceFragment : BaseFragment() {
 
     private fun addObserver() {
         mViewModel.mNBBLiveData.observe(requireActivity(), Observer {
-            Log.v(TAG, "mNBBLiveData, Observer(...) : $it")
+            Log.v(TAG_CLASS, "mNBBLiveData, Observer(...) : $it")
             mViewModel.clearSelectedPeople()
         })
     }
 
     private fun showSelectPeopleDialog(tag: String) {
-        Log.v(TAG, "showSelectPeopleDialog(...)")
+        Log.v(TAG_CLASS, "showSelectPeopleDialog(...)")
         val selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
         when {
             selectPeopleDialog.isAdded -> {
@@ -130,7 +130,7 @@ class AddPlaceFragment : BaseFragment() {
             )
 
             setOnClickListener {
-                Log.v(TAG, "Clicked ${this.tag}차 PlaceInfoView!")
+                Log.v(TAG_CLASS, "Clicked ${this.tag}차 PlaceInfoView!")
             }
         }
 
@@ -139,7 +139,7 @@ class AddPlaceFragment : BaseFragment() {
 
             it.mSelectedPeopleMap.observe(requireActivity(), Observer { nbbHashMap ->
                 nbbHashMap[infoView.tag as Int] ?: return@Observer
-                Log.v(TAG, "_selectedPeopleMap, Observer(...) : ${nbbHashMap.count()}")
+                Log.v(TAG_CLASS, "_selectedPeopleMap, Observer(...) : ${nbbHashMap.count()}")
                 if (nbbHashMap[infoView.tag as Int]!!.mMemberList.isEmpty()) {
                     hideAddedPeopleView(infoView)
                 } else {
@@ -151,14 +151,14 @@ class AddPlaceFragment : BaseFragment() {
     }
 
     private fun showAddedPeopleView(view: ConstraintLayout, nbb: NBB) {
-        Log.v(TAG, "showAddedPeopleView(...), ${view.txt_index.text}")
+        Log.v(TAG_CLASS, "showAddedPeopleView(...), ${view.txt_index.text}")
         view.txt_added_people.text = StringUtils().getPeopleList(nbb.mMemberList)
-        Log.v(TAG,"addedMember : ${view.txt_added_people.text}")
+        Log.v(TAG_CLASS,"addedMember : ${view.txt_added_people.text}")
         view.txt_added_people.visibility = View.VISIBLE
     }
 
     private fun hideAddedPeopleView(view: ConstraintLayout) {
-        Log.v(TAG, "hideAddedPeopleView(...), ${view.txt_index}")
+        Log.v(TAG_CLASS, "hideAddedPeopleView(...), ${view.txt_index}")
         view.txt_added_people.visibility = View.GONE
     }
 
@@ -180,7 +180,7 @@ class AddPlaceFragment : BaseFragment() {
                                     )
                                 )
                             } catch (numberFormat: NumberFormatException) {
-                                Log.e(TAG,"numberFormat : $numberFormat")
+                                Log.e(TAG_CLASS,"numberFormat : $numberFormat")
                             }
                             view.setText(pointNumStr)
                             view.setSelection(pointNumStr.length)  //커서를 오른쪽 끝으로 보냄

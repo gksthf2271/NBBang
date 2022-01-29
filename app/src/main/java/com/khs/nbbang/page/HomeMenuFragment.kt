@@ -49,7 +49,7 @@ class HomeMenuFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -64,7 +64,7 @@ class HomeMenuFragment : BaseFragment() {
             it.gMyData.observe(requireActivity(), Observer {
                 it ?: return@Observer
                 Log.v(
-                    TAG, "MyData id : ${it.id}"
+                    TAG_CLASS, "MyData id : ${it.id}"
                             + "\n name : ${it.properties?.get("nickname")}"
                             + "\n profile_image : ${it.properties?.get("profile_image")}"
                             + "\n thumbnail_image : ${it.properties?.get("thumbnail_image")}"
@@ -72,8 +72,8 @@ class HomeMenuFragment : BaseFragment() {
             })
 
             it.gIsLogin.observe(requireActivity(), Observer {
-                Log.d(TAG, "isLogin >>> $it")
-                if (it && FragmentUtils().currentFragmentClassName(requireActivity().nav_host_fragment).equals(TAG)) {
+                Log.d(TAG_CLASS, "isLogin >>> $it")
+                if (it && FragmentUtils().currentFragmentClassName(requireActivity().nav_host_fragment).equals(TAG_CLASS)) {
                     loadDutchPayFragment()
                 }
             })

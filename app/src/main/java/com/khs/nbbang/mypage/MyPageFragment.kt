@@ -36,7 +36,7 @@ class MyPageFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -49,14 +49,14 @@ class MyPageFragment : BaseFragment() {
         mBinding.viewModel?.let { loginViewModel ->
             loginViewModel.gMyData.observe(requireActivity(), Observer {
                 if (it != null) {
-                    Log.v(TAG, "mMyDataFrom : ${it}")
+                    Log.v(TAG_CLASS, "mMyDataFrom : ${it}")
                     if (it != null) {
                         val id = it.id
                         val name = it.properties?.get("nickname")
                         val image = it.properties?.get("profile_image")
                         val thumbnail = it.properties?.get("thumbnail_image")
                         Log.v(
-                            TAG, "MyData id : ${id}"
+                            TAG_CLASS, "MyData id : ${id}"
                                     + "\n name : ${name}"
                                     + "\n profile_image : ${image}"
                                     + "\n thumbnail_image : ${thumbnail}"
@@ -67,7 +67,7 @@ class MyPageFragment : BaseFragment() {
                     }
 
                 } else {
-                    Log.v(TAG, "isLogin : $it")
+                    Log.v(TAG_CLASS, "isLogin : $it")
                     updateProfileInfo(null, null)
                 }
             })

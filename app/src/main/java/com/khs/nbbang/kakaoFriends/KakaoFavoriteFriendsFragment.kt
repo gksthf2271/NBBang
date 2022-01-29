@@ -39,7 +39,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -49,7 +49,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
                 layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
                 adapter =
                     AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                        Log.v(TAG, "ItemClicked : $it")
+                        Log.v(TAG_CLASS, "ItemClicked : $it")
 //                        mBinding.viewModel!!.selectMember(it)
                     }
             }
@@ -85,19 +85,19 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
             })
 
             memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
-                Log.v(TAG, "Select Member : $it")
+                Log.v(TAG_CLASS, "Select Member : $it")
                 it ?: return@Observer
             })
         }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.v(TAG,"onKeyDown(...) : keyCode : $keyCode, KeyEvent : ${event}")
+        Log.v(TAG_CLASS,"onKeyDown(...) : keyCode : $keyCode, KeyEvent : ${event}")
         return false
     }
 
     private fun showAddKakaoFriendsDialog() {
-        Log.v(TAG, "showAddKakaoFriendsDialog(...)")
+        Log.v(TAG_CLASS, "showAddKakaoFriendsDialog(...)")
         val addFriendsFragment = AddFriendsDialogFragment.getInstance()
         when {
             addFriendsFragment.isAdded -> {

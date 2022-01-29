@@ -41,7 +41,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -61,7 +61,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         mBinding.customPieChart.mBinding.pieChart.setOnChartValueSelectedListener(object :
             OnChartValueSelectedListener {
             override fun onNothingSelected() {
-                Log.v(TAG,"onNothingSelected(...)")
+                Log.v(TAG_CLASS,"onNothingSelected(...)")
                 loadTotalData(totalPrice, allPlaceSet, mHistoryItem.dutchPay)
             }
 

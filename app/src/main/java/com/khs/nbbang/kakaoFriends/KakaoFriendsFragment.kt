@@ -34,7 +34,7 @@ class KakaoFriendsFragment : BaseFragment() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.v(TAG,"keyCode: $keyCode , event : ${event}")
+        Log.v(TAG_CLASS,"keyCode: $keyCode , event : ${event}")
         return false
     }
 
@@ -47,7 +47,7 @@ class KakaoFriendsFragment : BaseFragment() {
 
     private fun addObserver() {
         gLoginViewModel.gIsLogin.observe(requireActivity(), Observer {
-            Log.v(TAG,"isLogin : $it")
+            Log.v(TAG_CLASS,"isLogin : $it")
         })
     }
 
@@ -87,7 +87,7 @@ class KakaoFriendsFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 }

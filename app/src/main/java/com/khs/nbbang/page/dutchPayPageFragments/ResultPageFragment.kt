@@ -45,7 +45,7 @@ class ResultPageFragment : BaseFragment() {
 
     fun initView() {
         mBinding.txtNotifyCopy.setOnClickListener {
-            Log.v(TAG, "Notify Btn Clicked!")
+            Log.v(TAG_CLASS, "Notify Btn Clicked!")
             mBinding.viewModel?.let {
                 showHistoryCheckerDialog()
             }
@@ -69,24 +69,24 @@ class ResultPageFragment : BaseFragment() {
     private fun updateList() {
         mBinding.viewModel?.let { pageViewModel ->
             pageViewModel.gNBBResultItem.observe(requireActivity(), Observer {
-                Log.v(TAG, "khs, observer(...)")
+                Log.v(TAG_CLASS, "khs, observer(...)")
                 mBinding.recyclerViewResult.apply {
                     setHasFixedSize(true)
                     addItemDecoration(HistoryItemDecoration(2))
                     layoutManager = LinearLayoutManager(context)
                     adapter = ResultRecyclerViewAdapter(it.place) {
-                        Log.v(TAG, "onClicked(...), item : $it")
+                        Log.v(TAG_CLASS, "onClicked(...), item : $it")
                         val dialog = PlaceBottomItemView(it)
                         dialog.show(requireActivity().supportFragmentManager, null)
                     }
 
                     var totalPrice = 0
                     for (item in it.place) {
-                        Log.v(TAG, "khs, price : ${item.price}")
+                        Log.v(TAG_CLASS, "khs, price : ${item.price}")
                         totalPrice += item.price
                     }
 
-                    Log.v(TAG, "khs, totalPrice : $totalPrice")
+                    Log.v(TAG_CLASS, "khs, totalPrice : $totalPrice")
                     mBinding.txtPrice.text = NumberUtils().makeCommaNumber(true, totalPrice)
                 }
             })
@@ -94,12 +94,12 @@ class ResultPageFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG, "makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
     private fun showHistoryCheckerDialog() {
-        Log.v(TAG, "showSelectPeopleDialog(...)")
+        Log.v(TAG_CLASS, "showSelectPeopleDialog(...)")
         mBinding.viewModel?.let { pageViewModel ->
             HistoryCheckerDialogFragment.getInstance().apply {
                 this.arguments = Bundle().apply {

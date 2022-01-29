@@ -52,7 +52,7 @@ class SearchFragment : BaseFragment() {
 
     private fun addObserver() {
         mKakaoViewModel.mSearchResult.observe(requireActivity(), Observer { searchResult ->
-            Log.i(TAG,"search result -> $searchResult")
+            Log.i(TAG_CLASS,"search result -> $searchResult")
         })
     }
 

@@ -1,7 +1,6 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -70,7 +69,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -93,7 +92,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         if (mAddPeopleContentsBinding.recyclerView.adapter == null) {
             mRecyclerViewAdapter =
                 AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                    Log.v(TAG, "ItemClicked, member : ${it.second}")
+                    Log.v(TAG_CLASS, "ItemClicked, member : ${it.second}")
                     mAddPeopleContentsBinding.viewModel?.selectPeople(it.second)
                     showMemberView()
                 }
@@ -111,17 +110,17 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
     }
 
     private fun addObserver() {
-        Log.v(TAG,"addObserver(...)")
+        Log.v(TAG_CLASS,"addObserver(...)")
         mAddPeopleContentsBinding.viewModel?.let {
             it.mNBBLiveData.observe(requireActivity(), Observer {
-                Log.v(TAG, "observer, call updateCircle(...) joinPeopleCount : ${it.mMemberCount}")
+                Log.v(TAG_CLASS, "observer, call updateCircle(...) joinPeopleCount : ${it.mMemberCount}")
                 val newMemberArrayList = arrayListOf<Member>()
                 newMemberArrayList.addAll(it.mMemberList)
                 mRecyclerViewAdapter.setItemList(newMemberArrayList)
             })
 
             it.mSelectJoinPeople.observe(requireActivity(), Observer {
-                Log.v(TAG, "Select JoinPeople : $it")
+                Log.v(TAG_CLASS, "Select JoinPeople : $it")
                 it ?: return@Observer
                 selectMember(it)
             })
@@ -135,7 +134,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 } else {
                     rowFavoriteMember.visibility = View.VISIBLE
                 }
-                Log.i(TAG,"KHS, update MemberList! $it")
+                Log.i(TAG_CLASS,"KHS, update MemberList! $it")
                 rowFavoriteMember.setTitle("LOCAL MEMBER")
                 groupFavorite.visibility = View.VISIBLE
                 rowFavoriteMember.initView(mPageViewModel, it)

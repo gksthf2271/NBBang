@@ -55,7 +55,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                     addOnItemTouchListener(mItemTouchInterceptor)
                     adapter =
                         AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                            Log.v(TAG, "ItemClicked : $it")
+                            Log.v(TAG_CLASS, "ItemClicked : $it")
                             memberManagementViewModel.selectMember(it.second)
                             showMemberView()
                         }
@@ -90,7 +90,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
             })
 
             memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
-                Log.v(TAG, "Select Member : $it")
+                Log.v(TAG_CLASS, "Select Member : $it")
                 it ?: return@Observer
                 selectMember(it)
             })
@@ -103,7 +103,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -119,7 +119,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         mViewModel.let {
             val selectMember = mViewModel.mSelectMember.value
             if (selectMember == null) {
-                Log.e(TAG,"Delete Member Error!, selectMember is null!")
+                Log.e(TAG_CLASS,"Delete Member Error!, selectMember is null!")
                 return
             }
             it.deleteMember(selectMember)
@@ -127,7 +127,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
     }
 
     override fun update(member: Member) {
-        Log.v(TAG,"update(...) member : $member")
+        Log.v(TAG_CLASS,"update(...) member : $member")
         mViewModel.let {
             it.update(member)
         }

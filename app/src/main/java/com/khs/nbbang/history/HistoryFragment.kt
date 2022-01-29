@@ -15,7 +15,6 @@ import com.khs.nbbang.databinding.FragmentHistoryBinding
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.utils.ServiceUtils
-import kotlinx.android.synthetic.main.cview_title_description.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryFragment : BaseFragment(){
@@ -45,7 +44,7 @@ class HistoryFragment : BaseFragment(){
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -77,22 +76,22 @@ class HistoryFragment : BaseFragment(){
                 }
             })
             historyViewModel.mHistory.observe(requireActivity(), Observer {
-                Log.v(TAG, "updated mHistory : $it")
+                Log.v(TAG_CLASS, "updated mHistory : $it")
 
                 mBinding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
                     requireActivity().supportFragmentManager,
                     lifecycle,
                     (it as GetNBBangHistoryResult).nbbangHistoryList
                 ) { nbbHisory ->
-                    Log.v(TAG, "Clicked Item : ${nbbHisory.id}")
+                    Log.v(TAG_CLASS, "Clicked Item : ${nbbHisory.id}")
                 }
 
                 if (it.nbbangHistoryList.isNullOrEmpty()) {
-                    Log.v(TAG,"empty List!, show emptyView")
+                    Log.v(TAG_CLASS,"empty List!, show emptyView")
                     mBinding.historyRecyclerView.visibility = View.GONE
                     mBinding.emptyView.visibility = View.VISIBLE
                 } else {
-                    Log.v(TAG,"show Item View")
+                    Log.v(TAG_CLASS,"show Item View")
                     mBinding.historyRecyclerView.visibility = View.VISIBLE
                     mBinding.emptyView.visibility = View.GONE
                 }
@@ -107,7 +106,7 @@ class HistoryFragment : BaseFragment(){
             })
 
             historyViewModel.mSelectMonth.observe(requireActivity(), Observer {
-                Log.v(TAG,"selected month : $it")
+                Log.v(TAG_CLASS,"selected month : $it")
                 mBinding.cviewSelectMonth.txtMonth.text = "$it 월"
                 historyViewModel.showHistoryByMonth(it)
             })

@@ -56,15 +56,15 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
             }
 
             motionLayout.setTransitionListener({ transitionName ->
-                Log.v(TAG, "motionLayout Transition Changed: $transitionName")
+                Log.v(TAG_CLASS, "motionLayout Transition Changed: $transitionName")
                 mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
             }, { start, end ->
-                Log.v(TAG, "motionLayout State start: $start , end: $end")
+                Log.v(TAG_CLASS, "motionLayout State start: $start , end: $end")
                 mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
                 KeyboardUtils.hideKeyboard(requireView(), requireContext())
             }, { completion ->
                 mItemTouchInterceptor.run { mItemTouchInterceptor.disable() }
-                Log.v(TAG, "motionLayout State completion: $completion")
+                Log.v(TAG_CLASS, "motionLayout State completion: $completion")
             })
         }
     }
@@ -133,21 +133,21 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
 
     override fun onClickedCancelBtn() {
         Log.v(
-            TAG,
+            TAG_CLASS,
             "onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}"
         )
         hideAnyView()
     }
 
     override fun onClickedDeleteBtn() {
-        Log.v(TAG, "onClickedDeleteBtn(...)")
+        Log.v(TAG_CLASS, "onClickedDeleteBtn(...)")
         hideMemeberView()
         delete()
 
     }
 
     override fun onClickedSaveBtn(obj: Member?) {
-        Log.v(TAG, "onClickedSaveBtn(...)")
+        Log.v(TAG_CLASS, "onClickedSaveBtn(...)")
         hideAddMemberView()
         add(obj)
     }
@@ -170,7 +170,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     var gCurrentView : View? = null
 
     override fun onImagesPicked(photos: ArrayList<Uri>) {
-        Log.v(TAG, "Picked Images Url : ${StringUtils().listToAny(photos)}")
+        Log.v(TAG_CLASS, "Picked Images Url : ${StringUtils().listToAny(photos)}")
         when (gCurrentView) {
             is MemberView -> {
                 mBinding.memberView.updateProfileImg(photos)

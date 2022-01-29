@@ -38,7 +38,7 @@ class HistoryGroupFirstFragment(private val mHistoryItem: NBBangHistory): BaseFr
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG,"makeCustomLoadingView(...)")
+        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
         return null
     }
 
@@ -68,11 +68,11 @@ class HistoryGroupFirstFragment(private val mHistoryItem: NBBangHistory): BaseFr
     }
 
     private fun loadPage(page: Int, pageMap : HashMap<Int, ArrayList<Place>>) {
-        Log.v(TAG,"loadPage(...) page : $page, pageSize : ${pageMap.keys.size}")
+        Log.v(TAG_CLASS,"loadPage(...) page : $page, pageSize : ${pageMap.keys.size}")
         mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
             pageMap.get(page-1) ?: arrayListOf()
         ) { place ->
-            Log.v(TAG, "Clicked Item : ${place.placeName}")
+            Log.v(TAG_CLASS, "Clicked Item : ${place.placeName}")
             val dialog = PlaceBottomItemView(place)
             dialog.show(requireActivity().supportFragmentManager, null)
         }
