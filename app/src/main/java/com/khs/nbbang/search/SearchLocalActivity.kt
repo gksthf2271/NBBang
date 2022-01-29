@@ -1,11 +1,10 @@
-package com.khs.nbbang.local.search
+package com.khs.nbbang.search
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivitySearchBinding
-import com.khs.nbbang.search.KakaoLocalViewModel
 import com.khs.nbbang.utils.FragmentUtils
 import org.koin.android.viewmodel.ext.android.viewModel
 
