@@ -1,7 +1,6 @@
 package com.khs.nbbang.search
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
@@ -12,6 +11,7 @@ import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.search.response.LocalSearchModel
 import com.khs.nbbang.utils.DateUtils
+import com.khs.nbbang.utils.LogUtil
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class KakaoLocalViewModel(
@@ -55,13 +55,13 @@ class KakaoLocalViewModel(
 
     override fun renderSearchKeywords(searchResult: LocalSearchModel) {
         val currentTime = System.currentTimeMillis()
-        Log.v(TAG,"renderSearchKeywords(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderSearchKeywords(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
         _searchResult.postValue(searchResult)
     }
 
     override fun renderKeywordsHistory(searchResult: GetSearchAllResult) {
         val currentTime = System.currentTimeMillis()
-        Log.v(TAG,"renderKeywordsHistory(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderKeywordsHistory(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
         _searchHistory.postValue(searchResult)
     }
 

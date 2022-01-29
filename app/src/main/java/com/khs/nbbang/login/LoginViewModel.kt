@@ -1,7 +1,6 @@
 package com.khs.nbbang.login
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kakao.sdk.auth.model.OAuthToken
@@ -11,6 +10,7 @@ import com.khs.nbbang.kakaoFriends.KakaoUserView
 import com.khs.nbbang.kakaoFriends.ReturnType
 import com.khs.nbbang.user.KaKaoMember
 import com.khs.nbbang.user.KaKaoUser
+import com.khs.nbbang.utils.LogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -35,7 +35,7 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoUser
     }
 
     fun freeUser() {
-        Log.v(TAG, "freeUser(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "freeUser(...)")
         logoutAndResetData()
     }
 
@@ -76,37 +76,37 @@ class LoginViewModel(private val mContext: Context) : BaseViewModel(), KakaoUser
     override fun requestResult(resultCode: Int, result: Any?) {
         when(resultCode) {
             ReturnType().RETURN_TYPE_NONE_SUCCESS -> {
-                Log.v(TAG,"RETURN_TYPE_NONE_SUCCESS, Result : $result")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_NONE_SUCCESS, Result : $result")
             }
             ReturnType().RETURN_TYPE_LOGIN_SUCCESS -> {
-                Log.v(TAG,"RETURN_TYPE_LOGIN_SUCCESS, Result : $result")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_LOGIN_SUCCESS, Result : $result")
                if (result != null && result is OAuthToken) {
-                    Log.i(TAG, "로그인 성공 ${result.accessToken}")
+                   LogUtil.vLog(LOG_TAG, TAG_CLASS, "로그인 성공 ${result.accessToken}")
                    handleMyInfoUpdate(Schedulers.io(), AndroidSchedulers.mainThread())
                     _isLogin.postValue(true)
                 }
             }
             ReturnType().RETURN_TYPE_LOGOUT_SUCCESS -> {
-                Log.v(TAG,"RETURN_TYPE_LOGOUT_SUCCESS, Result : $result")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_LOGOUT_SUCCESS, Result : $result")
                 logoutAndResetData()
             }
             ReturnType().RETURN_TYPE_MY_INFO_SUCCESS -> {
-                Log.v(TAG,"RETURN_TYPE_MY_INFO_SUCCESS, Result : $result")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_MY_INFO_SUCCESS, Result : $result")
                 updateMyDataFromKakao(result as User)
             }
             ReturnType().RETURN_TYPE_PROFILE_SUCCESS -> {
-                Log.v(TAG,"RETURN_TYPE_PROFILE_SUCCESS, Result : $result")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_PROFILE_SUCCESS, Result : $result")
             }
             ReturnType().RETURN_TYPE_NONE_FAILED -> {
-                Log.v(TAG,"RETURN_TYPE_FAILED, Result : $result")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_FAILED, Result : $result")
             }
             ReturnType().RETURN_TYPE_LOGIN_FAILED -> {
-                Log.v(TAG,"RETURN_TYPE_FAILED, Result : $result")
-                Log.e(TAG, "로그인 실패, ", result as Throwable)
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_FAILED, Result : $result")
+                LogUtil.eLog(LOG_TAG, TAG_CLASS, "로그인 실패, ${result as Throwable}")
                 logoutAndResetData()
             }
             ReturnType().RETURN_TYPE_CHECK_TOKEN_FAILED -> {
-                Log.v(TAG,"RETURN_TYPE_CHECK_TOKEN, Result : $result")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "RETURN_TYPE_CHECK_TOKEN, Result : $result")
                 logoutAndResetData()
             }
             ReturnType().RETURN_TYPE_CHECK_TOKEN_SUCCESS -> {

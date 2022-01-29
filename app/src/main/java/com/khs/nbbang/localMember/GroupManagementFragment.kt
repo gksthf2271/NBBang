@@ -2,7 +2,6 @@ package com.khs.nbbang.localMember
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.khs.nbbang.databinding.FragmentGroupManagementBinding
 import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.util.*
@@ -55,7 +55,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                     addOnItemTouchListener(mItemTouchInterceptor)
                     adapter =
                         AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                            Log.v(TAG_CLASS, "ItemClicked : $it")
+                            LogUtil.vLog(LOG_TAG, TAG_CLASS, "ItemClicked : $it")
                             memberManagementViewModel.selectMember(it.second)
                             showMemberView()
                         }
@@ -90,7 +90,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
             })
 
             memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
-                Log.v(TAG_CLASS, "Select Member : $it")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "Select Member : $it")
                 it ?: return@Observer
                 selectMember(it)
             })
@@ -103,7 +103,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -119,7 +119,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
         mViewModel.let {
             val selectMember = mViewModel.mSelectMember.value
             if (selectMember == null) {
-                Log.e(TAG_CLASS,"Delete Member Error!, selectMember is null!")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "Delete Member Error!, selectMember is null!")
                 return
             }
             it.deleteMember(selectMember)
@@ -127,7 +127,7 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
     }
 
     override fun update(member: Member) {
-        Log.v(TAG_CLASS,"update(...) member : $member")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "update(...) member : $member")
         mViewModel.let {
             it.update(member)
         }

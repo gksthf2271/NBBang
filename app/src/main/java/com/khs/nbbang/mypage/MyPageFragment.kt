@@ -2,7 +2,6 @@ package com.khs.nbbang.mypage
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentMyPageBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.utils.GlideUtils
+import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class MyPageFragment : BaseFragment() {
@@ -36,7 +36,7 @@ class MyPageFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -49,14 +49,13 @@ class MyPageFragment : BaseFragment() {
         mBinding.viewModel?.let { loginViewModel ->
             loginViewModel.gMyData.observe(requireActivity(), Observer {
                 if (it != null) {
-                    Log.v(TAG_CLASS, "mMyDataFrom : ${it}")
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "mMyDataFrom : ${it}")
                     if (it != null) {
                         val id = it.id
                         val name = it.properties?.get("nickname")
                         val image = it.properties?.get("profile_image")
                         val thumbnail = it.properties?.get("thumbnail_image")
-                        Log.v(
-                            TAG_CLASS, "MyData id : ${id}"
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "MyData id : ${id}"
                                     + "\n name : ${name}"
                                     + "\n profile_image : ${image}"
                                     + "\n thumbnail_image : ${thumbnail}"
@@ -67,7 +66,7 @@ class MyPageFragment : BaseFragment() {
                     }
 
                 } else {
-                    Log.v(TAG_CLASS, "isLogin : $it")
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "isLogin : $it")
                     updateProfileInfo(null, null)
                 }
             })

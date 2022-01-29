@@ -1,7 +1,6 @@
 package com.khs.nbbang
 
 import android.app.Application
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
@@ -17,6 +16,7 @@ import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.search.KakaoLocalAPI
 import com.khs.nbbang.search.KakaoLocalViewModel
 import com.khs.nbbang.utils.GlideUtils
+import com.khs.nbbang.utils.LogUtil
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import lv.chi.photopicker.ChiliPhotoPicker
 import okhttp3.Cache
@@ -60,11 +60,12 @@ get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
 
 
 open class NBApp : Application(){
-    private val TAG = this.javaClass.simpleName
+    private val TAG_CLASS = this.javaClass.simpleName
+    private val LOG_TAG = LogUtil.TAG_UI
 
     override fun onCreate() {
         super.onCreate()
-        Log.v(TAG,"NBApp Start!, onCreate(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "NBApp Start!, onCreate(...)")
 
         // Kakao SDK 초기화
         KakaoSdk.init(this, "1ba03cee909ded713fcf50d73b1d2ce9")

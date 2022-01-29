@@ -2,7 +2,6 @@ package com.khs.nbbang
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.widget.Toast
@@ -14,12 +13,13 @@ import com.khs.nbbang.animation.NavigationDrawerEvent
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivityMainBinding
-import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
+import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.cview_title_description.view.*
@@ -94,14 +94,13 @@ class MainActivity : BaseActivity() {
         mLoginViewModel
         mLoginViewModel.gMyData.observe(this, Observer { kakaoUser ->
             if (kakaoUser != null) {
-                Log.v(TAG, "mMyDataFrom : ${kakaoUser}")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "mMyDataFrom : ${kakaoUser}")
                 if (kakaoUser != null) {
                     val id = kakaoUser.id
                     val name = kakaoUser.properties?.get("nickname")
                     val image = kakaoUser.properties?.get("profile_image")
                     val thumbnail = kakaoUser.properties?.get("thumbnail_image")
-                    Log.v(
-                        TAG, "MyData id : ${id}"
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "MyData id : $id"
                                 + "\n name : ${name}"
                                 + "\n profile_image : ${image}"
                                 + "\n thumbnail_image : ${thumbnail}"
@@ -123,7 +122,7 @@ class MainActivity : BaseActivity() {
                 }
 
             } else {
-                Log.v(TAG, "isLogin : $kakaoUser")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "isLogin : $kakaoUser")
                 updateProfileInfo(null, null, null)
             }
         })
@@ -175,7 +174,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun gotoHome() {
-        Log.v(TAG, "loadHome(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "loadHome(...)")
         mNavItemIndex = 0
         CURRENT_TAG = TAG_DUTCH_PAY
         navigateDestination()
@@ -205,7 +204,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.v(TAG, "keyCode: $keyCode , event : $event")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "keyCode: $keyCode , event : $event")
         val currentFragment = supportFragmentManager.fragments[0]?.let {
             it.childFragmentManager.fragments[0]
         }

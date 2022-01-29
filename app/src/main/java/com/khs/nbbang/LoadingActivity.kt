@@ -2,11 +2,10 @@ package com.khs.nbbang
 
 import android.animation.Animator
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.databinding.ActivityLoadingBinding
+import com.khs.nbbang.utils.LogUtil
 
 class LoadingActivity : BaseActivity() {
     lateinit var mBinding : ActivityLoadingBinding
@@ -24,21 +23,21 @@ class LoadingActivity : BaseActivity() {
     private fun showMotion() {
         mBinding.lottieAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
-                Log.v(TAG,"onAnimationRepeat(...) : animation : $animation")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationRepeat(...) : animation : $animation")
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                Log.v(TAG,"onAnimationEnd(...) : animation : $animation")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationEnd(...) : animation : $animation")
                 gotoMain()
             }
 
             override fun onAnimationCancel(animation: Animator?) {
-                Log.v(TAG,"onAnimationCancel(...) : animation : $animation")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationCancel(...) : animation : $animation")
                 gotoMain()
             }
 
             override fun onAnimationStart(animation: Animator?) {
-                Log.v(TAG,"onAnimationStart(...) : animation : $animation")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationStart(...) : animation : $animation")
             }
 
         })
@@ -46,7 +45,7 @@ class LoadingActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        Log.v(TAG,"blocked backKey")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "blocked backKey")
     }
 
     private fun gotoMain() {

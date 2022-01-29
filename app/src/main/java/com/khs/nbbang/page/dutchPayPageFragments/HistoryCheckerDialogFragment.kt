@@ -3,7 +3,6 @@ package com.khs.nbbang.page.dutchPayPageFragments
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentHistorySaveDialogBinding
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY_CHECKER){
@@ -45,7 +45,7 @@ class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.v(TAG,"onViewCreated(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onViewCreated(...)")
         super.onViewCreated(view, savedInstanceState)
         mBinding.viewModel = mHistoryViewModel
 

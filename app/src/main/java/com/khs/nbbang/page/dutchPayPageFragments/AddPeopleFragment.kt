@@ -2,7 +2,6 @@ package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,7 @@ import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.fragment_add_people.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -69,7 +69,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -92,7 +92,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         if (mAddPeopleContentsBinding.recyclerView.adapter == null) {
             mRecyclerViewAdapter =
                 AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                    Log.v(TAG_CLASS, "ItemClicked, member : ${it.second}")
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "ItemClicked, member : ${it.second}")
                     mAddPeopleContentsBinding.viewModel?.selectPeople(it.second)
                     showMemberView()
                 }
@@ -110,17 +110,17 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
     }
 
     private fun addObserver() {
-        Log.v(TAG_CLASS,"addObserver(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "addObserver(...)")
         mAddPeopleContentsBinding.viewModel?.let {
             it.mNBBLiveData.observe(requireActivity(), Observer {
-                Log.v(TAG_CLASS, "observer, call updateCircle(...) joinPeopleCount : ${it.mMemberCount}")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "observer, call updateCircle(...) joinPeopleCount : ${it.mMemberCount}")
                 val newMemberArrayList = arrayListOf<Member>()
                 newMemberArrayList.addAll(it.mMemberList)
                 mRecyclerViewAdapter.setItemList(newMemberArrayList)
             })
 
             it.mSelectJoinPeople.observe(requireActivity(), Observer {
-                Log.v(TAG_CLASS, "Select JoinPeople : $it")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "Select JoinPeople : $it")
                 it ?: return@Observer
                 selectMember(it)
             })
@@ -134,7 +134,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 } else {
                     rowFavoriteMember.visibility = View.VISIBLE
                 }
-                Log.i(TAG_CLASS,"KHS, update MemberList! $it")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "update MemberList! $it")
                 rowFavoriteMember.setTitle("LOCAL MEMBER")
                 groupFavorite.visibility = View.VISIBLE
                 rowFavoriteMember.initView(mPageViewModel, it)

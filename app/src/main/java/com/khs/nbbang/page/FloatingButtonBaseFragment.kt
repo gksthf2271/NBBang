@@ -2,7 +2,6 @@ package com.khs.nbbang.page
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.khs.nbbang.common.MemberView
 import com.khs.nbbang.databinding.FragmentFloatingBtnBaseBinding
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.KeyboardUtils
+import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.StringUtils
 import com.khs.nbbang.utils.setTransitionListener
 import lv.chi.photopicker.PhotoPickerFragment
@@ -56,15 +56,15 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
             }
 
             motionLayout.setTransitionListener({ transitionName ->
-                Log.v(TAG_CLASS, "motionLayout Transition Changed: $transitionName")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "motionLayout Transition Changed: $transitionName")
                 mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
             }, { start, end ->
-                Log.v(TAG_CLASS, "motionLayout State start: $start , end: $end")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "motionLayout State start: $start , end: $end")
                 mItemTouchInterceptor.run { mItemTouchInterceptor.enable() }
                 KeyboardUtils.hideKeyboard(requireView(), requireContext())
             }, { completion ->
                 mItemTouchInterceptor.run { mItemTouchInterceptor.disable() }
-                Log.v(TAG_CLASS, "motionLayout State completion: $completion")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "motionLayout State completion: $completion")
             })
         }
     }
@@ -132,22 +132,19 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     }
 
     override fun onClickedCancelBtn() {
-        Log.v(
-            TAG_CLASS,
-            "onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}"
-        )
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onClickedCancelBtn(...) transitionName : ${mBinding.motionLayout.transitionName}")
         hideAnyView()
     }
 
     override fun onClickedDeleteBtn() {
-        Log.v(TAG_CLASS, "onClickedDeleteBtn(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onClickedDeleteBtn(...)")
         hideMemeberView()
         delete()
 
     }
 
     override fun onClickedSaveBtn(obj: Member?) {
-        Log.v(TAG_CLASS, "onClickedSaveBtn(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onClickedSaveBtn(...)")
         hideAddMemberView()
         add(obj)
     }
@@ -170,7 +167,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     var gCurrentView : View? = null
 
     override fun onImagesPicked(photos: ArrayList<Uri>) {
-        Log.v(TAG_CLASS, "Picked Images Url : ${StringUtils().listToAny(photos)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "Picked Images Url : ${StringUtils().listToAny(photos)}")
         when (gCurrentView) {
             is MemberView -> {
                 mBinding.memberView.updateProfileImg(photos)

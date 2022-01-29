@@ -1,6 +1,5 @@
 package com.khs.nbbang.history
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import kotlinx.android.synthetic.main.cview_history_bottom_item.view.*
 
 class HistoryBottomRecyclerViewAdapter(private val gNameList: ArrayList<Member>) :
     RecyclerView.Adapter<HistoryBottomRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.simpleName
     val DEBUG = BuildConfig.DEBUG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,7 +28,6 @@ class HistoryBottomRecyclerViewAdapter(private val gNameList: ArrayList<Member>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
         holder.bind(gNameList.get(position))
     }
 

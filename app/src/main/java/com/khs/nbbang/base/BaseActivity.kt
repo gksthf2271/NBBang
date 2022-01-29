@@ -3,15 +3,16 @@ package com.khs.nbbang.base
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.khs.nbbang.LoadingActivity
+import com.khs.nbbang.utils.LogUtil
 
 open class BaseActivity : AppCompatActivity() {
-    val TAG = this.javaClass.simpleName
+    val TAG_CLASS = this.javaClass.simpleName
+    open val LOG_TAG = LogUtil.TAG_UI
     val DEBUG = true
     val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
     val RESULT_FINISH = 1000
@@ -38,25 +39,25 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        Log.v(TAG,"onStart(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onStart(...)")
         gIsRunningActivity = true
         super.onStart()
     }
 
     override fun onPause() {
-        Log.v(TAG,"onPause(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onPause(...)")
         gIsRunningActivity = false
         super.onPause()
     }
 
     override fun onDestroy() {
-        Log.v(TAG,"onDestroy(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onDestroy(...)")
         gIsRunningActivity = false
         super.onDestroy()
     }
 
     override fun onResume() {
-        Log.v(TAG,"onResume(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onResume(...)")
         gIsRunningActivity = true
         super.onResume()
     }

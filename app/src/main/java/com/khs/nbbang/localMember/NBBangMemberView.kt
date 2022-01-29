@@ -1,8 +1,8 @@
 package com.khs.nbbang.localMember
 
-import android.util.Log
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -85,7 +85,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe { r ->
-                Log.v(this.javaClass.simpleName,"delete return value : $r")
+                LogUtil.vLog(null, this.javaClass.simpleName, "delete return value : $r")
                 when {
                     member.kakaoId.isEmpty() -> {
                         handleShowMembersByType(
@@ -108,7 +108,7 @@ interface NBBangMemberView : AddNBBangMember, GetNbbangMember, UpdateNBBangMembe
         val d = deleteNBBangMember(memberType)
             .subscribeOn(sub)
             .subscribe { r ->
-                Log.v(this.javaClass.simpleName,"updateKakaoMember : $memberList")
+                LogUtil.vLog(null, this.javaClass.simpleName, "updateKakaoMember : $memberList")
                 if (memberList.isEmpty()) {
                     when (memberType) {
                         MemberType.TYPE_KAKAO -> {

@@ -1,7 +1,6 @@
 package com.khs.nbbang.common
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,12 +8,14 @@ import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.databinding.CviewFavoriteRowItemBinding
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
+import com.khs.nbbang.utils.LogUtil
 
 class FavoriteRecyclerAdapter(
     private val mItemList: ArrayList<Member>,
     private val mItemClick: (Member) -> Unit
 ) : RecyclerView.Adapter<FavoriteRecyclerAdapter.FavoriteViewHolder>() {
-    private val TAG: String = javaClass.simpleName
+    private val TAG_CLASS: String = javaClass.simpleName
+    private val LOG_TAG: String = LogUtil.TAG_UI
     private val DEBUG = BuildConfig.DEBUG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
@@ -34,10 +35,8 @@ class FavoriteRecyclerAdapter(
         val binding: CviewFavoriteRowItemBinding,
         val itemClick: (Member) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        val TAG: String = javaClass.simpleName
 
         fun bind(member: Member) {
-            if (DEBUG) Log.v(TAG, "FavoriteViewHolder, bind(...) : $member")
             binding.apply {
                 GlideUtils().drawMemberProfile(imgProfile, member, null)
 
@@ -51,14 +50,14 @@ class FavoriteRecyclerAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun setItem(item: Member) {
-        Log.v(TAG,"setItem(...) item : ${item}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) item : ${item}")
         this.mItemList.add(mItemList.size, item)
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setItemList(itemList: List<Member>) {
-        Log.v(TAG,"setItem(...) itemList count : ${itemList.size}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) itemList count : ${itemList.size}")
         mItemList.clear()
         mItemList.addAll(itemList)
         notifyDataSetChanged()

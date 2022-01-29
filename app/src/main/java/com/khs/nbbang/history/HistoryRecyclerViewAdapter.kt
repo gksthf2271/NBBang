@@ -1,12 +1,10 @@
 package com.khs.nbbang.history
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
-import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.animation.ZoomOutPageTransformer
 import com.khs.nbbang.databinding.CviewHistoryListItemBinding
 import com.khs.nbbang.history.data.NBBangHistory
@@ -17,8 +15,6 @@ import com.khs.nbbang.utils.DateUtils
 
 class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifecycle, private val mHistoryList: List<NBBangHistory>, val mItemClick: (NBBangHistory) -> Unit) :
     RecyclerView.Adapter<HistoryRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.simpleName
-    val DEBUG = BuildConfig.DEBUG
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -31,7 +27,6 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
         holder.bind(mHistoryList.get(position))
     }
 

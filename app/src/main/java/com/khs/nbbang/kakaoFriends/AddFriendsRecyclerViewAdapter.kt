@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.page.itemView.SelectMemberView
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 
 class AddFriendsRecyclerViewAdapter(
     private var mRemoteMemberHashMap: HashMap<String, Member>,
@@ -12,7 +13,8 @@ class AddFriendsRecyclerViewAdapter(
     private val mItemClick: (Member) -> Unit,
     private val viewUpdateCallback: (Boolean, Member) -> Unit
 ) : RecyclerView.Adapter<AddFriendsRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.simpleName
+    private val TAG_CLASS: String = javaClass.simpleName
+    private val LOG_TAG = LogUtil.TAG_UI
     val DEBUG = true
 
 
@@ -27,7 +29,7 @@ class AddFriendsRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
+        if (DEBUG) LogUtil.vLog(LOG_TAG, TAG_CLASS, "onBindViewHolder, position : $position")
         holder.bind(mRemoteMemberHashMap.values.toList()[position])
     }
 
@@ -47,7 +49,7 @@ class AddFriendsRecyclerViewAdapter(
     }
 
     fun setItem(memberHashMap: HashMap<String, Member>) {
-        Log.v(TAG, "setItem(...) memberHashMap size : ${memberHashMap.values.size}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) memberHashMap size : ${memberHashMap.values.size}")
         this.mRemoteMemberHashMap.clear()
         this.mRemoteMemberHashMap = memberHashMap
         notifyDataSetChanged()

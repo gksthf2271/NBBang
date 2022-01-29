@@ -16,6 +16,7 @@ import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DebugMemberList
+import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -81,12 +82,12 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
         mBinding.viewModel?.let { loginViewModel ->
             loginViewModel.gIsLogin.observe(requireActivity(), Observer {
                 if (!it) {
-                    Log.e(TAG, "isLogin : $it")
+                    LogUtil.eLog(LOG_TAG, TAG_CLASS, "isLogin : $it")
                     return@Observer
                 }
             })
             loginViewModel.gFriendList.observe(requireActivity(), Observer { it ->
-                Log.v(TAG, "KakaoFriends remote list : ${it.joinToString("\n")}")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "KakaoFriends remote list : ${it.joinToString("\n")}")
                 val memberArrayList = arrayListOf<Member>()
                 if (DEBUG) {
                     memberArrayList.addAll(DebugMemberList.mDummyMemberList)
@@ -113,7 +114,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
 
 
                 gMemberManagementViewModel.gKakaoFriendList.observe(requireActivity(), Observer {
-                    Log.v(TAG, "KakaoFriends Local list : ${it.joinToString("\n")}")
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "KakaoFriends Local list : ${it.joinToString("\n")}")
                     val localMemberArrayList = arrayListOf<Member>()
                     if (DEBUG) {
                         localMemberArrayList.addAll(DebugMemberList.mDummyMemberList)
@@ -129,7 +130,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
 
                     mBinding.allFriendsRecyclerView.adapter =
                         AddFriendsRecyclerViewAdapter(remoteMemberHashMap, memberHashMap, {
-                            Log.v(TAG, "ItemClicked : $it")
+                            LogUtil.vLog(LOG_TAG, TAG_CLASS, "ItemClicked : $it")
                         }, { isSaveCallback, member ->
                             when {
                                 isSaveCallback -> {
@@ -145,7 +146,7 @@ class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_F
         }
 
         gSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer { memberMap ->
-            Log.v(TAG,"update SelectedMember list! : $memberMap")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "update SelectedMember list! : $memberMap")
             val result : ArrayList<Member> = arrayListOf()
             val myData = gLoginViewModel.gMyData.value
             myData?.id?.let {

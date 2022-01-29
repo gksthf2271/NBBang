@@ -2,7 +2,6 @@ package com.khs.nbbang.common
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,13 +13,15 @@ import com.khs.nbbang.databinding.CviewFavoriteRowBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.ScrollUtils
 import java.util.*
 
 class FavoriteRowView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-    val TAG = this.javaClass.simpleName
+    val TAG_CLASS = this.javaClass.simpleName
+    val LOG_TAG = LogUtil.TAG_UI
     var mBinding: CviewFavoriteRowBinding
     var mRecyclerViewAdapter : FavoriteRecyclerAdapter? = null
     var mPageViewModel : PageViewModel? = null
@@ -40,7 +41,7 @@ class FavoriteRowView @JvmOverloads constructor(
         if (vm is PageViewModel) {
             mPageViewModel = vm
             mRecyclerViewAdapter = FavoriteRecyclerAdapter(ArrayList(itemList)) { member ->
-                Log.v(TAG,"ItemClicked, member : ${member.name}")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "ItemClicked, member : ${member.name}")
                 mPageViewModel?.let { pageViewModel ->
                     if (!pageViewModel.mNBBLiveData.value!!.mMemberList.contains(member)){
                         pageViewModel.addJoinPeople(member)
@@ -51,9 +52,9 @@ class FavoriteRowView @JvmOverloads constructor(
             }
         } else if (vm is LoginViewModel) {
             mRecyclerViewAdapter = FavoriteRecyclerAdapter(ArrayList(itemList)) { member ->
-                Log.v(TAG,"ItemClicked, member : ${member.name}")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "ItemClicked, member : ${member.name}")
             }
-            Log.v(TAG,"FavoriteRowView Viewmodel is LoginViewModel")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "FavoriteRowView Viewmodel is LoginViewModel")
         }
 
         mBinding.recyclerView.adapter= mRecyclerViewAdapter

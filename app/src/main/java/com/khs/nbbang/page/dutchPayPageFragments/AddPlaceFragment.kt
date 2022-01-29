@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +20,7 @@ import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.KeyboardVisibilityUtils
+import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
@@ -58,7 +58,7 @@ class AddPlaceFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -81,13 +81,13 @@ class AddPlaceFragment : BaseFragment() {
 
     private fun addObserver() {
         mViewModel.mNBBLiveData.observe(requireActivity(), Observer {
-            Log.v(TAG_CLASS, "mNBBLiveData, Observer(...) : $it")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "mNBBLiveData, Observer(...) : $it")
             mViewModel.clearSelectedPeople()
         })
     }
 
     private fun showSelectPeopleDialog(tag: String) {
-        Log.v(TAG_CLASS, "showSelectPeopleDialog(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showSelectPeopleDialog(...)")
         val selectPeopleDialog = SelectPeopleDialogFragment.getInstance()
         when {
             selectPeopleDialog.isAdded -> {
@@ -130,7 +130,7 @@ class AddPlaceFragment : BaseFragment() {
             )
 
             setOnClickListener {
-                Log.v(TAG_CLASS, "Clicked ${this.tag}차 PlaceInfoView!")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "Clicked ${this.tag}차 PlaceInfoView!")
             }
         }
 
@@ -139,7 +139,7 @@ class AddPlaceFragment : BaseFragment() {
 
             it.mSelectedPeopleMap.observe(requireActivity(), Observer { nbbHashMap ->
                 nbbHashMap[infoView.tag as Int] ?: return@Observer
-                Log.v(TAG_CLASS, "_selectedPeopleMap, Observer(...) : ${nbbHashMap.count()}")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "_selectedPeopleMap, Observer(...) : ${nbbHashMap.count()}")
                 if (nbbHashMap[infoView.tag as Int]!!.mMemberList.isEmpty()) {
                     hideAddedPeopleView(infoView)
                 } else {
@@ -151,14 +151,14 @@ class AddPlaceFragment : BaseFragment() {
     }
 
     private fun showAddedPeopleView(view: ConstraintLayout, nbb: NBB) {
-        Log.v(TAG_CLASS, "showAddedPeopleView(...), ${view.txt_index.text}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showAddedPeopleView(...), ${view.txt_index.text}")
         view.txt_added_people.text = StringUtils().getPeopleList(nbb.mMemberList)
-        Log.v(TAG_CLASS,"addedMember : ${view.txt_added_people.text}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "addedMember : ${view.txt_added_people.text}")
         view.txt_added_people.visibility = View.VISIBLE
     }
 
     private fun hideAddedPeopleView(view: ConstraintLayout) {
-        Log.v(TAG_CLASS, "hideAddedPeopleView(...), ${view.txt_index}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "hideAddedPeopleView(...), ${view.txt_index}")
         view.txt_added_people.visibility = View.GONE
     }
 
@@ -180,7 +180,7 @@ class AddPlaceFragment : BaseFragment() {
                                     )
                                 )
                             } catch (numberFormat: NumberFormatException) {
-                                Log.e(TAG_CLASS,"numberFormat : $numberFormat")
+                                LogUtil.eLog(LOG_TAG, TAG_CLASS, "numberFormat : $numberFormat")
                             }
                             view.setText(pointNumStr)
                             view.setSelection(pointNumStr.length)  //커서를 오른쪽 끝으로 보냄

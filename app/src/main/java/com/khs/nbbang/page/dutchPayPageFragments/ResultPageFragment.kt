@@ -15,6 +15,7 @@ import com.khs.nbbang.databinding.FragmentResultPageBinding
 import com.khs.nbbang.history.itemView.PlaceBottomItemView
 import com.khs.nbbang.page.adapter.ResultRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +46,7 @@ class ResultPageFragment : BaseFragment() {
 
     fun initView() {
         mBinding.txtNotifyCopy.setOnClickListener {
-            Log.v(TAG_CLASS, "Notify Btn Clicked!")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "Notify Btn Clicked!")
             mBinding.viewModel?.let {
                 showHistoryCheckerDialog()
             }
@@ -69,24 +70,24 @@ class ResultPageFragment : BaseFragment() {
     private fun updateList() {
         mBinding.viewModel?.let { pageViewModel ->
             pageViewModel.gNBBResultItem.observe(requireActivity(), Observer {
-                Log.v(TAG_CLASS, "khs, observer(...)")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "observer(...)")
                 mBinding.recyclerViewResult.apply {
                     setHasFixedSize(true)
                     addItemDecoration(HistoryItemDecoration(2))
                     layoutManager = LinearLayoutManager(context)
                     adapter = ResultRecyclerViewAdapter(it.place) {
-                        Log.v(TAG_CLASS, "onClicked(...), item : $it")
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onClicked(...), item : $it")
                         val dialog = PlaceBottomItemView(it)
                         dialog.show(requireActivity().supportFragmentManager, null)
                     }
 
                     var totalPrice = 0
                     for (item in it.place) {
-                        Log.v(TAG_CLASS, "khs, price : ${item.price}")
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "price : ${item.price}")
                         totalPrice += item.price
                     }
 
-                    Log.v(TAG_CLASS, "khs, totalPrice : $totalPrice")
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "totalPrice : $totalPrice")
                     mBinding.txtPrice.text = NumberUtils().makeCommaNumber(true, totalPrice)
                 }
             })
@@ -94,12 +95,12 @@ class ResultPageFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS, "makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
     private fun showHistoryCheckerDialog() {
-        Log.v(TAG_CLASS, "showSelectPeopleDialog(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showSelectPeopleDialog(...)")
         mBinding.viewModel?.let { pageViewModel ->
             HistoryCheckerDialogFragment.getInstance().apply {
                 this.arguments = Bundle().apply {

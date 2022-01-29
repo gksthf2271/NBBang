@@ -1,12 +1,12 @@
 package com.khs.nbbang.page.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.BuildConfig
 import com.khs.nbbang.databinding.CviewShareResultItemBinding
 import com.khs.nbbang.history.data.Place
+import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 
@@ -14,7 +14,8 @@ class ResultRecyclerViewAdapter(
     val mItemList: ArrayList<Place>,
     val mItemClick: (Place) -> Unit
 ) : RecyclerView.Adapter<ResultRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.simpleName
+    private val TAG_CLASS: String = javaClass.simpleName
+    private val LOG_TAG: String = LogUtil.TAG_UI
     val DEBUG = BuildConfig.DEBUG
 
 
@@ -29,7 +30,6 @@ class ResultRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
         holder.bind(mItemList.get(position))
     }
 
@@ -51,13 +51,13 @@ class ResultRecyclerViewAdapter(
     }
 
     fun setItem(place: Place) {
-        Log.v(TAG, "setItem(...) place : ${place}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) place : ${place}")
         this.mItemList.add(mItemList.size, place)
         notifyDataSetChanged()
     }
 
     fun setItemList(plcaeList: ArrayList<Place>) {
-        Log.v(TAG, "setItem(...) plcaeList count : ${plcaeList.size}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) plcaeList count : ${plcaeList.size}")
         mItemList.clear()
         mItemList.addAll(plcaeList)
         notifyDataSetChanged()

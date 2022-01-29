@@ -2,7 +2,6 @@ package com.khs.nbbang.page
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.utils.FragmentUtils
+import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -49,7 +49,7 @@ class HomeMenuFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -63,8 +63,7 @@ class HomeMenuFragment : BaseFragment() {
         mBinding.viewModel?.let { it ->
             it.gMyData.observe(requireActivity(), Observer {
                 it ?: return@Observer
-                Log.v(
-                    TAG_CLASS, "MyData id : ${it.id}"
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "MyData id : ${it.id}"
                             + "\n name : ${it.properties?.get("nickname")}"
                             + "\n profile_image : ${it.properties?.get("profile_image")}"
                             + "\n thumbnail_image : ${it.properties?.get("thumbnail_image")}"
@@ -72,7 +71,7 @@ class HomeMenuFragment : BaseFragment() {
             })
 
             it.gIsLogin.observe(requireActivity(), Observer {
-                Log.d(TAG_CLASS, "isLogin >>> $it")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "isLogin >>> $it")
                 if (it && FragmentUtils().currentFragmentClassName(requireActivity().nav_host_fragment).equals(TAG_CLASS)) {
                     loadDutchPayFragment()
                 }

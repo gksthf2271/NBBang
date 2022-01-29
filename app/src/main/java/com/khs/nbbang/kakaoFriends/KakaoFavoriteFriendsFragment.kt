@@ -2,7 +2,6 @@ package com.khs.nbbang.kakaoFriends
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.databinding.FragmentKakaoFavoriteFriendsBinding
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
+import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.cview_page_title.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -39,7 +39,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -49,7 +49,7 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
                 layoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
                 adapter =
                     AddPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) {
-                        Log.v(TAG_CLASS, "ItemClicked : $it")
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "ItemClicked : $it")
 //                        mBinding.viewModel!!.selectMember(it)
                     }
             }
@@ -85,19 +85,19 @@ class KakaoFavoriteFriendsFragment : BaseFragment() {
             })
 
             memberManagementViewModel.mSelectMember.observe(requireActivity(), Observer {
-                Log.v(TAG_CLASS, "Select Member : $it")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "Select Member : $it")
                 it ?: return@Observer
             })
         }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.v(TAG_CLASS,"onKeyDown(...) : keyCode : $keyCode, KeyEvent : ${event}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onKeyDown(...) : keyCode : $keyCode, KeyEvent : ${event}")
         return false
     }
 
     private fun showAddKakaoFriendsDialog() {
-        Log.v(TAG_CLASS, "showAddKakaoFriendsDialog(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showAddKakaoFriendsDialog(...)")
         val addFriendsFragment = AddFriendsDialogFragment.getInstance()
         when {
             addFriendsFragment.isAdded -> {

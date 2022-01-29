@@ -1,6 +1,5 @@
 package com.khs.nbbang.history
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
@@ -12,11 +11,10 @@ import com.khs.nbbang.history.room.NBBMemberDao
 import com.khs.nbbang.history.room.NBBPlaceDao
 import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.utils.DateUtils
+import com.khs.nbbang.utils.LogUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.time.Year
-import java.util.*
 
 class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NBBangHistoryView,
     NBBangGatewayImpl {
@@ -42,7 +40,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         get() = CompositeDisposable()
 
     override fun renderHistorys(nbbangHistory: GetNBBangHistoryResult) {
-        Log.v(TAG,"renderHistory(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderHistory(...)")
         _history.postValue(nbbangHistory)
     }
 
@@ -56,7 +54,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         get() = _db.value!!.nbbSearchKeywordDao()
 
     fun setCurrentMonthHistory() {
-        Log.v(TAG,"setCurrentMonthHistory : ${DateUtils().currentMonth()}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setCurrentMonthHistory : ${DateUtils().currentMonth()}")
         _selectMonth.postValue(DateUtils().currentMonth())
     }
 
@@ -82,18 +80,18 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         val month = _selectMonth.value?.plus(1) ?: return
         if (month > 12) return
         _selectMonth.postValue(month)
-        Log.v(TAG,"increaseMonth(...) : ${_selectMonth.value}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "increaseMonth(...) : ${_selectMonth.value}")
     }
 
     fun decreaseMonth() {
         val month = _selectMonth.value?.minus(1) ?: return
         if (month< 1) return
         _selectMonth.postValue(month)
-        Log.v(TAG,"decreaseMonth(...) : ${_selectMonth.value}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "decreaseMonth(...) : ${_selectMonth.value}")
     }
 
     fun updateLoadingFlag(isShown : Boolean) {
-        Log.v(TAG,"updateLoadingFlag : $isShown")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "updateLoadingFlag : $isShown")
         _showLoadingView.value = isShown
     }
 

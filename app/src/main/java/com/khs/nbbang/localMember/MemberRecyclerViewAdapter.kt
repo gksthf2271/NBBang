@@ -1,16 +1,12 @@
 package com.khs.nbbang.localMember
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.khs.nbbang.R
 import com.khs.nbbang.databinding.CviewMemeberItemBinding
-import com.khs.nbbang.databinding.CviewShareResultItemBinding
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_memeber_item.view.*
+import com.khs.nbbang.utils.LogUtil
 
 
 class MemberRecyclerViewAdapter(
@@ -18,7 +14,8 @@ class MemberRecyclerViewAdapter(
     private val itemClick: (Member) -> Unit
 ) :
     RecyclerView.Adapter<MemberRecyclerViewAdapter.ViewHolder>() {
-    private val TAG: String = javaClass.simpleName
+    private val TAG_CLASS: String = javaClass.simpleName
+    private val LOG_TAG: String = LogUtil.TAG_UI
     val DEBUG = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,7 +29,6 @@ class MemberRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
         holder.bind(mMemberList.get(position))
     }
 
@@ -49,7 +45,7 @@ class MemberRecyclerViewAdapter(
     }
 
     fun setItem(members: List<Member>) {
-        Log.v(TAG,"setItem(...) inputMembers size : ${members.size}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) inputMembers size : ${members.size}")
         this.mMemberList.clear()
         this.mMemberList.addAll(members)
         notifyDataSetChanged()

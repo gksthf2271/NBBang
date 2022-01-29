@@ -2,7 +2,6 @@ package com.khs.nbbang.history.itemView
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.khs.nbbang.history.HistoryItemRecyclerViewAdapter
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
+import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class HistoryGroupFirstFragment(private val mHistoryItem: NBBangHistory): BaseFragment() {
@@ -38,7 +38,7 @@ class HistoryGroupFirstFragment(private val mHistoryItem: NBBangHistory): BaseFr
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -68,11 +68,11 @@ class HistoryGroupFirstFragment(private val mHistoryItem: NBBangHistory): BaseFr
     }
 
     private fun loadPage(page: Int, pageMap : HashMap<Int, ArrayList<Place>>) {
-        Log.v(TAG_CLASS,"loadPage(...) page : $page, pageSize : ${pageMap.keys.size}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "loadPage(...) page : $page, pageSize : ${pageMap.keys.size}")
         mBinding.recyclerView.adapter = HistoryItemRecyclerViewAdapter(
             pageMap.get(page-1) ?: arrayListOf()
         ) { place ->
-            Log.v(TAG_CLASS, "Clicked Item : ${place.placeName}")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "Clicked Item : ${place.placeName}")
             val dialog = PlaceBottomItemView(place)
             dialog.show(requireActivity().supportFragmentManager, null)
         }

@@ -1,7 +1,6 @@
 package com.khs.nbbang.page.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,13 +10,15 @@ import com.khs.nbbang.databinding.CviewEditPeopleBinding
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DisplayUtils
 import com.khs.nbbang.utils.GlideUtils
+import com.khs.nbbang.utils.LogUtil
 
 class AddPeopleRecyclerViewAdapter(
     private val mContext: Context,
     private val mItemList: ArrayList<Member>,
     private val mItemClick: (Pair<Int, Member>) -> Unit
 ) : RecyclerView.Adapter<AddPeopleRecyclerViewAdapter.PeopleViewHolder>() {
-    private val TAG: String = javaClass.simpleName
+    private val TAG_CLASS: String = javaClass.simpleName
+    private val LOG_TAG: String = LogUtil.TAG_UI
     val DEBUG = BuildConfig.DEBUG
 
 
@@ -33,7 +34,6 @@ class AddPeopleRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: PeopleViewHolder, position: Int) {
-        if (DEBUG) Log.v(TAG, "onBindViewHolder, position : $position")
         holder.bind(mItemList[position], position)
     }
 
@@ -53,13 +53,13 @@ class AddPeopleRecyclerViewAdapter(
     }
 
     fun setItem(member: Member) {
-        Log.v(TAG, "setItem(...) member : ${member}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) member : ${member}")
         this.mItemList.add(mItemList.size, member)
         notifyDataSetChanged()
     }
 
     fun setItemList(memberList: ArrayList<Member>) {
-        Log.v(TAG, "setItem(...) memberList count : ${memberList.size}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setItem(...) memberList count : ${memberList.size}")
         mItemList.clear()
         mItemList.addAll(memberList)
         notifyDataSetChanged()

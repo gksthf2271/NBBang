@@ -1,10 +1,10 @@
 package com.khs.nbbang.page.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 
 class SelectMemberViewModel() : BaseViewModel() {
     private val _selectedMemberHashMap: MutableLiveData<HashMap<String, Member>> = MutableLiveData()
@@ -23,7 +23,7 @@ class SelectMemberViewModel() : BaseViewModel() {
         _selectedMemberHashMap.value?.let {
             _selectedMemberHashMap.postValue(
                 it.apply {
-                    Log.v(TAG, "addSelectedMember : $member")
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "addSelectedMember : $member")
                     if (member.kakaoId.isNullOrEmpty()) {
                         this[member.name] = member
                     } else {
@@ -39,7 +39,7 @@ class SelectMemberViewModel() : BaseViewModel() {
             if (it.containsKey(member.kakaoId) || it.containsKey(member.name)) {
                 _selectedMemberHashMap.postValue(
                     it.apply {
-                        Log.v(TAG,"removeSelectedMember : $member")
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "removeSelectedMember : $member")
                         if (member.kakaoId.isNullOrEmpty()) {
                             this.remove(member.name)
                         } else {
@@ -51,7 +51,7 @@ class SelectMemberViewModel() : BaseViewModel() {
     }
 
     fun getSelectedMemberHashMap(): HashMap<String, Member> {
-        Log.v(TAG,"getSelectedMemberHashMap : ${_selectedMemberHashMap.value!!}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "getSelectedMemberHashMap : ${_selectedMemberHashMap.value!!}")
         return _selectedMemberHashMap.value!!
     }
 

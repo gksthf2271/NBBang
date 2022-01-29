@@ -1,7 +1,6 @@
 package com.khs.nbbang.kakaoFriends
 
 import android.content.Context
-import android.util.Log
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.network.RxAuthOperations
 import com.kakao.sdk.common.model.KakaoSdkError
@@ -11,16 +10,16 @@ import com.kakao.sdk.talk.rx
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.rx
 import com.khs.nbbang.user.KaKaoMember
+import com.khs.nbbang.utils.LogUtil
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 
 interface KakaoUserView {
     val compositeDisposable: CompositeDisposable
 
-    fun renderKakaoMembers(kakaoFirends: ArrayList<KaKaoMember>)
-    fun requestResult(resultCode : Int, result : Any?)
+    fun renderKakaoMembers(kakaoFirends: ArrayList<KaKaoMember>){}
+    fun requestResult(resultCode : Int, result : Any?){}
 
     fun handleLogin(context : Context, sub: Scheduler, ob: Scheduler) {
         // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
@@ -31,10 +30,10 @@ interface KakaoUserView {
             }
             .observeOn(ob)
             .subscribe({ token ->
-                Log.i("KakaoView", "로그인 성공 ${token.accessToken}")
+                LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"로그인 성공 ${token.accessToken}")
                 requestResult(ReturnType().RETURN_TYPE_LOGIN_SUCCESS, token)
             }, { error ->
-                Log.e("KakaoView", "로그인 실패", error)
+                LogUtil.eLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"로그인 실패 $error")
                 requestResult(ReturnType().RETURN_TYPE_LOGIN_FAILED, error)
             })
         // 카카오톡 로그인
@@ -46,10 +45,10 @@ interface KakaoUserView {
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe({
-                Log.i("KakaoView", "로그아웃 성공. SDK에서 토큰 삭제 됨")
+                LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"로그아웃 성공. SDK에서 토큰 삭제 됨")
                 requestResult(resultCode = ReturnType().RETURN_TYPE_LOGOUT_SUCCESS, result =  null)
             }, { error ->
-                Log.e("KakaoView", "로그아웃 실패. SDK에서 토큰 삭제 됨", error)
+                LogUtil.eLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"로그아웃 실패. SDK에서 토큰 삭제 됨 $error")
                 requestResult(ReturnType().RETURN_TYPE_NONE_FAILED, error)
             })
         compositeDisposable.add(d)
@@ -60,10 +59,10 @@ interface KakaoUserView {
             .subscribeOn(sub)
             .observeOn(ob)
             .subscribe({
-                Log.i("KakaoView", "연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"연결 끊기 성공. SDK에서 토큰 삭제 됨")
                 requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_SUCCESS, result = null)
             }, { error ->
-                Log.e("KakaoView", "연결 끊기 실패", error)
+                LogUtil.eLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"연결 끊기 실패 $error")
                 requestResult(ReturnType().RETURN_TYPE_NONE_FAILED, error)
             })
         compositeDisposable.add(d)
@@ -76,7 +75,7 @@ interface KakaoUserView {
             .subscribe({ myInfo ->
                 requestResult(resultCode = ReturnType().RETURN_TYPE_MY_INFO_SUCCESS, result = myInfo)
             }, { error ->
-                Log.e("KakaoView", "내 프로필 가지고 오기 실패", error)
+                LogUtil.eLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"내 프로필 가지고 오기 실패 $error")
                 requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_FAILED, result = error)
             })
         compositeDisposable.add(d)
@@ -88,13 +87,13 @@ interface KakaoUserView {
                 .subscribeOn(sub)
                 .observeOn(ob)
                 .subscribe({ profile ->
-                    Log.i("KakaoView", "카카오톡 프로필 가져오기 성공" +
+                    LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"카카오톡 프로필 가져오기 성공" +
                             "\n닉네임: ${profile.nickname}" +
                             "\n프로필사진: ${profile.thumbnailUrl}" +
                             "\n국가코드: ${profile.countryISO}")
                     requestResult(resultCode = ReturnType().RETURN_TYPE_PROFILE_SUCCESS, result = profile)
                 }, { error ->
-                    Log.e("KakaoView", "카카오톡 프로필 가져오기 실패", error)
+                    LogUtil.eLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"카카오톡 프로필 가져오기 실패 $error")
                     requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_FAILED, result = error)
                 })
         compositeDisposable.add(d)
@@ -125,11 +124,11 @@ interface KakaoUserView {
                 .subscribeOn(sub)
                 .observeOn(ob)
                 .subscribe({ friends ->
-                    Log.i("KakaoView", "카카오톡 친구 목록 가져오기 성공 \n${friends.joinToString("\n")}")
+                    LogUtil.iLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"카카오톡 친구 목록 가져오기 성공 \n${friends.joinToString("\n")}")
                     // 친구의 UUID 로 메시지 보내기 가능
                     renderKakaoMembers(ArrayList(friends))
                 }, { error ->
-                    Log.e("KakaoView", "카카오톡 친구 목록 가져오기 실패", error)
+                    LogUtil.eLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"카카오톡 친구 목록 가져오기 실패 $error")
                     requestResult(resultCode = ReturnType().RETURN_TYPE_NONE_FAILED, result = error)
                 })
         compositeDisposable.add(d)
@@ -141,16 +140,16 @@ interface KakaoUserView {
                 .subscribeOn(sub)
                 .observeOn(ob)
                 .subscribe({ tokenInfo ->
-                    Log.v("KakaoView","handleCheckHasToken, onSuccess :: tokenInfo : $tokenInfo ")
+                    LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"handleCheckHasToken, onSuccess :: tokenInfo : $tokenInfo ")
                     requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN_SUCCESS, tokenInfo)
                 }, { error ->
                     if (error != null) {
                         if (error is KakaoSdkError && error.isInvalidTokenError()) {
-                            Log.v("KakaoView","handleCheckHasToken error is SdkError")
+                            LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"handleCheckHasToken error is SdkError")
                             requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN_FAILED, error)
                         }
                         else {
-                            Log.v("KakaoView","handleCheckHasToken error is not SdkError")
+                            LogUtil.vLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName,"handleCheckHasToken error is not SdkError")
                             requestResult(ReturnType().RETURN_TYPE_CHECK_TOKEN_FAILED, error)
                         }
                     }

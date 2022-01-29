@@ -2,7 +2,6 @@ package com.khs.nbbang.search
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentSearchHomeBinding
+import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class SearchFragment : BaseFragment() {
@@ -52,7 +52,7 @@ class SearchFragment : BaseFragment() {
 
     private fun addObserver() {
         mKakaoViewModel.mSearchResult.observe(requireActivity(), Observer { searchResult ->
-            Log.i(TAG_CLASS,"search result -> $searchResult")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "search result -> $searchResult")
         })
     }
 

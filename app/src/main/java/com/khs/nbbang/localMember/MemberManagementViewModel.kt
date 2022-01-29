@@ -1,6 +1,5 @@
 package com.khs.nbbang.localMember
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
@@ -13,6 +12,7 @@ import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.DebugMemberList
+import com.khs.nbbang.utils.LogUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -55,7 +55,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     override fun renderLocalMembers(nbbangMemberresult: GetNBBangMemberResult) {
         val currentTime = System.currentTimeMillis()
-        Log.v(TAG,"renderMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
         val list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
         _memberList.postValue(list)
     }
@@ -63,7 +63,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
 
     override fun renderKakaoMembers(nbbangMemberresult: GetNBBangMemberResult) {
         val currentTime = System.currentTimeMillis()
-        Log.v(TAG,"renderKakaoMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderKakaoMembers(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
         val list = if (DEBUG) DebugMemberList.mDummyMemberList else nbbangMemberresult.nbbangMemberList
         _kakaoFriendList.postValue(list)
     }
@@ -108,7 +108,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     fun update(updateMember: Member) {
-        Log.v(TAG,"updateJoinPeople(...) beforeMember : ${mSelectMember.value}, afterMember : ${updateMember}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "updateJoinPeople(...) beforeMember : ${mSelectMember.value}, afterMember : ${updateMember}")
         updateLoadingFlag(true)
         handleUpdateMember(
             Schedulers.io(),
@@ -150,7 +150,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     }
 
     fun updateLoadingFlag(isShown : Boolean) {
-        Log.v(TAG,"updateLoadingFlag : $isShown")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "updateLoadingFlag : $isShown")
         _showLoadingView.value = isShown
     }
 

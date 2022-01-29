@@ -21,7 +21,6 @@ interface KakaoLocalView : SearchKeyword, GetKeywords, UpdateKeyword, DeleteKeyw
                 handleInsertKeywordHistory(context, keyword)
             }
             .onErrorComplete{
-                Log.e("TEST", it.message.toString())
                 return@onErrorComplete true
             }
             .observeOn(AndroidSchedulers.mainThread())

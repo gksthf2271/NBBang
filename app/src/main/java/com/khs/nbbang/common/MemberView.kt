@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,14 +17,15 @@ import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.ButtonCallBackListener
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.GlideUtils
-import kotlinx.android.synthetic.main.cview_title_edittext.view.*
+import com.khs.nbbang.utils.LogUtil
 import org.koin.core.component.KoinComponent
 
 class MemberView  @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr), KoinComponent {
 
-    val TAG = this.javaClass.simpleName
+    val TAG_CLASS = this.javaClass.simpleName
+    val LOG_TAG = LogUtil.TAG_UI
     var mBinding: CviewMemberBinding
     lateinit var gCurrentMember : Member
     var gCurrentImageUri = ""
@@ -46,7 +46,7 @@ class MemberView  @JvmOverloads constructor(
     }
 
     fun updateProfileImg(photos: ArrayList<Uri>) {
-        Log.v(TAG,"updateProfileImg(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "updateProfileImg(...)")
         GlideUtils().drawImageWithT(mBinding.imgProfile, photos.get(0), object : RequestListener<Drawable>{
             override fun onLoadFailed(
                 e: GlideException?,
@@ -54,7 +54,7 @@ class MemberView  @JvmOverloads constructor(
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                Log.v(TAG,"onLoadFailed, exception : $e")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "onLoadFailed, exception : $e")
                 return true
             }
 
@@ -65,7 +65,7 @@ class MemberView  @JvmOverloads constructor(
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                Log.v(TAG,"onResourceReady, resource : $resource")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "onResourceReady, resource : $resource")
                 gCurrentImageUri = photos.get(0).toString()
                 return false
             }
@@ -121,7 +121,7 @@ class MemberView  @JvmOverloads constructor(
             }
 
             imgProfile.setOnClickListener {
-                Log.v(TAG,"Clicked ImgProfile!")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "Clicked ImgProfile!")
                 callback.onClickedProfile(root)
             }
         }

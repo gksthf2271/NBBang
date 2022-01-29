@@ -1,16 +1,15 @@
 package com.khs.nbbang.utils
 
-import android.util.Log
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.user.Member
 
 class StringUtils {
-    val TAG = this.javaClass.simpleName
+    val TAG_CLASS = this.javaClass.simpleName
 
     fun getPeopleList(list : MutableList<Member>) : String{
         var peopleNameString = ""
         for(people in list) {
-            Log.v(TAG,"peopleName : ${people.name}")
+            LogUtil.vLog(null, TAG_CLASS, "peopleName : ${people.name}")
             peopleNameString += people.name
             if (people != list.lastOrNull()) {
                 peopleNameString += ", "

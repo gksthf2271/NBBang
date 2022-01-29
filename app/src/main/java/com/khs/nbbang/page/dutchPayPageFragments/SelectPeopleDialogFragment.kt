@@ -1,7 +1,6 @@
 package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.khs.nbbang.page.adapter.SelectPeopleRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG){
@@ -47,16 +47,15 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.v(TAG,"onViewCreated(...)")
         super.onViewCreated(view, savedInstanceState)
         mBinding.viewModel = mPageViewModel
         initView()
     }
 
     fun initView() {
-        Log.v(TAG,"initView(...), TAG : $tag")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "initView(...), TAG : $tag")
         mRecyclerViewAdapter = SelectPeopleRecyclerViewAdapter(requireContext(), arrayListOf()) { isSelected, member ->
-            Log.v(TAG,"update circleView! $isSelected")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "update circleView! $isSelected")
             when(isSelected) {
                 true -> {
                     mSelectMemberViewModel.addSelectedMember(member)
@@ -101,7 +100,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
             })
 
             it.mSelectedPeopleMap.observe(requireActivity(), Observer { nbbHashMap ->
-                Log.v(TAG,"observer(...)")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "observer(...)")
                 if (isAdded) {
                     nbbHashMap ?: return@Observer
                     tag ?: return@Observer
@@ -117,7 +116,7 @@ class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PE
             })
 
             mSelectMemberViewModel.gSelectedMemberHashMap.observe(requireActivity(), Observer { memberHashMap ->
-                Log.v(TAG,"selectedList : $memberHashMap")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "selectedList : $memberHashMap")
             })
         }
     }

@@ -3,7 +3,6 @@ package com.khs.nbbang.utils
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -15,7 +14,7 @@ import com.khs.nbbang.user.Member
 import lv.chi.photopicker.loader.ImageLoader
 
 class GlideUtils {
-    val TAG = this.javaClass.simpleName
+    val TAG_CLASS = this.javaClass.simpleName
     fun drawImageWithString(targetView : ImageView?, strRes: String?, listener : RequestListener<Drawable>?) {
         targetView ?: return
         drawImageWithT(targetView, strRes, listener)
@@ -23,7 +22,7 @@ class GlideUtils {
 
     fun <T> drawImageWithT(targetView : ImageView?, res: T?, listener : RequestListener<Drawable>?) {
         targetView ?: return
-        Log.v(TAG,"drawImageWithT res : $res")
+        LogUtil.vLog(null, TAG_CLASS, "drawImageWithT res : $res")
 
         Glide.with(targetView.context)
             .load(res ?: R.drawable.icon_user)
@@ -38,7 +37,7 @@ class GlideUtils {
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.v(TAG,"onLoadFailed, exception : $e")
+                    LogUtil.eLog(null, TAG_CLASS, "onLoadFailed, exception : $e")
                     return true
                 }
 
@@ -49,7 +48,7 @@ class GlideUtils {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.v(TAG,"onResourceReady, resource : ${resource}")
+                    LogUtil.vLog(null, TAG_CLASS, "onResourceReady, resource : ${resource}")
                     return false
                 }
             })
@@ -59,22 +58,22 @@ class GlideUtils {
     fun drawMemberProfile(targetView: ImageView, member : Member, listener: RequestListener<Drawable>?) {
         when {
             !member.profileImage.isNullOrEmpty() -> {
-                Log.v(TAG,"draw Member ProfileImage")
+                LogUtil.vLog(null, TAG_CLASS, "draw Member ProfileImage")
                 drawImageWithString(targetView, member.profileImage, listener)
                 return
             }
             !member.profileUri.isNullOrEmpty() -> {
-                Log.v(TAG,"draw Member ProfileUrl")
+                LogUtil.vLog(null, TAG_CLASS, "draw Member ProfileUrl")
                 drawImageWithT(targetView, Uri.parse(member.profileUri), listener)
                 return
             }
             !member.thumbnailImage.isNullOrEmpty() -> {
-                Log.v(TAG,"draw Member thumbnailImage")
+                LogUtil.vLog(null, TAG_CLASS, "draw Member thumbnailImage")
                 drawImageWithT(targetView, Uri.parse(member.thumbnailImage), listener)
                 return
             }
             else -> {
-                Log.e(TAG,"Profile draw issue!, 프로필 이미지 확인 필요! profileImage : ${member.profileImage}, profileUrl : ${member.profileUri}.")
+                LogUtil.eLog(null, TAG_CLASS, "Profile draw issue!, 프로필 이미지 확인 필요! profileImage : ${member.profileImage}, profileUrl : ${member.profileUri}.")
                 drawImageWithT(targetView, null, listener)
                 return
             }

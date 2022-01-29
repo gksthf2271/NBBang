@@ -2,7 +2,6 @@ package com.khs.nbbang.kakaoFriends
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.khs.nbbang.localMember.GroupManagementFragment
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
+import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -34,7 +34,7 @@ class KakaoFriendsFragment : BaseFragment() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.v(TAG_CLASS,"keyCode: $keyCode , event : ${event}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "keyCode: $keyCode , event : ${event}")
         return false
     }
 
@@ -47,7 +47,7 @@ class KakaoFriendsFragment : BaseFragment() {
 
     private fun addObserver() {
         gLoginViewModel.gIsLogin.observe(requireActivity(), Observer {
-            Log.v(TAG_CLASS,"isLogin : $it")
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "isLogin : $it")
         })
     }
 
@@ -87,7 +87,7 @@ class KakaoFriendsFragment : BaseFragment() {
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 }

@@ -2,7 +2,6 @@ package com.khs.nbbang.history.itemView
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -41,7 +41,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
     }
 
     override fun makeCustomLoadingView(): Dialog? {
-        Log.v(TAG_CLASS,"makeCustomLoadingView(...)")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "makeCustomLoadingView(...)")
         return null
     }
 
@@ -61,7 +61,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         mBinding.customPieChart.mBinding.pieChart.setOnChartValueSelectedListener(object :
             OnChartValueSelectedListener {
             override fun onNothingSelected() {
-                Log.v(TAG_CLASS,"onNothingSelected(...)")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "onNothingSelected(...)")
                 loadTotalData(totalPrice, allPlaceSet, mHistoryItem.dutchPay)
             }
 

@@ -8,9 +8,11 @@ import androidx.fragment.app.DialogFragment
 import com.khs.nbbang.R
 import com.khs.nbbang.common.IKeyEvent
 import com.khs.nbbang.utils.DisplayUtils
+import com.khs.nbbang.utils.LogUtil
 
 open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragment(), IKeyEvent {
-    val TAG = this.javaClass.simpleName
+    val TAG_CLASS = this.javaClass.simpleName
+    val LOG_TAG = LogUtil.TAG_UI
     enum class DIALOG_TYPE {
         TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
         TYPE_HISTORY_CHECKER,
