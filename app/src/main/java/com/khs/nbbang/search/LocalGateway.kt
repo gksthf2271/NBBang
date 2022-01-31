@@ -9,7 +9,7 @@ interface LocalGateway {
     fun search(keywords: String) : Observable<LocalSearchModel>
 
     //Local
-    fun getCount(keyword: String) : Single<GetSearchResult>
+    fun getKeyword(keyword: String) : Single<GetSearchResult>
     fun getAllSearchKeywords() : Single<GetSearchAllResult>
     fun insert(keyword: String): Single<Long>
     fun delete(keyword: String)

@@ -70,6 +70,10 @@ class KakaoLocalViewModel(
         handleSearchKeyword(context, keyword)
     }
 
+    fun showSearchHistory(context: Context) {
+        handleGetKeywordHistory(context)
+    }
+
     override fun onCleared() {
         super.onCleared()
         handleDestroy()

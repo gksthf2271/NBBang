@@ -12,18 +12,19 @@ interface LocalGatewayImpl : LocalGateway, NBBKakaoAPIProvider, NBBangDaoProvide
 
     //Local
     override fun getAllSearchKeywords(): Single<GetSearchAllResult> =
-        mNBBKeywordsDao.getKeywords().map {
-            GetSearchAllResult(it.map { NBBSearchKeywordDataModel ->
+        mNBBKeywordsDao.getKeywords().map { keywords ->
+            GetSearchAllResult(keywords.map { NBBSearchKeywordDataModel ->
                 GetSearchResult(
                     KakaoSearchKeyword(
-                    id = NBBSearchKeywordDataModel.id ?: 0,
-                    keyword = NBBSearchKeywordDataModel.keyword,
-                    searchCount = NBBSearchKeywordDataModel.searchCount ?: 0)
+                        id = NBBSearchKeywordDataModel.id ?: 0,
+                        keyword = NBBSearchKeywordDataModel.keyword,
+                        searchCount = NBBSearchKeywordDataModel.searchCount ?: 0
+                    )
                 )
-            })
+            }.sortedByDescending { it.kakaoSearchKeyword.searchCount })
         }
 
-    override fun getCount(keyword: String): Single<GetSearchResult> =
+    override fun getKeyword(keyword: String): Single<GetSearchResult> =
         mNBBKeywordsDao.getKeywordCount(keyword).map {
             GetSearchResult(KakaoSearchKeyword(
                 id = it.id ?: 0,

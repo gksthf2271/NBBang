@@ -1,9 +1,12 @@
 package com.khs.nbbang.search
 
 import android.content.Context
-import android.util.Log
+import androidx.room.rxjava3.EmptyResultSetException
 import com.khs.nbbang.search.response.LocalSearchModel
+import com.khs.nbbang.utils.LogUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.SingleSource
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -52,15 +55,31 @@ interface KakaoLocalView : SearchKeyword, GetKeywords, UpdateKeyword, DeleteKeyw
     }
 
     fun handleInsertKeywordHistory(context: Context, keyword: String, isRefreshUI: Boolean = true) {
-        val d = insert(keyword)
-            .subscribeOn((Schedulers.io()))
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { r ->
-                if (isRefreshUI) {
-                    handleGetKeywordHistory(context)
+        val checkDisposable = getKeyword(keyword)
+            .subscribeOn(Schedulers.io())
+            .onErrorResumeNext { t ->
+                LogUtil.eLog(LogUtil.TAG_CONTROL_CONTAINER, this.javaClass.simpleName, "insert Error : $t")
+                if (t is EmptyResultSetException) {
+                    return@onErrorResumeNext SingleSource {
+                        val insertDisposable = insert(keyword)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe { r ->
+                                if (isRefreshUI) {
+                                    handleGetKeywordHistory(context)
+                                }
+                            }
+                        compositeDisposable.add(insertDisposable)
+                    }
+                } else {
+                    return@onErrorResumeNext Single.error(t)
                 }
             }
-        compositeDisposable.add(d)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {  r ->
+                handleUpdateKeywordHistory(context, r)
+            }
+        compositeDisposable.add(checkDisposable)
     }
 
     fun handleDestroy() {

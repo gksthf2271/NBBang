@@ -9,7 +9,7 @@ interface SearchKeyword : LocalGateway {
 }
 
 interface GetKeywords : LocalGateway {
-    fun getKeywordCount(keyword: String): Single<GetSearchResult> = getCount(keyword)
+    fun getKeywordHistory(keyword: String): Single<GetSearchResult> = getKeyword(keyword)
     fun getKeywords(): Single<GetSearchAllResult> = getAllSearchKeywords()
 }
 
