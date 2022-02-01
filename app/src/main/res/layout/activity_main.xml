@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="pageViewModel"
             type="com.khs.nbbang.page.viewModel.PageViewModel" />
@@ -12,40 +14,42 @@
             type="com.khs.nbbang.login.LoginViewModel" />
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@color/common_background"
-        tools:openDrawer="start">
+        android:fitsSystemWindows="true">
 
-
-        <RelativeLayout
-            android:id="@+id/layout_content"
-            android:background="@color/ui_background_color"
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                android:id="@+id/content_view"
-                layout="@layout/content_main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
-
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            android:background="@color/empty_background"
-            app:itemBackground="@color/empty_background"
-            app:itemTextColor="@drawable/selector_menu_title"
-            app:itemIconTint="@drawable/selector_menu_title"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer" />
-    </androidx.drawerlayout.widget.DrawerLayout>
+            tools:openDrawer="start">
+
+
+            <RelativeLayout
+                android:id="@+id/layout_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/content_view"
+                    layout="@layout/content_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/nav_view"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/common_background"
+                app:headerLayout="@layout/nav_header_main"
+                app:itemBackground="@color/empty_background"
+                app:itemIconTint="@drawable/selector_menu_title"
+                app:itemTextColor="@drawable/selector_menu_title"
+                app:menu="@menu/activity_main_drawer" />
+        </androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

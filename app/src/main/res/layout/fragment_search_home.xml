@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.khs.nbbang.search.KakaoLocalViewModel" />
@@ -12,12 +11,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/cv_search"
-            layout="@layout/cview_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_search_result"
@@ -34,6 +27,12 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+        <include
+            android:id="@+id/cv_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/cview_search"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

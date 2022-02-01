@@ -3,33 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="50dp"
     android:focusable="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/group_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:duplicateParentState="true"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintHeight_percent="0.9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_history_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/icon_history"
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txt_history_title"
+            app:layout_constraintWidth_percent="0.1"/>
 
         <TextView
             android:id="@+id/txt_history_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:textColor="@color/search_title_color"
             android:textSize="12sp"
+            android:paddingStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/img_remove"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_history_icon"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.85"
+            app:layout_constraintWidth_percent="0.75"
             tools:text="월곡 양꼬치" />
 
         <ImageView
@@ -39,9 +53,22 @@
             android:src="@drawable/ic_close"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txt_history_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.15" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/button_color_shadow"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/group_info"
+        app:layout_constraintHeight_percent="0.01" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

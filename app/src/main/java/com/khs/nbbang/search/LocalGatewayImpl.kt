@@ -3,6 +3,8 @@ package com.khs.nbbang.search
 import com.khs.nbbang.history.db_interface.NBBangDaoProvider
 import com.khs.nbbang.history.room.NBBSearchKeywordDataModel
 import com.khs.nbbang.search.response.LocalSearchModel
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
@@ -21,7 +23,10 @@ interface LocalGatewayImpl : LocalGateway, NBBKakaoAPIProvider, NBBangDaoProvide
                         searchCount = NBBSearchKeywordDataModel.searchCount ?: 0
                     )
                 )
-            }.sortedByDescending { it.kakaoSearchKeyword.searchCount })
+            }.sortedByDescending { it.kakaoSearchKeyword.searchCount }
+                .apply {
+                    if(this.size > 9) subList(0,9)
+                })
         }
 
     override fun getKeyword(keyword: String): Single<GetSearchResult> =
@@ -42,13 +47,10 @@ interface LocalGatewayImpl : LocalGateway, NBBKakaoAPIProvider, NBBangDaoProvide
     )
 
 
-    override fun delete(keyword: String) {
-        mNBBKeywordsDao.delete(keyword = keyword)
-    }
+    override fun delete(keyword: String) : Completable = mNBBKeywordsDao.delete(keyword = keyword)
 
-    override fun deleteAll() {
-        mNBBKeywordsDao.deleteAll()
-    }
+
+    override fun deleteAll() : Completable = mNBBKeywordsDao.deleteAll()
 
     override fun update(keyword: String, searchCount: Int): Single<Int> = mNBBKeywordsDao.update(keyword, searchCount)
 }

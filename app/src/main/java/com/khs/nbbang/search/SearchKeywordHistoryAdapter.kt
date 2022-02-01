@@ -1,6 +1,7 @@
 package com.khs.nbbang.search
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.databinding.CviewSearchHistoryItemBinding
@@ -36,6 +37,11 @@ class SearchKeywordHistoryAdapter(
 
         fun bind(item: GetSearchResult) {
             with(binding) {
+                if(absoluteAdapterPosition == mSearchResultList.size - 1) {
+                    divider.visibility = View.GONE
+                } else {
+                    divider.visibility = View.VISIBLE
+                }
                 txtHistoryTitle.apply {
                     text = item.kakaoSearchKeyword.keyword
                     setOnClickListener {

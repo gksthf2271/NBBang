@@ -26,12 +26,4 @@ class SearchLocalActivity : BaseActivity() {
             supportFragmentManager
         )
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }

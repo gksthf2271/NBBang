@@ -21,20 +21,23 @@
 
         <activity
             android:name=".LoadingActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
             <nav-graph android:value="@navigation/nav_main_graph" />
         </activity>
 
-        <activity android:name=".search.SearchLocalActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".search.SearchLocalActivity"
+            android:windowSoftInputMode="adjustResize" />
 
         <!--Redirection for KAKAO -->
         <activity

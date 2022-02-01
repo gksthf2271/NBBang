@@ -54,4 +54,6 @@
     <color name="logo_background_color">#0F0F0F</color>
 
     <color name="ui_background_color">#252525</color>
+
+    <color name="search_history_backgrond">#000000</color>
 </resources>

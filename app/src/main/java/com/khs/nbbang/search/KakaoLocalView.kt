@@ -82,6 +82,30 @@ interface KakaoLocalView : SearchKeyword, GetKeywords, UpdateKeyword, DeleteKeyw
         compositeDisposable.add(checkDisposable)
     }
 
+    fun handleRemoveKeywordHistory(context: Context, keyword: String, isRefreshUI: Boolean = true) {
+        val d = delete(keyword)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if(isRefreshUI) {
+                    handleGetKeywordHistory(context)
+                }
+            }
+        compositeDisposable.add(d)
+    }
+
+    fun handleRemoveAllKeywordHistory(context: Context, isRefreshUI: Boolean = true) {
+        val d = deleteAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if(isRefreshUI) {
+                    handleGetKeywordHistory(context)
+                }
+            }
+        compositeDisposable.add(d)
+    }
+
     fun handleDestroy() {
         compositeDisposable.dispose()
     }

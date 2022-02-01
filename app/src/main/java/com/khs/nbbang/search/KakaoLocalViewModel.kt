@@ -65,6 +65,18 @@ class KakaoLocalViewModel(
         _searchHistory.postValue(searchResult)
     }
 
+    fun checkKeywordHistoryNotEmpty() : Boolean {
+        return _searchHistory.value != null && !(_searchHistory.value as GetSearchAllResult).list.isNullOrEmpty()
+    }
+
+    fun removeKeywordHistory(context: Context, keyword: String, isRefreshUI : Boolean = true) {
+        handleRemoveKeywordHistory(context, keyword, isRefreshUI)
+    }
+
+    fun removeAllKeywordHistory(context: Context, isRefreshUI : Boolean = true) {
+        handleRemoveAllKeywordHistory(context, isRefreshUI = isRefreshUI)
+    }
+
     fun searchKeyword(context: Context, keyword: String?) {
         if (keyword.isNullOrEmpty()) return
         handleSearchKeyword(context, keyword)
