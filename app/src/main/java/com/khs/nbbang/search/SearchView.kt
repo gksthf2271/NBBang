@@ -127,7 +127,7 @@ class SearchView @JvmOverloads constructor(
         }
     }
 
-    fun hideKeywordHistoryView() {
+    private fun hideKeywordHistoryView() {
         mBinding.apply{
             if(groupKeywordHistory.isVisible) {
                 LogUtil.dLog(LOG_TAG, TAG_CLASS, "hideKeywordHistoryView(...)")

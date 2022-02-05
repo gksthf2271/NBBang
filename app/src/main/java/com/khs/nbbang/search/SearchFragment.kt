@@ -60,6 +60,11 @@ class SearchFragment : BaseFragment() {
         mKakaoViewModel.apply {
             mSearchResult.observe(requireActivity(), Observer { searchResult ->
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "search result -> $searchResult")
+                if (searchResult.documents.isNullOrEmpty()) {
+                    showEmptyView()
+                } else {
+                    hideEmptyView()
+                }
                 mBinding.recyclerSearchResult.adapter =
                     SearchResultRecyclerViewAdapter(ArrayList(searchResult.documents)) { nbbHisory ->
                         LogUtil.vLog(LOG_TAG, TAG_CLASS, "Clicked Item : ${nbbHisory.id}")
@@ -70,6 +75,18 @@ class SearchFragment : BaseFragment() {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "SearchHistory : ${searchHistory.list}")
                 mBinding.cvSearch.setupSearchHistoryList(searchHistory)
             })
+        }
+    }
+
+    private fun showEmptyView() {
+        mBinding.apply {
+            emptyView.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideEmptyView() {
+        mBinding.apply {
+            emptyView.visibility = View.GONE
         }
     }
 

@@ -21,6 +21,17 @@
             app:layout_constraintBottom_toTopOf="@id/recycler_recommend_place"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="80dp"
+            android:focusable="false"
+            android:visibility="gone"
+            android:background="@drawable/app_icon"
+            app:layout_constraintBottom_toTopOf="@id/recycler_recommend_place"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_recommend_place"
             android:layout_width="match_parent"
