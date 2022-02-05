@@ -25,7 +25,7 @@ interface LocalGatewayImpl : LocalGateway, NBBKakaoAPIProvider, NBBangDaoProvide
                 )
             }.sortedByDescending { it.kakaoSearchKeyword.searchCount }
                 .apply {
-                    if(this.size > 9) subList(0,9)
+                    if(this.size > 5) subList(0,5)
                 })
         }
 

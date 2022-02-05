@@ -28,11 +28,10 @@
             android:focusable="false"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-        <include
+        <com.khs.nbbang.search.SearchView
             android:id="@+id/cv_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/cview_search"/>
+            android:layout_height="match_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
