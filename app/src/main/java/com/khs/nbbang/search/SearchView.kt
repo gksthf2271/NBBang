@@ -36,41 +36,22 @@ class SearchView @JvmOverloads constructor(
     fun initView(activity: FragmentActivity, viewModel: KakaoLocalViewModel) {
         mKakaoViewModel = viewModel
         mBinding.apply {
-            imgSearchIcon.setOnClickListener {
-                mKakaoViewModel.searchKeyword(context, editSearch.text.toString())
-            }
             groupKeywordHistory.setBackgroundColor(context.getColor(R.color.search_history_backgrond))
             editSearch.apply {
-                setOnEditorActionListener { v, actionId, event ->
-                    return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        if (v.hasFocus()) {
-                            v.clearFocus()
-                        }
-                        true
-                    } else {
-                        false
-                    }
-                }
-                setOnKeyListener { v, keyCode, event ->
-                    if (event.action == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_SEARCH)) {
+                setOnEditorActionListener { view, actionId, keyEvent ->
+                    LogUtil.dLog(LOG_TAG, TAG_CLASS, "OnEditorActionListener(...) keyEvent : ${keyEvent}")
+                    if (view.hasFocus() && actionId == EditorInfo.IME_ACTION_SEARCH) {
                         hideKeywordHistoryView()
-                        val searchText = (v as EditText).text.toString()
+                        val searchText = (view as EditText).text.toString()
                         if (searchText.isNullOrEmpty()) {
                             Toast.makeText(context, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
-                            return@setOnKeyListener false
+                            return@setOnEditorActionListener false
                         }
                         mKakaoViewModel.searchKeyword(context, searchText)
-                        return@setOnKeyListener true
-                    } else if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-                        if (isShownKeywordHistoryView()) {
-                            hideKeywordHistoryView()
-                            return@setOnKeyListener true
-                        } else {
-                            return@setOnKeyListener false
-                        }
-                    } else {
-                        return@setOnKeyListener false
+                        view.clearFocus()
+                        return@setOnEditorActionListener true
                     }
+                    return@setOnEditorActionListener false
                 }
                 mKeyboardVisibilityUtils = KeyboardVisibilityUtils(activity.window,
                     onShowKeyboard = { keyboardHeight ->
