@@ -6,21 +6,12 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.textfield.TextInputEditText
-import com.khs.nbbang.R
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentSearchHomeBinding
-import com.khs.nbbang.utils.KeyboardUtils
-import com.khs.nbbang.utils.KeyboardVisibilityUtils
+import com.khs.nbbang.search.map.KakaoMapDialogFragment
 import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -51,7 +42,7 @@ class SearchFragment : BaseFragment() {
                 setHasFixedSize(true)
                 addItemDecoration(HistoryItemDecoration(20))
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = SearchResultRecyclerViewAdapter(arrayListOf()){}
+                adapter = SearchResultRecyclerViewAdapter(arrayListOf()) { _, _ -> }
             }
         }
     }
@@ -66,8 +57,15 @@ class SearchFragment : BaseFragment() {
                     hideEmptyView()
                 }
                 mBinding.recyclerSearchResult.adapter =
-                    SearchResultRecyclerViewAdapter(ArrayList(searchResult.documents)) { nbbHisory ->
-                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "Clicked Item : ${nbbHisory.id}")
+                    SearchResultRecyclerViewAdapter(ArrayList(searchResult.documents)) { showMap, nbbHisory ->
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showMap : ${showMap}, Clicked Item : ${nbbHisory.id}")
+                        if (showMap) {
+                            var kakaoMap = KakaoMapDialogFragment(nbbHisory)
+                            if (kakaoMap.isAdded) kakaoMap.dismiss()
+                            kakaoMap.show(requireActivity().supportFragmentManager, null)
+                        } else {
+
+                        }
                     }
             })
 

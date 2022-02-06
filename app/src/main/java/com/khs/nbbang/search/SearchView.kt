@@ -36,6 +36,9 @@ class SearchView @JvmOverloads constructor(
     fun initView(activity: FragmentActivity, viewModel: KakaoLocalViewModel) {
         mKakaoViewModel = viewModel
         mBinding.apply {
+            imgSearchIcon.setOnClickListener {
+                mKakaoViewModel.searchKeyword(context, editSearch.text.toString())
+            }
             groupKeywordHistory.setBackgroundColor(context.getColor(R.color.search_history_backgrond))
             editSearch.apply {
                 setOnEditorActionListener { v, actionId, event ->
@@ -56,7 +59,7 @@ class SearchView @JvmOverloads constructor(
                             Toast.makeText(context, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
                             return@setOnKeyListener false
                         }
-                        viewModel.searchKeyword(context, searchText)
+                        mKakaoViewModel.searchKeyword(context, searchText)
                         return@setOnKeyListener true
                     } else if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
                         if (isShownKeywordHistoryView()) {
@@ -78,7 +81,7 @@ class SearchView @JvmOverloads constructor(
                     })
 
                 txtRemoveAll.setOnClickListener {
-                    viewModel.removeAllKeywordHistory(context)
+                    mKakaoViewModel.removeAllKeywordHistory(context)
                 }
             }
             imgClose.setOnClickListener {

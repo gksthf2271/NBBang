@@ -48,14 +48,12 @@ get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
 
 /**
  * TODO : 출시 전 해야될 것들
- *  1. 갤러리 연동하여, 프로필 설정 할 수 있는 기능 추가                                                    ---> 완료
- *  2. 카카오 친구목록 UI 구현                                                                        ---> 작업중(카카오 API 값과, SelectMemberView 동기화 해야됨)
- *  3. ddPeopleFragment AddMemberView 출력 시 하단 FavoriteMember 보이고, 선택하여 추가 할 수 있는 기능 구현 ---> 완료
- *  4. UI 정리(테마 변경)                                                                            ---> 점진적 작업중
- *  5. AddPlaceFragment UI 일관성 유지되도록 수정 FloatingButton에 MotionView                           ---> 완료, 중복소스 존재
- *  6. AddPlaceRecyclerViewAdapter 에서 motionLayout 처리 간 이슈 발생                                 ---> 완료
- *  7. 카카오 로그인 lifecycler 확립 및 적용                                                            ---> 완료
- *  Group관리 기능은 2.0에 구현
+ *  1. 검색어 결과 물에 대한 Map 연동
+ *  2. 장소 입력시 검색 기능 연동
+ *  3. 입력된 장소 db 저장 및 추천 시슴템 도입
+ *  4. 카카오 친구 추가 관련 가이드 UI 구현
+ *  5. 성능 개선
+ *  6. 사진 선택 라이브러리 제거 후 직접 구현
  * **/
 
 

@@ -12,6 +12,12 @@ android {
             keyAlias 'nbb'
             keyPassword 'kimgks32'
         }
+        debug {
+            storeFile file('/Users/kimhs/Desktop/Project/Release/NBB/nbb_key')
+            storePassword 'kimgks32'
+            keyAlias 'nbb'
+            keyPassword 'kimgks32'
+        }
     }
     compileSdkVersion 31
     buildToolsVersion "29.0.3"
@@ -38,6 +44,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 

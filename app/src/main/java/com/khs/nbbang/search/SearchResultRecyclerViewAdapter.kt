@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.databinding.CviewSearchResultItemBinding
 import com.khs.nbbang.search.response.DocumnetModel
 
-class SearchResultRecyclerViewAdapter (private val mSearchResultList: ArrayList<DocumnetModel>, val gItemClick: (DocumnetModel) -> Unit) :
+class SearchResultRecyclerViewAdapter (private val mSearchResultList: ArrayList<DocumnetModel>, val gItemClick: (Boolean, DocumnetModel) -> Unit) :
     RecyclerView.Adapter<SearchResultRecyclerViewAdapter.ViewHolder>() {
     private val TAG_CLASS: String = javaClass.simpleName
 
@@ -28,7 +28,7 @@ class SearchResultRecyclerViewAdapter (private val mSearchResultList: ArrayList<
 
     inner class ViewHolder(
         val binding: CviewSearchResultItemBinding,
-        val itemClick: (DocumnetModel) -> Unit
+        val itemClick: (Boolean, DocumnetModel) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         val TAG: String = javaClass.simpleName
@@ -52,11 +52,11 @@ class SearchResultRecyclerViewAdapter (private val mSearchResultList: ArrayList<
                 txtResultPhoneNumber.text = item.phone
 
                 groupInfo.setOnClickListener {
-                    itemClick(item)
+                    itemClick(false, item)
                 }
 
                 imgGoMap.setOnClickListener {
-
+                    itemClick(true, item)
                 }
             }
         }

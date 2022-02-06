@@ -9,8 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-    <meta-data android:name="com.kakao.sdk.AppKey" android:value="1ba03cee909ded713fcf50d73b1d2ce9"/>
-
     <application
         android:name=".NBApp"
         android:allowBackup="true"
@@ -20,8 +18,9 @@
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:requestLegacyExternalStorage="true">
-        <!-- TODO External Storage 권한 이슈 있음 -->
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config">
 
         <activity
             android:name=".LoadingActivity"
@@ -60,6 +59,8 @@
             </intent-filter>
 
         </activity>
+
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="1ba03cee909ded713fcf50d73b1d2ce9"/>
 
     </application>
 
