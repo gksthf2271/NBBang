@@ -3,7 +3,6 @@ package com.khs.nbbang.search
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import com.khs.nbbang.databinding.CviewSearchResultItemBinding
 import com.khs.nbbang.search.response.DocumnetModel

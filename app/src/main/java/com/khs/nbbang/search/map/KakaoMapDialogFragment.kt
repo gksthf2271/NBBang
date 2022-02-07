@@ -12,7 +12,10 @@ import com.khs.nbbang.base.BaseDialogFragment
 import com.khs.nbbang.databinding.FragmentMapBinding
 import com.khs.nbbang.search.response.DocumnetModel
 import com.khs.nbbang.utils.LogUtil
-import net.daum.mf.map.api.*
+import net.daum.mf.map.api.CameraUpdateFactory
+import net.daum.mf.map.api.MapPOIItem
+import net.daum.mf.map.api.MapPoint
+import net.daum.mf.map.api.MapView
 
 
 class KakaoMapDialogFragment(private val mPlaceData: DocumnetModel) : BaseDialogFragment(DIALOG_TYPE.TYPE_MAP){
