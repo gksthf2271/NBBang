@@ -74,4 +74,10 @@
         android:label="KAKAO Friends"
         tools:layout="@layout/fragment_kakao_friends" />
 
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.khs.nbbang.search.SearchLocalActivity"
+        android:label="Search"
+        tools:layout="@layout/activity_search"/>
+
 </navigation>
