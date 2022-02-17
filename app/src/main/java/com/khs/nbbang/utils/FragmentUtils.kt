@@ -23,7 +23,7 @@ open class FragmentUtils{
         } else {
             fragmentTransaction.replace(container_id, fragment, className)
         }
-        fragmentTransaction.commit()
+        fragmentTransaction.commitAllowingStateLoss()
     }
 
     open fun currentFragment(fragmentManager: FragmentManager, container_id: Int): Fragment? {

@@ -35,7 +35,6 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
-            <nav-graph android:value="@navigation/nav_main_graph" />
         </activity>
 
         <activity

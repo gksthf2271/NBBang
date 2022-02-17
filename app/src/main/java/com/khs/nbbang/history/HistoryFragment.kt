@@ -1,6 +1,7 @@
 package com.khs.nbbang.history
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -77,6 +78,12 @@ class HistoryFragment : BaseFragment(){
             })
             historyViewModel.mHistory.observe(requireActivity(), Observer {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "updated mHistory : $it")
+                try{
+                    requireActivity()
+                } catch (e : IllegalStateException) {
+                    historyViewModel.updateLoadingFlag(false)
+                    return@Observer
+                }
 
                 mBinding.historyRecyclerView.adapter = HistoryRecyclerViewAdapter(
                     requireActivity().supportFragmentManager,

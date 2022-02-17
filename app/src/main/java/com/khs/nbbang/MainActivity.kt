@@ -20,6 +20,7 @@ import com.khs.nbbang.page.DutchPayMainFragment
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.user.Member
+import com.khs.nbbang.utils.FragmentUtils
 import com.khs.nbbang.utils.LogUtil
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -38,31 +39,23 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private val TAG_MY_PAGE = "my_page"
     private val TAG_NONE = "none"
     private var CURRENT_TAG = TAG_DUTCH_PAY
-    private var OLD_TAG = TAG_NONE
-    var mNavItemIndex = 0
-
-    private lateinit var mNavHostFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.pageViewModel = mPageViewModel
         mBinding.loginViewModel = mLoginViewModel
+
+        mLoginViewModel.checkKakaoLoginBySdk(this)
+
         initNaviView()
 
         if (savedInstanceState == null) {
             gotoHome()
         }
-
-        mLoginViewModel.let { loginViewModel ->
-            loginViewModel.checkKakaoLoginBySdk(this)
-        }
     }
 
     private fun initNaviView() {
-        mNavHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
         mBinding.navBottomView.setOnNavigationItemSelectedListener(this)
         addListenerAndObserver()
     }
@@ -139,11 +132,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_dutch_pay -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment , DutchPayMainFragment()).commitAllowingStateLoss()
+                FragmentUtils().loadFragment(DutchPayMainFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
             R.id.nav_history -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, HistoryFragment()).commitAllowingStateLoss()
+                FragmentUtils().loadFragment(HistoryFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
             R.id.nav_search -> {
@@ -151,11 +144,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.nav_kakao_friends_settings -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, GroupManagementFragment()).commitAllowingStateLoss()
+                FragmentUtils().loadFragment(GroupManagementFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
             R.id.nav_my_page -> {
-                supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, MyPageFragment()).commitAllowingStateLoss()
+                FragmentUtils().loadFragment(MyPageFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
         }
