@@ -34,7 +34,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintHeight_percent="0.1"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/activity_main_drawer"
+            app:itemIconSize="30dp"
             app:itemBackground="@color/empty_background"
             app:itemIconTint="@drawable/selector_menu_title"
             app:itemTextColor="@drawable/selector_menu_title" />
