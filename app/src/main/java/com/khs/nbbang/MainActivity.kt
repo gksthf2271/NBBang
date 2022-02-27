@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
@@ -17,6 +16,7 @@ import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.mypage.MyPageFragment
 import com.khs.nbbang.page.DutchPayMainFragment
+import com.khs.nbbang.page.dutchPayPageFragments.PeopleCountFragment
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.user.Member
@@ -30,15 +30,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private val mPageViewModel by viewModel<PageViewModel>()
     private val mLoginViewModel by viewModel<LoginViewModel>()
     private val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
-
-    private val TAG_LOGIN = "login"
-    private val TAG_DUTCH_PAY = "dutchPay"
-    private val TAG_HISTORY = "history"
-    private val TAG_MEMBER_SETTINGS = "member_settings"
-    private val TAG_KAKAO_FRIENDS_SETTINGS = "kakao_friends_settings"
-    private val TAG_MY_PAGE = "my_page"
-    private val TAG_NONE = "none"
-    private var CURRENT_TAG = TAG_DUTCH_PAY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,22 +94,20 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "keyCode: $keyCode , event : $event")
-        val currentFragment = supportFragmentManager.fragments[0]?.let {
-            it.childFragmentManager.fragments[0]
+        val currentFragmentIdx = supportFragmentManager.fragments.size - 1
+        val currentFragment = supportFragmentManager.fragments[currentFragmentIdx]?.let {
+            it
         }
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "fragment: $currentFragment")
         val fragment = currentFragment as? BaseFragment
         if (fragment != null && fragment.onKeyDown(keyCode, event))
             return true
         else {
             when (keyCode) {
                 KeyEvent.KEYCODE_BACK -> {
-                    if (CURRENT_TAG == TAG_DUTCH_PAY) {
-                        if (gFinishToast != null) {
-                            setResult(RESULT_FINISH)
-                            finish()
-                        } else {
-                            gFinishToast.show()
-                        }
+                    if (currentFragment is DutchPayMainFragment) {
+                        setResult(RESULT_FINISH)
+                        finish()
                     } else {
                         gotoHome()
                     }
@@ -132,11 +121,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_dutch_pay -> {
-                FragmentUtils().loadFragment(DutchPayMainFragment(), R.id.nav_host_fragment, supportFragmentManager)
+                FragmentUtils().loadFragment(DutchPayMainFragment(), R.id.nav_host_fragment, supportFragmentManager, true)
                 return true
             }
             R.id.nav_history -> {
-                FragmentUtils().loadFragment(HistoryFragment(), R.id.nav_host_fragment, supportFragmentManager)
+                FragmentUtils().loadFragment(HistoryFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
                 return true
             }
             R.id.nav_search -> {
@@ -144,11 +133,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.nav_kakao_friends_settings -> {
-                FragmentUtils().loadFragment(GroupManagementFragment(), R.id.nav_host_fragment, supportFragmentManager)
+                FragmentUtils().loadFragment(GroupManagementFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
                 return true
             }
             R.id.nav_my_page -> {
-                FragmentUtils().loadFragment(MyPageFragment(), R.id.nav_host_fragment, supportFragmentManager)
+                FragmentUtils().loadFragment(MyPageFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
                 return true
             }
         }

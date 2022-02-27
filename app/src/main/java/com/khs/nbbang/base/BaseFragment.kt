@@ -70,7 +70,7 @@ open abstract class BaseFragment :Fragment(), IKeyEvent{
     protected fun showLoadingView() {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "showLoadingView(...)")
         (gLoadingView as? LoadingDialog)?.let {
-            if (!it.isShowing)
+            if (!it.isShowing && isAdded && requireActivity().isActivityTransitionRunning)
                 it.show()
         }
     }

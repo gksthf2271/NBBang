@@ -1,10 +1,8 @@
 package com.khs.nbbang.utils
 
 import androidx.fragment.app.*
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
-import com.khs.nbbang.base.BaseFragment
 
 open class FragmentUtils{
 
@@ -14,12 +12,12 @@ open class FragmentUtils{
         loadFragment(fragment, container_id, fragmentManager, false)
     }
 
-    open fun loadFragment(fragment: Fragment, container_id:Int, fragmentManager: FragmentManager, isAdded: Boolean) {
+    open fun loadFragment(fragment: Fragment, container_id:Int, fragmentManager: FragmentManager, isSavedBackStack: Boolean) {
         val className: String = fragment.javaClass.simpleName
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        if (isAdded) {
+        if (isSavedBackStack) {
+            fragmentTransaction.replace(container_id, fragment, className)
             fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.add(container_id, fragment, className)
         } else {
             fragmentTransaction.replace(container_id, fragment, className)
         }

@@ -22,6 +22,7 @@
             android:id="@+id/nav_host_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/ui_background_color"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/nav_bottom_view"
             app:layout_constraintLeft_toLeftOf="parent"

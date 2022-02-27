@@ -81,11 +81,11 @@ class DutchPayMainFragment : BaseFragment(){
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        when(keyCode) {
-            KeyEvent.KEYCODE_BACK -> {
-                if(mPageViewList.get(mBinding.viewPager.currentItem).onKeyDown(keyCode, event)) return true
-            }
-        }
+//        when(keyCode) {
+//            KeyEvent.KEYCODE_BACK -> {
+//                if(mPageViewList[mBinding.viewPager.currentItem].onKeyDown(keyCode, event)) return true
+//            }
+//        }
         return false
     }
 
