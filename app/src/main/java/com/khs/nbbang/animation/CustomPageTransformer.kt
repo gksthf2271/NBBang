@@ -1,10 +1,20 @@
 package com.khs.nbbang.animation
 
+import android.animation.ArgbEvaluator
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
+import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 
 
-class ZoomOutPageTransformer : ViewPager2.PageTransformer {
+class CustomPageTransformer(private val mViewPager: ViewPager2, private val mTargetView: View? = null, private val isAccessEvent: Boolean = false) : ViewPager2.PageTransformer, ViewPager2.OnPageChangeCallback() {
+    private val argbEvaluator: ArgbEvaluator
+    private var color: Int = -1
+
+    init {
+        mViewPager.registerOnPageChangeCallback(this)
+        argbEvaluator = ArgbEvaluator()
+    }
+
     private val MIN_SCALE = 0.85f
     private val MIN_ALPHA = 0.5f
 
@@ -42,5 +52,23 @@ class ZoomOutPageTransformer : ViewPager2.PageTransformer {
                 }
             }
         }
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        mTargetView ?: return
+        color = argbEvaluator.evaluate(
+            positionOffset,
+            (mViewPager.adapter as CustomViewPagerAdapter).getFragmentPointColor(position),
+            (mViewPager.adapter as CustomViewPagerAdapter).getFragmentPointColor(position + 1)
+        ) as Int
+        mTargetView.setBackgroundColor(color)
+    }
+
+    override fun onPageSelected(position: Int) {
+
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+
     }
 }

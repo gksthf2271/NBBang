@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
-import com.khs.nbbang.animation.ZoomOutPageTransformer
+import com.khs.nbbang.animation.CustomPageTransformer
 import com.khs.nbbang.databinding.CviewHistoryListItemBinding
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.itemView.HistoryGroupFirstFragment
@@ -45,7 +45,7 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
                             mutableListOf(HistoryGroupFirstFragment(item), HistoryGroupSecondFragment(item))
                         )
                     currentItem = 0
-                    setPageTransformer(ZoomOutPageTransformer())
+                    setPageTransformer(CustomPageTransformer(viewPager))
                     viewIndicator.setViewPager2(this)
                 }
             }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.khs.nbbang.animation.ZoomOutPageTransformer
+import com.khs.nbbang.animation.CustomPageTransformer
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentKakaoFriendsBinding
 import com.khs.nbbang.localMember.GroupManagementFragment
@@ -66,7 +66,7 @@ class KakaoFriendsFragment : BaseFragment() {
             )
 
             if (defaultPageViewList.size > 1) {
-                mBinding.viewPager.setPageTransformer(ZoomOutPageTransformer())
+                mBinding.viewPager.setPageTransformer(CustomPageTransformer(this))
                 mBinding.viewIndicator.setViewPager2(mBinding.viewPager)
                 mBinding.viewIndicator.visibility = View.VISIBLE
             } else {

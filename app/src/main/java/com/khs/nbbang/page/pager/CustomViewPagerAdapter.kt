@@ -1,5 +1,6 @@
 package com.khs.nbbang.page.pager
 
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -23,5 +24,16 @@ class CustomViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "createFragment(...) fragment : ${mFragmentList[position]}")
         return mFragmentList[position]
+    }
+
+    fun getFragmentPointColor(position: Int) : Int {
+        return when(position) {
+            1 -> {
+                Color.parseColor("#80000000")
+            }
+            else -> {
+                Color.parseColor("#00000000")
+            }
+        }
     }
 }
