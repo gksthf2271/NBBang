@@ -11,6 +11,7 @@ import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.history.HistoryFragment
+import com.khs.nbbang.kakaoFriends.KakaoFriendsFragment
 import com.khs.nbbang.localMember.GroupManagementFragment
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
@@ -133,7 +134,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.nav_kakao_friends_settings -> {
-                FragmentUtils().loadFragment(GroupManagementFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
+                FragmentUtils().loadFragment(KakaoFriendsFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
                 return true
             }
             R.id.nav_my_page -> {
