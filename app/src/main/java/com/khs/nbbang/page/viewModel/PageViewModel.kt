@@ -64,6 +64,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
             _placeCount.postValue(0)
             _selectJoinPeople.postValue(Member())
             _selectPlace.postValue(0)
+
             mDutchPayMap = mutableMapOf()
             _NBBResultItem.postValue(NBBResultItem())
         }
@@ -247,15 +248,10 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
 
     fun resultNBB() : String {
         var result = ""
-        var peopleMap = mutableMapOf<String, Member>()
         result += "\t\t 전체 계산서 "
         clearNBBResultItem()
 
         for (key in _selectedPeopleMap.value!!.keys) {
-            /**
-             * TODO
-             * 결과 페이지 예외처리 필요
-             */
             val peoplelist = _selectedPeopleMap.value!!.get(key)!!.mMemberList
             var priceInt = 0
             try {
@@ -307,6 +303,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
         }
 
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "$result")
+        _NBBResultItem.postValue(_NBBResultItem.value)
         return result
     }
 
@@ -332,12 +329,10 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
 
     fun clearDutchPayMap() {
         mDutchPayMap.clear()
-        _NBBResultItem.value?.let {
-            NBBResultItem(arrayListOf(), arrayListOf())
-        }
+        _NBBResultItem.postValue(NBBResultItem(arrayListOf(), arrayListOf()))
     }
 
-    fun clearNBBResultItem() {
+    private fun clearNBBResultItem() {
         _NBBResultItem.value?.place?.clear()
         _NBBResultItem.value?.dutchPay?.clear()
     }

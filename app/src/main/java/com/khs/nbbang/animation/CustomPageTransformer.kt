@@ -4,9 +4,10 @@ import android.animation.ArgbEvaluator
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
+import com.khs.nbbang.utils.LogUtil
 
 
-class CustomPageTransformer(private val mViewPager: ViewPager2, private val mTargetView: View? = null, private val isAccessEvent: Boolean = false) : ViewPager2.PageTransformer, ViewPager2.OnPageChangeCallback() {
+class CustomPageTransformer(private val mViewPager: ViewPager2, private val mTargetView: View? = null) : ViewPager2.PageTransformer, ViewPager2.OnPageChangeCallback() {
     private val argbEvaluator: ArgbEvaluator
     private var color: Int = -1
 
@@ -59,8 +60,7 @@ class CustomPageTransformer(private val mViewPager: ViewPager2, private val mTar
         color = argbEvaluator.evaluate(
             positionOffset,
             (mViewPager.adapter as CustomViewPagerAdapter).getFragmentPointColor(position),
-            (mViewPager.adapter as CustomViewPagerAdapter).getFragmentPointColor(position + 1)
-        ) as Int
+            (mViewPager.adapter as CustomViewPagerAdapter).getFragmentPointColor(position + 1)) as Int
         mTargetView.setBackgroundColor(color)
     }
 

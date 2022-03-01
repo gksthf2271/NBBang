@@ -2,11 +2,11 @@ package com.khs.nbbang.page.dutchPayPageFragments
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.animation.HistoryItemDecoration
@@ -17,10 +17,7 @@ import com.khs.nbbang.page.adapter.ResultRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class ResultPageFragment : BaseFragment() {
@@ -42,6 +39,7 @@ class ResultPageFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mBinding.viewModel = mViewModel
         initView()
+        addObserver()
     }
 
     fun initView() {
@@ -51,43 +49,45 @@ class ResultPageFragment : BaseFragment() {
                 showHistoryCheckerDialog()
             }
         }
+        mBinding.recyclerViewResult.apply {
+            setHasFixedSize(true)
+            addItemDecoration(HistoryItemDecoration(2))
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        requestDutchPay()
+    }
+
+    fun requestDutchPay() {
         mBinding.viewModel?.let { pageViewModel ->
             CoroutineScope(Dispatchers.IO).launch {
-                pageViewModel.clearDutchPayMap()
-                withContext(Dispatchers.Main) {
-                    updateList()
-                }
                 pageViewModel.resultNBB()
                 if (pageViewModel.gIsSavedResult) pageViewModel.gIsSavedResult = false
             }
         }
     }
 
-    private fun updateList() {
+    private fun addObserver() {
         mBinding.viewModel?.let { pageViewModel ->
-            pageViewModel.gNBBResultItem.observe(requireActivity(), Observer {
-                LogUtil.vLog(LOG_TAG, TAG_CLASS, "observer(...)")
+            pageViewModel.gNBBResultItem.observe(requireActivity(), Observer { nbbResult ->
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "gNBBResultItem > observer(...)")
                 mBinding.recyclerViewResult.apply {
-                    setHasFixedSize(true)
-                    addItemDecoration(HistoryItemDecoration(2))
-                    layoutManager = LinearLayoutManager(context)
-                    adapter = ResultRecyclerViewAdapter(it.place) {
-                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onClicked(...), item : $it")
+                    adapter = ResultRecyclerViewAdapter(nbbResult.place) {
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "onClicked > item : $it")
                         val dialog = PlaceBottomItemView(it)
                         dialog.show(requireActivity().supportFragmentManager, null)
                     }
 
                     var totalPrice = 0
-                    for (item in it.place) {
-                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "price : ${item.price}")
+                    for (item in nbbResult.place) {
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "gNBBResultItem > price : ${item.price}")
                         totalPrice += item.price
                     }
 
-                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "totalPrice : $totalPrice")
+                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "gNBBResultItem > totalPrice : $totalPrice")
                     mBinding.txtPrice.text = NumberUtils().makeCommaNumber(true, totalPrice)
                 }
             })
