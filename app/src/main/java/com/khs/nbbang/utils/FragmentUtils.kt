@@ -33,3 +33,7 @@ open class FragmentUtils{
     }
 
 }
+
+fun FragmentManager.clearBackStack() {
+    popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+}

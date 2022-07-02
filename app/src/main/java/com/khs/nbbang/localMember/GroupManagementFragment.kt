@@ -60,7 +60,6 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
                             showMemberView()
                         }
                 }
-                addObserver()
             }
 
             memberManagementViewModel.showFavoriteMemberListByType(MemberType.TYPE_FREE_USER)

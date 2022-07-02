@@ -23,6 +23,7 @@ import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.FragmentUtils
 import com.khs.nbbang.utils.LogUtil
+import com.khs.nbbang.utils.clearBackStack
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -111,6 +112,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         finish()
                     } else {
                         gotoHome()
+                        supportFragmentManager.clearBackStack()
                     }
                     return true
                 }
