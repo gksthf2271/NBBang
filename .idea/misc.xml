@@ -10,19 +10,24 @@
         <entry key="app/src/main/res/drawable/layout_common_rounded_deep_black.xml" value="0.1925925925925926" />
         <entry key="app/src/main/res/drawable/selector_menu_title.xml" value="0.1925925925925926" />
         <entry key="app/src/main/res/drawable/twotone_history_24.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/twotone_payments_24.xml" value="0.2111111111111111" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2553053339259835" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.14814814814814814" />
+        <entry key="app/src/main/res/layout/cview_add_member.xml" value="0.24230072463768115" />
+        <entry key="app/src/main/res/layout/cview_date_picker.xml" value="0.19174265450861194" />
         <entry key="app/src/main/res/layout/cview_edit_people.xml" value="0.19224924012158054" />
         <entry key="app/src/main/res/layout/cview_favorite_row.xml" value="0.19224924012158054" />
         <entry key="app/src/main/res/layout/cview_favorite_row_item.xml" value="0.11820652173913043" />
         <entry key="app/src/main/res/layout/cview_history_bottom_dialog.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/cview_member.xml" value="0.24230072463768115" />
         <entry key="app/src/main/res/layout/cview_recommend_place.xml" value="0.1" />
         <entry key="app/src/main/res/layout/cview_search.xml" value="0.23309520081538657" />
         <entry key="app/src/main/res/layout/cview_search_history_item.xml" value="0.23006134969325154" />
         <entry key="app/src/main/res/layout/cview_search_rec_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/cview_search_recommend_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/cview_search_result_item.xml" value="0.18769230769230769" />
+        <entry key="app/src/main/res/layout/cview_select_month.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/cview_text_people.xml" value="0.10030395136778116" />
         <entry key="app/src/main/res/layout/fragment_add_friends_by_kakao.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_people.xml" value="0.1" />
@@ -31,9 +36,12 @@
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.10925925925925926" />
         <entry key="app/src/main/res/layout/fragment_history_second_group.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_menu.xml" value="0.1259259259259259" />
+        <entry key="app/src/main/res/layout/fragment_kakao_friends.xml" value="0.19224924012158054" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_people_count.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_result_page.xml" value="0.19224924012158054" />
         <entry key="app/src/main/res/layout/fragment_search_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_select_people.xml" value="0.19224924012158054" />
         <entry key="app/src/main/res/layout/item_search_result.xml" value="0.335" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_nbb_round.xml" value="0.10925925925925926" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1" />

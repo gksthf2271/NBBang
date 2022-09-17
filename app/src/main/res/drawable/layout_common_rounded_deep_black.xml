@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="30dip" />
     <stroke
-        android:width="1dip"
-        android:color="@color/blank_deep" />
+        android:width="2dip"
+        android:color="@color/app_point_color" />
     <solid android:color="@color/blank_deep" />
     <padding
         android:bottom="0dip"

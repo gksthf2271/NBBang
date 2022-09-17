@@ -21,8 +21,8 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     private val _db : MutableLiveData<AppDatabase> = MutableLiveData()
     val mDB : LiveData<AppDatabase> get() = _db
 
-    private val _selectMonth : MutableLiveData<Int> = MutableLiveData()
-    val mSelectMonth : LiveData<Int> get() = _selectMonth
+    private val _selectDate : MutableLiveData<Pair<Int,Int>> = MutableLiveData()
+    val mSelectDate : LiveData<Pair<Int,Int>> get() = _selectDate
 
     private val _history : MutableLiveData<GetNBBangHistoryResult> = MutableLiveData()
     val mHistory : LiveData<GetNBBangHistoryResult> get() = _history
@@ -33,7 +33,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     init {
         _showLoadingView.value = false
         _db.value = mDatabase
-        _selectMonth.value = DateUtils().currentMonth()
+        _selectDate.value = Pair(first = DateUtils.currentYear(), second = DateUtils.currentMonth())
     }
 
     override val compositeDisposable: CompositeDisposable
@@ -54,17 +54,21 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         get() = _db.value!!.nbbSearchKeywordDao()
 
     fun setCurrentMonthHistory() {
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setCurrentMonthHistory : ${DateUtils().currentMonth()}")
-        _selectMonth.postValue(DateUtils().currentMonth())
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "setCurrentMonthHistory : ${DateUtils.currentMonth()}")
+        _selectDate.value = Pair(first =  DateUtils.currentYear(), second = DateUtils.currentMonth())
     }
 
-    fun showHistoryByMonth(month: Int) {
+    fun setSelectYearAndMonth(year: Int, month: Int) {
+        _selectDate.value = Pair(first = year, second = month)
+    }
+
+    fun showHistoryByMonth(year: Int? = null, month: Int) {
         updateLoadingFlag(true)
         handleShowHistoryByMonth(
             Schedulers.io(),
             AndroidSchedulers.mainThread(),
-            DateUtils().getTimeMsByMonth(month),
-            DateUtils().getTimeMsByMonth(month+1) - 1
+            DateUtils.getTimeMsByMonth(year, month),
+            DateUtils.getTimeMsByMonth(year, month + 1) - 1
         )
     }
 
@@ -77,17 +81,19 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
     }
 
     fun increaseMonth() {
-        val month = _selectMonth.value?.plus(1) ?: return
+        val year = _selectDate.value?.first ?: return
+        val month = _selectDate.value?.second?.plus(1) ?: return
         if (month > 12) return
-        _selectMonth.postValue(month)
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "increaseMonth(...) : ${_selectMonth.value}")
+        _selectDate.postValue(Pair(first = year, second = month))
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "increaseMonth(...) : ${_selectDate.value?.second}")
     }
 
     fun decreaseMonth() {
-        val month = _selectMonth.value?.minus(1) ?: return
+        val year = _selectDate.value?.first ?: return
+        val month = _selectDate.value?.second?.minus(1) ?: return
         if (month< 1) return
-        _selectMonth.postValue(month)
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "decreaseMonth(...) : ${_selectMonth.value}")
+        _selectDate.postValue(Pair(first = year, second = month))
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "decreaseMonth(...) : ${_selectDate.value?.second}")
     }
 
     fun updateLoadingFlag(isShown : Boolean) {
@@ -97,6 +103,9 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
 
     override fun onCleared() {
         super.onCleared()
-        handleDestroy()
+        _db.value = null
+        _selectDate.value = null
+        _history.value = null
+        _showLoadingView.value = null
     }
 }

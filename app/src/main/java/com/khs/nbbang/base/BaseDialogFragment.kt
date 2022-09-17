@@ -10,7 +10,7 @@ import com.khs.nbbang.common.IKeyEvent
 import com.khs.nbbang.utils.DisplayUtils
 import com.khs.nbbang.utils.LogUtil
 
-open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragment(), IKeyEvent {
+abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragment(), IKeyEvent {
     val TAG_CLASS = this.javaClass.simpleName
     val LOG_TAG = LogUtil.TAG_UI
 
@@ -24,6 +24,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
         TYPE_ADD_KAKAO_FIRENDS,
         TYPE_SHARE_RESULT,
         TYPE_HISTORY_BOTTOM_VIEW,
+        TYPE_DATE_PICKER,
         TYPE_MAP,
         NONE
     }
@@ -32,6 +33,7 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
         super.onResume()
         when (gDialogType) {
             DIALOG_TYPE.NONE,
+            DIALOG_TYPE.TYPE_DATE_PICKER,
             DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS,
             DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
             DIALOG_TYPE.TYPE_SHARE_RESULT,
@@ -83,6 +85,12 @@ open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFr
             DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW -> {
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.4).toInt()
+                dialog?.window?.setGravity(Gravity.BOTTOM)
+                dialog?.window?.setWindowAnimations(R.style.AnimationPopupStyle)
+            }
+            DIALOG_TYPE.TYPE_DATE_PICKER -> {
+                params?.width = (deviceWidth * 0.8).toInt()
+                params?.height = (deviceeHeight * 0.3).toInt()
                 dialog?.window?.setGravity(Gravity.BOTTOM)
                 dialog?.window?.setWindowAnimations(R.style.AnimationPopupStyle)
             }

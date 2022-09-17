@@ -55,13 +55,13 @@ class KakaoLocalViewModel(
 
     override fun renderSearchKeywords(searchResult: LocalSearchModel) {
         val currentTime = System.currentTimeMillis()
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderSearchKeywords(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderSearchKeywords(...) startTime : ${DateUtils.getDateByMillis(currentTime)}")
         _searchResult.postValue(searchResult)
     }
 
     override fun renderKeywordsHistory(searchResult: GetSearchAllResult) {
         val currentTime = System.currentTimeMillis()
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderKeywordsHistory(...) startTime : ${DateUtils().getDateByMillis(currentTime)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderKeywordsHistory(...) startTime : ${DateUtils.getDateByMillis(currentTime)}")
         _searchHistory.postValue(searchResult)
     }
 
