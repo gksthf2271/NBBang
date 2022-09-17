@@ -13,6 +13,10 @@ import com.khs.nbbang.utils.LogUtil
 open abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragment(), IKeyEvent {
     val TAG_CLASS = this.javaClass.simpleName
     val LOG_TAG = LogUtil.TAG_UI
+
+    val RESULT_SEARCH_FINISH = 1001
+    var RESULT_MSG = "MSG"
+
     enum class DIALOG_TYPE {
         TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
         TYPE_HISTORY_CHECKER,

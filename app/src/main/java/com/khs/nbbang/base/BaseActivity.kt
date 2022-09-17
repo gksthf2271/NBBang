@@ -3,6 +3,7 @@ package com.khs.nbbang.base
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,7 +16,11 @@ open class BaseActivity : AppCompatActivity() {
     open val LOG_TAG = LogUtil.TAG_UI
     val DEBUG = true
     val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
+
     val RESULT_FINISH = 1000
+    val RESULT_SEARCH_FINISH = 1001
+
+    var RESULT_MSG = "MSG"
     var gIsRunningActivity : Boolean = false
 
     inline fun <reified I : Activity> launch(resultLauncher: ActivityResultLauncher<Intent>) {
@@ -26,10 +31,13 @@ open class BaseActivity : AppCompatActivity() {
         resultLauncher.launch(intent)
     }
 
-    val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             when(result.resultCode){
                 RESULT_FINISH -> finish()
+                RESULT_SEARCH_FINISH -> {
+                    val msg = result.data?.getStringExtra(RESULT_MSG) ?: "잠시후 다시 이용해주세요."
+                    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

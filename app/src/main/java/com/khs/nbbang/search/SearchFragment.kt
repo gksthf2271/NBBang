@@ -60,7 +60,7 @@ class SearchFragment : BaseFragment() {
                     SearchResultRecyclerViewAdapter(ArrayList(searchResult.documents)) { showMap, nbbHisory ->
                         LogUtil.vLog(LOG_TAG, TAG_CLASS, "showMap : ${showMap}, Clicked Item : ${nbbHisory.id}")
                         if (showMap) {
-                            var kakaoMap = KakaoMapDialogFragment(nbbHisory)
+                            val kakaoMap = KakaoMapDialogFragment(nbbHisory)
                             if (kakaoMap.isAdded) kakaoMap.dismiss()
                             kakaoMap.show(requireActivity().supportFragmentManager, null)
                         } else {

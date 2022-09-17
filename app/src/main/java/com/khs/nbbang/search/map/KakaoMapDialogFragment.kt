@@ -1,5 +1,6 @@
 package com.khs.nbbang.search.map
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -66,15 +67,23 @@ class KakaoMapDialogFragment(private val mPlaceData: DocumnetModel) : BaseDialog
 
     private fun createMapView() {
         LogUtil.iLog(LOG_TAG, TAG_CLASS, "createMapView(...)")
-        mMapView = MapView(requireActivity()).apply {
-            setMapViewEventListener {
-                LogUtil.iLog(LOG_TAG, TAG_CLASS, "onMapViewInitialized(...)")
-                createMarker()
-                show()
+        try {
+            mMapView = MapView(requireActivity()).apply {
+                setMapViewEventListener {
+                    LogUtil.iLog(LOG_TAG, TAG_CLASS, "onMapViewInitialized(...)")
+                    createMarker()
+                    show()
+                }
+                mapType = MapView.MapType.Standard
             }
-            mapType = MapView.MapType.Standard
+            mBinding.containerMap.addView(mMapView)
+        } catch (e: UnsatisfiedLinkError) {
+            LogUtil.eLog(LOG_TAG, TAG_CLASS, "failed Kakao Maps Loading! > $e")
+            requireActivity().setResult(RESULT_SEARCH_FINISH, Intent().apply {
+                putExtra(RESULT_MSG,"잠시후 다시 이용해주세요.")
+            })
+            requireActivity().finish()
         }
-        mBinding.containerMap.addView(mMapView)
     }
 
     private fun createMarker() {
