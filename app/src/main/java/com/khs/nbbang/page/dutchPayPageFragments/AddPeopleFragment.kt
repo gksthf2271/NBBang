@@ -41,10 +41,6 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         mAddPeopleContentsBinding.viewModel = mPageViewModel
         initView()
-    }
-
-    override fun onResume() {
-        super.onResume()
         addObserver()
     }
 
@@ -59,9 +55,7 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
     }
 
     override fun delete() {
-        mPageViewModel.let{
-            it.deleteJoinPeople(mPageViewModel.mSelectJoinPeople.value ?: return)
-        }
+        mPageViewModel.deleteJoinPeople(mPageViewModel.mSelectJoinPeople.value ?: return)
     }
 
     override fun update(member: Member) {
@@ -138,7 +132,6 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 rowFavoriteMember.setTitle("LOCAL MEMBER")
                 groupFavorite.visibility = View.VISIBLE
                 rowFavoriteMember.initView(mPageViewModel, it)
-                rowFavoriteMember.setControlScrolling()
 //                rowFavoriteMember.setList(it)
             }
         })
@@ -155,7 +148,6 @@ class AddPeopleFragment : FloatingButtonBaseFragment() {
                 rowFavoriteGroup.setTitle("KAKAO MEMBER")
                 groupFavorite.visibility = View.VISIBLE
                 rowFavoriteGroup.initView(mPageViewModel, it)
-                rowFavoriteGroup.setControlScrolling()
 //                rowFavoriteGroup.setList(it)
             }
         })

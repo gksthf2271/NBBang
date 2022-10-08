@@ -36,10 +36,6 @@ class GroupManagementFragment : FloatingButtonBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mFragmentGroupManagementBinding.viewModel = mViewModel
-    }
-
-    override fun onStart() {
-        super.onStart()
         initView()
         addObserver()
     }

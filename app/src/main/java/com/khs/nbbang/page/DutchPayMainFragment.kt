@@ -37,7 +37,7 @@ class DutchPayMainFragment : BaseFragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentDutchpayHomeBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -93,8 +93,6 @@ class DutchPayMainFragment : BaseFragment(){
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mBinding.viewModel?.let {
-            it.clearPageViewModel()
-        }
+        mBinding.viewModel?.clearPageViewModel()
     }
 }

@@ -19,8 +19,7 @@ import com.khs.nbbang.utils.StringUtils
 import com.khs.nbbang.utils.setTransitionListener
 import lv.chi.photopicker.PhotoPickerFragment
 
-abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListener,
-    PhotoPickerFragment.Callback {
+abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListener, PhotoPickerFragment.Callback {
     lateinit var mBinding: FragmentFloatingBtnBaseBinding
     var mItemTouchInterceptor = RecyclerViewTouchEvent()
     var mCurrentTransitionId = 0

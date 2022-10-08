@@ -8,14 +8,11 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.khs.nbbang.R
 import com.khs.nbbang.databinding.CviewFavoriteRowBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.LogUtil
-import com.khs.nbbang.utils.ScrollUtils
-import java.util.*
 
 class FavoriteRowView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -58,10 +55,6 @@ class FavoriteRowView @JvmOverloads constructor(
         }
 
         mBinding.recyclerView.adapter= mRecyclerViewAdapter
-    }
-
-    fun setControlScrolling() {
-        ScrollUtils.controlHorizontalScrollingInViewPager2(mBinding.recyclerView, rootView.findViewById(R.id.view_pager))
     }
 
     fun setTitle(title: String) {
