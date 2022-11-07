@@ -13,11 +13,5 @@ class EditPlaceView @JvmOverloads constructor(
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.cview_edit_place, this)
-        initView()
     }
-
-    fun initView() {
-
-    }
-
 }

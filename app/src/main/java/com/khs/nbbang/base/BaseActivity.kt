@@ -17,10 +17,12 @@ open class BaseActivity : AppCompatActivity() {
     val DEBUG = true
     val KEY_LOGIN_TYPE = "KEY_LOGIN_TYPE"
 
-    val RESULT_FINISH = 1000
-    val RESULT_SEARCH_FINISH = 1001
+    companion object  {
+        val RESULT_FINISH = 1000
+        val RESULT_SEARCH_FINISH = 1001
+        val RESULT_MSG = "MSG"
+    }
 
-    var RESULT_MSG = "MSG"
     var gIsRunningActivity : Boolean = false
 
     inline fun <reified I : Activity> launch(resultLauncher: ActivityResultLauncher<Intent>) {

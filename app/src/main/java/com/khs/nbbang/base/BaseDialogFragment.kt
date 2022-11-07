@@ -26,24 +26,15 @@ abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragmen
         TYPE_HISTORY_BOTTOM_VIEW,
         TYPE_DATE_PICKER,
         TYPE_MAP,
+        TYPE_SEARCH_MODE,
+        TYPE_SEARCH,
         NONE
     }
 
     override fun onResume() {
         super.onResume()
-        when (gDialogType) {
-            DIALOG_TYPE.NONE,
-            DIALOG_TYPE.TYPE_DATE_PICKER,
-            DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS,
-            DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG,
-            DIALOG_TYPE.TYPE_SHARE_RESULT,
-            DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW,
-            DIALOG_TYPE.TYPE_HISTORY_CHECKER,
-            DIALOG_TYPE.TYPE_MAP-> {
-                resizeDialog(gDialogType)
-                setBackgroundColorDialog()
-            }
-        }
+        resizeDialog(gDialogType)
+        setBackgroundColorDialog()
     }
 
     private fun setBackgroundColorDialog() {
@@ -72,6 +63,7 @@ abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragmen
                 dialog?.window?.setGravity(Gravity.BOTTOM)
                 dialog?.window?.setWindowAnimations(R.style.AnimationPopupStyle)
             }
+            DIALOG_TYPE.TYPE_SEARCH,
             DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.75).toInt()
@@ -80,6 +72,7 @@ abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragmen
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.90).toInt()
             }
+            DIALOG_TYPE.TYPE_SEARCH_MODE,
             DIALOG_TYPE.TYPE_MAP,
             DIALOG_TYPE.TYPE_SHARE_RESULT,
             DIALOG_TYPE.TYPE_HISTORY_BOTTOM_VIEW -> {
