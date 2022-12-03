@@ -23,7 +23,7 @@ class SearchLocalActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        FragmentUtils().loadFragment(
+        FragmentUtils.loadFragment(
             SearchFragment(),
             mBinding.fragmentContainer.id,
             supportFragmentManager

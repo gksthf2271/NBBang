@@ -11,20 +11,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
+import com.khs.nbbang.MainActivity
 import com.khs.nbbang.R
+import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
+import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.utils.KeyboardVisibilityUtils
 import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
-import kotlinx.android.synthetic.main.fragment_add_place.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddPlaceFragment : BaseFragment() {
@@ -114,13 +119,16 @@ class AddPlaceFragment : BaseFragment() {
             }
             this.tag = placeIndex
             this.txt_index.text = "$placeIndex 차"
-            this.edit_title.addTextChangedListener(
-                getTextWatcher(
-                    edit_title,
-                    TYPE_EDIT_PLACE_NAME,
-                    this.tag as Int
-                )
-            )
+            this.edit_title.setOnClickListener {
+                showSearchUI()
+            }
+//            this.edit_title.addTextChangedListener(
+//                getTextWatcher(
+//                    edit_title,
+//                    TYPE_EDIT_PLACE_NAME,
+//                    this.tag as Int
+//                )
+//            )
             this.edit_price.addTextChangedListener(
                 getTextWatcher(
                     edit_price,
@@ -148,6 +156,22 @@ class AddPlaceFragment : BaseFragment() {
             })
         }
         return infoView
+    }
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        when(result.resultCode){
+            BaseActivity.RESULT_FINISH -> {
+
+            }
+            BaseActivity.RESULT_SEARCH_FINISH -> {
+                val msg = result.data?.getStringExtra(BaseActivity.RESULT_MSG) ?: "잠시후 다시 이용해주세요."
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showSearchUI() {
+        (requireActivity() as MainActivity).launch<SearchLocalActivity>(startForResult)
     }
 
     private fun showAddedPeopleView(view: ConstraintLayout, nbb: NBB) {

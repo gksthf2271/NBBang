@@ -124,11 +124,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_dutch_pay -> {
-                FragmentUtils().loadFragment(DutchPayMainFragment(), R.id.nav_host_fragment, supportFragmentManager, true)
+                FragmentUtils.loadFragment(DutchPayMainFragment(), R.id.nav_host_fragment, supportFragmentManager, true)
                 return true
             }
             R.id.nav_history -> {
-                FragmentUtils().loadFragment(HistoryFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
+                FragmentUtils.loadFragment(HistoryFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
                 return true
             }
             R.id.nav_search -> {
@@ -136,11 +136,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.nav_kakao_friends_settings -> {
-                FragmentUtils().loadFragment(KakaoFriendsFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
+                FragmentUtils.loadFragment(KakaoFriendsFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
                 return true
             }
             R.id.nav_my_page -> {
-                FragmentUtils().loadFragment(MyPageFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
+                FragmentUtils.loadFragment(MyPageFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
                 return true
             }
         }

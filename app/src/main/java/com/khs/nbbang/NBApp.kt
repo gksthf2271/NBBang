@@ -57,7 +57,7 @@ get - 바로 주입, 해당 코드 실행시간에 바로 객체를 주입
  * **/
 
 
-open class NBApp : Application(){
+class NBApp : Application(){
     private val TAG_CLASS = this.javaClass.simpleName
     private val LOG_TAG = LogUtil.TAG_UI
 

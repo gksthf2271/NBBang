@@ -1,13 +1,10 @@
 package com.khs.nbbang.history.db_interface
 
-import android.net.Uri
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
-import com.khs.nbbang.history.room.NBBMemberDataModel
 import com.khs.nbbang.user.Member
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 

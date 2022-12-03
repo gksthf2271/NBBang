@@ -72,7 +72,7 @@ class HomeMenuFragment : BaseFragment() {
 
             it.gIsLogin.observe(requireActivity(), Observer {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "isLogin >>> $it")
-                if (it && FragmentUtils().currentFragmentClassName(requireActivity().nav_host_fragment).equals(TAG_CLASS)) {
+                if (it && FragmentUtils.currentFragmentClassName(requireActivity().nav_host_fragment).equals(TAG_CLASS)) {
                     loadDutchPayFragment()
                 }
             })

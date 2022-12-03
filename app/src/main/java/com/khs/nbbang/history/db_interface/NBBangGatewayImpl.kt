@@ -47,8 +47,7 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
 
     override fun get(id: Long): Maybe<NBBangHistory> = mNBBPlaceDao.get(id).map(::convert)
 
-    override fun get(minDate: Long, maxDate: Long): Single<List<NBBangHistory>> =
-        mNBBPlaceDao.get(minDate, maxDate).map { it.map(::convert) }
+    override fun get(minDate: Long, maxDate: Long): Single<List<NBBangHistory>> = mNBBPlaceDao.get(minDate, maxDate).map { it.map(::convert) }
 
     override fun remove(id: Long) = mNBBPlaceDao.delete(id)
 
