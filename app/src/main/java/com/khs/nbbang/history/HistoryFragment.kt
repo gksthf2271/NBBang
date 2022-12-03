@@ -29,7 +29,7 @@ class HistoryFragment : BaseFragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentHistoryBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -131,7 +131,7 @@ class HistoryFragment : BaseFragment(){
             historyViewModel.mSelectDate.observe(requireActivity(), Observer {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "selected month : ${it.first} 년 / ${it.second} 월")
                 if (it.first == DateUtils.currentYear()) {
-                    mBinding.cviewSelectMonth.txtMonth.textSize = 20.0f
+                    mBinding.cviewSelectMonth.txtMonth.textSize = 18.0f
                     mBinding.cviewSelectMonth.txtMonth.text = "${it.second} 월"
                 } else {
                     val year = it.first.toString().substring(2,4)

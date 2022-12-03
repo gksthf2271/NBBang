@@ -3,7 +3,7 @@ package com.khs.nbbang.utils
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.user.Member
 
-class StringUtils {
+object StringUtils {
     val TAG_CLASS = this.javaClass.simpleName
 
     fun getPeopleList(list : MutableList<Member>) : String{

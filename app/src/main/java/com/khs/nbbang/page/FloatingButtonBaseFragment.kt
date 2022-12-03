@@ -166,7 +166,7 @@ abstract class FloatingButtonBaseFragment : BaseFragment(), ButtonCallBackListen
     var gCurrentView : View? = null
 
     override fun onImagesPicked(photos: ArrayList<Uri>) {
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "Picked Images Url : ${StringUtils().listToAny(photos)}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "Picked Images Url : ${StringUtils.listToAny(photos)}")
         when (gCurrentView) {
             is MemberView -> {
                 mBinding.memberView.updateProfileImg(photos)

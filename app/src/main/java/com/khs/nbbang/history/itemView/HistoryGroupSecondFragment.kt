@@ -73,7 +73,7 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
                 mBinding.groupInfo1.txtDescription.text = (e as PieEntry).label
                 mBinding.groupInfo2.txtDescription.isSingleLine = false
                 mBinding.groupInfo2.txtDescription.text =
-                    StringUtils().getPeopleList(e.data as ArrayList<Member>)
+                    StringUtils.getPeopleList(e.data as ArrayList<Member>)
                 mBinding.groupInfo3.txtDescription.text = NumberUtils().makeCommaNumber(true, e.value.toInt())
             }
         })
@@ -92,8 +92,8 @@ class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseF
         mBinding.groupInfo2.txtTitle.text = "모든\n참석자"
         mBinding.groupInfo3.txtTitle.text = "총 지출"
 
-        mBinding.groupInfo1.txtDescription.text = StringUtils().listToString(allPlace.toMutableList())
-        mBinding.groupInfo2.txtDescription.text = StringUtils().dutchPayListToString(dutchPeopleList.toMutableList())
+        mBinding.groupInfo1.txtDescription.text = StringUtils.listToString(allPlace.toMutableList())
+        mBinding.groupInfo2.txtDescription.text = StringUtils.dutchPayListToString(dutchPeopleList.toMutableList())
         mBinding.groupInfo3.txtDescription.text = NumberUtils().makeCommaNumber(true, totalPrice)
     }
 

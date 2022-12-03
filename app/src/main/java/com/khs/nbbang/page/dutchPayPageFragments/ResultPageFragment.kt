@@ -30,7 +30,7 @@ class ResultPageFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentResultPageBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -61,7 +61,7 @@ class ResultPageFragment : BaseFragment() {
         requestDutchPay()
     }
 
-    fun requestDutchPay() {
+    private fun requestDutchPay() {
         mBinding.viewModel?.let { pageViewModel ->
             CoroutineScope(Dispatchers.IO).launch {
                 pageViewModel.resultNBB()

@@ -67,6 +67,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
 
             mDutchPayMap = mutableMapOf()
             _NBBResultItem.postValue(NBBResultItem())
+            gIsSavedResult = false
         }
     }
 
@@ -199,7 +200,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
             LogUtil.eLog(LOG_TAG, TAG_CLASS, "numberFormatException : $numberFormatException")
             return
         }
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "TAG : $placeId , savePrice : ${price}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "TAG : $placeId , savePrice : $price")
 
         _selectedPeopleMap.value?.let {
             if (it[placeId] == null) it[placeId] = NBB()
@@ -210,7 +211,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
     fun savePlaceName(placeId: Int, placeName: String) {
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "TAG : $placeId , savePlaceName : ${placeName}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "savePlaceName > placeId : $placeId , savePlaceName : $placeName")
         _selectedPeopleMap.value?.let {
             if (it[placeId] == null) it[placeId] = NBB()
             _selectedPeopleMap.postValue(it.apply {
@@ -220,7 +221,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
     fun saveSelectedPeople(placeId: Int, selectedJoinPeopleList: MutableList<Member>) {
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "saveSelectedPeople(...) : ${selectedJoinPeopleList.count()}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "saveSelectedPeople > selectedJoinPeopleList count : ${selectedJoinPeopleList.count()}")
         _selectedPeopleMap.value?.let {
             if (it[placeId] == null) it[placeId] = NBB()
             _selectedPeopleMap.postValue(it.apply {
@@ -251,43 +252,49 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
         result += "\t\t 전체 계산서 "
         clearNBBResultItem()
 
-        for (key in _selectedPeopleMap.value!!.keys) {
-            val peoplelist = _selectedPeopleMap.value!!.get(key)!!.mMemberList
-            var priceInt = 0
-            try {
-                priceInt = Integer.parseInt(_selectedPeopleMap.value!!.get(key)!!.mPrice.replace(",",""))
-            } catch (e : NumberFormatException) {
-                result += "\n\t$key 차, 사용 금액 오류 ${_selectedPeopleMap.value!!.get(key)!!.mPrice}"
-                continue
-            }
-            if (peoplelist.isEmpty()) {
-                result += "\n\t$key 차, 참석자 명단 오류"
-                continue
-            }
-            result += "\n\t\t\t\t\t"
-            result += "\n\t\t ${key}차"
-            result += "\n\t\t\t 참석 인원 수 : ${peoplelist.size}"
-            result += "\n\t\t\t 참석 인원 : ${StringUtils().getPeopleList(peoplelist)}"
-            result += "\n\t\t\t 장소 : ${_selectedPeopleMap.value!!.get(key)!!.mPlaceName}"
-            result += "\n\t\t\t 사용 금액 : ${_selectedPeopleMap.value!!.get(key)!!.mPrice} 원"
-            result += "\n\t\t\t 더치페이 : ${NumberUtils().makeCommaNumber(true,priceInt / peoplelist.size)}"
-            createDutchPayBill(peoplelist, priceInt / peoplelist.size)
+        _selectedPeopleMap.value?.let { peopleMap ->
+            for (key in peopleMap.keys) {
+                if (peopleMap[key] == null) {
+                    LogUtil.dLog(LOG_TAG, TAG_CLASS, "잘못된 멤버 데이터 확인 필요!")
+                    continue
+                }
+                val peopleList = peopleMap[key]?.mMemberList ?: mutableListOf()
+                var priceInt = 0
+                try {
+                    priceInt = Integer.parseInt(peopleMap[key]!!.mPrice.replace(",",""))
+                } catch (e : NumberFormatException) {
+                    result += "\n\t$key 차, 사용 금액 오류 ${peopleMap[key]!!.mPrice}"
+                    continue
+                }
+                if (peopleList.isEmpty()) {
+                    result += "\n\t$key 차, 참석자 명단 오류"
+                    continue
+                }
+                result += "\n\t\t\t\t\t"
+                result += "\n\t\t ${key}차"
+                result += "\n\t\t\t 참석 인원 수 : ${peopleList.size}"
+                result += "\n\t\t\t 참석 인원 : ${StringUtils.getPeopleList(peopleList)}"
+                result += "\n\t\t\t 장소 : ${peopleMap[key]!!.mPlaceName}"
+                result += "\n\t\t\t 사용 금액 : ${peopleMap[key]!!.mPrice} 원"
+                result += "\n\t\t\t 더치페이 : ${NumberUtils().makeCommaNumber(true,priceInt / peopleList.size)}"
+                createDutchPayBill(peopleList, priceInt / peopleList.size)
 
-            createNBBResult(
-                Place(
-                    key,
-                    peoplelist.size,
-                    _selectedPeopleMap.value!!.get(key)!!.mPlaceName,
-                    peoplelist as ArrayList<Member>,
-                    priceInt,
-                    (priceInt / peoplelist.size).toLong()
+                createNBBResult(
+                    Place(
+                        key,
+                        peopleList.size,
+                        peopleMap[key]!!.mPlaceName,
+                        peopleList as ArrayList<Member>,
+                        priceInt,
+                        (priceInt / peopleList.size).toLong()
+                    )
                 )
-            )
+            }
         }
 
         result += "\n\n\t\t 더치페이 정리 계산서\n"
         for (people in mDutchPayMap.keys) {
-            val price = mDutchPayMap.get(people)
+            val price = mDutchPayMap[people]
 
             if (price == null) {
                 LogUtil.eLog(LOG_TAG, TAG_CLASS, "더치페이 중 Price NULL 발생!!")
@@ -302,7 +309,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
             result += "\n\t\t\t $people : ${NumberUtils().makeCommaNumber(true, price)}"
         }
 
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "$result")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, result)
         _NBBResultItem.postValue(_NBBResultItem.value)
         return result
     }
@@ -320,7 +327,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
                 "\n N차    : ${place.placeIndex}" +
                 "\n 참석인원 : ${place.joinPeopleCount}" +
                 "\n 장소 명 : ${place.placeName}" +
-                "\n 참석자  : ${StringUtils().getPeopleList(place.joinPeopleList)}" +
+                "\n 참석자  : ${StringUtils.getPeopleList(place.joinPeopleList)}" +
                 "\n 비   용 : ${place.price}" +
                 "\n 더치페이 : ${place.dutchPay}" )
 

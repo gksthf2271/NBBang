@@ -38,7 +38,7 @@ class HistoryItemRecyclerViewAdapter (private val mHistoryResultPlaceList: Array
             with(binding) {
                 txtGroupName.text = item.placeIndex.toString() +" 차"
                 txtTitle.text = item.placeName
-                txtJoinPeople.text = StringUtils().getPeopleList(item.joinPeopleList)
+                txtJoinPeople.text = StringUtils.getPeopleList(item.joinPeopleList)
                 txtPrice.text = NumberUtils().makeCommaNumber(true, item.price)
                 root.setOnClickListener {
                     itemClick(item)

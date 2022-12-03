@@ -42,7 +42,7 @@ class ResultRecyclerViewAdapter(
                 txtPlaceName.text = place.placeName
                 txtPlaceIndex.text = "${place.placeIndex} 차"
                 txtPrice.text = NumberUtils().makeCommaNumber(true, place.price)
-                txtJoinPeople.text = StringUtils().getPeopleList(place.joinPeopleList)
+                txtJoinPeople.text = StringUtils.getPeopleList(place.joinPeopleList)
             }
             binding.root.setOnClickListener {
                 itemClick(place)

@@ -119,16 +119,16 @@ class AddPlaceFragment : BaseFragment() {
             }
             this.tag = placeIndex
             this.txt_index.text = "$placeIndex 차"
-            this.edit_title.setOnClickListener {
-                showSearchUI()
-            }
-//            this.edit_title.addTextChangedListener(
-//                getTextWatcher(
-//                    edit_title,
-//                    TYPE_EDIT_PLACE_NAME,
-//                    this.tag as Int
-//                )
-//            )
+//            this.edit_title.setOnClickListener {
+//                showSearchUI()
+//            }
+            this.edit_title.addTextChangedListener(
+                getTextWatcher(
+                    edit_title,
+                    TYPE_EDIT_PLACE_NAME,
+                    this.tag as Int
+                )
+            )
             this.edit_price.addTextChangedListener(
                 getTextWatcher(
                     edit_price,
@@ -176,7 +176,7 @@ class AddPlaceFragment : BaseFragment() {
 
     private fun showAddedPeopleView(view: ConstraintLayout, nbb: NBB) {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "showAddedPeopleView(...), ${view.txt_index.text}")
-        view.txt_added_people.text = StringUtils().getPeopleList(nbb.mMemberList)
+        view.txt_added_people.text = StringUtils.getPeopleList(nbb.mMemberList)
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "addedMember : ${view.txt_added_people.text}")
         view.txt_added_people.visibility = View.VISIBLE
     }
@@ -192,11 +192,11 @@ class AddPlaceFragment : BaseFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 super.onTextChanged(s, start, before, count)
                 mBinding.viewModel?.let { pageViewModel ->
-                    if (TYPE_EDIT_PLACE_NAME.equals(viewType)) {
+                    if (TYPE_EDIT_PLACE_NAME == viewType) {
                         pageViewModel.savePlaceName(placeId, s.toString())
-                    } else if (TYPE_EDIT_PRICE.equals(viewType)) {
+                    } else if (TYPE_EDIT_PRICE == viewType) {
                         pageViewModel.savePrice(placeId, s.toString())
-                        if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(pointNumStr)) {
+                        if (!TextUtils.isEmpty(s.toString()) && s.toString() != pointNumStr) {
                             try {
                                 pointNumStr = NumberUtils().makeCommaNumber(
                                     Integer.parseInt(
