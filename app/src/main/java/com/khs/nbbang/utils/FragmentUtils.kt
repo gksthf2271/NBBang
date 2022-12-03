@@ -36,5 +36,6 @@ object FragmentUtils{
 }
 
 fun FragmentManager.clearBackStack() {
+    LogUtil.dLog("TEST","FragmentUtils", " clearBackStack ext > ")
     popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 }

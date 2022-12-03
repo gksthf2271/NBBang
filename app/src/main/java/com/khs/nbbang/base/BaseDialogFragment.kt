@@ -91,6 +91,10 @@ abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragmen
                 params?.width = (deviceWidth * 1)
                 params?.height = (deviceeHeight * 1)
             }
+            else -> {
+                params?.width = (deviceWidth * 1)
+                params?.height = (deviceeHeight * 1)
+            }
         }
         dialog?.window?.attributes = params as WindowManager.LayoutParams
     }

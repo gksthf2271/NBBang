@@ -6,18 +6,19 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.history.HistoryFragment
 import com.khs.nbbang.kakaoFriends.KakaoFriendsFragment
-import com.khs.nbbang.localMember.GroupManagementFragment
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.mypage.MyPageFragment
 import com.khs.nbbang.page.DutchPayMainFragment
-import com.khs.nbbang.page.dutchPayPageFragments.PeopleCountFragment
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.user.Member
@@ -49,6 +50,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun initNaviView() {
+        val naviHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        mBinding.navBottomView.setupWithNavController(naviHostFragment.navController)
         mBinding.navBottomView.setOnNavigationItemSelectedListener(this)
         addListenerAndObserver()
     }
@@ -96,39 +99,41 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "keyCode: $keyCode , event : $event")
-        val currentFragmentIdx = supportFragmentManager.fragments.size - 1
-        val currentFragment = supportFragmentManager.fragments[currentFragmentIdx]?.let {
-            it
-        }
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "fragment: $currentFragment")
-        val fragment = currentFragment as? BaseFragment
-        if (fragment != null && fragment.onKeyDown(keyCode, event))
-            return true
-        else {
-            when (keyCode) {
-                KeyEvent.KEYCODE_BACK -> {
-                    if (currentFragment is DutchPayMainFragment) {
-                        setResult(RESULT_FINISH)
-                        finish()
-                    } else {
-                        gotoHome()
-                        supportFragmentManager.clearBackStack()
-                    }
-                    return true
-                }
-            }
-        }
-        return super.onKeyDown(keyCode, event)
+//        val currentFragmentIdx = supportFragmentManager.fragments.size - 1
+//        val currentFragment = supportFragmentManager.fragments[currentFragmentIdx]?.let {
+//            it
+//        }
+//        LogUtil.vLog(LOG_TAG, TAG_CLASS, "fragment: $currentFragment")
+//        val fragment = currentFragment as? BaseFragment
+//        if (fragment != null && fragment.onKeyDown(keyCode, event))
+//            return true
+//        else {
+//            when (keyCode) {
+//                KeyEvent.KEYCODE_BACK -> {
+//                    if (currentFragment is DutchPayMainFragment) {
+//                        setResult(RESULT_FINISH)
+//                        finish()
+//                    } else {
+//                        gotoHome()
+//                        supportFragmentManager.clearBackStack()
+//                    }
+//                    return true
+//                }
+//            }
+//        }
+//        return super.onKeyDown(keyCode, event)
+        return false
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        LogUtil.dLog(LOG_TAG,TAG_CLASS,"onNavigationItemSelected > item : ${item.title}")
         when(item.itemId) {
             R.id.nav_dutch_pay -> {
-                FragmentUtils.loadFragment(DutchPayMainFragment(), R.id.nav_host_fragment, supportFragmentManager, true)
+                FragmentUtils.loadFragment(DutchPayMainFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
             R.id.nav_history -> {
-                FragmentUtils.loadFragment(HistoryFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
+                FragmentUtils.loadFragment(HistoryFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
             R.id.nav_search -> {
@@ -136,11 +141,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.nav_kakao_friends_settings -> {
-                FragmentUtils.loadFragment(KakaoFriendsFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
+                FragmentUtils.loadFragment(KakaoFriendsFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
             R.id.nav_my_page -> {
-                FragmentUtils.loadFragment(MyPageFragment(), R.id.nav_host_fragment, supportFragmentManager, false)
+                FragmentUtils.loadFragment(MyPageFragment(), R.id.nav_host_fragment, supportFragmentManager)
                 return true
             }
         }

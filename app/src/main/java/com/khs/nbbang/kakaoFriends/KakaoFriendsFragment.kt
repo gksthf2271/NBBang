@@ -34,7 +34,7 @@ class KakaoFriendsFragment : BaseFragment() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "keyCode: $keyCode , event : ${event}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "keyCode: $keyCode , event : $event")
         return false
     }
 

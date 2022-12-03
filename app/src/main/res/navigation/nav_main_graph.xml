@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeMenuFragment">
+    app:startDestination="@id/dutchPayMainFragment">
 
     <action
         android:id="@+id/action_go_to_home_menu"
@@ -15,19 +15,31 @@
 
     <action
         android:id="@+id/action_go_to_history"
-        app:destination="@id/historyFragment" />
+        app:destination="@id/historyFragment"
+        app:restoreState="true"
+        app:popUpTo="@id/dutchPayMainFragment"
+        app:popUpToSaveState="true"/>
 
     <action
         android:id="@+id/action_go_to_my_page"
-        app:destination="@id/myPageFragment" />
+        app:destination="@id/myPageFragment"
+        app:restoreState="true"
+        app:popUpTo="@id/dutchPayMainFragment"
+        app:popUpToSaveState="true"/>
 
     <action
         android:id="@+id/action_go_to_group_management"
-        app:destination="@id/groupManagementFragment" />
+        app:destination="@id/groupManagementFragment"
+        app:restoreState="true"
+        app:popUpTo="@id/dutchPayMainFragment"
+        app:popUpToSaveState="true"/>
 
     <action
         android:id="@+id/action_go_to_kakao_friends_settings"
-        app:destination="@id/kakaoFriendsFragment" />
+        app:destination="@id/kakaoFriendsFragment"
+        app:restoreState="true"
+        app:popUpTo="@id/dutchPayMainFragment"
+        app:popUpToSaveState="true"/>
 
     <!-- Deprecated View -->
     <fragment

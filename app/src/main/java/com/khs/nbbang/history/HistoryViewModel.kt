@@ -103,9 +103,9 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
 
     override fun onCleared() {
         super.onCleared()
-        _db.value = null
-        _selectDate.value = null
-        _history.value = null
-        _showLoadingView.value = null
+        _db.value = mDatabase
+        _selectDate.value = Pair(first = DateUtils.currentYear(), second = DateUtils.currentMonth())
+        _history.value = GetNBBangHistoryResult(emptyList())
+        _showLoadingView.value = false
     }
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 7.3.0" type="baseline" client="gradle" dependencies="false" name="AGP (7.3.0)" variant="fatal" version="7.3.0">
+
+    <issue
+        id="NullSafeMutableLiveData"
+        message="Cannot set non-nullable LiveData value to `null`"
+        errorLine1="        _db.value = null"
+        errorLine2="                    ~~~~">
+        <location
+            file="src/main/java/com/khs/nbbang/history/HistoryViewModel.kt"
+            line="106"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="NullSafeMutableLiveData"
+        message="Cannot set non-nullable LiveData value to `null`"
+        errorLine1="        _selectDate.value = null"
+        errorLine2="                            ~~~~">
+        <location
+            file="src/main/java/com/khs/nbbang/history/HistoryViewModel.kt"
+            line="107"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="NullSafeMutableLiveData"
+        message="Cannot set non-nullable LiveData value to `null`"
+        errorLine1="        _history.value = null"
+        errorLine2="                         ~~~~">
+        <location
+            file="src/main/java/com/khs/nbbang/history/HistoryViewModel.kt"
+            line="108"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="NullSafeMutableLiveData"
+        message="Cannot set non-nullable LiveData value to `null`"
+        errorLine1="        _showLoadingView.value = null"
+        errorLine2="                                 ~~~~">
+        <location
+            file="src/main/java/com/khs/nbbang/history/HistoryViewModel.kt"
+            line="109"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="NullSafeMutableLiveData"
+        message="Cannot set non-nullable LiveData value to `null`"
+        errorLine1="        _myDataFromKakao.value = null"
+        errorLine2="                                 ~~~~">
+        <location
+            file="src/main/java/com/khs/nbbang/login/LoginViewModel.kt"
+            line="29"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="NullSafeMutableLiveData"
+        message="Expected non-nullable value"
+        errorLine1="        _selectMember.postValue(member)"
+        errorLine2="                                ~~~~~~">
+        <location
+            file="src/main/java/com/khs/nbbang/localMember/MemberManagementViewModel.kt"
+            line="149"
+            column="33"/>
+    </issue>
+
+</issues>
