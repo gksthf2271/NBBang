@@ -19,13 +19,13 @@ import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.fragment_add_people.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class AddPeopleFragment : FloatingButtonBaseFragment() {
     lateinit var mAddPeopleContentsBinding: FragmentAddPeopleBinding
     lateinit var mRecyclerViewAdapter: AddPeopleRecyclerViewAdapter
-    private val mPageViewModel: PageViewModel by sharedViewModel()
-    private val mMemberViewModel: MemberManagementViewModel by sharedViewModel()
+    private val mPageViewModel: PageViewModel by activityViewModel()
+    private val mMemberViewModel: MemberManagementViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

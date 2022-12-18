@@ -15,11 +15,11 @@ import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class HistoryGroupFirstFragment(private val mHistoryItem: NBBangHistory): BaseFragment() {
     lateinit var mBinding : FragmentHistoryFirstGroupBinding
-    private val mViewModel: HistoryViewModel by sharedViewModel()
+    private val mViewModel: HistoryViewModel by activityViewModel()
     private val PAGE_SIZE = 3
 
     override fun onCreateView(

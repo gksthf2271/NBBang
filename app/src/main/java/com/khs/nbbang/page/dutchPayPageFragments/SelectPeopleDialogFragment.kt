@@ -15,13 +15,13 @@ import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class SelectPeopleDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG){
     lateinit var mBinding: FragmentSelectPeopleBinding
     lateinit var mRecyclerViewAdapter: SelectPeopleRecyclerViewAdapter
-    private val mPageViewModel : PageViewModel by sharedViewModel()
-    private val mSelectMemberViewModel : SelectMemberViewModel by sharedViewModel()
+    private val mPageViewModel : PageViewModel by activityViewModel()
+    private val mSelectMemberViewModel : SelectMemberViewModel by activityViewModel()
 
     companion object {
         @Volatile

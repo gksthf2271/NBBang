@@ -22,21 +22,21 @@ class LoadingActivity : BaseActivity() {
 
     private fun showMotion() {
         mBinding.lottieAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
+            override fun onAnimationRepeat(animation: Animator) {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationRepeat(...) : animation : $animation")
             }
 
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationEnd(...) : animation : $animation")
                 gotoMain()
             }
 
-            override fun onAnimationCancel(animation: Animator?) {
+            override fun onAnimationCancel(animation: Animator) {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationCancel(...) : animation : $animation")
                 gotoMain()
             }
 
-            override fun onAnimationStart(animation: Animator?) {
+            override fun onAnimationStart(animation: Animator) {
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "onAnimationStart(...) : animation : $animation")
             }
 

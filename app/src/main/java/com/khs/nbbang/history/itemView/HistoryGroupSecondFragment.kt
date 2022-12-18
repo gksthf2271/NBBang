@@ -19,11 +19,11 @@ import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class HistoryGroupSecondFragment(private val mHistoryItem: NBBangHistory): BaseFragment() {
     lateinit var mBinding : FragmentHistorySecondGroupBinding
-    val mViewModel: HistoryViewModel by sharedViewModel()
+    val mViewModel: HistoryViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

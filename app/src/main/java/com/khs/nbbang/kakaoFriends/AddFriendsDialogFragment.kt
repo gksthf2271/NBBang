@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.khs.nbbang.animation.HistoryItemDecoration
@@ -17,14 +18,14 @@ import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DebugMemberList
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddFriendsDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_ADD_KAKAO_FIRENDS) {
     lateinit var mBinding: FragmentAddFriendsByKakaoBinding
-    private val gMemberManagementViewModel : MemberManagementViewModel by sharedViewModel()
-    private val gLoginViewModel : LoginViewModel by sharedViewModel()
-    private val gSelectMemberViewModel by viewModel<SelectMemberViewModel>()
+    private val gMemberManagementViewModel : MemberManagementViewModel by activityViewModel()
+    private val gLoginViewModel : LoginViewModel by activityViewModel()
+    private val gSelectMemberViewModel: SelectMemberViewModel by viewModel()
     private val DEBUG = false
 
     companion object {

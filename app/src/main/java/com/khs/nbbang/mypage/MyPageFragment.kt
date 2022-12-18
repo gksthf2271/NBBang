@@ -12,11 +12,11 @@ import com.khs.nbbang.databinding.FragmentMyPageBinding
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.utils.GlideUtils
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class MyPageFragment : BaseFragment() {
     lateinit var mBinding : FragmentMyPageBinding
-    val mViewModel: LoginViewModel by sharedViewModel()
+    val mViewModel: LoginViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

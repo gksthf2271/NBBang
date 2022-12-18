@@ -6,12 +6,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.khs.nbbang.base.BaseActivity
-import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivityMainBinding
 import com.khs.nbbang.history.HistoryFragment
 import com.khs.nbbang.kakaoFriends.KakaoFriendsFragment
@@ -24,15 +22,15 @@ import com.khs.nbbang.search.SearchLocalActivity
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.FragmentUtils
 import com.khs.nbbang.utils.LogUtil
-import com.khs.nbbang.utils.clearBackStack
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     lateinit var mBinding: ActivityMainBinding
-    private val mPageViewModel by viewModel<PageViewModel>()
-    private val mLoginViewModel by viewModel<LoginViewModel>()
-    private val mMemberManagementViewModel by viewModel<MemberManagementViewModel>()
+    private val mLoginViewModel: LoginViewModel by viewModel()
+    private val mPageViewModel: PageViewModel by viewModel()
+
+    private val mMemberManagementViewModel: MemberManagementViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,33 +56,28 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun addListenerAndObserver() {
         mLoginViewModel.gMyData.observe(this, Observer { kakaoUser ->
+            LogUtil.vLog(LOG_TAG, TAG_CLASS, "gMyData : $kakaoUser")
             if (kakaoUser != null) {
-                LogUtil.vLog(LOG_TAG, TAG_CLASS, "mMyDataFrom : ${kakaoUser}")
-                if (kakaoUser != null) {
-                    val id = kakaoUser.id
-                    val name = kakaoUser.properties?.get("nickname")
-                    val image = kakaoUser.properties?.get("profile_image")
-                    val thumbnail = kakaoUser.properties?.get("thumbnail_image")
-                    LogUtil.vLog(LOG_TAG, TAG_CLASS, "MyData id : $id"
-                                + "\n name : ${name}"
-                                + "\n profile_image : ${image}"
-                                + "\n thumbnail_image : ${thumbnail}"
-                                + "\n connectedAt : ${kakaoUser.connectedAt}"
+                val id = kakaoUser.id
+                val name = kakaoUser.properties?.get("nickname")
+                val image = kakaoUser.properties?.get("profile_image")
+                val thumbnail = kakaoUser.properties?.get("thumbnail_image")
+                LogUtil.vLog(LOG_TAG, TAG_CLASS, "MyData id : $id"
+                            + "\n name : $name"
+                            + "\n profile_image : $image"
+                            + "\n thumbnail_image : $thumbnail"
+                            + "\n connectedAt : ${kakaoUser.connectedAt}"
+                )
+                mMemberManagementViewModel.let { memberManagementViewModel ->
+                    val myData = Member(
+                        id = id,
+                        kakaoId = id.toString(),
+                        profileImage = image,
+                        thumbnailImage = thumbnail,
+                        name = name ?: ""
                     )
-                    mMemberManagementViewModel.let { memberManagementViewModel ->
-                        val myData = Member(
-                            id = id,
-                            kakaoId = id.toString(),
-                            profileImage = image,
-                            thumbnailImage = thumbnail,
-                            name = name ?: ""
-                        )
-                        memberManagementViewModel.saveKakaoMember(listOf(myData))
-                    }
+                    memberManagementViewModel.saveKakaoMember(listOf(myData))
                 }
-
-            } else {
-                LogUtil.vLog(LOG_TAG, TAG_CLASS, "isLogin : $kakaoUser")
             }
         })
     }

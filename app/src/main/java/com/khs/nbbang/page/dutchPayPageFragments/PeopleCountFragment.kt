@@ -11,12 +11,12 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentPeopleCountBinding
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
 class PeopleCountFragment : BaseFragment() {
     lateinit var mBinding: FragmentPeopleCountBinding
-    val mViewModel : PageViewModel by sharedViewModel()
+    val mViewModel : PageViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

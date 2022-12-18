@@ -20,11 +20,11 @@ import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.KeyboardUtils
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class DutchPayMainFragment : BaseFragment(){
     lateinit var mBinding : FragmentDutchpayHomeBinding
-    val mViewModel: PageViewModel by sharedViewModel()
+    val mViewModel: PageViewModel by activityViewModel()
 
     private val mPageViewList: MutableList<BaseFragment> = mutableListOf(
         PeopleCountFragment(),

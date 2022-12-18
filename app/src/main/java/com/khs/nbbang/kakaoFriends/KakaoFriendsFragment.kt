@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.khs.nbbang.animation.CustomPageTransformer
 import com.khs.nbbang.base.BaseFragment
@@ -15,14 +16,14 @@ import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.pager.CustomViewPagerAdapter
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class KakaoFriendsFragment : BaseFragment() {
     lateinit var mBinding : FragmentKakaoFriendsBinding
 //    val gLoginViewModel by viewModel<LoginViewModel>()
-    private val gLoginViewModel by sharedViewModel<LoginViewModel>()
-    private val gMemberManagementViewModel by viewModel<MemberManagementViewModel>()
+    private val gLoginViewModel by activityViewModel<LoginViewModel>()
+    private val gMemberManagementViewModel: MemberManagementViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

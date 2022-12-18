@@ -18,11 +18,11 @@ import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import kotlinx.coroutines.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ResultPageFragment : BaseFragment() {
     lateinit var mBinding: FragmentResultPageBinding
-    val mViewModel: PageViewModel by sharedViewModel()
+    val mViewModel: PageViewModel by activityViewModel()
     val KEY_TITLE = "KEY_TITLE"
     val KEY_DESCRIPTION = "KEY_DESCRIPTION"
 

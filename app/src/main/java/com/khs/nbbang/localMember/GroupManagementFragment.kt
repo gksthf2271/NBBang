@@ -15,13 +15,12 @@ import com.khs.nbbang.page.FloatingButtonBaseFragment
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.LogUtil
-import kotlinx.android.synthetic.main.cview_page_title.view.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.util.*
 
 class GroupManagementFragment : FloatingButtonBaseFragment() {
     lateinit var mFragmentGroupManagementBinding: FragmentGroupManagementBinding
-    val mViewModel: MemberManagementViewModel by sharedViewModel()
+    val mViewModel: MemberManagementViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

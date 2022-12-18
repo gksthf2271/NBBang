@@ -17,13 +17,13 @@ import com.khs.nbbang.page.viewModel.SelectMemberViewModel
 import com.khs.nbbang.utils.FragmentUtils
 import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.content_main.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class HomeMenuFragment : BaseFragment() {
     lateinit var mBinding : FragmentHomeMenuBinding
-    private val mLoginViewModel: LoginViewModel by sharedViewModel()
-    private val mPageViewModel : PageViewModel by sharedViewModel()
-    private val mSelectMemberViewModel : SelectMemberViewModel by sharedViewModel()
+    private val mLoginViewModel: LoginViewModel by activityViewModel()
+    private val mPageViewModel : PageViewModel by activityViewModel()
+    private val mSelectMemberViewModel : SelectMemberViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

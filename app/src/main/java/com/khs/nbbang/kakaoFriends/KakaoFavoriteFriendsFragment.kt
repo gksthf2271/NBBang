@@ -16,11 +16,11 @@ import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.page.adapter.AddPeopleRecyclerViewAdapter
 import com.khs.nbbang.utils.LogUtil
 import kotlinx.android.synthetic.main.cview_page_title.view.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class KakaoFavoriteFriendsFragment : BaseFragment() {
     lateinit var mBinding : FragmentKakaoFavoriteFriendsBinding
-    private val gMemberViewModel: MemberManagementViewModel by sharedViewModel()
+    private val gMemberViewModel: MemberManagementViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

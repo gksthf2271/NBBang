@@ -13,11 +13,11 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentSearchHomeBinding
 import com.khs.nbbang.search.map.KakaoMapDialogFragment
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class SearchFragment : BaseFragment() {
     lateinit var mBinding : FragmentSearchHomeBinding
-    private val mKakaoViewModel by sharedViewModel<KakaoLocalViewModel>()
+    private val mKakaoViewModel by activityViewModel<KakaoLocalViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

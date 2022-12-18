@@ -30,12 +30,12 @@ import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
 import com.khs.nbbang.utils.StringUtils
 import kotlinx.android.synthetic.main.cview_edit_place.view.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class AddPlaceFragment : BaseFragment() {
     lateinit var mBinding: FragmentAddPlaceBinding
 
-    val mViewModel: PageViewModel by sharedViewModel()
+    val mViewModel: PageViewModel by activityViewModel()
     private val TYPE_EDIT_PLACE_NAME: String = "TYPE_EDIT_PLACE_NAME"
     private val TYPE_EDIT_PRICE: String = "TYPE_EDIT_PRICE"
     private lateinit var gKeyboardVisibilityUtils: KeyboardVisibilityUtils

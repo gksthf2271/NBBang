@@ -17,13 +17,13 @@ import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.ServiceUtils
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class HistoryFragment : BaseFragment(){
     lateinit var mBinding : FragmentHistoryBinding
 
-    private val mViewModel: HistoryViewModel by sharedViewModel()
-    private val mLoginViewModel : LoginViewModel by sharedViewModel()
+    private val mViewModel: HistoryViewModel by activityViewModel()
+    private val mLoginViewModel : LoginViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

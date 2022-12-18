@@ -2,6 +2,7 @@ package com.khs.nbbang.search
 
 import android.os.Bundle
 import android.view.KeyEvent
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseActivity
@@ -9,11 +10,11 @@ import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.ActivitySearchBinding
 import com.khs.nbbang.utils.FragmentUtils
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchLocalActivity : BaseActivity() {
     lateinit var mBinding: ActivitySearchBinding
-    private val mSearchViewModel by viewModel<KakaoLocalViewModel>()
+    private val mSearchViewModel: KakaoLocalViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,7 @@ class SearchLocalActivity : BaseActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         LogUtil.dLog(LOG_TAG, TAG_CLASS, "onKeyDown(...) event : $event, keyCode : $keyCode")
-        if (supportFragmentManager.fragments.isNullOrEmpty())
+        if (supportFragmentManager.fragments.isEmpty())
             return false
 
         val currentFragment = supportFragmentManager.fragments[0]

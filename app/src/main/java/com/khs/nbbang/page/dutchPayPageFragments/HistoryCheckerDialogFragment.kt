@@ -14,12 +14,12 @@ import com.khs.nbbang.databinding.FragmentHistorySaveDialogBinding
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.LogUtil
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class HistoryCheckerDialogFragment : BaseDialogFragment(DIALOG_TYPE.TYPE_HISTORY_CHECKER){
     lateinit var mBinding: FragmentHistorySaveDialogBinding
-    private val mHistoryViewModel : HistoryViewModel by sharedViewModel()
-    private val mPageViewModel : PageViewModel by sharedViewModel()
+    private val mHistoryViewModel : HistoryViewModel by activityViewModel()
+    private val mPageViewModel : PageViewModel by activityViewModel()
 
     companion object {
         @Volatile
