@@ -50,7 +50,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun initNaviView() {
         val naviHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         mBinding.navBottomView.setupWithNavController(naviHostFragment.navController)
-        mBinding.navBottomView.setOnNavigationItemSelectedListener(this)
+//        mBinding.navBottomView.setOnNavigationItemSelectedListener(this)
+        mBinding.navBottomView.setOnItemSelectedListener(this)
         addListenerAndObserver()
     }
 
