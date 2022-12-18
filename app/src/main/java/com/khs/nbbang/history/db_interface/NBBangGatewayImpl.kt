@@ -5,13 +5,13 @@ import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.history.room.NBBMemberDataModel
-import com.khs.nbbang.history.room.NBBPlaceDataModel
+import com.khs.nbbang.history.room.NBBHistoryDataModel
 import com.khs.nbbang.user.Member
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
-    private fun convert(d: NBBPlaceDataModel): NBBangHistory =
+    private fun convert(d: NBBHistoryDataModel): NBBangHistory =
         NBBangHistory(
             d.id!!,
             d.date,
@@ -26,7 +26,7 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
         dutchPay: List<DutchPayPeople>,
         description: String
     ): Single<NBBangHistory> = mNBBPlaceDao.insert(
-        NBBPlaceDataModel(
+        NBBHistoryDataModel(
             null,
             date,
             place,

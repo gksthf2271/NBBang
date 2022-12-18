@@ -12,7 +12,7 @@ import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBHistoryDao
 import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.user.Member
@@ -387,7 +387,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderHistorys(...) \n : nbbHistory : ${nbbangHistory.nbbangHistoryList.count()}")
     }
 
-    override val mNBBPlaceDao: NBBPlaceDao
+    override val mNBBPlaceDao: NBBHistoryDao
         get() = mDB.nbbangDao()
 
     override val mNBBMemberDao: NBBMemberDao

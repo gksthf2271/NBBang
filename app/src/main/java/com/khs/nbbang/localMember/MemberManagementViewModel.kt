@@ -7,7 +7,7 @@ import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBHistoryDao
 import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DateUtils
@@ -36,7 +36,7 @@ class MemberManagementViewModel (private val mDatabase: AppDatabase) : BaseViewM
     private val _showLoadingView: MutableLiveData<Boolean> = MutableLiveData()
     val mShowLoadingView : LiveData<Boolean> get() = _showLoadingView
 
-    override val mNBBPlaceDao: NBBPlaceDao
+    override val mNBBPlaceDao: NBBHistoryDao
         get() = _db.value.let { it!!.nbbangDao() }
 
     override val mNBBMemberDao: NBBMemberDao

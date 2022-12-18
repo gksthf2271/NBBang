@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.Place
 
-@Entity(tableName = "nbb_place")
-data class NBBPlaceDataModel(
+@Entity(tableName = "nbb_history")
+data class NBBHistoryDataModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long?,
@@ -73,4 +73,48 @@ data class NBBSearchKeywordDataModel(
 
     @ColumnInfo(name = "search_count")
     var searchCount: Int?
+)
+
+
+//카카오 API 검색 thumbNail url
+//<span class="bg_present" style="background-image:url('//t1.kakaocdn.net/thumb/T800x0.q80/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fplace%2F9675B66506254FB99A9E8A23AED80ABD')"></span>
+
+@Entity(tableName = "nbb_place")
+data class NBBPlaceDataModel(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long?,
+
+    @ColumnInfo(name = "name")
+    var name: String,
+
+    @ColumnInfo(name = "group_code")
+    var groupCode: String,
+
+    @ColumnInfo(name = "group_name")
+    var groupName: String,
+
+    @ColumnInfo(name = "category_name")
+    var categoryName: String,
+
+    @ColumnInfo(name = "phone")
+    var phone: String,
+
+    @ColumnInfo(name = "addressName")
+    var addressName: String,
+
+    @ColumnInfo(name = "place_url")
+    var placeUrl: String,
+
+    @ColumnInfo(name = "roadAddressName")
+    var roadAddressName: String,
+
+    @ColumnInfo(name = "x")
+    var position_x: String,
+
+    @ColumnInfo(name = "y")
+    var position_y: String,
+
+    @ColumnInfo(name = "thumbNailUrl")
+    var thumbNailUrl: String,
 )

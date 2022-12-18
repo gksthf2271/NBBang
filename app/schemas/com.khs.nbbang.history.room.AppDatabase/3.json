@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "70440624046d3b7875cc59031d992960",
+    "identityHash": "75fe932f246800de332dd3dafc8f5bd9",
     "entities": [
       {
-        "tableName": "nbb_place",
+        "tableName": "nbb_history",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `date` INTEGER NOT NULL, `place` TEXT NOT NULL, `dutchPay` TEXT NOT NULL, `description` TEXT NOT NULL)",
         "fields": [
           {
@@ -127,12 +127,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "nbb_keywords",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `keyword` TEXT NOT NULL, `search_count` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "keyword",
+            "columnName": "keyword",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "searchCount",
+            "columnName": "search_count",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '70440624046d3b7875cc59031d992960')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '75fe932f246800de332dd3dafc8f5bd9')"
     ]
   }
 }

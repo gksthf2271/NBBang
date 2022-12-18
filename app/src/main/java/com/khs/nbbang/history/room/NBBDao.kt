@@ -9,20 +9,20 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 @Dao
-interface NBBPlaceDao {
-    @Query("SELECT * FROM nbb_place")
-    fun get(): Single<List<NBBPlaceDataModel>>
+interface NBBHistoryDao {
+    @Query("SELECT * FROM nbb_history")
+    fun get(): Single<List<NBBHistoryDataModel>>
 
-    @Query("SELECT * FROM nbb_place WHERE id = :id")
-    fun get(id: Long): Maybe<NBBPlaceDataModel>
+    @Query("SELECT * FROM nbb_history WHERE id = :id")
+    fun get(id: Long): Maybe<NBBHistoryDataModel>
 
-    @Query("SELECT * FROM nbb_place WHERE date BETWEEN :minDate AND :maxDate")
-    fun get(minDate: Long, maxDate: Long): Single<List<NBBPlaceDataModel>>
+    @Query("SELECT * FROM nbb_history WHERE date BETWEEN :minDate AND :maxDate")
+    fun get(minDate: Long, maxDate: Long): Single<List<NBBHistoryDataModel>>
 
     @Insert
-    fun insert(nbb: NBBPlaceDataModel): Single<Long>
+    fun insert(nbb: NBBHistoryDataModel): Single<Long>
 
-    @Query("DELETE from nbb_place WHERE id = :id")
+    @Query("DELETE from nbb_history WHERE id = :id")
     fun delete(id: Long)
 }
 
@@ -87,4 +87,20 @@ interface NBBSearchKeywordsDao {
 
     @Query("UPDATE nbb_keywords SET search_count = :searchCount WHERE keyword == :keyword")
     fun update(keyword: String, searchCount: Int) : Single<Int>
+}
+
+
+@Dao
+interface NBBPlaceDao {
+    @Query("SELECT * FROM nbb_place")
+    fun get(): Single<List<NBBPlaceDataModel>>
+
+    @Query("SELECT * FROM nbb_place WHERE id = :id")
+    fun get(id: Long): Maybe<NBBPlaceDataModel>
+
+    @Insert
+    fun insert(nbb: NBBPlaceDataModel): Single<Long>
+
+    @Query("DELETE from nbb_place WHERE id = :id")
+    fun delete(id: Long)
 }

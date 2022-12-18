@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "1702973384cde1ecc8aff8baf5fc1e6f",
+    "identityHash": "75fe932f246800de332dd3dafc8f5bd9",
     "entities": [
       {
-        "tableName": "nbb_place",
+        "tableName": "nbb_history",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `date` INTEGER NOT NULL, `place` TEXT NOT NULL, `dutchPay` TEXT NOT NULL, `description` TEXT NOT NULL)",
         "fields": [
           {
@@ -164,7 +164,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1702973384cde1ecc8aff8baf5fc1e6f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '75fe932f246800de332dd3dafc8f5bd9')"
     ]
   }
 }

@@ -7,7 +7,7 @@ import com.kakao.sdk.common.KakaoSdk
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBHistoryDao
 import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
@@ -27,7 +27,6 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -131,7 +130,7 @@ class NBApp : Application(){
             return AppDatabase.getInstance(application)
         }
 
-        fun provideNBBPlaceDao(database: AppDatabase): NBBPlaceDao {
+        fun provideNBBPlaceDao(database: AppDatabase): NBBHistoryDao {
             return database.nbbangDao()
         }
 

@@ -6,13 +6,12 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.khs.nbbang.animation.HistoryItemDecoration
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentResultPageBinding
-import com.khs.nbbang.history.itemView.PlaceBottomItemView
+import com.khs.nbbang.history.itemView.DetailBottomItemView
 import com.khs.nbbang.page.adapter.ResultRecyclerViewAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.utils.LogUtil
@@ -77,7 +76,7 @@ class ResultPageFragment : BaseFragment() {
                 mBinding.recyclerViewResult.apply {
                     adapter = ResultRecyclerViewAdapter(nbbResult.place) {
                         LogUtil.vLog(LOG_TAG, TAG_CLASS, "onClicked > item : $it")
-                        val dialog = PlaceBottomItemView(it)
+                        val dialog = DetailBottomItemView(it)
                         dialog.show(requireActivity().supportFragmentManager, null)
                     }
 

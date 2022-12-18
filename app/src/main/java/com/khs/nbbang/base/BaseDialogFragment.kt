@@ -57,13 +57,13 @@ abstract class BaseDialogFragment(var gDialogType : DIALOG_TYPE) : DialogFragmen
         val deviceWidth = size.x
         val deviceeHeight = size.y
         when (dialogType) {
+            DIALOG_TYPE.TYPE_SEARCH,
             DIALOG_TYPE.TYPE_SELECT_PEOPLE_FROM_ADD_PLACE_DIALOG -> {
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.65).toInt()
                 dialog?.window?.setGravity(Gravity.BOTTOM)
                 dialog?.window?.setWindowAnimations(R.style.AnimationPopupStyle)
             }
-            DIALOG_TYPE.TYPE_SEARCH,
             DIALOG_TYPE.TYPE_HISTORY_CHECKER -> {
                 params?.width = (deviceWidth * 0.95).toInt()
                 params?.height = (deviceeHeight * 0.75).toInt()

@@ -7,7 +7,7 @@ import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.history.db_interface.NBBangDaoProvider
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBHistoryDao
 import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.search.response.LocalSearchModel
 import com.khs.nbbang.utils.DateUtils
@@ -33,7 +33,7 @@ class KakaoLocalViewModel(
     val mSearchResult : LiveData<LocalSearchModel> get() = _searchResult
     val mSearchHistory : LiveData<GetSearchAllResult> get() = _searchHistory
 
-    override val mNBBPlaceDao: NBBPlaceDao
+    val mNBBHistoryDao: NBBHistoryDao
         get() = _db.value.let { it!!.nbbangDao() }
 
     override val mNBBMemberDao: NBBMemberDao

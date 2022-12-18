@@ -21,10 +21,12 @@ import com.khs.nbbang.R
 import com.khs.nbbang.base.BaseActivity
 import com.khs.nbbang.base.BaseFragment
 import com.khs.nbbang.databinding.FragmentAddPlaceBinding
+import com.khs.nbbang.kakaoFriends.AddFriendsDialogFragment
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.page.adapter.TextWatcherAdapter
 import com.khs.nbbang.page.viewModel.PageViewModel
 import com.khs.nbbang.search.SearchLocalActivity
+import com.khs.nbbang.search.searchDialog.SearchDialogFragment
 import com.khs.nbbang.utils.KeyboardVisibilityUtils
 import com.khs.nbbang.utils.LogUtil
 import com.khs.nbbang.utils.NumberUtils
@@ -119,16 +121,16 @@ class AddPlaceFragment : BaseFragment() {
             }
             this.tag = placeIndex
             this.txt_index.text = "$placeIndex 차"
-//            this.edit_title.setOnClickListener {
-//                showSearchUI()
-//            }
-            this.edit_title.addTextChangedListener(
-                getTextWatcher(
-                    edit_title,
-                    TYPE_EDIT_PLACE_NAME,
-                    this.tag as Int
-                )
-            )
+            this.edit_title.setOnClickListener {
+                showSearchUI()
+            }
+//            this.edit_title.addTextChangedListener(
+//                getTextWatcher(
+//                    edit_title,
+//                    TYPE_EDIT_PLACE_NAME,
+//                    this.tag as Int
+//                )
+//            )
             this.edit_price.addTextChangedListener(
                 getTextWatcher(
                     edit_price,
@@ -171,7 +173,13 @@ class AddPlaceFragment : BaseFragment() {
     }
 
     private fun showSearchUI() {
-        (requireActivity() as MainActivity).launch<SearchLocalActivity>(startForResult)
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showSearchUI(...)")
+//        (requireActivity() as MainActivity).launch<SearchLocalActivity>(startForResult)
+
+        val searchDialogFragment = SearchDialogFragment()
+        if (!searchDialogFragment.isAdded) {
+            searchDialogFragment.show(requireActivity().supportFragmentManager, tag)
+        }
     }
 
     private fun showAddedPeopleView(view: ConstraintLayout, nbb: NBB) {

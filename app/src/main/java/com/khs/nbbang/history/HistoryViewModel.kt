@@ -8,7 +8,7 @@ import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.AppDatabase
 import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBPlaceDao
+import com.khs.nbbang.history.room.NBBHistoryDao
 import com.khs.nbbang.history.room.NBBSearchKeywordsDao
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.LogUtil
@@ -44,7 +44,7 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         _history.postValue(nbbangHistory)
     }
 
-    override val mNBBPlaceDao: NBBPlaceDao
+    override val mNBBPlaceDao: NBBHistoryDao
         get() = _db.value!!.nbbangDao()
 
     override val mNBBMemberDao: NBBMemberDao
