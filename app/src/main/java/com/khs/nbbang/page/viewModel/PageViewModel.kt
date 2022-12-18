@@ -349,11 +349,12 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
     private fun createDutchPayBill(joinPeopleList: MutableList<Member>, payment:Int) {
+        clearDutchPayMap()
         for (people in joinPeopleList) {
             if (mDutchPayMap[people.name] == null) {
                 mDutchPayMap[people.name] = 0
             }
-            val totalPayment = mDutchPayMap.get(people.name) as Int + payment
+            val totalPayment = mDutchPayMap[people.name] as Int + payment
             mDutchPayMap[people.name] = totalPayment
         }
     }
