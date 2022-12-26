@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.history.db_interface.NBBangDaoProvider
-import com.khs.nbbang.history.room.AppDatabase
-import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBHistoryDao
-import com.khs.nbbang.history.room.NBBSearchKeywordsDao
+import com.khs.nbbang.history.room.*
 import com.khs.nbbang.search.response.LocalSearchModel
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.LogUtil
@@ -33,8 +30,11 @@ class KakaoLocalViewModel(
     val mSearchResult : LiveData<LocalSearchModel> get() = _searchResult
     val mSearchHistory : LiveData<GetSearchAllResult> get() = _searchHistory
 
-    val mNBBHistoryDao: NBBHistoryDao
-        get() = _db.value.let { it!!.nbbangDao() }
+    override val mNBBHistoryDao: NBBHistoryDao
+        get() = _db.value.let { it!!.nbbHistoryDao() }
+
+    override val mNBBPlaceDao: NBBPlaceDao
+        get() = _db.value.let { it!!.nbbPlaceDao() }
 
     override val mNBBMemberDao: NBBMemberDao
         get() = _db.value.let { it!!.nbbMemberDao()}

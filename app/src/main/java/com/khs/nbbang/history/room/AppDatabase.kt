@@ -9,12 +9,13 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.khs.nbbang.utils.TypeConverter
 
-@Database(entities = [NBBHistoryDataModel::class, NBBMemberDataModel::class, NBBSearchKeywordDataModel::class, NBBPlaceDataModel::class], version = 3)
+@Database(entities = [NBBHistoryDataModel::class, NBBMemberDataModel::class, NBBSearchKeywordDataModel::class, NBBPlaceDataModel::class], version = 2)
 @TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase(){
-    abstract fun nbbangDao(): NBBHistoryDao
+    abstract fun nbbHistoryDao(): NBBHistoryDao
     abstract fun nbbMemberDao(): NBBMemberDao
     abstract fun nbbSearchKeywordDao() : NBBSearchKeywordsDao
+    abstract fun nbbPlaceDao(): NBBPlaceDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null

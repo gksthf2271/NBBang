@@ -121,16 +121,18 @@ class AddPlaceFragment : BaseFragment() {
             }
             this.tag = placeIndex
             this.txt_index.text = "$placeIndex 차"
-            this.edit_title.setOnClickListener {
-                showSearchUI()
-            }
-//            this.edit_title.addTextChangedListener(
-//                getTextWatcher(
-//                    edit_title,
-//                    TYPE_EDIT_PLACE_NAME,
-//                    this.tag as Int
-//                )
-//            )
+
+            //TEST용
+//            this.edit_title.setOnClickListener {
+//                showSearchUI()
+//            }
+            this.edit_title.addTextChangedListener(
+                getTextWatcher(
+                    edit_title,
+                    TYPE_EDIT_PLACE_NAME,
+                    this.tag as Int
+                )
+            )
             this.edit_price.addTextChangedListener(
                 getTextWatcher(
                     edit_price,

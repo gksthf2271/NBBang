@@ -5,10 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
 import com.khs.nbbang.history.HistoryViewModel
-import com.khs.nbbang.history.room.AppDatabase
-import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBHistoryDao
-import com.khs.nbbang.history.room.NBBSearchKeywordsDao
+import com.khs.nbbang.history.room.*
 import com.khs.nbbang.localMember.MemberManagementViewModel
 import com.khs.nbbang.login.LoginViewModel
 import com.khs.nbbang.page.viewModel.PageViewModel
@@ -130,8 +127,12 @@ class NBApp : Application(){
             return AppDatabase.getInstance(application)
         }
 
-        fun provideNBBPlaceDao(database: AppDatabase): NBBHistoryDao {
-            return database.nbbangDao()
+        fun provideNBBHistoryDao(database: AppDatabase): NBBHistoryDao {
+            return database.nbbHistoryDao()
+        }
+
+        fun provideNBBPlaceDao(database: AppDatabase): NBBPlaceDao {
+            return database.nbbPlaceDao()
         }
 
         fun provideNBBMemberDao(database: AppDatabase): NBBMemberDao {
@@ -143,9 +144,10 @@ class NBApp : Application(){
         }
 
         single { provideDatabase(androidApplication())}
-        single { provideNBBPlaceDao(get()) }
+        single { provideNBBHistoryDao(get()) }
         single { provideNBBMemberDao(get()) }
         single { provideNBBSearchKeywordDao(get())}
+        single { provideNBBPlaceDao(get())}
     }
 
     private val dataModule = module {

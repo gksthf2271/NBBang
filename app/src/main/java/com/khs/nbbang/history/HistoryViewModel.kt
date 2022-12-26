@@ -6,10 +6,7 @@ import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
-import com.khs.nbbang.history.room.AppDatabase
-import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBHistoryDao
-import com.khs.nbbang.history.room.NBBSearchKeywordsDao
+import com.khs.nbbang.history.room.*
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.LogUtil
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -44,8 +41,11 @@ class HistoryViewModel(private val mDatabase: AppDatabase) : BaseViewModel(), NB
         _history.postValue(nbbangHistory)
     }
 
-    override val mNBBPlaceDao: NBBHistoryDao
-        get() = _db.value!!.nbbangDao()
+    override val mNBBHistoryDao: NBBHistoryDao
+        get() = _db.value!!.nbbHistoryDao()
+
+    override val mNBBPlaceDao: NBBPlaceDao
+        get() = _db.value!!.nbbPlaceDao()
 
     override val mNBBMemberDao: NBBMemberDao
         get() = _db.value!!.nbbMemberDao()

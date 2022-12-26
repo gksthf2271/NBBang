@@ -25,7 +25,7 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
         place: List<Place>,
         dutchPay: List<DutchPayPeople>,
         description: String
-    ): Single<NBBangHistory> = mNBBPlaceDao.insert(
+    ): Single<NBBangHistory> = mNBBHistoryDao.insert(
         NBBHistoryDataModel(
             null,
             date,
@@ -43,13 +43,13 @@ interface NBBangGatewayImpl : NBBangGateway, NBBangDaoProvider {
         )
     }
 
-    override fun get(): Single<List<NBBangHistory>> = mNBBPlaceDao.get().map { it.map(::convert) }
+    override fun get(): Single<List<NBBangHistory>> = mNBBHistoryDao.get().map { it.map(::convert) }
 
-    override fun get(id: Long): Maybe<NBBangHistory> = mNBBPlaceDao.get(id).map(::convert)
+    override fun get(id: Long): Maybe<NBBangHistory> = mNBBHistoryDao.get(id).map(::convert)
 
-    override fun get(minDate: Long, maxDate: Long): Single<List<NBBangHistory>> = mNBBPlaceDao.get(minDate, maxDate).map { it.map(::convert) }
+    override fun get(minDate: Long, maxDate: Long): Single<List<NBBangHistory>> = mNBBHistoryDao.get(minDate, maxDate).map { it.map(::convert) }
 
-    override fun remove(id: Long) = mNBBPlaceDao.delete(id)
+    override fun remove(id: Long) = mNBBHistoryDao.delete(id)
 
     private fun convertMember(d: NBBMemberDataModel): Member =
         Member(

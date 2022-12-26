@@ -10,10 +10,7 @@ import com.khs.nbbang.history.data.NBBResultItem
 import com.khs.nbbang.history.data.Place
 import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.db_interface.NBBangHistoryView
-import com.khs.nbbang.history.room.AppDatabase
-import com.khs.nbbang.history.room.NBBMemberDao
-import com.khs.nbbang.history.room.NBBHistoryDao
-import com.khs.nbbang.history.room.NBBSearchKeywordsDao
+import com.khs.nbbang.history.room.*
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.LogUtil
@@ -250,6 +247,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     fun resultNBB() : String {
         var result = ""
         result += "\t\t 전체 계산서 "
+        clearDutchPayMap()
         clearNBBResultItem()
 
         _selectedPeopleMap.value?.let { peopleMap ->
@@ -349,7 +347,6 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
     private fun createDutchPayBill(joinPeopleList: MutableList<Member>, payment:Int) {
-        clearDutchPayMap()
         for (people in joinPeopleList) {
             if (mDutchPayMap[people.name] == null) {
                 mDutchPayMap[people.name] = 0
@@ -387,8 +384,11 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "renderHistorys(...) \n : nbbHistory : ${nbbangHistory.nbbangHistoryList.count()}")
     }
 
-    override val mNBBPlaceDao: NBBHistoryDao
-        get() = mDB.nbbangDao()
+    override val mNBBHistoryDao: NBBHistoryDao
+        get() = mDB.nbbHistoryDao()
+
+    override val mNBBPlaceDao: NBBPlaceDao
+        get() = mDB.nbbPlaceDao()
 
     override val mNBBMemberDao: NBBMemberDao
         get() = mDB.nbbMemberDao()
