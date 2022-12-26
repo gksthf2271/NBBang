@@ -31,9 +31,12 @@ interface NBBangGateway {
     fun getMember(id: Long) : Maybe<Member>
     fun getMemberByGroupId(groupId: Long) : Single<List<Member>>
     fun getMemberByType(type: MemberType) : Single<List<Member>>
+
     fun removeMember(id: Long) : Single<Int>
     fun removeMemberByType(memberType: MemberType) : Single<Int>
+
     fun updateMember(member: Member) : Single<Int>
+
     fun addMember(
         name : String,
         index : Int,

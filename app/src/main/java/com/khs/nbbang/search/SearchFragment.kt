@@ -23,7 +23,7 @@ class SearchFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentSearchHomeBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -51,20 +51,18 @@ class SearchFragment : BaseFragment() {
         mKakaoViewModel.apply {
             mSearchResult.observe(requireActivity(), Observer { searchResult ->
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "search result -> $searchResult")
-                if (searchResult.documents.isNullOrEmpty()) {
+                if (searchResult.documents.isEmpty()) {
                     showEmptyView()
                 } else {
                     hideEmptyView()
                 }
                 mBinding.recyclerSearchResult.adapter =
-                    SearchResultRecyclerViewAdapter(ArrayList(searchResult.documents)) { showMap, nbbHisory ->
-                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showMap : ${showMap}, Clicked Item : ${nbbHisory.id}")
+                    SearchResultRecyclerViewAdapter(ArrayList(searchResult.documents)) { showMap, nbbHistory ->
+                        LogUtil.vLog(LOG_TAG, TAG_CLASS, "showMap : ${showMap}, Clicked Item : ${nbbHistory.id}")
                         if (showMap) {
-                            val kakaoMap = KakaoMapDialogFragment(nbbHisory)
+                            val kakaoMap = KakaoMapDialogFragment(nbbHistory)
                             if (kakaoMap.isAdded) kakaoMap.dismiss()
                             kakaoMap.show(requireActivity().supportFragmentManager, null)
-                        } else {
-
                         }
                     }
             })

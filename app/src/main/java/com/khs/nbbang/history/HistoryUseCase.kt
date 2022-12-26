@@ -3,7 +3,6 @@ package com.khs.nbbang.history
 import com.khs.nbbang.history.data.AddHistoryRequest
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.history.data.NBBangHistory
-import com.khs.nbbang.history.db_interface.HistoryServices
 import com.khs.nbbang.history.db_interface.NBBangGateway
 import io.reactivex.rxjava3.core.Single
 
@@ -12,17 +11,13 @@ import io.reactivex.rxjava3.core.Single
  *  I/O level과 상관없이 기능자체만 구현된 부분.
  */
 
-interface GetNbbangHistory : NBBangGateway, HistoryServices {
+interface GetNbbangHistory : NBBangGateway {
     fun getNBBangAllHistory(): Single<GetNBBangHistoryResult> = get().map {
-        with(calculateProgress(it)) {
-            GetNBBangHistoryResult(it)
-        }
+        GetNBBangHistoryResult(it)
     }
 
     fun getNBBangHistoryByMonth(minTimeMs:Long, maxTimeMs:Long): Single<GetNBBangHistoryResult> = get(minTimeMs, maxTimeMs).map {
-        with(calculateProgress(it)) {
-            GetNBBangHistoryResult(it)
-        }
+        GetNBBangHistoryResult(it)
     }
 }
 

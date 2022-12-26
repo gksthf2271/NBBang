@@ -23,11 +23,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
+class PageViewModel(private val mDataBase :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     NBBangGatewayImpl, HistoryController {
 
-    private val _NBBLiveData: MutableLiveData<NBB> = MutableLiveData()
-    val mNBBLiveData : LiveData<NBB> get() = _NBBLiveData
+    private val _nbbLiveData: MutableLiveData<NBB> = MutableLiveData()
+    val mNBBLiveData : LiveData<NBB> get() = _nbbLiveData
 
     private val _selectedPeopleMap: MutableLiveData<HashMap<Int, NBB>> = MutableLiveData()
     val mSelectedPeopleMap : LiveData<HashMap<Int, NBB>> get() = _selectedPeopleMap
@@ -43,8 +43,8 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
 
     private var mDutchPayMap = mutableMapOf<String, Int>()
 
-    private val _NBBResultItem: MutableLiveData<NBBResultItem> = MutableLiveData()
-    val gNBBResultItem : LiveData<NBBResultItem> get() = _NBBResultItem
+    private val _nbbResultItem: MutableLiveData<NBBResultItem> = MutableLiveData()
+    val gNBBResultItem : LiveData<NBBResultItem> get() = _nbbResultItem
 
     var gIsSavedResult : Boolean = false
 
@@ -56,30 +56,30 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     fun clearPageViewModel() {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "clearPageViewModel(...)")
         CoroutineScope(Dispatchers.IO).launch {
-            _NBBLiveData.postValue(NBB())
+            _nbbLiveData.postValue(NBB())
             _selectedPeopleMap.postValue(HashMap())
             _placeCount.postValue(0)
             _selectJoinPeople.postValue(Member())
             _selectPlace.postValue(0)
 
             mDutchPayMap = mutableMapOf()
-            _NBBResultItem.postValue(NBBResultItem())
+            _nbbResultItem.postValue(NBBResultItem())
             gIsSavedResult = false
         }
     }
 
     fun updatePeopleList(joinPeopleList: MutableList<Member>) {
-        _NBBLiveData.postValue(_NBBLiveData.value.apply {
-            this!!.mMemberList = joinPeopleList
+        _nbbLiveData.postValue(_nbbLiveData.value?.apply {
+            this.mMemberList = joinPeopleList
             this.mMemberCount = joinPeopleList.size
         })
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "updatePeopleList(...), ${_NBBLiveData.value!!.mMemberList}")
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "updatePeopleList(...), ${_nbbLiveData.value!!.mMemberList}")
     }
 
     fun setPeopleCount(peopleCount: Int) {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "setPeopleCount(...) peopleCount : $peopleCount")
-        _NBBLiveData.postValue(_NBBLiveData.value.apply {
-            this!!.mMemberCount = peopleCount
+        _nbbLiveData.postValue(_nbbLiveData.value?.apply {
+            this.mMemberCount = peopleCount
         })
     }
 
@@ -94,24 +94,24 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
 
-    fun addJoinPeople(member: Member) : Boolean{
-        LogUtil.vLog(LOG_TAG, TAG_CLASS, "addJoinPeople(...) people : ${member}")
-        _NBBLiveData.value?.let { nbb ->
-            if (nbb.mMemberList.contains(member)){
+    fun addJoinPeople(joinMember: Member) : Boolean{
+        LogUtil.vLog(LOG_TAG, TAG_CLASS, "addJoinPeople(...) people : $joinMember")
+        _nbbLiveData.value?.let { nbb ->
+            if (nbb.mMemberList.contains(joinMember)){
                 for (member in nbb.mMemberList) {
                     LogUtil.vLog(LOG_TAG, TAG_CLASS, "member : $member")
                 }
                 return false
             }
 
-            _NBBLiveData.postValue(_NBBLiveData.value?.apply {
+            _nbbLiveData.postValue(_nbbLiveData.value?.apply {
                 val emptyIndex = getEmptyPeopleCircleView(this.mMemberList)
                 if (emptyIndex == this.mMemberList.size) {
                     LogUtil.vLog(LOG_TAG, TAG_CLASS, "emptyPeopleCircle is null")
-                    this.mMemberList.add(member)
+                    this.mMemberList.add(joinMember)
                 } else {
                     LogUtil.vLog(LOG_TAG, TAG_CLASS, "emptyPeopleCircle is not null")
-                    this.mMemberList[emptyIndex] = member
+                    this.mMemberList[emptyIndex] = joinMember
                 }
                 this.mMemberCount = this.mMemberList.size
                 updateJoinPlaceCount(this.mMemberCount)
@@ -124,8 +124,8 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     private fun getEmptyPeopleCircleView(memberList : List<Member>) : Int {
         for (member in memberList) {
             if (member.id <= 0
-                && member.name.isNullOrEmpty()
-                && member.description.isNullOrEmpty()
+                && member.name.isEmpty()
+                && member.description.isEmpty()
                 && member.profileImage.isNullOrEmpty()
                 && member.thumbnailImage.isNullOrEmpty()
                 && member.profileUri.isNullOrEmpty()
@@ -138,8 +138,8 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
 
     fun deleteJoinPeople(member: Member) {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "deleteJoinPeople(...) people : ${member.name}")
-        _NBBLiveData.value?.let {
-            _NBBLiveData.postValue(_NBBLiveData.value.apply {
+        _nbbLiveData.value?.let {
+            _nbbLiveData.postValue(_nbbLiveData.value.apply {
                 it.mMemberList.remove(member)
                 it.mMemberCount = it.mMemberList.size
                 updateJoinPlaceCount(it.mMemberCount)
@@ -150,9 +150,9 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     fun updateJoinPeople(member: Member) {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "updateJoinPeople(...) newMember : $member")
         val selectJoinPeople = mSelectJoinPeople.value
-        _NBBLiveData.value?.let {
+        _nbbLiveData.value?.let {
             val index = it.mMemberList.indexOf(selectJoinPeople)
-            _NBBLiveData.postValue(_NBBLiveData.value.apply {
+            _nbbLiveData.postValue(_nbbLiveData.value.apply {
                 it.mMemberList.get(index).run {
                     name = member.name
                     thumbnailImage = member.thumbnailImage
@@ -166,8 +166,8 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
     fun increaseJoinPeopleCount() {
-        _NBBLiveData.value?.let {
-            _NBBLiveData.postValue(it.apply {
+        _nbbLiveData.value?.let {
+            _nbbLiveData.postValue(it.apply {
                 it.mMemberCount += 1
                 it.mMemberList.add(Member(index = it.mMemberList.size))
                 LogUtil.vLog(LOG_TAG, TAG_CLASS, "increaseJoinPeopleCount(...) ${it.mMemberCount}")
@@ -181,9 +181,9 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
 
     fun decreaseJoinPeopleCount() {
         LogUtil.vLog(LOG_TAG, TAG_CLASS, "decreaseJoinPeopleCount(...)")
-        _NBBLiveData.value?.let {
+        _nbbLiveData.value?.let {
             if (it.mMemberCount <= 0) return
-            _NBBLiveData.postValue(it.apply {
+            _nbbLiveData.postValue(it.apply {
                 it.mMemberCount -= 1
                 it.mMemberList.removeAt(it.mMemberList.lastIndex)
             })
@@ -308,7 +308,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
         }
 
         LogUtil.vLog(LOG_TAG, TAG_CLASS, result)
-        _NBBResultItem.postValue(_NBBResultItem.value)
+        _nbbResultItem.postValue(_nbbResultItem.value)
         return result
     }
 
@@ -317,7 +317,7 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
                 "\n index  : ${dutchPayPeople.dutchPayPeopleIndex}" +
                 "\n 이   름 : ${dutchPayPeople.dutchPayPeopleName}" +
                 "\n 더치페이 : ${dutchPayPeople.dutchPay}" )
-        _NBBResultItem.value!!.dutchPay.add(dutchPayPeople)
+        _nbbResultItem.value!!.dutchPay.add(dutchPayPeople)
     }
 
     private fun createNBBResult(place: Place) {
@@ -329,21 +329,21 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
                 "\n 비   용 : ${place.price}" +
                 "\n 더치페이 : ${place.dutchPay}" )
 
-        _NBBResultItem.value!!.place.add(place)
+        _nbbResultItem.value!!.place.add(place)
     }
 
-    fun clearDutchPayMap() {
+    private fun clearDutchPayMap() {
         mDutchPayMap.clear()
-        _NBBResultItem.postValue(NBBResultItem(arrayListOf(), arrayListOf()))
+        _nbbResultItem.postValue(NBBResultItem(arrayListOf(), arrayListOf()))
     }
 
     private fun clearNBBResultItem() {
-        _NBBResultItem.value?.place?.clear()
-        _NBBResultItem.value?.dutchPay?.clear()
+        _nbbResultItem.value?.place?.clear()
+        _nbbResultItem.value?.dutchPay?.clear()
     }
 
     fun loadNBBResult() : NBBResultItem {
-        return _NBBResultItem.value!!
+        return _nbbResultItem.value!!
     }
 
     private fun createDutchPayBill(joinPeopleList: MutableList<Member>, payment:Int) {
@@ -357,13 +357,13 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
     fun saveHistory() {
-        _NBBLiveData.value.let {
+        _nbbLiveData.value.let {
             handleAddNBBangHistory(
                 Schedulers.io(),
                 AndroidSchedulers.mainThread(),
                 requestAddHistory(
                     System.currentTimeMillis(),
-                    _NBBResultItem.value!!,
+                    _nbbResultItem.value!!,
                     ""
                 )
             ) {
@@ -385,14 +385,14 @@ class PageViewModel(val mDB :AppDatabase) : BaseViewModel(), NBBangHistoryView,
     }
 
     override val mNBBHistoryDao: NBBHistoryDao
-        get() = mDB.nbbHistoryDao()
+        get() = mDataBase.nbbHistoryDao()
 
     override val mNBBPlaceDao: NBBPlaceDao
-        get() = mDB.nbbPlaceDao()
+        get() = mDataBase.nbbPlaceDao()
 
     override val mNBBMemberDao: NBBMemberDao
-        get() = mDB.nbbMemberDao()
+        get() = mDataBase.nbbMemberDao()
 
     override val mNBBKeywordsDao: NBBSearchKeywordsDao
-        get() = mDB.nbbSearchKeywordDao()
+        get() = mDataBase.nbbSearchKeywordDao()
 }
