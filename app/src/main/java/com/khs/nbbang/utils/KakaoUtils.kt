@@ -46,10 +46,11 @@ object KakaoUtils {
             val lm: LocationManager =
                 context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             try {
-                val userNowLocation: Location? =
-                    lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                val uLatitude = userNowLocation!!.latitude
-                val uLongitude = userNowLocation!!.longitude
+                val userNowLocation: Location? = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+                userNowLocation?.let {
+                    val uLatitude = it.latitude
+                    val uLongitude = it.longitude
+                }
             } catch (e: NullPointerException) {
                 LogUtil.eLog(LOG_TAG, TAG_CLASS, "error : ${e.message}")
             }

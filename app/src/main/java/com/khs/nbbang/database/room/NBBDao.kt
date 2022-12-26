@@ -1,4 +1,4 @@
-package com.khs.nbbang.history.room
+package com.khs.nbbang.database.room
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -59,7 +59,7 @@ interface NBBMemberDao {
     fun deleteLocalMembers(empty: String) : Single<Int>
 
     @Delete
-    fun delete(member:NBBMemberDataModel) : Completable
+    fun delete(member: NBBMemberDataModel) : Completable
 
 //    @Update
 //    fun update(member: Member) : Maybe<NBBMemberDataModel>

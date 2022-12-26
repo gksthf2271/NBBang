@@ -2,7 +2,6 @@ package com.khs.nbbang.utils
 
 import java.lang.Exception
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 object DateUtils {
@@ -44,7 +43,7 @@ object DateUtils {
         return result.time
     }
 
-    fun getDateforImg(date: Long): String {
+    fun getDateToString(date: Long): String {
         val simpleDateFormat: SimpleDateFormat
         val result: String
         try {

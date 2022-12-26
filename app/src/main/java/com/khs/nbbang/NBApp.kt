@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.common.KakaoSdk
+import com.khs.nbbang.database.room.*
 import com.khs.nbbang.history.HistoryViewModel
 import com.khs.nbbang.history.room.*
 import com.khs.nbbang.localMember.MemberManagementViewModel

@@ -1,11 +1,11 @@
-package com.khs.nbbang.history.db_interface
+package com.khs.nbbang.database.db_interface
 
 import com.khs.nbbang.common.MemberType
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.NBBangHistory
 import com.khs.nbbang.history.data.Place
-import com.khs.nbbang.history.room.NBBMemberDataModel
-import com.khs.nbbang.history.room.NBBHistoryDataModel
+import com.khs.nbbang.database.room.NBBMemberDataModel
+import com.khs.nbbang.database.room.NBBHistoryDataModel
 import com.khs.nbbang.user.Member
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single

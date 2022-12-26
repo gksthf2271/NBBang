@@ -1,4 +1,4 @@
-package com.khs.nbbang.history.room
+package com.khs.nbbang.database.room
 
 import android.content.Context
 import androidx.room.Database

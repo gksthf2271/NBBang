@@ -36,7 +36,7 @@ class HistoryRecyclerViewAdapter (val Fm: FragmentManager, val mLifecycle: Lifec
 
         fun bind(item: NBBangHistory) {
             with(binding) {
-                txtDate.text = DateUtils.getDateforImg(item.date)
+                txtDate.text = DateUtils.getDateToString(item.date)
                 viewPager.apply {
                     adapter =
                         CustomViewPagerAdapter(

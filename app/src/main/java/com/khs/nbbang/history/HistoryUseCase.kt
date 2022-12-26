@@ -3,7 +3,7 @@ package com.khs.nbbang.history
 import com.khs.nbbang.history.data.AddHistoryRequest
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.history.data.NBBangHistory
-import com.khs.nbbang.history.db_interface.NBBangGateway
+import com.khs.nbbang.database.db_interface.NBBangGateway
 import io.reactivex.rxjava3.core.Single
 
 /**

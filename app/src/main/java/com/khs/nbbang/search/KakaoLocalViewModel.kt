@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
-import com.khs.nbbang.history.db_interface.NBBangDaoProvider
+import com.khs.nbbang.database.room.*
+import com.khs.nbbang.database.db_interface.NBBangDaoProvider
 import com.khs.nbbang.history.room.*
 import com.khs.nbbang.search.response.LocalSearchModel
 import com.khs.nbbang.utils.DateUtils

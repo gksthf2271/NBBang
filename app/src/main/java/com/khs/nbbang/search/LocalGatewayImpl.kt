@@ -1,7 +1,7 @@
 package com.khs.nbbang.search
 
-import com.khs.nbbang.history.db_interface.NBBangDaoProvider
-import com.khs.nbbang.history.room.NBBSearchKeywordDataModel
+import com.khs.nbbang.database.db_interface.NBBangDaoProvider
+import com.khs.nbbang.database.room.NBBSearchKeywordDataModel
 import com.khs.nbbang.search.response.LocalSearchModel
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable

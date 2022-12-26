@@ -3,13 +3,14 @@ package com.khs.nbbang.page.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
+import com.khs.nbbang.database.room.*
 import com.khs.nbbang.history.HistoryController
 import com.khs.nbbang.history.data.DutchPayPeople
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
 import com.khs.nbbang.history.data.NBBResultItem
 import com.khs.nbbang.history.data.Place
-import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
-import com.khs.nbbang.history.db_interface.NBBangHistoryView
+import com.khs.nbbang.database.db_interface.NBBangGatewayImpl
+import com.khs.nbbang.database.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.*
 import com.khs.nbbang.page.ItemObj.NBB
 import com.khs.nbbang.user.Member
@@ -23,7 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PageViewModel(private val mDataBase :AppDatabase) : BaseViewModel(), NBBangHistoryView,
+class PageViewModel(private val mDataBase : AppDatabase) : BaseViewModel(), NBBangHistoryView,
     NBBangGatewayImpl, HistoryController {
 
     private val _nbbLiveData: MutableLiveData<NBB> = MutableLiveData()

@@ -3,9 +3,10 @@ package com.khs.nbbang.history
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
+import com.khs.nbbang.database.room.*
 import com.khs.nbbang.history.data.GetNBBangHistoryResult
-import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
-import com.khs.nbbang.history.db_interface.NBBangHistoryView
+import com.khs.nbbang.database.db_interface.NBBangGatewayImpl
+import com.khs.nbbang.database.db_interface.NBBangHistoryView
 import com.khs.nbbang.history.room.*
 import com.khs.nbbang.utils.DateUtils
 import com.khs.nbbang.utils.LogUtil

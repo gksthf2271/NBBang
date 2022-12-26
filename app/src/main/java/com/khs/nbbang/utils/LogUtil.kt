@@ -15,27 +15,27 @@ object LogUtil {
 
 
     fun iLog(tag: String?, classTag: String, msg: String) {
-        var localTAG = tag ?: TAG_DEFAULT
+        val localTAG = tag ?: TAG_DEFAULT
         Log.i(localTAG, "$classTag : $msg")
     }
 
     fun dLog(tag: String?, classTag: String, msg: String) {
-        var localTAG = tag ?: TAG_DEFAULT
+        val localTAG = tag ?: TAG_DEFAULT
         Log.d(localTAG, "$classTag : $msg")
     }
 
     fun eLog(tag: String?, classTag: String, msg: String) {
-        var localTAG = tag ?: TAG_DEFAULT
+        val localTAG = tag ?: TAG_DEFAULT
         Log.e(localTAG, "$classTag : $msg")
     }
 
     fun vLog(tag: String?, classTag: String, msg: String) {
-        var localTAG = tag ?: TAG_DEFAULT
+        val localTAG = tag ?: TAG_DEFAULT
         Log.v(localTAG, "$classTag : $msg")
     }
 
     fun wLog(tag: String?, classTag: String, msg: String) {
-        var localTAG = tag ?: TAG_DEFAULT
+        val localTAG = tag ?: TAG_DEFAULT
         Log.w(localTAG, "$classTag : $msg")
     }
 }

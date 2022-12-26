@@ -1,4 +1,4 @@
-package com.khs.nbbang.history.room
+package com.khs.nbbang.database.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

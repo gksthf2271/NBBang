@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.khs.nbbang.base.BaseViewModel
 import com.khs.nbbang.common.MemberType
-import com.khs.nbbang.history.db_interface.NBBangGatewayImpl
+import com.khs.nbbang.database.room.*
+import com.khs.nbbang.database.db_interface.NBBangGatewayImpl
 import com.khs.nbbang.history.room.*
 import com.khs.nbbang.user.Member
 import com.khs.nbbang.utils.DateUtils

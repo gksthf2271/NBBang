@@ -1,4 +1,4 @@
-package com.khs.nbbang.history.db_interface
+package com.khs.nbbang.database.db_interface
 
 import com.khs.nbbang.history.AddNBBangHistory
 import com.khs.nbbang.history.GetNbbangHistory

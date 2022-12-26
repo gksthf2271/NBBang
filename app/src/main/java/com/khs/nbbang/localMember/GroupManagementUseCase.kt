@@ -1,7 +1,7 @@
 package com.khs.nbbang.localMember
 
 import com.khs.nbbang.common.MemberType
-import com.khs.nbbang.history.db_interface.NBBangGateway
+import com.khs.nbbang.database.db_interface.NBBangGateway
 import com.khs.nbbang.user.Member
 import io.reactivex.rxjava3.core.Single
 
